@@ -4,7 +4,7 @@ import streamlit as st
 
 from document_service import clear_documents, get_documents_context, get_source_files, get_source_name, save_uploaded_files
 from evaluation_service import create_evaluation_dataset, run_evaluation
-from observability import get_langfuse_client
+from observability import create_event, get_langfuse_client
 from rag_service import answer_question, create_index, index_exists
 from settings import get_settings
 
@@ -14,6 +14,18 @@ def show_sources(sources: list) -> None:
         for source in sources:
             st.markdown(f"**{source.heading}** · релевантность: `{source.score:.3f}`")
             st.write(source.content)
+
+
+def show_error(error: Exception, operation: str) -> None:
+    create_event(
+        settings,
+        name="error",
+        input_data={"operation": operation},
+        output_data={"error": str(error)},
+        level="ERROR",
+        status_message=str(error),
+    )
+    st.error(str(error))
 
 
 def show_documents_panel() -> None:
@@ -32,25 +44,51 @@ def show_documents_panel() -> None:
         key=f"directory_upload_{upload_version}",
     )
     if st.button("Сохранить и обновить индекс", use_container_width=True):
-        files_to_save = uploaded_files + uploaded_directory
-        saved_count = save_uploaded_files(files_to_save, settings)
-        source_files = get_source_files(settings)
-        if not source_files:
-            st.error("Выберите хотя бы один файл .md или .txt.")
-        else:
+        try:
+            files_to_save = uploaded_files + uploaded_directory
+            saved_count = save_uploaded_files(files_to_save, settings)
+            source_files = get_source_files(settings)
+            if not source_files:
+                raise RuntimeError("Выберите хотя бы один файл .md или .txt.")
+
+            if saved_count > 0:
+                create_event(
+                    settings,
+                    name="documents_uploaded",
+                    input_data={"selected_file_count": len(files_to_save)},
+                    output_data={"saved_file_count": saved_count},
+                )
+
             with st.spinner("Обновляю индекс документов..."):
                 chunk_count = create_index(settings)
 
+            create_event(
+                settings,
+                name="index_created",
+                input_data={"document_count": len(source_files)},
+                output_data={"chunk_count": chunk_count},
+            )
             if saved_count > 0:
                 st.success(f"Добавлено файлов: {saved_count}. Индекс: {chunk_count} фрагментов.")
             else:
                 st.success(f"Индекс обновлён: {chunk_count} фрагментов.")
+        except Exception as error:
+            show_error(error, "save_and_index")
 
     if st.button("Clear files", use_container_width=True):
-        clear_documents(settings)
-        st.session_state.upload_version = upload_version + 1
-        st.session_state.files_cleared = True
-        st.rerun()
+        try:
+            cleared_file_count = len(get_source_files(settings))
+            clear_documents(settings)
+            create_event(
+                settings,
+                name="files_cleared",
+                input_data={"file_count": cleared_file_count},
+            )
+            st.session_state.upload_version = upload_version + 1
+            st.session_state.files_cleared = True
+            st.rerun()
+        except Exception as error:
+            show_error(error, "clear_files")
 
     if st.session_state.pop("files_cleared", False):
         st.success("Документы и индекс очищены.")
@@ -95,7 +133,7 @@ with st.sidebar:
 
                 st.success(message)
             except Exception as error:
-                st.error(str(error))
+                show_error(error, "create_evaluation_dataset")
 
         if st.button("Запустить LLM-оценку", use_container_width=True):
             try:
@@ -105,7 +143,7 @@ with st.sidebar:
                         f"{evaluation_result['score']}/1 — {evaluation_result['question']}"
                     )
             except Exception as error:
-                st.error(str(error))
+                show_error(error, "run_evaluation")
 
     st.divider()
     show_documents_panel()
@@ -133,4 +171,4 @@ if question:
                 {"role": "assistant", "content": answer.content, "sources": answer.sources}
             )
         except Exception as error:
-            st.error(str(error))
+            show_error(error, "answer_question")

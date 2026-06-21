@@ -18,8 +18,8 @@ class Settings:
 
 
 def get_settings() -> Settings:
-    load_dotenv()
-    project_directory = Path(__file__).resolve().parent
+    project_directory = Path(__file__).resolve().parent.parent
+    load_dotenv(project_directory / ".env")
 
     return Settings(
         documents_directory=project_directory / "data" / "documents",
