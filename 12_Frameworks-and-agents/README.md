@@ -1,11 +1,11 @@
-# RAG-тьютор по уроку 12
+# Справочник по загруженным документам
 
-Первый этап домашней работы: локальный RAG без Langfuse. База знаний проекта — `src/lesson_12_frameworks_and_agents.md`.
+Первый этап домашней работы: локальный RAG без Langfuse. База знаний — Markdown и text-файлы, добавленные через интерфейс.
 
 ## Как устроен запрос
 
 ```text
-Markdown-конспект
+Загруженные Markdown и text-файлы
 -> разбиение на фрагменты
 -> Ollama embedding model bge-m3
 -> локальная Chroma
@@ -41,15 +41,17 @@ ollama pull bge-m3
 streamlit run app.py
 ```
 
-Откройте `http://localhost:8501`, нажмите «Создать индекс» и задайте вопрос: `Какие этапы подготовки данных есть в RAG?`
+Откройте `http://localhost:8501`, добавьте файлы или папку в боковой панели, нажмите «Сохранить и обновить индекс» и задайте вопрос.
+
+В боковой панели можно добавить несколько `.md` и `.txt` файлов или целую папку. После нажатия «Сохранить и обновить индекс» все документы участвуют в поиске. Файлы сохраняются в `data/documents` между перезапусками приложения. `Clear files` удаляет документы и все локальные коллекции Chroma.
 
 ## Файлы
 
-- `src/lesson_12_frameworks_and_agents.md` — копия конспекта, включённая в проект как база знаний.
 - `app.py` — браузерный интерфейс и история сообщений текущей сессии.
 - `rag_service.py` — загрузка, индексация, поиск и вызов Ollama.
 - `settings.py` — читает `.env` и хранит настройки.
 - `data/chroma` — локальный индекс, создаваемый после нажатия кнопки.
+- `data/documents` — добавленные через интерфейс документы; локальная папка, исключённая из Git.
 
 ## Следующий этап
 
@@ -65,4 +67,4 @@ LANGFUSE_SECRET_KEY=sk-lf-...
 LANGFUSE_HOST=https://cloud.langfuse.com
 ```
 
-После перезапуска Streamlit каждый ответ создаёт trace `answer_question` со span `retrieve_context` и generation `generate_answer`. В generation записываются input/output, latency и число токенов из ответа Ollama. В боковой панели доступны создание датасета `lesson_12_rag_evaluation` и запуск проверки двух вопросов. Локальная `qwen2.5:3b` выступает LLM-судьёй и записывает оценку `answer_groundedness` (0 или 1) в Langfuse.
+После перезапуска Streamlit каждый ответ создаёт trace `answer_question` со span `retrieve_context` и generation `generate_answer`. В generation записываются input/output, latency и число токенов из ответа Ollama. В боковой панели доступны создание датасета `knowledge_base_evaluation` и запуск проверки двух вопросов. Локальная `qwen2.5:3b` выступает LLM-судьёй и записывает оценку `answer_groundedness` (0 или 1) в Langfuse.

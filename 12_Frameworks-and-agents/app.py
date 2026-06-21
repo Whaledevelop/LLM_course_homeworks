@@ -2,6 +2,7 @@ from uuid import uuid4
 
 import streamlit as st
 
+from document_service import clear_documents, get_documents_context, get_source_files, get_source_name, save_uploaded_files
 from evaluation_service import create_evaluation_dataset, run_evaluation
 from observability import get_langfuse_client
 from rag_service import answer_question, create_index, index_exists
@@ -15,9 +16,58 @@ def show_sources(sources: list) -> None:
             st.write(source.content)
 
 
+def show_documents_panel() -> None:
+    st.subheader("Документы")
+    upload_version = st.session_state.get("upload_version", 0)
+    uploaded_files = st.file_uploader(
+        "Добавить файлы",
+        type=["md", "txt"],
+        accept_multiple_files=True,
+        key=f"file_upload_{upload_version}",
+    )
+    uploaded_directory = st.file_uploader(
+        "Добавить папку",
+        type=["md", "txt"],
+        accept_multiple_files="directory",
+        key=f"directory_upload_{upload_version}",
+    )
+    if st.button("Сохранить и обновить индекс", use_container_width=True):
+        files_to_save = uploaded_files + uploaded_directory
+        saved_count = save_uploaded_files(files_to_save, settings)
+        source_files = get_source_files(settings)
+        if not source_files:
+            st.error("Выберите хотя бы один файл .md или .txt.")
+        else:
+            with st.spinner("Обновляю индекс документов..."):
+                chunk_count = create_index(settings)
+
+            if saved_count > 0:
+                st.success(f"Добавлено файлов: {saved_count}. Индекс: {chunk_count} фрагментов.")
+            else:
+                st.success(f"Индекс обновлён: {chunk_count} фрагментов.")
+
+    if st.button("Clear files", use_container_width=True):
+        clear_documents(settings)
+        st.session_state.upload_version = upload_version + 1
+        st.session_state.files_cleared = True
+        st.rerun()
+
+    if st.session_state.pop("files_cleared", False):
+        st.success("Документы и индекс очищены.")
+
+    source_files = get_source_files(settings)
+    st.caption(f"В контексте файлов: {len(source_files)}")
+    for source_file in source_files:
+        st.write(f"• {get_source_name(source_file, settings)}")
+
+    st.subheader("Полный контекст")
+    with st.container(height=420):
+        st.code(get_documents_context(settings), language="markdown")
+
+
 settings = get_settings()
-st.set_page_config(page_title="Тьютор по уроку 12", page_icon="📚")
-st.title("Тьютор по уроку 12: фреймворки и агенты")
+st.set_page_config(page_title="Справочник по документам", page_icon="📚")
+st.title("Справочник по загруженным документам")
 st.caption("Локальный RAG: Ollama + LangChain + Chroma")
 
 if "session_id" not in st.session_state:
@@ -31,14 +81,6 @@ with st.sidebar:
     st.write(f"Чат-модель: `{settings.chat_model}`")
     st.write(f"Embedding-модель: `{settings.embedding_model}`")
     st.write(f"Индекс: {'готов' if index_exists(settings) else 'не создан'}")
-
-    if st.button("Создать индекс", use_container_width=True):
-        try:
-            with st.spinner("Читаю конспект и создаю векторы..."):
-                chunk_count = create_index(settings)
-            st.success(f"Индекс готов: {chunk_count} фрагментов.")
-        except Exception as error:
-            st.error(str(error))
 
     if get_langfuse_client(settings) is None:
         st.caption("Langfuse выключен: добавьте ключи в .env")
@@ -65,6 +107,9 @@ with st.sidebar:
             except Exception as error:
                 st.error(str(error))
 
+    st.divider()
+    show_documents_panel()
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -72,7 +117,7 @@ for message in st.session_state.messages:
         if message["role"] == "assistant":
             show_sources(message["sources"])
 
-question = st.chat_input("Задайте вопрос по уроку 12")
+question = st.chat_input("Задайте вопрос по загруженным документам")
 if question:
     st.session_state.messages.append({"role": "user", "content": question})
     with st.chat_message("user"):

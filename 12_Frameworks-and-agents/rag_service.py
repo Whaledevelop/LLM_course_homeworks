@@ -8,6 +8,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama import ChatOllama, OllamaEmbeddings
 from langchain_text_splitters import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
 
+from document_service import get_source_files, get_source_name
 from observability import get_langfuse_client
 from settings import Settings
 
@@ -26,6 +27,9 @@ class Answer:
 
 
 def create_index(settings: Settings) -> int:
+    if not get_source_files(settings):
+        raise RuntimeError("Документы не добавлены. Выберите файлы или папку справа.")
+
     if settings.chroma_directory.exists():
         vector_store = _vector_store(settings)
         chunk_count = vector_store._collection.count()
@@ -37,7 +41,7 @@ def create_index(settings: Settings) -> int:
     Chroma.from_documents(
         documents=documents,
         embedding=_embeddings(settings),
-        collection_name="lesson_12",
+        collection_name=_collection_name(settings),
         persist_directory=str(settings.chroma_directory),
     )
 
@@ -47,7 +51,7 @@ def create_index(settings: Settings) -> int:
 
 
 def index_exists(settings: Settings) -> bool:
-    if not settings.chroma_directory.exists():
+    if not get_source_files(settings) or not settings.chroma_directory.exists():
         return False
 
     vector_store = _vector_store(settings)
@@ -56,8 +60,11 @@ def index_exists(settings: Settings) -> bool:
 
 
 def answer_question(question: str, settings: Settings) -> Answer:
+    if not get_source_files(settings):
+        raise RuntimeError("Документы не добавлены. Выберите файлы или папку справа.")
+
     if not index_exists(settings):
-        raise RuntimeError("Индекс не создан. Нажмите «Создать индекс».")
+        raise RuntimeError("Индекс не готов. Нажмите «Сохранить и обновить индекс» справа.")
 
     langfuse_client = get_langfuse_client(settings)
     if langfuse_client is None:
@@ -148,7 +155,7 @@ def _generate_answer(question: str, sources: list[Source], settings: Settings):
             (
                 "system",
                 """
-                Ты тьютор по уроку «Работа с фреймворками и агентами».
+                Ты справочник по загруженным пользователем документам.
                 
                 Правила ответа:
                 1. Отвечай только на русском языке.
@@ -240,22 +247,38 @@ def _usage_details(response) -> dict[str, int] | None:
 
 
 def _load_chunks(settings: Settings) -> list[Document]:
-    source_text = settings.source_file.read_text(encoding="utf-8")
     header_splitter = MarkdownHeaderTextSplitter(
         headers_to_split_on=[("#", "title"), ("##", "section"), ("###", "subsection")],
         strip_headers=False,
     )
-    sections = header_splitter.split_text(source_text)
     chunk_splitter = RecursiveCharacterTextSplitter(
         chunk_size=600,
         chunk_overlap=80,
     )
-    chunks = chunk_splitter.split_documents(sections)
+    chunks = []
+    for source_file in get_source_files(settings):
+        source_text = source_file.read_text(encoding="utf-8")
+        source_name = get_source_name(source_file, settings)
+        if source_file.suffix.lower() == ".md":
+            sections = header_splitter.split_text(source_text)
+        else:
+            sections = [Document(page_content=source_text, metadata={"title": source_file.stem})]
+
+        document_chunks = chunk_splitter.split_documents(sections)
+        for chunk in document_chunks:
+            chunk.metadata["source_file"] = source_name
+
+        chunks.extend(document_chunks)
 
     for chunk_index, chunk in enumerate(chunks):
         heading = chunk.metadata.get("subsection") or chunk.metadata.get("section") or chunk.metadata.get("title") or "Без заголовка"
-        chunk_id = sha256(f"{chunk_index}:{chunk.page_content}".encode("utf-8")).hexdigest()[:12]
-        chunk.metadata = {"chunk_id": chunk_id, "heading": heading}
+        source_file = chunk.metadata["source_file"]
+        chunk_id = sha256(f"{source_file}:{chunk_index}:{chunk.page_content}".encode("utf-8")).hexdigest()[:12]
+        chunk.metadata = {
+            "chunk_id": chunk_id,
+            "heading": f"{source_file}: {heading}",
+            "source_file": source_file,
+        }
 
     return chunks
 
@@ -266,7 +289,19 @@ def _embeddings(settings: Settings) -> OllamaEmbeddings:
 
 def _vector_store(settings: Settings) -> Chroma:
     return Chroma(
-        collection_name="lesson_12",
+        collection_name=_collection_name(settings),
         embedding_function=_embeddings(settings),
         persist_directory=str(settings.chroma_directory),
     )
+
+
+def _collection_name(settings: Settings) -> str:
+    content_hash = sha256()
+    for source_file in get_source_files(settings):
+        source_name = get_source_name(source_file, settings)
+        content_hash.update(source_name.encode("utf-8"))
+        content_hash.update(source_file.read_bytes())
+
+    collection_name = f"knowledge_{content_hash.hexdigest()[:16]}"
+
+    return collection_name

@@ -7,16 +7,16 @@ from rag_service import answer_question
 from settings import Settings
 
 
-DATASET_NAME = "lesson_12_rag_evaluation"
+DATASET_NAME = "knowledge_base_evaluation"
 
 EVALUATION_CASES = (
     {
-        "question": "Какие этапы подготовки данных есть в RAG?",
-        "expected_answer": "Ответ должен перечислять подготовку документов, разбиение на чанки и создание эмбеддингов.",
+        "question": "Какая основная тема загруженных документов?",
+        "expected_answer": "Ответ должен кратко описывать тему, опираясь только на загруженные документы.",
     },
     {
-        "question": "Зачем нужен векторный поиск в RAG?",
-        "expected_answer": "Ответ должен объяснять поиск фрагментов, релевантных вопросу, до генерации ответа.",
+        "question": "Какие ключевые понятия упоминаются в загруженных документах?",
+        "expected_answer": "Ответ должен перечислять понятия, которые действительно есть в загруженных документах.",
     },
 )
 
@@ -33,7 +33,7 @@ def create_evaluation_dataset(settings: Settings) -> bool:
     except NotFoundError:
         langfuse_client.create_dataset(
             name=DATASET_NAME,
-            description="Проверка RAG-тьютора по уроку 12.",
+            description="Проверка ответов справочника по загруженным документам.",
         )
 
     for evaluation_case in EVALUATION_CASES:
