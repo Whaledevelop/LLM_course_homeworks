@@ -54,3 +54,15 @@ streamlit run app.py
 ## Следующий этап
 
 После проверки RAG добавим Langfuse: trace на вопрос, span поиска, generation модели и dataset с LLM-as-a-judge.
+
+## Langfuse
+
+Для следующего этапа создайте проект в Langfuse и добавьте его ключи в локальный `.env`:
+
+```env
+LANGFUSE_PUBLIC_KEY=pk-lf-...
+LANGFUSE_SECRET_KEY=sk-lf-...
+LANGFUSE_HOST=https://cloud.langfuse.com
+```
+
+После перезапуска Streamlit каждый ответ создаёт trace `answer_question` со span `retrieve_context` и generation `generate_answer`. В боковой панели доступны создание датасета `lesson_12_rag_evaluation` и запуск проверки двух вопросов. Локальная `qwen2.5:3b` выступает LLM-судьёй и записывает оценку `answer_groundedness` (0 или 1) в Langfuse.

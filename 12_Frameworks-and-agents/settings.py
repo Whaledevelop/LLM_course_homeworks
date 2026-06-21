@@ -12,6 +12,9 @@ class Settings:
     ollama_base_url: str
     chat_model: str
     embedding_model: str
+    langfuse_public_key: str | None
+    langfuse_secret_key: str | None
+    langfuse_host: str
 
 
 def get_settings() -> Settings:
@@ -24,4 +27,7 @@ def get_settings() -> Settings:
         ollama_base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
         chat_model=os.getenv("OLLAMA_CHAT_MODEL", "qwen2.5:3b"),
         embedding_model=os.getenv("OLLAMA_EMBEDDING_MODEL", "bge-m3"),
+        langfuse_public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
+        langfuse_secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
+        langfuse_host=os.getenv("LANGFUSE_HOST", "https://cloud.langfuse.com"),
     )

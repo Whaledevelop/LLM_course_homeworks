@@ -2,6 +2,8 @@ from uuid import uuid4
 
 import streamlit as st
 
+from evaluation_service import create_evaluation_dataset, run_evaluation
+from observability import get_langfuse_client
 from rag_service import answer_question, create_index, index_exists
 from settings import get_settings
 
@@ -37,6 +39,31 @@ with st.sidebar:
             st.success(f"Индекс готов: {chunk_count} фрагментов.")
         except Exception as error:
             st.error(str(error))
+
+    if get_langfuse_client(settings) is None:
+        st.caption("Langfuse выключен: добавьте ключи в .env")
+    else:
+        if st.button("Создать датасет Langfuse", use_container_width=True):
+            try:
+                created = create_evaluation_dataset(settings)
+                if created:
+                    message = "Датасет Langfuse создан."
+                else:
+                    message = "Датасет Langfuse уже существует."
+
+                st.success(message)
+            except Exception as error:
+                st.error(str(error))
+
+        if st.button("Запустить LLM-оценку", use_container_width=True):
+            try:
+                evaluation_results = run_evaluation(settings)
+                for evaluation_result in evaluation_results:
+                    st.write(
+                        f"{evaluation_result['score']}/1 — {evaluation_result['question']}"
+                    )
+            except Exception as error:
+                st.error(str(error))
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
