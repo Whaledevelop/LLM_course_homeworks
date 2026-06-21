@@ -65,4 +65,4 @@ LANGFUSE_SECRET_KEY=sk-lf-...
 LANGFUSE_HOST=https://cloud.langfuse.com
 ```
 
-После перезапуска Streamlit каждый ответ создаёт trace `answer_question` со span `retrieve_context` и generation `generate_answer`. В боковой панели доступны создание датасета `lesson_12_rag_evaluation` и запуск проверки двух вопросов. Локальная `qwen2.5:3b` выступает LLM-судьёй и записывает оценку `answer_groundedness` (0 или 1) в Langfuse.
+После перезапуска Streamlit каждый ответ создаёт trace `answer_question` со span `retrieve_context` и generation `generate_answer`. В generation записываются input/output, latency и число токенов из ответа Ollama. В боковой панели доступны создание датасета `lesson_12_rag_evaluation` и запуск проверки двух вопросов. Локальная `qwen2.5:3b` выступает LLM-судьёй и записывает оценку `answer_groundedness` (0 или 1) в Langfuse.

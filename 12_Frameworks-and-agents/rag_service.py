@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from hashlib import sha256
-import shutil
 
 from langfuse import Langfuse
 from langchain_chroma import Chroma
@@ -27,10 +26,13 @@ class Answer:
 
 
 def create_index(settings: Settings) -> int:
-    documents = _load_chunks(settings)
     if settings.chroma_directory.exists():
-        shutil.rmtree(settings.chroma_directory)
+        vector_store = _vector_store(settings)
+        chunk_count = vector_store._collection.count()
+        if chunk_count > 0:
+            return chunk_count
 
+    documents = _load_chunks(settings)
     settings.chroma_directory.mkdir(parents=True, exist_ok=True)
     Chroma.from_documents(
         documents=documents,
@@ -39,7 +41,9 @@ def create_index(settings: Settings) -> int:
         persist_directory=str(settings.chroma_directory),
     )
 
-    return len(documents)
+    chunk_count = len(documents)
+
+    return chunk_count
 
 
 def index_exists(settings: Settings) -> bool:
@@ -109,7 +113,10 @@ def _answer_question(question: str, settings: Settings, langfuse_client: Langfus
         model_parameters={"temperature": 0},
     ) as generation_observation:
         response = _generate_answer(question, sources, settings)
-        generation_observation.update(output=str(response.content))
+        generation_observation.update(
+            output=str(response.content),
+            usage_details=_usage_details(response),
+        )
 
     return Answer(content=str(response.content), sources=sources)
 
@@ -201,6 +208,35 @@ def _sources_payload(sources: list[Source]) -> list[dict]:
     ]
 
     return payload
+
+
+def _usage_details(response) -> dict[str, int] | None:
+    usage_metadata = response.usage_metadata
+    if usage_metadata:
+        input_tokens = usage_metadata.get("input_tokens")
+        output_tokens = usage_metadata.get("output_tokens")
+        if input_tokens is not None and output_tokens is not None:
+            usage_details = {
+                "input": int(input_tokens),
+                "output": int(output_tokens),
+                "total": int(input_tokens) + int(output_tokens),
+            }
+
+            return usage_details
+
+    response_metadata = response.response_metadata
+    input_tokens = response_metadata.get("prompt_eval_count")
+    output_tokens = response_metadata.get("eval_count")
+    if input_tokens is None or output_tokens is None:
+        return None
+
+    usage_details = {
+        "input": int(input_tokens),
+        "output": int(output_tokens),
+        "total": int(input_tokens) + int(output_tokens),
+    }
+
+    return usage_details
 
 
 def _load_chunks(settings: Settings) -> list[Document]:
