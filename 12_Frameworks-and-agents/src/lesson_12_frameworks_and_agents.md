@@ -1,16 +1,5 @@
 # Работа с фреймворками и агентами
 
-## Оглавление
-
-- [LangChain](#langchain)
-- [LlamaIndex](#llamaindex)
-- [Haystack](#haystack)
-- [Ollama](#ollama)
-- [Домашнее задание](#домашнее-задание)
-- [Итог](#итог)
-
----
-
 ## LangChain
 
 Экосистема для разработки приложений на базе LLM с единым интерфейсом для моделей, векторных БД и инструментов.
@@ -57,8 +46,6 @@
 - **Reflection**
 - **Multi-Agent**
 
----
-
 ## LlamaIndex
 
 Фреймворк с фокусом на качество работы с данными и RAG.
@@ -74,26 +61,17 @@
 
 - **Documents**
 - **Nodes**
-- **Indices**
-  - VectorStoreIndex
-  - SummaryIndex
-  - KnowledgeGraphIndex
+- **Indices**: VectorStoreIndex, SummaryIndex, KnowledgeGraphIndex.
 - **Query Engine**
 - **Router**
 
 ### Дополнительные возможности
 
-- **LlamaHub** — готовые коннекторы.
-- **LlamaParse** — продвинутый парсинг PDF.
-- **Router Query Engine**.
-- **Recursive Retrieval**.
-- **Data Agents**.
-
-### Агентский поиск
-
-Роутер анализирует вопрос и выбирает подходящий индекс или источник данных до выполнения поиска.
-
----
+- LlamaHub — готовые коннекторы.
+- LlamaParse — продвинутый парсинг PDF.
+- Router Query Engine.
+- Recursive Retrieval.
+- Data Agents.
 
 ## Haystack
 
@@ -114,8 +92,6 @@
 - Generators.
 - Document Stores.
 
----
-
 ## Ollama
 
 Инструмент для локального запуска LLM.
@@ -129,11 +105,7 @@
 
 ### Modelfile
 
-Содержит:
-
-- Базовую модель.
-- System Prompt.
-- Параметры генерации.
+Содержит базовую модель, System Prompt и параметры генерации.
 
 ### Управление моделями
 
@@ -145,18 +117,11 @@
 
 Поддержка GGUF и квантованных моделей.
 
----
-
 ## Домашнее задание
 
 ### Разработка
 
-Создать приложение на Python:
-
-- RAG-система.
-- Чат-бот с памятью.
-- Суммаризатор.
-- Переводчик.
+Создать приложение на Python: RAG-систему, чат-бот с памятью, суммаризатор или переводчик.
 
 ### Интеграция
 
@@ -167,8 +132,6 @@
 - Latency.
 - Token Usage.
 - Input/Output.
-
----
 
 ## Итог
 

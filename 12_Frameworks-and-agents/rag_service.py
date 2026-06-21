@@ -56,11 +56,7 @@ def answer_question(question: str, settings: Settings) -> Answer:
     vector_store = _vector_store(settings)
     search_results = vector_store.similarity_search_with_relevance_scores(question, k=4)
     sources = [
-        Source(
-            content=document.page_content,
-            heading=document.metadata["heading"],
-            score=score,
-        )
+        Source(content=document.page_content, heading=document.metadata["heading"], score=score)
         for document, score in search_results
     ]
     context = "\n\n".join(f"[{source.heading}]\n{source.content}" for source in sources)
@@ -82,9 +78,6 @@ def answer_question(question: str, settings: Settings) -> Answer:
 
 
 def _load_chunks(settings: Settings) -> list[Document]:
-    if not settings.source_file.is_file():
-        raise FileNotFoundError(f"Не найден конспект урока: {settings.source_file}")
-
     source_text = settings.source_file.read_text(encoding="utf-8")
     header_splitter = MarkdownHeaderTextSplitter(
         headers_to_split_on=[("#", "title"), ("##", "section"), ("###", "subsection")],
