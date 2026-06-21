@@ -1,0 +1,7 @@
+chromadb>=1.5,<2
+langchain>=0.3,<0.4
+langchain-chroma>=0.2,<0.3
+langchain-ollama>=0.2,<0.3
+langchain-text-splitters>=0.3,<0.4
+python-dotenv>=1.0,<2
+streamlit>=1.42,<2
