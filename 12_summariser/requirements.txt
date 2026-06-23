@@ -1,0 +1,6 @@
+streamlit
+pymupdf
+pillow
+pytesseract
+langchain-ollama
+python-dotenv
