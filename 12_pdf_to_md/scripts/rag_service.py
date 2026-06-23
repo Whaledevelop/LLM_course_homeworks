@@ -191,7 +191,7 @@ class RagService:
         self,
         question: str,
         context: str,
-    ) -> str:я
+    ) -> str:
         prompt = f"""
 Ты отвечаешь на русском языке только на основании контекста из загруженных документов.
 
