@@ -1,0 +1,8 @@
+﻿streamlit
+pymupdf
+langchain
+langchain-community
+langchain-ollama
+langchain-chroma
+chromadb
+python-dotenv

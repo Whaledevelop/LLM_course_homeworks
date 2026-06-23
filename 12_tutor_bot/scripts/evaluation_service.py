@@ -1,5 +1,6 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_ollama import ChatOllama
+from langfuse import Evaluation
 from langfuse.api import NotFoundError
 
 from observability import get_langfuse_client
@@ -53,41 +54,48 @@ def run_evaluation(settings: Settings) -> list[dict]:
     if langfuse_client is None:
         raise RuntimeError("Добавьте ключи Langfuse в .env.")
 
-    results = []
-    for evaluation_case in EVALUATION_CASES:
-        with langfuse_client.start_as_current_observation(
-            name="llm_judge_evaluation",
-            as_type="evaluator",
-            input={
-                "question": evaluation_case["question"],
-                "expected_answer": evaluation_case["expected_answer"],
-            },
-            metadata={"dataset_name": DATASET_NAME},
-        ) as evaluation_observation:
-            answer = answer_question(evaluation_case["question"], settings)
-            score = _judge_answer(evaluation_case, answer.content, settings)
-            langfuse_client.score_current_trace(
-                name="answer_groundedness",
-                value=score,
-                data_type="NUMERIC",
+    dataset = langfuse_client.get_dataset(DATASET_NAME)
+    experiment = dataset.run_experiment(
+        name="knowledge_base_rag_evaluation",
+        description="Проверка ответов RAG по контрольным вопросам датасета.",
+        task=lambda *, item: _answer_dataset_item(item, settings),
+        evaluators=[
+            lambda *, input, output, expected_output, metadata: _evaluate_answer(
+                input,
+                output,
+                expected_output,
+                settings,
             )
-            evaluation_observation.update(
-                output={"answer": answer.content, "score": score},
-        )
-        results.append(
-            {
-                "question": evaluation_case["question"],
-                "score": score,
-                "answer": answer.content,
-            }
-        )
+        ],
+        max_concurrency=1,
+        metadata={"model": settings.chat_model, "model_cost": "0"},
+    )
+    results = [
+        {
+            "question": item_result.item.input["question"],
+            "score": item_result.evaluations[0].value,
+            "answer": item_result.output,
+        }
+        for item_result in experiment.item_results
+    ]
 
     langfuse_client.flush()
 
     return results
 
 
-def _judge_answer(evaluation_case: dict, answer: str, settings: Settings) -> int:
+def _answer_dataset_item(item, settings: Settings) -> str:
+    answer = answer_question(item.input["question"], settings)
+
+    return answer.content
+
+
+def _evaluate_answer(
+    input_data: dict,
+    output: str,
+    expected_output: str,
+    settings: Settings,
+) -> Evaluation:
     prompt = ChatPromptTemplate.from_messages(
         [
             (
@@ -107,13 +115,21 @@ def _judge_answer(evaluation_case: dict, answer: str, settings: Settings) -> int
     )
     response = (prompt | model).invoke(
         {
-            "question": evaluation_case["question"],
-            "expected_answer": evaluation_case["expected_answer"],
-            "answer": answer,
+            "question": input_data["question"],
+            "expected_answer": expected_output,
+            "answer": output,
         }
     )
     score = 0
     if str(response.content).strip().startswith("1"):
         score = 1
 
-    return score
+    comment = "Ответ основан на содержимом загруженных документов."
+    if not score:
+        comment = "Ответ не соответствует критерию датасета."
+
+    return Evaluation(
+        name="answer_groundedness",
+        value=score,
+        comment=comment,
+    )

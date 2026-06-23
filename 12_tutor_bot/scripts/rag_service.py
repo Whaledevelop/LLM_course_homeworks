@@ -104,7 +104,12 @@ def _answer_question(question: str, settings: Settings, langfuse_client: Langfus
         input={"question": question},
     ) as retrieval_observation:
         sources = _search_sources(question, settings)
-        retrieval_observation.update(output=_sources_payload(sources))
+        retrieval_observation.update(
+            output={
+                "document_count": len(sources),
+                "sources": _sources_payload(sources),
+            }
+        )
 
     if not sources:
         return Answer(
@@ -118,6 +123,7 @@ def _answer_question(question: str, settings: Settings, langfuse_client: Langfus
         input={"question": question, "context": _build_context(sources)},
         model=settings.chat_model,
         model_parameters={"temperature": 0},
+        cost_details={"input": 0, "output": 0, "total": 0},
     ) as generation_observation:
         response = _generate_answer(question, sources, settings)
         generation_observation.update(

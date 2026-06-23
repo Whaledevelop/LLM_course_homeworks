@@ -36,6 +36,8 @@ LANGFUSE_HOST=https://cloud.langfuse.com
 ## Запуск
 
 ```powershell
+cd D:\LLMs\LLM_course_homeworks\12_Frameworks-and-agents
+
 .\.venv\Scripts\Activate.ps1
 streamlit run scripts/app.py
 ```
@@ -71,4 +73,6 @@ embedding-модель bge-m3
 
 Кнопка «Создать датасет Langfuse» один раз создаёт датасет `knowledge_base_evaluation` с двумя тестовыми вопросами и критериями ожидаемых ответов. Повторное нажатие не создаёт дубликат. Обычные вопросы и обновление индекса не изменяют датасет.
 
-Кнопка «Запустить LLM-оценку» отдельно прогоняет тестовые вопросы: RAG формирует ответ, затем локальная `qwen2.5:3b` оценивает его и записывает score `answer_groundedness` со значением `0` или `1` в Langfuse.
+Кнопка «Запустить LLM-оценку» создаёт Langfuse Experiment на датасете `knowledge_base_evaluation`. RAG формирует ответ для каждого тестового вопроса, затем локальная `qwen2.5:3b` оценивает его и записывает score `answer_groundedness` со значением `0` или `1`. Experiment выполняется последовательно, так как обе роли использует одна локальная модель.
+
+Локальная Ollama не тарифицируется, поэтому для generation явно передаётся нулевая стоимость. Langfuse сохраняет стоимость как `0`, а токены — по данным ответа Ollama.
