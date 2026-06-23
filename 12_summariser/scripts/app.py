@@ -45,9 +45,9 @@ def render_content(
     st.subheader("Загрузка и конспектирование PDF")
 
     include_metadata = st.toggle(
-        "Meta Files",
+        "Meta Data Files",
         value=False,
-        help="Выключено: служебные страницы и страницы только с заголовком не попадают в Markdown.",
+        help="Выключено: в Markdown попадает только материал, непосредственно раскрывающий тему лекции.",
     )
     include_images = st.toggle(
         "Import Images",
