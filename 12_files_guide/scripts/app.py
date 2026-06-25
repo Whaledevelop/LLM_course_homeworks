@@ -106,7 +106,7 @@ def show_documents_panel() -> None:
 settings = get_settings()
 st.set_page_config(page_title="Справочник по документам", page_icon="📚")
 st.title("Справочник по загруженным документам")
-st.caption("Локальный RAG: Ollama + LangChain + Chroma")
+st.caption("RAG: Hugging Face + LangChain + Chroma")
 
 if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid4())

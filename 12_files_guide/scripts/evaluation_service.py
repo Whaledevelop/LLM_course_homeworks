@@ -1,8 +1,7 @@
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_ollama import ChatOllama
 from langfuse import Evaluation
 from langfuse.api import NotFoundError
 
+from llm_service import generate_chat_response
 from observability import get_langfuse_client
 from rag_service import answer_question
 from settings import Settings
@@ -96,32 +95,20 @@ def _evaluate_answer(
     expected_output: str,
     settings: Settings,
 ) -> Evaluation:
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                "Оцени ответ строго по критерию. Верни только 1, если критерий выполнен, иначе только 0.",
-            ),
-            (
-                "human",
-                "Вопрос: {question}\nКритерий: {expected_answer}\nОтвет: {answer}",
-            ),
-        ]
-    )
-    model = ChatOllama(
-        model=settings.chat_model,
-        base_url=settings.ollama_base_url,
-        temperature=0,
-    )
-    response = (prompt | model).invoke(
-        {
-            "question": input_data["question"],
-            "expected_answer": expected_output,
-            "answer": output,
-        }
+    user_message = f"Вопрос: {input_data['question']}\nКритерий: {expected_output}\nОтвет: {output}"
+    response = generate_chat_response(
+        messages=[
+            {
+                "role": "system",
+                "content": "Оцени ответ строго по критерию. Верни только 1, если критерий выполнен, иначе только 0.",
+            },
+            {"role": "user", "content": user_message},
+        ],
+        settings=settings,
+        max_tokens=10,
     )
     score = 0
-    if str(response.content).strip().startswith("1"):
+    if response.content.strip().startswith("1"):
         score = 1
 
     comment = "Ответ основан на содержимом загруженных документов."

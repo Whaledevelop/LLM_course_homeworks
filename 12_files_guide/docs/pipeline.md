@@ -3,8 +3,9 @@
 ## Требования
 
 - Python 3.
-- Запущенный Ollama.
-- Модели `qwen2.5:3b` и `bge-m3`.
+- Hugging Face токен с доступом к Inference Providers.
+- Чат-модель `Qwen/Qwen3.5-9B`.
+- Embedding-модель `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`.
 - Проект Langfuse и его ключи — если нужны traces и LLM-оценка в Langfuse Cloud.
 
 ## Установка
@@ -14,32 +15,41 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-ollama pull qwen2.5:3b
-ollama pull bge-m3
 ```
 
 ## Настройка
 
-Локальный `.env`:
+Создаём локальный `.env` из примера:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Hugging Face токен создаётся в [User Access Tokens](https://huggingface.co/settings/tokens): нажмите `New token`, выберите `Read` или fine-grained токен с доступом к Inference Providers и скопируйте значение `hf_...`.
+
+Langfuse ключи создаются в проекте Langfuse: `Settings` → `API Keys`. Нужны `Public key`, `Secret key` и host проекта.
+
+Заполненный локальный `.env`:
 
 ```env
-OLLAMA_BASE_URL=http://localhost:11434
-OLLAMA_CHAT_MODEL=qwen2.5:3b
-OLLAMA_EMBEDDING_MODEL=bge-m3
+HF_TOKEN=hf_...
+HF_PROVIDER=auto
+HF_CHAT_MODEL=Qwen/Qwen3.5-9B
+HF_EMBEDDING_MODEL=sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
 LANGFUSE_PUBLIC_KEY=pk-lf-...
 LANGFUSE_SECRET_KEY=sk-lf-...
 LANGFUSE_HOST=https://cloud.langfuse.com
 ```
 
-Параметры Langfuse необязательны для RAG: без ключей приложение работает локально, но не отправляет traces, scores и events в Langfuse.
+Параметры Langfuse необязательны для RAG: без ключей приложение работает, но не отправляет traces, scores и events в Langfuse.
 
 ## Запуск
 
 ```powershell
-cd D:\LLMs\LLM_course_homeworks\12_Frameworks-and-agents
+cd D:\LLMs\LLM_course_homeworks\12_files_guide
 
 .\.venv\Scripts\Activate.ps1
-streamlit run scripts/app.py
+.\.venv\Scripts\python.exe -m streamlit run scripts/app.py
 ```
 
 Открываем `http://localhost:8501`.
@@ -48,7 +58,7 @@ streamlit run scripts/app.py
 
 1. Добавляем в боковой панели файлы `.md` или `.txt` либо папку с такими файлами.
 2. Нажимаем «Сохранить и обновить индекс». Документы сохраняются в `data/documents`, разбиваются на фрагменты и индексируются в локальной Chroma.
-3. Задаём вопрос. Приложение находит до четырёх релевантных фрагментов, передаёт их вместе с вопросом модели `qwen2.5:3b` и показывает ответ с источниками.
+3. Задаём вопрос. Приложение находит до четырёх релевантных фрагментов, передаёт их вместе с вопросом модели `Qwen/Qwen3.5-9B` и показывает ответ с источниками.
 4. Нажимаем `Clear files`, чтобы удалить документы и локальные коллекции Chroma.
 
 ```text
@@ -56,13 +66,13 @@ Markdown и text-файлы
         ↓
 разбиение на фрагменты
         ↓
-embedding-модель bge-m3
+embedding-модель Hugging Face
         ↓
 локальная Chroma
         ↓
 поиск до 4 релевантных фрагментов
         ↓
-вопрос + контекст → qwen2.5:3b
+вопрос + контекст → Qwen/Qwen3.5-9B
         ↓
 ответ и источники в Streamlit
 ```
@@ -73,6 +83,6 @@ embedding-модель bge-m3
 
 Кнопка «Создать датасет Langfuse» один раз создаёт датасет `knowledge_base_evaluation` с двумя тестовыми вопросами и критериями ожидаемых ответов. Повторное нажатие не создаёт дубликат. Обычные вопросы и обновление индекса не изменяют датасет.
 
-Кнопка «Запустить LLM-оценку» создаёт Langfuse Experiment на датасете `knowledge_base_evaluation`. RAG формирует ответ для каждого тестового вопроса, затем локальная `qwen2.5:3b` оценивает его и записывает score `answer_groundedness` со значением `0` или `1`. Experiment выполняется последовательно, так как обе роли использует одна локальная модель.
+Кнопка «Запустить LLM-оценку» создаёт Langfuse Experiment на датасете `knowledge_base_evaluation`. RAG формирует ответ для каждого тестового вопроса, затем `Qwen/Qwen3.5-9B` оценивает его и записывает score `answer_groundedness` со значением `0` или `1`. Experiment выполняется последовательно.
 
-Локальная Ollama не тарифицируется, поэтому для generation явно передаётся нулевая стоимость. Langfuse сохраняет стоимость как `0`, а токены — по данным ответа Ollama.
+Для generation в Langfuse передаются usage токенов из ответа Hugging Face. Стоимость указывается как `0`, если provider не возвращает стоимость в ответе.

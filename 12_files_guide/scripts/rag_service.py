@@ -4,11 +4,10 @@ from hashlib import sha256
 from langfuse import Langfuse
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_ollama import ChatOllama, OllamaEmbeddings
 from langchain_text_splitters import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
 
 from document_service import get_source_files, get_source_name
+from llm_service import HuggingFaceInferenceEmbeddings, generate_chat_response
 from observability import get_langfuse_client
 from settings import Settings
 
@@ -96,7 +95,7 @@ def _answer_question(question: str, settings: Settings, langfuse_client: Langfus
 
         response = _generate_answer(question, sources, settings)
 
-        return Answer(content=str(response.content), sources=sources)
+        return Answer(content=response.content, sources=sources)
 
     with langfuse_client.start_as_current_observation(
         name="retrieve_context",
@@ -127,79 +126,63 @@ def _answer_question(question: str, settings: Settings, langfuse_client: Langfus
     ) as generation_observation:
         response = _generate_answer(question, sources, settings)
         generation_observation.update(
-            output=str(response.content),
-            usage_details=_usage_details(response),
+            output=response.content,
+            usage_details=response.usage_details,
         )
 
-    return Answer(content=str(response.content), sources=sources)
+    return Answer(content=response.content, sources=sources)
 
 
 def _search_sources(question: str, settings: Settings) -> list[Source]:
     vector_store = _vector_store(settings)
-    search_results = vector_store.similarity_search_with_relevance_scores(question, k=4)
-
-    min_score = 0.30
-    filtered_results = [
-        (document, score)
-        for document, score in search_results
-        if score >= min_score
-    ]
+    search_results = vector_store.similarity_search_with_score(question, k=4)
 
     sources = [
-        Source(content=document.page_content, heading=document.metadata["heading"], score=score)
-        for document, score in filtered_results
+        Source(content=document.page_content, heading=document.metadata["heading"], score=_distance_to_score(distance))
+        for document, distance in search_results
     ]
 
     return sources
 
 
+def _distance_to_score(distance: float) -> float:
+    score = 1 / (1 + max(distance, 0))
+
+    return score
+
+
 def _generate_answer(question: str, sources: list[Source], settings: Settings):
     context = _build_context(sources)
+    system_message = """
+    Ты справочник по загруженным пользователем документам.
+    
+    Правила ответа:
+    1. Отвечай только на русском языке.
+    2. Используй только информацию из контекста.
+    3. Не добавляй факты, выводы, оценки и объяснения, которых нет в контексте.
+    4. Не используй слова вроде «масштабируемый», «эффективный», «удобный», если этого нет в контексте.
+    5. Формулируй ответ максимально близко к тексту заметок.
+    6. Если информации недостаточно, ответь строго:
+    «В материалах урока нет информации для ответа на этот вопрос.»
+    7. Не упоминай источники внутри ответа — они показываются отдельно.
+    """.strip()
+    user_message = f"""
+    Контекст:
+    {context}
+    
+    Вопрос:
+    {question}
+    
+    Ответь кратко и строго по контексту.
+    """.strip()
 
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                """
-                Ты справочник по загруженным пользователем документам.
-                
-                Правила ответа:
-                1. Отвечай только на русском языке.
-                2. Используй только информацию из контекста.
-                3. Не добавляй факты, выводы, оценки и объяснения, которых нет в контексте.
-                4. Не используй слова вроде «масштабируемый», «эффективный», «удобный», если этого нет в контексте.
-                5. Формулируй ответ максимально близко к тексту заметок.
-                6. Если информации недостаточно, ответь строго:
-                «В материалах урока нет информации для ответа на этот вопрос.»
-                7. Не упоминай источники внутри ответа — они показываются отдельно.
-                """.strip(),
-                            ),
-                            (
-                                "human",
-                                """
-                Контекст:
-                {context}
-                
-                Вопрос:
-                {question}
-                
-                Ответь кратко и строго по контексту.
-                """.strip(),
-            ),
-        ]
-    )
-
-    model = ChatOllama(
-        model=settings.chat_model,
-        base_url=settings.ollama_base_url,
-        temperature=0,
-    )
-
-    response = (prompt | model).invoke(
-        {
-            "context": context,
-            "question": question,
-        }
+    response = generate_chat_response(
+        messages=[
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": user_message},
+        ],
+        settings=settings,
+        max_tokens=700,
     )
 
     return response
@@ -221,35 +204,6 @@ def _sources_payload(sources: list[Source]) -> list[dict]:
     ]
 
     return payload
-
-
-def _usage_details(response) -> dict[str, int] | None:
-    usage_metadata = response.usage_metadata
-    if usage_metadata:
-        input_tokens = usage_metadata.get("input_tokens")
-        output_tokens = usage_metadata.get("output_tokens")
-        if input_tokens is not None and output_tokens is not None:
-            usage_details = {
-                "input": int(input_tokens),
-                "output": int(output_tokens),
-                "total": int(input_tokens) + int(output_tokens),
-            }
-
-            return usage_details
-
-    response_metadata = response.response_metadata
-    input_tokens = response_metadata.get("prompt_eval_count")
-    output_tokens = response_metadata.get("eval_count")
-    if input_tokens is None or output_tokens is None:
-        return None
-
-    usage_details = {
-        "input": int(input_tokens),
-        "output": int(output_tokens),
-        "total": int(input_tokens) + int(output_tokens),
-    }
-
-    return usage_details
 
 
 def _load_chunks(settings: Settings) -> list[Document]:
@@ -289,8 +243,8 @@ def _load_chunks(settings: Settings) -> list[Document]:
     return chunks
 
 
-def _embeddings(settings: Settings) -> OllamaEmbeddings:
-    return OllamaEmbeddings(model=settings.embedding_model, base_url=settings.ollama_base_url)
+def _embeddings(settings: Settings) -> HuggingFaceInferenceEmbeddings:
+    return HuggingFaceInferenceEmbeddings(settings)
 
 
 def _vector_store(settings: Settings) -> Chroma:
@@ -303,6 +257,7 @@ def _vector_store(settings: Settings) -> Chroma:
 
 def _collection_name(settings: Settings) -> str:
     content_hash = sha256()
+    content_hash.update(settings.embedding_model.encode("utf-8"))
     for source_file in get_source_files(settings):
         source_name = get_source_name(source_file, settings)
         content_hash.update(source_name.encode("utf-8"))
