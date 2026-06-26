@@ -1,0 +1,921 @@
+dialog_id,extractor,kind,label,value,start,end,confidence
+sample-001,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-001,rules,entity,ORG,Reuters,6,13,0.75
+sample-001,rules,entity,ORG,NATO,52,56,0.75
+sample-001,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-001,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-001,rules,entity,LOC,Washington,95,105,0.75
+sample-001,rules,entity,LOC,Ukraine,179,186,0.75
+sample-001,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-001,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-001,rules,event,EVENT,meeting,160,167,0.75
+sample-001,rules,event,EVENT,summit,237,243,0.75
+sample-002,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-002,rules,entity,ORG,BBC,6,9,0.75
+sample-002,rules,entity,ORG,Apple,15,20,0.75
+sample-002,rules,entity,LOC,California,88,98,0.75
+sample-002,rules,entity,SOURCE,BBC,6,9,0.75
+sample-002,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-002,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-002,rules,event,EVENT,share buyback,46,59,0.75
+sample-002,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-002,rules,event,EVENT,announcement,151,163,0.75
+sample-003,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-003,rules,entity,ORG,AP News,6,13,0.75
+sample-003,rules,entity,LOC,Hualien,42,49,0.75
+sample-003,rules,entity,LOC,Taiwan,51,57,0.75
+sample-003,rules,entity,SOURCE,AP News,6,13,0.75
+sample-003,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-003,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-003,rules,event,EVENT,earthquake,26,36,0.75
+sample-004,rules,entity,DATE,2024,80,84,0.75
+sample-004,rules,entity,ORG,The Guardian,6,18,0.75
+sample-004,rules,entity,ORG,Tesla,33,38,0.75
+sample-004,rules,entity,LOC,Texas,56,61,0.75
+sample-004,rules,entity,LOC,California,66,76,0.75
+sample-004,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-004,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-004,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-004,rules,event,EVENT,layoffs,130,137,0.75
+sample-005,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-005,rules,entity,ORG,CNN,6,9,0.75
+sample-005,rules,entity,ORG,European Union,28,42,0.75
+sample-005,rules,entity,ORG,Microsoft,72,81,0.75
+sample-005,rules,entity,LOC,Brussels,85,93,0.75
+sample-005,rules,entity,SOURCE,CNN,6,9,0.75
+sample-005,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-005,rules,event,EVENT,investigation,53,66,0.75
+sample-006,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-006,rules,entity,ORG,Reuters,6,13,0.75
+sample-006,rules,entity,ORG,NATO,52,56,0.75
+sample-006,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-006,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-006,rules,entity,LOC,Washington,95,105,0.75
+sample-006,rules,entity,LOC,Ukraine,179,186,0.75
+sample-006,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-006,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-006,rules,event,EVENT,meeting,160,167,0.75
+sample-006,rules,event,EVENT,summit,237,243,0.75
+sample-007,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-007,rules,entity,ORG,BBC,6,9,0.75
+sample-007,rules,entity,ORG,Apple,15,20,0.75
+sample-007,rules,entity,LOC,California,88,98,0.75
+sample-007,rules,entity,SOURCE,BBC,6,9,0.75
+sample-007,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-007,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-007,rules,event,EVENT,share buyback,46,59,0.75
+sample-007,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-007,rules,event,EVENT,announcement,151,163,0.75
+sample-008,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-008,rules,entity,ORG,AP News,6,13,0.75
+sample-008,rules,entity,LOC,Hualien,42,49,0.75
+sample-008,rules,entity,LOC,Taiwan,51,57,0.75
+sample-008,rules,entity,SOURCE,AP News,6,13,0.75
+sample-008,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-008,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-008,rules,event,EVENT,earthquake,26,36,0.75
+sample-009,rules,entity,DATE,2024,80,84,0.75
+sample-009,rules,entity,ORG,The Guardian,6,18,0.75
+sample-009,rules,entity,ORG,Tesla,33,38,0.75
+sample-009,rules,entity,LOC,Texas,56,61,0.75
+sample-009,rules,entity,LOC,California,66,76,0.75
+sample-009,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-009,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-009,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-009,rules,event,EVENT,layoffs,130,137,0.75
+sample-010,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-010,rules,entity,ORG,CNN,6,9,0.75
+sample-010,rules,entity,ORG,European Union,28,42,0.75
+sample-010,rules,entity,ORG,Microsoft,72,81,0.75
+sample-010,rules,entity,LOC,Brussels,85,93,0.75
+sample-010,rules,entity,SOURCE,CNN,6,9,0.75
+sample-010,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-010,rules,event,EVENT,investigation,53,66,0.75
+sample-011,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-011,rules,entity,ORG,Reuters,6,13,0.75
+sample-011,rules,entity,ORG,NATO,52,56,0.75
+sample-011,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-011,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-011,rules,entity,LOC,Washington,95,105,0.75
+sample-011,rules,entity,LOC,Ukraine,179,186,0.75
+sample-011,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-011,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-011,rules,event,EVENT,meeting,160,167,0.75
+sample-011,rules,event,EVENT,summit,237,243,0.75
+sample-012,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-012,rules,entity,ORG,BBC,6,9,0.75
+sample-012,rules,entity,ORG,Apple,15,20,0.75
+sample-012,rules,entity,LOC,California,88,98,0.75
+sample-012,rules,entity,SOURCE,BBC,6,9,0.75
+sample-012,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-012,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-012,rules,event,EVENT,share buyback,46,59,0.75
+sample-012,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-012,rules,event,EVENT,announcement,151,163,0.75
+sample-013,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-013,rules,entity,ORG,AP News,6,13,0.75
+sample-013,rules,entity,LOC,Hualien,42,49,0.75
+sample-013,rules,entity,LOC,Taiwan,51,57,0.75
+sample-013,rules,entity,SOURCE,AP News,6,13,0.75
+sample-013,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-013,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-013,rules,event,EVENT,earthquake,26,36,0.75
+sample-014,rules,entity,DATE,2024,80,84,0.75
+sample-014,rules,entity,ORG,The Guardian,6,18,0.75
+sample-014,rules,entity,ORG,Tesla,33,38,0.75
+sample-014,rules,entity,LOC,Texas,56,61,0.75
+sample-014,rules,entity,LOC,California,66,76,0.75
+sample-014,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-014,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-014,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-014,rules,event,EVENT,layoffs,130,137,0.75
+sample-015,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-015,rules,entity,ORG,CNN,6,9,0.75
+sample-015,rules,entity,ORG,European Union,28,42,0.75
+sample-015,rules,entity,ORG,Microsoft,72,81,0.75
+sample-015,rules,entity,LOC,Brussels,85,93,0.75
+sample-015,rules,entity,SOURCE,CNN,6,9,0.75
+sample-015,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-015,rules,event,EVENT,investigation,53,66,0.75
+sample-016,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-016,rules,entity,ORG,Reuters,6,13,0.75
+sample-016,rules,entity,ORG,NATO,52,56,0.75
+sample-016,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-016,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-016,rules,entity,LOC,Washington,95,105,0.75
+sample-016,rules,entity,LOC,Ukraine,179,186,0.75
+sample-016,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-016,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-016,rules,event,EVENT,meeting,160,167,0.75
+sample-016,rules,event,EVENT,summit,237,243,0.75
+sample-017,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-017,rules,entity,ORG,BBC,6,9,0.75
+sample-017,rules,entity,ORG,Apple,15,20,0.75
+sample-017,rules,entity,LOC,California,88,98,0.75
+sample-017,rules,entity,SOURCE,BBC,6,9,0.75
+sample-017,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-017,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-017,rules,event,EVENT,share buyback,46,59,0.75
+sample-017,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-017,rules,event,EVENT,announcement,151,163,0.75
+sample-018,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-018,rules,entity,ORG,AP News,6,13,0.75
+sample-018,rules,entity,LOC,Hualien,42,49,0.75
+sample-018,rules,entity,LOC,Taiwan,51,57,0.75
+sample-018,rules,entity,SOURCE,AP News,6,13,0.75
+sample-018,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-018,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-018,rules,event,EVENT,earthquake,26,36,0.75
+sample-019,rules,entity,DATE,2024,80,84,0.75
+sample-019,rules,entity,ORG,The Guardian,6,18,0.75
+sample-019,rules,entity,ORG,Tesla,33,38,0.75
+sample-019,rules,entity,LOC,Texas,56,61,0.75
+sample-019,rules,entity,LOC,California,66,76,0.75
+sample-019,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-019,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-019,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-019,rules,event,EVENT,layoffs,130,137,0.75
+sample-020,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-020,rules,entity,ORG,CNN,6,9,0.75
+sample-020,rules,entity,ORG,European Union,28,42,0.75
+sample-020,rules,entity,ORG,Microsoft,72,81,0.75
+sample-020,rules,entity,LOC,Brussels,85,93,0.75
+sample-020,rules,entity,SOURCE,CNN,6,9,0.75
+sample-020,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-020,rules,event,EVENT,investigation,53,66,0.75
+sample-021,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-021,rules,entity,ORG,Reuters,6,13,0.75
+sample-021,rules,entity,ORG,NATO,52,56,0.75
+sample-021,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-021,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-021,rules,entity,LOC,Washington,95,105,0.75
+sample-021,rules,entity,LOC,Ukraine,179,186,0.75
+sample-021,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-021,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-021,rules,event,EVENT,meeting,160,167,0.75
+sample-021,rules,event,EVENT,summit,237,243,0.75
+sample-022,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-022,rules,entity,ORG,BBC,6,9,0.75
+sample-022,rules,entity,ORG,Apple,15,20,0.75
+sample-022,rules,entity,LOC,California,88,98,0.75
+sample-022,rules,entity,SOURCE,BBC,6,9,0.75
+sample-022,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-022,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-022,rules,event,EVENT,share buyback,46,59,0.75
+sample-022,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-022,rules,event,EVENT,announcement,151,163,0.75
+sample-023,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-023,rules,entity,ORG,AP News,6,13,0.75
+sample-023,rules,entity,LOC,Hualien,42,49,0.75
+sample-023,rules,entity,LOC,Taiwan,51,57,0.75
+sample-023,rules,entity,SOURCE,AP News,6,13,0.75
+sample-023,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-023,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-023,rules,event,EVENT,earthquake,26,36,0.75
+sample-024,rules,entity,DATE,2024,80,84,0.75
+sample-024,rules,entity,ORG,The Guardian,6,18,0.75
+sample-024,rules,entity,ORG,Tesla,33,38,0.75
+sample-024,rules,entity,LOC,Texas,56,61,0.75
+sample-024,rules,entity,LOC,California,66,76,0.75
+sample-024,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-024,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-024,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-024,rules,event,EVENT,layoffs,130,137,0.75
+sample-025,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-025,rules,entity,ORG,CNN,6,9,0.75
+sample-025,rules,entity,ORG,European Union,28,42,0.75
+sample-025,rules,entity,ORG,Microsoft,72,81,0.75
+sample-025,rules,entity,LOC,Brussels,85,93,0.75
+sample-025,rules,entity,SOURCE,CNN,6,9,0.75
+sample-025,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-025,rules,event,EVENT,investigation,53,66,0.75
+sample-026,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-026,rules,entity,ORG,Reuters,6,13,0.75
+sample-026,rules,entity,ORG,NATO,52,56,0.75
+sample-026,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-026,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-026,rules,entity,LOC,Washington,95,105,0.75
+sample-026,rules,entity,LOC,Ukraine,179,186,0.75
+sample-026,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-026,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-026,rules,event,EVENT,meeting,160,167,0.75
+sample-026,rules,event,EVENT,summit,237,243,0.75
+sample-027,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-027,rules,entity,ORG,BBC,6,9,0.75
+sample-027,rules,entity,ORG,Apple,15,20,0.75
+sample-027,rules,entity,LOC,California,88,98,0.75
+sample-027,rules,entity,SOURCE,BBC,6,9,0.75
+sample-027,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-027,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-027,rules,event,EVENT,share buyback,46,59,0.75
+sample-027,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-027,rules,event,EVENT,announcement,151,163,0.75
+sample-028,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-028,rules,entity,ORG,AP News,6,13,0.75
+sample-028,rules,entity,LOC,Hualien,42,49,0.75
+sample-028,rules,entity,LOC,Taiwan,51,57,0.75
+sample-028,rules,entity,SOURCE,AP News,6,13,0.75
+sample-028,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-028,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-028,rules,event,EVENT,earthquake,26,36,0.75
+sample-029,rules,entity,DATE,2024,80,84,0.75
+sample-029,rules,entity,ORG,The Guardian,6,18,0.75
+sample-029,rules,entity,ORG,Tesla,33,38,0.75
+sample-029,rules,entity,LOC,Texas,56,61,0.75
+sample-029,rules,entity,LOC,California,66,76,0.75
+sample-029,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-029,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-029,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-029,rules,event,EVENT,layoffs,130,137,0.75
+sample-030,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-030,rules,entity,ORG,CNN,6,9,0.75
+sample-030,rules,entity,ORG,European Union,28,42,0.75
+sample-030,rules,entity,ORG,Microsoft,72,81,0.75
+sample-030,rules,entity,LOC,Brussels,85,93,0.75
+sample-030,rules,entity,SOURCE,CNN,6,9,0.75
+sample-030,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-030,rules,event,EVENT,investigation,53,66,0.75
+sample-031,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-031,rules,entity,ORG,Reuters,6,13,0.75
+sample-031,rules,entity,ORG,NATO,52,56,0.75
+sample-031,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-031,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-031,rules,entity,LOC,Washington,95,105,0.75
+sample-031,rules,entity,LOC,Ukraine,179,186,0.75
+sample-031,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-031,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-031,rules,event,EVENT,meeting,160,167,0.75
+sample-031,rules,event,EVENT,summit,237,243,0.75
+sample-032,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-032,rules,entity,ORG,BBC,6,9,0.75
+sample-032,rules,entity,ORG,Apple,15,20,0.75
+sample-032,rules,entity,LOC,California,88,98,0.75
+sample-032,rules,entity,SOURCE,BBC,6,9,0.75
+sample-032,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-032,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-032,rules,event,EVENT,share buyback,46,59,0.75
+sample-032,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-032,rules,event,EVENT,announcement,151,163,0.75
+sample-033,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-033,rules,entity,ORG,AP News,6,13,0.75
+sample-033,rules,entity,LOC,Hualien,42,49,0.75
+sample-033,rules,entity,LOC,Taiwan,51,57,0.75
+sample-033,rules,entity,SOURCE,AP News,6,13,0.75
+sample-033,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-033,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-033,rules,event,EVENT,earthquake,26,36,0.75
+sample-034,rules,entity,DATE,2024,80,84,0.75
+sample-034,rules,entity,ORG,The Guardian,6,18,0.75
+sample-034,rules,entity,ORG,Tesla,33,38,0.75
+sample-034,rules,entity,LOC,Texas,56,61,0.75
+sample-034,rules,entity,LOC,California,66,76,0.75
+sample-034,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-034,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-034,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-034,rules,event,EVENT,layoffs,130,137,0.75
+sample-035,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-035,rules,entity,ORG,CNN,6,9,0.75
+sample-035,rules,entity,ORG,European Union,28,42,0.75
+sample-035,rules,entity,ORG,Microsoft,72,81,0.75
+sample-035,rules,entity,LOC,Brussels,85,93,0.75
+sample-035,rules,entity,SOURCE,CNN,6,9,0.75
+sample-035,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-035,rules,event,EVENT,investigation,53,66,0.75
+sample-036,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-036,rules,entity,ORG,Reuters,6,13,0.75
+sample-036,rules,entity,ORG,NATO,52,56,0.75
+sample-036,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-036,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-036,rules,entity,LOC,Washington,95,105,0.75
+sample-036,rules,entity,LOC,Ukraine,179,186,0.75
+sample-036,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-036,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-036,rules,event,EVENT,meeting,160,167,0.75
+sample-036,rules,event,EVENT,summit,237,243,0.75
+sample-037,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-037,rules,entity,ORG,BBC,6,9,0.75
+sample-037,rules,entity,ORG,Apple,15,20,0.75
+sample-037,rules,entity,LOC,California,88,98,0.75
+sample-037,rules,entity,SOURCE,BBC,6,9,0.75
+sample-037,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-037,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-037,rules,event,EVENT,share buyback,46,59,0.75
+sample-037,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-037,rules,event,EVENT,announcement,151,163,0.75
+sample-038,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-038,rules,entity,ORG,AP News,6,13,0.75
+sample-038,rules,entity,LOC,Hualien,42,49,0.75
+sample-038,rules,entity,LOC,Taiwan,51,57,0.75
+sample-038,rules,entity,SOURCE,AP News,6,13,0.75
+sample-038,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-038,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-038,rules,event,EVENT,earthquake,26,36,0.75
+sample-039,rules,entity,DATE,2024,80,84,0.75
+sample-039,rules,entity,ORG,The Guardian,6,18,0.75
+sample-039,rules,entity,ORG,Tesla,33,38,0.75
+sample-039,rules,entity,LOC,Texas,56,61,0.75
+sample-039,rules,entity,LOC,California,66,76,0.75
+sample-039,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-039,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-039,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-039,rules,event,EVENT,layoffs,130,137,0.75
+sample-040,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-040,rules,entity,ORG,CNN,6,9,0.75
+sample-040,rules,entity,ORG,European Union,28,42,0.75
+sample-040,rules,entity,ORG,Microsoft,72,81,0.75
+sample-040,rules,entity,LOC,Brussels,85,93,0.75
+sample-040,rules,entity,SOURCE,CNN,6,9,0.75
+sample-040,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-040,rules,event,EVENT,investigation,53,66,0.75
+sample-041,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-041,rules,entity,ORG,Reuters,6,13,0.75
+sample-041,rules,entity,ORG,NATO,52,56,0.75
+sample-041,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-041,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-041,rules,entity,LOC,Washington,95,105,0.75
+sample-041,rules,entity,LOC,Ukraine,179,186,0.75
+sample-041,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-041,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-041,rules,event,EVENT,meeting,160,167,0.75
+sample-041,rules,event,EVENT,summit,237,243,0.75
+sample-042,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-042,rules,entity,ORG,BBC,6,9,0.75
+sample-042,rules,entity,ORG,Apple,15,20,0.75
+sample-042,rules,entity,LOC,California,88,98,0.75
+sample-042,rules,entity,SOURCE,BBC,6,9,0.75
+sample-042,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-042,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-042,rules,event,EVENT,share buyback,46,59,0.75
+sample-042,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-042,rules,event,EVENT,announcement,151,163,0.75
+sample-043,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-043,rules,entity,ORG,AP News,6,13,0.75
+sample-043,rules,entity,LOC,Hualien,42,49,0.75
+sample-043,rules,entity,LOC,Taiwan,51,57,0.75
+sample-043,rules,entity,SOURCE,AP News,6,13,0.75
+sample-043,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-043,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-043,rules,event,EVENT,earthquake,26,36,0.75
+sample-044,rules,entity,DATE,2024,80,84,0.75
+sample-044,rules,entity,ORG,The Guardian,6,18,0.75
+sample-044,rules,entity,ORG,Tesla,33,38,0.75
+sample-044,rules,entity,LOC,Texas,56,61,0.75
+sample-044,rules,entity,LOC,California,66,76,0.75
+sample-044,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-044,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-044,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-044,rules,event,EVENT,layoffs,130,137,0.75
+sample-045,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-045,rules,entity,ORG,CNN,6,9,0.75
+sample-045,rules,entity,ORG,European Union,28,42,0.75
+sample-045,rules,entity,ORG,Microsoft,72,81,0.75
+sample-045,rules,entity,LOC,Brussels,85,93,0.75
+sample-045,rules,entity,SOURCE,CNN,6,9,0.75
+sample-045,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-045,rules,event,EVENT,investigation,53,66,0.75
+sample-046,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-046,rules,entity,ORG,Reuters,6,13,0.75
+sample-046,rules,entity,ORG,NATO,52,56,0.75
+sample-046,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-046,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-046,rules,entity,LOC,Washington,95,105,0.75
+sample-046,rules,entity,LOC,Ukraine,179,186,0.75
+sample-046,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-046,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-046,rules,event,EVENT,meeting,160,167,0.75
+sample-046,rules,event,EVENT,summit,237,243,0.75
+sample-047,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-047,rules,entity,ORG,BBC,6,9,0.75
+sample-047,rules,entity,ORG,Apple,15,20,0.75
+sample-047,rules,entity,LOC,California,88,98,0.75
+sample-047,rules,entity,SOURCE,BBC,6,9,0.75
+sample-047,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-047,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-047,rules,event,EVENT,share buyback,46,59,0.75
+sample-047,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-047,rules,event,EVENT,announcement,151,163,0.75
+sample-048,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-048,rules,entity,ORG,AP News,6,13,0.75
+sample-048,rules,entity,LOC,Hualien,42,49,0.75
+sample-048,rules,entity,LOC,Taiwan,51,57,0.75
+sample-048,rules,entity,SOURCE,AP News,6,13,0.75
+sample-048,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-048,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-048,rules,event,EVENT,earthquake,26,36,0.75
+sample-049,rules,entity,DATE,2024,80,84,0.75
+sample-049,rules,entity,ORG,The Guardian,6,18,0.75
+sample-049,rules,entity,ORG,Tesla,33,38,0.75
+sample-049,rules,entity,LOC,Texas,56,61,0.75
+sample-049,rules,entity,LOC,California,66,76,0.75
+sample-049,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-049,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-049,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-049,rules,event,EVENT,layoffs,130,137,0.75
+sample-050,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-050,rules,entity,ORG,CNN,6,9,0.75
+sample-050,rules,entity,ORG,European Union,28,42,0.75
+sample-050,rules,entity,ORG,Microsoft,72,81,0.75
+sample-050,rules,entity,LOC,Brussels,85,93,0.75
+sample-050,rules,entity,SOURCE,CNN,6,9,0.75
+sample-050,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-050,rules,event,EVENT,investigation,53,66,0.75
+sample-051,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-051,rules,entity,ORG,Reuters,6,13,0.75
+sample-051,rules,entity,ORG,NATO,52,56,0.75
+sample-051,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-051,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-051,rules,entity,LOC,Washington,95,105,0.75
+sample-051,rules,entity,LOC,Ukraine,179,186,0.75
+sample-051,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-051,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-051,rules,event,EVENT,meeting,160,167,0.75
+sample-051,rules,event,EVENT,summit,237,243,0.75
+sample-052,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-052,rules,entity,ORG,BBC,6,9,0.75
+sample-052,rules,entity,ORG,Apple,15,20,0.75
+sample-052,rules,entity,LOC,California,88,98,0.75
+sample-052,rules,entity,SOURCE,BBC,6,9,0.75
+sample-052,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-052,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-052,rules,event,EVENT,share buyback,46,59,0.75
+sample-052,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-052,rules,event,EVENT,announcement,151,163,0.75
+sample-053,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-053,rules,entity,ORG,AP News,6,13,0.75
+sample-053,rules,entity,LOC,Hualien,42,49,0.75
+sample-053,rules,entity,LOC,Taiwan,51,57,0.75
+sample-053,rules,entity,SOURCE,AP News,6,13,0.75
+sample-053,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-053,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-053,rules,event,EVENT,earthquake,26,36,0.75
+sample-054,rules,entity,DATE,2024,80,84,0.75
+sample-054,rules,entity,ORG,The Guardian,6,18,0.75
+sample-054,rules,entity,ORG,Tesla,33,38,0.75
+sample-054,rules,entity,LOC,Texas,56,61,0.75
+sample-054,rules,entity,LOC,California,66,76,0.75
+sample-054,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-054,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-054,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-054,rules,event,EVENT,layoffs,130,137,0.75
+sample-055,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-055,rules,entity,ORG,CNN,6,9,0.75
+sample-055,rules,entity,ORG,European Union,28,42,0.75
+sample-055,rules,entity,ORG,Microsoft,72,81,0.75
+sample-055,rules,entity,LOC,Brussels,85,93,0.75
+sample-055,rules,entity,SOURCE,CNN,6,9,0.75
+sample-055,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-055,rules,event,EVENT,investigation,53,66,0.75
+sample-056,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-056,rules,entity,ORG,Reuters,6,13,0.75
+sample-056,rules,entity,ORG,NATO,52,56,0.75
+sample-056,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-056,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-056,rules,entity,LOC,Washington,95,105,0.75
+sample-056,rules,entity,LOC,Ukraine,179,186,0.75
+sample-056,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-056,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-056,rules,event,EVENT,meeting,160,167,0.75
+sample-056,rules,event,EVENT,summit,237,243,0.75
+sample-057,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-057,rules,entity,ORG,BBC,6,9,0.75
+sample-057,rules,entity,ORG,Apple,15,20,0.75
+sample-057,rules,entity,LOC,California,88,98,0.75
+sample-057,rules,entity,SOURCE,BBC,6,9,0.75
+sample-057,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-057,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-057,rules,event,EVENT,share buyback,46,59,0.75
+sample-057,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-057,rules,event,EVENT,announcement,151,163,0.75
+sample-058,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-058,rules,entity,ORG,AP News,6,13,0.75
+sample-058,rules,entity,LOC,Hualien,42,49,0.75
+sample-058,rules,entity,LOC,Taiwan,51,57,0.75
+sample-058,rules,entity,SOURCE,AP News,6,13,0.75
+sample-058,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-058,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-058,rules,event,EVENT,earthquake,26,36,0.75
+sample-059,rules,entity,DATE,2024,80,84,0.75
+sample-059,rules,entity,ORG,The Guardian,6,18,0.75
+sample-059,rules,entity,ORG,Tesla,33,38,0.75
+sample-059,rules,entity,LOC,Texas,56,61,0.75
+sample-059,rules,entity,LOC,California,66,76,0.75
+sample-059,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-059,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-059,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-059,rules,event,EVENT,layoffs,130,137,0.75
+sample-060,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-060,rules,entity,ORG,CNN,6,9,0.75
+sample-060,rules,entity,ORG,European Union,28,42,0.75
+sample-060,rules,entity,ORG,Microsoft,72,81,0.75
+sample-060,rules,entity,LOC,Brussels,85,93,0.75
+sample-060,rules,entity,SOURCE,CNN,6,9,0.75
+sample-060,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-060,rules,event,EVENT,investigation,53,66,0.75
+sample-061,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-061,rules,entity,ORG,Reuters,6,13,0.75
+sample-061,rules,entity,ORG,NATO,52,56,0.75
+sample-061,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-061,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-061,rules,entity,LOC,Washington,95,105,0.75
+sample-061,rules,entity,LOC,Ukraine,179,186,0.75
+sample-061,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-061,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-061,rules,event,EVENT,meeting,160,167,0.75
+sample-061,rules,event,EVENT,summit,237,243,0.75
+sample-062,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-062,rules,entity,ORG,BBC,6,9,0.75
+sample-062,rules,entity,ORG,Apple,15,20,0.75
+sample-062,rules,entity,LOC,California,88,98,0.75
+sample-062,rules,entity,SOURCE,BBC,6,9,0.75
+sample-062,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-062,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-062,rules,event,EVENT,share buyback,46,59,0.75
+sample-062,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-062,rules,event,EVENT,announcement,151,163,0.75
+sample-063,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-063,rules,entity,ORG,AP News,6,13,0.75
+sample-063,rules,entity,LOC,Hualien,42,49,0.75
+sample-063,rules,entity,LOC,Taiwan,51,57,0.75
+sample-063,rules,entity,SOURCE,AP News,6,13,0.75
+sample-063,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-063,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-063,rules,event,EVENT,earthquake,26,36,0.75
+sample-064,rules,entity,DATE,2024,80,84,0.75
+sample-064,rules,entity,ORG,The Guardian,6,18,0.75
+sample-064,rules,entity,ORG,Tesla,33,38,0.75
+sample-064,rules,entity,LOC,Texas,56,61,0.75
+sample-064,rules,entity,LOC,California,66,76,0.75
+sample-064,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-064,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-064,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-064,rules,event,EVENT,layoffs,130,137,0.75
+sample-065,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-065,rules,entity,ORG,CNN,6,9,0.75
+sample-065,rules,entity,ORG,European Union,28,42,0.75
+sample-065,rules,entity,ORG,Microsoft,72,81,0.75
+sample-065,rules,entity,LOC,Brussels,85,93,0.75
+sample-065,rules,entity,SOURCE,CNN,6,9,0.75
+sample-065,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-065,rules,event,EVENT,investigation,53,66,0.75
+sample-066,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-066,rules,entity,ORG,Reuters,6,13,0.75
+sample-066,rules,entity,ORG,NATO,52,56,0.75
+sample-066,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-066,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-066,rules,entity,LOC,Washington,95,105,0.75
+sample-066,rules,entity,LOC,Ukraine,179,186,0.75
+sample-066,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-066,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-066,rules,event,EVENT,meeting,160,167,0.75
+sample-066,rules,event,EVENT,summit,237,243,0.75
+sample-067,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-067,rules,entity,ORG,BBC,6,9,0.75
+sample-067,rules,entity,ORG,Apple,15,20,0.75
+sample-067,rules,entity,LOC,California,88,98,0.75
+sample-067,rules,entity,SOURCE,BBC,6,9,0.75
+sample-067,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-067,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-067,rules,event,EVENT,share buyback,46,59,0.75
+sample-067,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-067,rules,event,EVENT,announcement,151,163,0.75
+sample-068,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-068,rules,entity,ORG,AP News,6,13,0.75
+sample-068,rules,entity,LOC,Hualien,42,49,0.75
+sample-068,rules,entity,LOC,Taiwan,51,57,0.75
+sample-068,rules,entity,SOURCE,AP News,6,13,0.75
+sample-068,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-068,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-068,rules,event,EVENT,earthquake,26,36,0.75
+sample-069,rules,entity,DATE,2024,80,84,0.75
+sample-069,rules,entity,ORG,The Guardian,6,18,0.75
+sample-069,rules,entity,ORG,Tesla,33,38,0.75
+sample-069,rules,entity,LOC,Texas,56,61,0.75
+sample-069,rules,entity,LOC,California,66,76,0.75
+sample-069,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-069,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-069,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-069,rules,event,EVENT,layoffs,130,137,0.75
+sample-070,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-070,rules,entity,ORG,CNN,6,9,0.75
+sample-070,rules,entity,ORG,European Union,28,42,0.75
+sample-070,rules,entity,ORG,Microsoft,72,81,0.75
+sample-070,rules,entity,LOC,Brussels,85,93,0.75
+sample-070,rules,entity,SOURCE,CNN,6,9,0.75
+sample-070,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-070,rules,event,EVENT,investigation,53,66,0.75
+sample-071,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-071,rules,entity,ORG,Reuters,6,13,0.75
+sample-071,rules,entity,ORG,NATO,52,56,0.75
+sample-071,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-071,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-071,rules,entity,LOC,Washington,95,105,0.75
+sample-071,rules,entity,LOC,Ukraine,179,186,0.75
+sample-071,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-071,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-071,rules,event,EVENT,meeting,160,167,0.75
+sample-071,rules,event,EVENT,summit,237,243,0.75
+sample-072,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-072,rules,entity,ORG,BBC,6,9,0.75
+sample-072,rules,entity,ORG,Apple,15,20,0.75
+sample-072,rules,entity,LOC,California,88,98,0.75
+sample-072,rules,entity,SOURCE,BBC,6,9,0.75
+sample-072,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-072,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-072,rules,event,EVENT,share buyback,46,59,0.75
+sample-072,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-072,rules,event,EVENT,announcement,151,163,0.75
+sample-073,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-073,rules,entity,ORG,AP News,6,13,0.75
+sample-073,rules,entity,LOC,Hualien,42,49,0.75
+sample-073,rules,entity,LOC,Taiwan,51,57,0.75
+sample-073,rules,entity,SOURCE,AP News,6,13,0.75
+sample-073,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-073,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-073,rules,event,EVENT,earthquake,26,36,0.75
+sample-074,rules,entity,DATE,2024,80,84,0.75
+sample-074,rules,entity,ORG,The Guardian,6,18,0.75
+sample-074,rules,entity,ORG,Tesla,33,38,0.75
+sample-074,rules,entity,LOC,Texas,56,61,0.75
+sample-074,rules,entity,LOC,California,66,76,0.75
+sample-074,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-074,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-074,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-074,rules,event,EVENT,layoffs,130,137,0.75
+sample-075,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-075,rules,entity,ORG,CNN,6,9,0.75
+sample-075,rules,entity,ORG,European Union,28,42,0.75
+sample-075,rules,entity,ORG,Microsoft,72,81,0.75
+sample-075,rules,entity,LOC,Brussels,85,93,0.75
+sample-075,rules,entity,SOURCE,CNN,6,9,0.75
+sample-075,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-075,rules,event,EVENT,investigation,53,66,0.75
+sample-076,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-076,rules,entity,ORG,Reuters,6,13,0.75
+sample-076,rules,entity,ORG,NATO,52,56,0.75
+sample-076,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-076,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-076,rules,entity,LOC,Washington,95,105,0.75
+sample-076,rules,entity,LOC,Ukraine,179,186,0.75
+sample-076,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-076,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-076,rules,event,EVENT,meeting,160,167,0.75
+sample-076,rules,event,EVENT,summit,237,243,0.75
+sample-077,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-077,rules,entity,ORG,BBC,6,9,0.75
+sample-077,rules,entity,ORG,Apple,15,20,0.75
+sample-077,rules,entity,LOC,California,88,98,0.75
+sample-077,rules,entity,SOURCE,BBC,6,9,0.75
+sample-077,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-077,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-077,rules,event,EVENT,share buyback,46,59,0.75
+sample-077,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-077,rules,event,EVENT,announcement,151,163,0.75
+sample-078,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-078,rules,entity,ORG,AP News,6,13,0.75
+sample-078,rules,entity,LOC,Hualien,42,49,0.75
+sample-078,rules,entity,LOC,Taiwan,51,57,0.75
+sample-078,rules,entity,SOURCE,AP News,6,13,0.75
+sample-078,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-078,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-078,rules,event,EVENT,earthquake,26,36,0.75
+sample-079,rules,entity,DATE,2024,80,84,0.75
+sample-079,rules,entity,ORG,The Guardian,6,18,0.75
+sample-079,rules,entity,ORG,Tesla,33,38,0.75
+sample-079,rules,entity,LOC,Texas,56,61,0.75
+sample-079,rules,entity,LOC,California,66,76,0.75
+sample-079,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-079,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-079,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-079,rules,event,EVENT,layoffs,130,137,0.75
+sample-080,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-080,rules,entity,ORG,CNN,6,9,0.75
+sample-080,rules,entity,ORG,European Union,28,42,0.75
+sample-080,rules,entity,ORG,Microsoft,72,81,0.75
+sample-080,rules,entity,LOC,Brussels,85,93,0.75
+sample-080,rules,entity,SOURCE,CNN,6,9,0.75
+sample-080,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-080,rules,event,EVENT,investigation,53,66,0.75
+sample-081,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-081,rules,entity,ORG,Reuters,6,13,0.75
+sample-081,rules,entity,ORG,NATO,52,56,0.75
+sample-081,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-081,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-081,rules,entity,LOC,Washington,95,105,0.75
+sample-081,rules,entity,LOC,Ukraine,179,186,0.75
+sample-081,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-081,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-081,rules,event,EVENT,meeting,160,167,0.75
+sample-081,rules,event,EVENT,summit,237,243,0.75
+sample-082,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-082,rules,entity,ORG,BBC,6,9,0.75
+sample-082,rules,entity,ORG,Apple,15,20,0.75
+sample-082,rules,entity,LOC,California,88,98,0.75
+sample-082,rules,entity,SOURCE,BBC,6,9,0.75
+sample-082,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-082,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-082,rules,event,EVENT,share buyback,46,59,0.75
+sample-082,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-082,rules,event,EVENT,announcement,151,163,0.75
+sample-083,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-083,rules,entity,ORG,AP News,6,13,0.75
+sample-083,rules,entity,LOC,Hualien,42,49,0.75
+sample-083,rules,entity,LOC,Taiwan,51,57,0.75
+sample-083,rules,entity,SOURCE,AP News,6,13,0.75
+sample-083,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-083,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-083,rules,event,EVENT,earthquake,26,36,0.75
+sample-084,rules,entity,DATE,2024,80,84,0.75
+sample-084,rules,entity,ORG,The Guardian,6,18,0.75
+sample-084,rules,entity,ORG,Tesla,33,38,0.75
+sample-084,rules,entity,LOC,Texas,56,61,0.75
+sample-084,rules,entity,LOC,California,66,76,0.75
+sample-084,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-084,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-084,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-084,rules,event,EVENT,layoffs,130,137,0.75
+sample-085,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-085,rules,entity,ORG,CNN,6,9,0.75
+sample-085,rules,entity,ORG,European Union,28,42,0.75
+sample-085,rules,entity,ORG,Microsoft,72,81,0.75
+sample-085,rules,entity,LOC,Brussels,85,93,0.75
+sample-085,rules,entity,SOURCE,CNN,6,9,0.75
+sample-085,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-085,rules,event,EVENT,investigation,53,66,0.75
+sample-086,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-086,rules,entity,ORG,Reuters,6,13,0.75
+sample-086,rules,entity,ORG,NATO,52,56,0.75
+sample-086,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-086,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-086,rules,entity,LOC,Washington,95,105,0.75
+sample-086,rules,entity,LOC,Ukraine,179,186,0.75
+sample-086,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-086,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-086,rules,event,EVENT,meeting,160,167,0.75
+sample-086,rules,event,EVENT,summit,237,243,0.75
+sample-087,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-087,rules,entity,ORG,BBC,6,9,0.75
+sample-087,rules,entity,ORG,Apple,15,20,0.75
+sample-087,rules,entity,LOC,California,88,98,0.75
+sample-087,rules,entity,SOURCE,BBC,6,9,0.75
+sample-087,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-087,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-087,rules,event,EVENT,share buyback,46,59,0.75
+sample-087,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-087,rules,event,EVENT,announcement,151,163,0.75
+sample-088,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-088,rules,entity,ORG,AP News,6,13,0.75
+sample-088,rules,entity,LOC,Hualien,42,49,0.75
+sample-088,rules,entity,LOC,Taiwan,51,57,0.75
+sample-088,rules,entity,SOURCE,AP News,6,13,0.75
+sample-088,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-088,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-088,rules,event,EVENT,earthquake,26,36,0.75
+sample-089,rules,entity,DATE,2024,80,84,0.75
+sample-089,rules,entity,ORG,The Guardian,6,18,0.75
+sample-089,rules,entity,ORG,Tesla,33,38,0.75
+sample-089,rules,entity,LOC,Texas,56,61,0.75
+sample-089,rules,entity,LOC,California,66,76,0.75
+sample-089,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-089,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-089,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-089,rules,event,EVENT,layoffs,130,137,0.75
+sample-090,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-090,rules,entity,ORG,CNN,6,9,0.75
+sample-090,rules,entity,ORG,European Union,28,42,0.75
+sample-090,rules,entity,ORG,Microsoft,72,81,0.75
+sample-090,rules,entity,LOC,Brussels,85,93,0.75
+sample-090,rules,entity,SOURCE,CNN,6,9,0.75
+sample-090,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-090,rules,event,EVENT,investigation,53,66,0.75
+sample-091,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-091,rules,entity,ORG,Reuters,6,13,0.75
+sample-091,rules,entity,ORG,NATO,52,56,0.75
+sample-091,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-091,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-091,rules,entity,LOC,Washington,95,105,0.75
+sample-091,rules,entity,LOC,Ukraine,179,186,0.75
+sample-091,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-091,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-091,rules,event,EVENT,meeting,160,167,0.75
+sample-091,rules,event,EVENT,summit,237,243,0.75
+sample-092,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-092,rules,entity,ORG,BBC,6,9,0.75
+sample-092,rules,entity,ORG,Apple,15,20,0.75
+sample-092,rules,entity,LOC,California,88,98,0.75
+sample-092,rules,entity,SOURCE,BBC,6,9,0.75
+sample-092,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-092,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-092,rules,event,EVENT,share buyback,46,59,0.75
+sample-092,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-092,rules,event,EVENT,announcement,151,163,0.75
+sample-093,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-093,rules,entity,ORG,AP News,6,13,0.75
+sample-093,rules,entity,LOC,Hualien,42,49,0.75
+sample-093,rules,entity,LOC,Taiwan,51,57,0.75
+sample-093,rules,entity,SOURCE,AP News,6,13,0.75
+sample-093,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-093,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-093,rules,event,EVENT,earthquake,26,36,0.75
+sample-094,rules,entity,DATE,2024,80,84,0.75
+sample-094,rules,entity,ORG,The Guardian,6,18,0.75
+sample-094,rules,entity,ORG,Tesla,33,38,0.75
+sample-094,rules,entity,LOC,Texas,56,61,0.75
+sample-094,rules,entity,LOC,California,66,76,0.75
+sample-094,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-094,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-094,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-094,rules,event,EVENT,layoffs,130,137,0.75
+sample-095,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-095,rules,entity,ORG,CNN,6,9,0.75
+sample-095,rules,entity,ORG,European Union,28,42,0.75
+sample-095,rules,entity,ORG,Microsoft,72,81,0.75
+sample-095,rules,entity,LOC,Brussels,85,93,0.75
+sample-095,rules,entity,SOURCE,CNN,6,9,0.75
+sample-095,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-095,rules,event,EVENT,investigation,53,66,0.75
+sample-096,rules,entity,DATE,"April 4, 2024",109,122,0.75
+sample-096,rules,entity,ORG,Reuters,6,13,0.75
+sample-096,rules,entity,ORG,NATO,52,56,0.75
+sample-096,rules,entity,PERSON,Joe Biden,28,47,0.75
+sample-096,rules,entity,PERSON,Jens Stoltenberg,57,91,0.75
+sample-096,rules,entity,LOC,Washington,95,105,0.75
+sample-096,rules,entity,LOC,Ukraine,179,186,0.75
+sample-096,rules,entity,SOURCE,Reuters,6,13,0.75
+sample-096,rules,entity,IMPACT,strengthened NATO coordination,195,225,0.75
+sample-096,rules,event,EVENT,meeting,160,167,0.75
+sample-096,rules,event,EVENT,summit,237,243,0.75
+sample-097,rules,entity,DATE,"May 2, 2024",102,113,0.75
+sample-097,rules,entity,ORG,BBC,6,9,0.75
+sample-097,rules,entity,ORG,Apple,15,20,0.75
+sample-097,rules,entity,LOC,California,88,98,0.75
+sample-097,rules,entity,SOURCE,BBC,6,9,0.75
+sample-097,rules,entity,IMPACT,boosted investor confidence,164,191,0.75
+sample-097,rules,entity,IMPACT,lifted Apple shares,196,215,0.75
+sample-097,rules,event,EVENT,share buyback,46,59,0.75
+sample-097,rules,event,EVENT,quarterly earnings,66,84,0.75
+sample-097,rules,event,EVENT,announcement,151,163,0.75
+sample-098,rules,entity,DATE,"April 3, 2024",61,74,0.75
+sample-098,rules,entity,ORG,AP News,6,13,0.75
+sample-098,rules,entity,LOC,Hualien,42,49,0.75
+sample-098,rules,entity,LOC,Taiwan,51,57,0.75
+sample-098,rules,entity,SOURCE,AP News,6,13,0.75
+sample-098,rules,entity,IMPACT,damaging buildings,76,94,0.75
+sample-098,rules,entity,IMPACT,disrupting transport,99,119,0.75
+sample-098,rules,event,EVENT,earthquake,26,36,0.75
+sample-099,rules,entity,DATE,2024,80,84,0.75
+sample-099,rules,entity,ORG,The Guardian,6,18,0.75
+sample-099,rules,entity,ORG,Tesla,33,38,0.75
+sample-099,rules,entity,LOC,Texas,56,61,0.75
+sample-099,rules,entity,LOC,California,66,76,0.75
+sample-099,rules,entity,SOURCE,The Guardian,6,18,0.75
+sample-099,rules,entity,IMPACT,signal cost pressure,138,158,0.75
+sample-099,rules,entity,IMPACT,affect production planning,167,193,0.75
+sample-099,rules,event,EVENT,layoffs,130,137,0.75
+sample-100,rules,entity,DATE,"June 25, 2024",97,110,0.75
+sample-100,rules,entity,ORG,CNN,6,9,0.75
+sample-100,rules,entity,ORG,European Union,28,42,0.75
+sample-100,rules,entity,ORG,Microsoft,72,81,0.75
+sample-100,rules,entity,LOC,Brussels,85,93,0.75
+sample-100,rules,entity,SOURCE,CNN,6,9,0.75
+sample-100,rules,entity,IMPACT,harmed competition,185,203,0.75
+sample-100,rules,event,EVENT,investigation,53,66,0.75

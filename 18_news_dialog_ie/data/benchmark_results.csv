@@ -1,0 +1,2 @@
+extractor,examples,batch_size,total_seconds,docs_per_second,chars_per_second,estimated_tokens_per_second,mean_latency_ms,p95_latency_ms,peak_rss_mb,precision,recall,f1
+rules,100,16,0.009698199995909818,10311.191771893202,2355076.2007004074,588769.0501751018,0.0967329999548383,0.10868749996006954,0.0,0.9130434782608695,1.0,0.9545454545454545

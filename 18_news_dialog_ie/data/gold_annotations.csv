@@ -1,0 +1,841 @@
+dialog_id,label,value
+sample-001,DATE,"April 4, 2024"
+sample-001,EVENT,meeting
+sample-001,IMPACT,strengthened NATO coordination
+sample-001,LOC,Washington
+sample-001,ORG,NATO
+sample-001,ORG,Reuters
+sample-001,PERSON,Jens Stoltenberg
+sample-001,PERSON,Joe Biden
+sample-001,SOURCE,Reuters
+sample-002,DATE,"May 2, 2024"
+sample-002,EVENT,quarterly earnings
+sample-002,EVENT,share buyback
+sample-002,IMPACT,boosted investor confidence
+sample-002,LOC,California
+sample-002,ORG,Apple
+sample-002,ORG,BBC
+sample-002,SOURCE,BBC
+sample-003,DATE,"April 3, 2024"
+sample-003,EVENT,earthquake
+sample-003,IMPACT,damaging buildings
+sample-003,IMPACT,disrupting transport
+sample-003,LOC,Hualien
+sample-003,LOC,Taiwan
+sample-003,ORG,AP News
+sample-003,SOURCE,AP News
+sample-004,DATE,2024
+sample-004,EVENT,layoffs
+sample-004,IMPACT,affect production planning
+sample-004,IMPACT,signal cost pressure
+sample-004,LOC,California
+sample-004,LOC,Texas
+sample-004,ORG,Tesla
+sample-004,ORG,The Guardian
+sample-004,SOURCE,The Guardian
+sample-005,DATE,"June 25, 2024"
+sample-005,EVENT,investigation
+sample-005,IMPACT,harmed competition
+sample-005,LOC,Brussels
+sample-005,ORG,CNN
+sample-005,ORG,European Union
+sample-005,ORG,Microsoft
+sample-005,SOURCE,CNN
+sample-006,DATE,"April 4, 2024"
+sample-006,EVENT,meeting
+sample-006,IMPACT,strengthened NATO coordination
+sample-006,LOC,Washington
+sample-006,ORG,NATO
+sample-006,ORG,Reuters
+sample-006,PERSON,Jens Stoltenberg
+sample-006,PERSON,Joe Biden
+sample-006,SOURCE,Reuters
+sample-007,DATE,"May 2, 2024"
+sample-007,EVENT,quarterly earnings
+sample-007,EVENT,share buyback
+sample-007,IMPACT,boosted investor confidence
+sample-007,LOC,California
+sample-007,ORG,Apple
+sample-007,ORG,BBC
+sample-007,SOURCE,BBC
+sample-008,DATE,"April 3, 2024"
+sample-008,EVENT,earthquake
+sample-008,IMPACT,damaging buildings
+sample-008,IMPACT,disrupting transport
+sample-008,LOC,Hualien
+sample-008,LOC,Taiwan
+sample-008,ORG,AP News
+sample-008,SOURCE,AP News
+sample-009,DATE,2024
+sample-009,EVENT,layoffs
+sample-009,IMPACT,affect production planning
+sample-009,IMPACT,signal cost pressure
+sample-009,LOC,California
+sample-009,LOC,Texas
+sample-009,ORG,Tesla
+sample-009,ORG,The Guardian
+sample-009,SOURCE,The Guardian
+sample-010,DATE,"June 25, 2024"
+sample-010,EVENT,investigation
+sample-010,IMPACT,harmed competition
+sample-010,LOC,Brussels
+sample-010,ORG,CNN
+sample-010,ORG,European Union
+sample-010,ORG,Microsoft
+sample-010,SOURCE,CNN
+sample-011,DATE,"April 4, 2024"
+sample-011,EVENT,meeting
+sample-011,IMPACT,strengthened NATO coordination
+sample-011,LOC,Washington
+sample-011,ORG,NATO
+sample-011,ORG,Reuters
+sample-011,PERSON,Jens Stoltenberg
+sample-011,PERSON,Joe Biden
+sample-011,SOURCE,Reuters
+sample-012,DATE,"May 2, 2024"
+sample-012,EVENT,quarterly earnings
+sample-012,EVENT,share buyback
+sample-012,IMPACT,boosted investor confidence
+sample-012,LOC,California
+sample-012,ORG,Apple
+sample-012,ORG,BBC
+sample-012,SOURCE,BBC
+sample-013,DATE,"April 3, 2024"
+sample-013,EVENT,earthquake
+sample-013,IMPACT,damaging buildings
+sample-013,IMPACT,disrupting transport
+sample-013,LOC,Hualien
+sample-013,LOC,Taiwan
+sample-013,ORG,AP News
+sample-013,SOURCE,AP News
+sample-014,DATE,2024
+sample-014,EVENT,layoffs
+sample-014,IMPACT,affect production planning
+sample-014,IMPACT,signal cost pressure
+sample-014,LOC,California
+sample-014,LOC,Texas
+sample-014,ORG,Tesla
+sample-014,ORG,The Guardian
+sample-014,SOURCE,The Guardian
+sample-015,DATE,"June 25, 2024"
+sample-015,EVENT,investigation
+sample-015,IMPACT,harmed competition
+sample-015,LOC,Brussels
+sample-015,ORG,CNN
+sample-015,ORG,European Union
+sample-015,ORG,Microsoft
+sample-015,SOURCE,CNN
+sample-016,DATE,"April 4, 2024"
+sample-016,EVENT,meeting
+sample-016,IMPACT,strengthened NATO coordination
+sample-016,LOC,Washington
+sample-016,ORG,NATO
+sample-016,ORG,Reuters
+sample-016,PERSON,Jens Stoltenberg
+sample-016,PERSON,Joe Biden
+sample-016,SOURCE,Reuters
+sample-017,DATE,"May 2, 2024"
+sample-017,EVENT,quarterly earnings
+sample-017,EVENT,share buyback
+sample-017,IMPACT,boosted investor confidence
+sample-017,LOC,California
+sample-017,ORG,Apple
+sample-017,ORG,BBC
+sample-017,SOURCE,BBC
+sample-018,DATE,"April 3, 2024"
+sample-018,EVENT,earthquake
+sample-018,IMPACT,damaging buildings
+sample-018,IMPACT,disrupting transport
+sample-018,LOC,Hualien
+sample-018,LOC,Taiwan
+sample-018,ORG,AP News
+sample-018,SOURCE,AP News
+sample-019,DATE,2024
+sample-019,EVENT,layoffs
+sample-019,IMPACT,affect production planning
+sample-019,IMPACT,signal cost pressure
+sample-019,LOC,California
+sample-019,LOC,Texas
+sample-019,ORG,Tesla
+sample-019,ORG,The Guardian
+sample-019,SOURCE,The Guardian
+sample-020,DATE,"June 25, 2024"
+sample-020,EVENT,investigation
+sample-020,IMPACT,harmed competition
+sample-020,LOC,Brussels
+sample-020,ORG,CNN
+sample-020,ORG,European Union
+sample-020,ORG,Microsoft
+sample-020,SOURCE,CNN
+sample-021,DATE,"April 4, 2024"
+sample-021,EVENT,meeting
+sample-021,IMPACT,strengthened NATO coordination
+sample-021,LOC,Washington
+sample-021,ORG,NATO
+sample-021,ORG,Reuters
+sample-021,PERSON,Jens Stoltenberg
+sample-021,PERSON,Joe Biden
+sample-021,SOURCE,Reuters
+sample-022,DATE,"May 2, 2024"
+sample-022,EVENT,quarterly earnings
+sample-022,EVENT,share buyback
+sample-022,IMPACT,boosted investor confidence
+sample-022,LOC,California
+sample-022,ORG,Apple
+sample-022,ORG,BBC
+sample-022,SOURCE,BBC
+sample-023,DATE,"April 3, 2024"
+sample-023,EVENT,earthquake
+sample-023,IMPACT,damaging buildings
+sample-023,IMPACT,disrupting transport
+sample-023,LOC,Hualien
+sample-023,LOC,Taiwan
+sample-023,ORG,AP News
+sample-023,SOURCE,AP News
+sample-024,DATE,2024
+sample-024,EVENT,layoffs
+sample-024,IMPACT,affect production planning
+sample-024,IMPACT,signal cost pressure
+sample-024,LOC,California
+sample-024,LOC,Texas
+sample-024,ORG,Tesla
+sample-024,ORG,The Guardian
+sample-024,SOURCE,The Guardian
+sample-025,DATE,"June 25, 2024"
+sample-025,EVENT,investigation
+sample-025,IMPACT,harmed competition
+sample-025,LOC,Brussels
+sample-025,ORG,CNN
+sample-025,ORG,European Union
+sample-025,ORG,Microsoft
+sample-025,SOURCE,CNN
+sample-026,DATE,"April 4, 2024"
+sample-026,EVENT,meeting
+sample-026,IMPACT,strengthened NATO coordination
+sample-026,LOC,Washington
+sample-026,ORG,NATO
+sample-026,ORG,Reuters
+sample-026,PERSON,Jens Stoltenberg
+sample-026,PERSON,Joe Biden
+sample-026,SOURCE,Reuters
+sample-027,DATE,"May 2, 2024"
+sample-027,EVENT,quarterly earnings
+sample-027,EVENT,share buyback
+sample-027,IMPACT,boosted investor confidence
+sample-027,LOC,California
+sample-027,ORG,Apple
+sample-027,ORG,BBC
+sample-027,SOURCE,BBC
+sample-028,DATE,"April 3, 2024"
+sample-028,EVENT,earthquake
+sample-028,IMPACT,damaging buildings
+sample-028,IMPACT,disrupting transport
+sample-028,LOC,Hualien
+sample-028,LOC,Taiwan
+sample-028,ORG,AP News
+sample-028,SOURCE,AP News
+sample-029,DATE,2024
+sample-029,EVENT,layoffs
+sample-029,IMPACT,affect production planning
+sample-029,IMPACT,signal cost pressure
+sample-029,LOC,California
+sample-029,LOC,Texas
+sample-029,ORG,Tesla
+sample-029,ORG,The Guardian
+sample-029,SOURCE,The Guardian
+sample-030,DATE,"June 25, 2024"
+sample-030,EVENT,investigation
+sample-030,IMPACT,harmed competition
+sample-030,LOC,Brussels
+sample-030,ORG,CNN
+sample-030,ORG,European Union
+sample-030,ORG,Microsoft
+sample-030,SOURCE,CNN
+sample-031,DATE,"April 4, 2024"
+sample-031,EVENT,meeting
+sample-031,IMPACT,strengthened NATO coordination
+sample-031,LOC,Washington
+sample-031,ORG,NATO
+sample-031,ORG,Reuters
+sample-031,PERSON,Jens Stoltenberg
+sample-031,PERSON,Joe Biden
+sample-031,SOURCE,Reuters
+sample-032,DATE,"May 2, 2024"
+sample-032,EVENT,quarterly earnings
+sample-032,EVENT,share buyback
+sample-032,IMPACT,boosted investor confidence
+sample-032,LOC,California
+sample-032,ORG,Apple
+sample-032,ORG,BBC
+sample-032,SOURCE,BBC
+sample-033,DATE,"April 3, 2024"
+sample-033,EVENT,earthquake
+sample-033,IMPACT,damaging buildings
+sample-033,IMPACT,disrupting transport
+sample-033,LOC,Hualien
+sample-033,LOC,Taiwan
+sample-033,ORG,AP News
+sample-033,SOURCE,AP News
+sample-034,DATE,2024
+sample-034,EVENT,layoffs
+sample-034,IMPACT,affect production planning
+sample-034,IMPACT,signal cost pressure
+sample-034,LOC,California
+sample-034,LOC,Texas
+sample-034,ORG,Tesla
+sample-034,ORG,The Guardian
+sample-034,SOURCE,The Guardian
+sample-035,DATE,"June 25, 2024"
+sample-035,EVENT,investigation
+sample-035,IMPACT,harmed competition
+sample-035,LOC,Brussels
+sample-035,ORG,CNN
+sample-035,ORG,European Union
+sample-035,ORG,Microsoft
+sample-035,SOURCE,CNN
+sample-036,DATE,"April 4, 2024"
+sample-036,EVENT,meeting
+sample-036,IMPACT,strengthened NATO coordination
+sample-036,LOC,Washington
+sample-036,ORG,NATO
+sample-036,ORG,Reuters
+sample-036,PERSON,Jens Stoltenberg
+sample-036,PERSON,Joe Biden
+sample-036,SOURCE,Reuters
+sample-037,DATE,"May 2, 2024"
+sample-037,EVENT,quarterly earnings
+sample-037,EVENT,share buyback
+sample-037,IMPACT,boosted investor confidence
+sample-037,LOC,California
+sample-037,ORG,Apple
+sample-037,ORG,BBC
+sample-037,SOURCE,BBC
+sample-038,DATE,"April 3, 2024"
+sample-038,EVENT,earthquake
+sample-038,IMPACT,damaging buildings
+sample-038,IMPACT,disrupting transport
+sample-038,LOC,Hualien
+sample-038,LOC,Taiwan
+sample-038,ORG,AP News
+sample-038,SOURCE,AP News
+sample-039,DATE,2024
+sample-039,EVENT,layoffs
+sample-039,IMPACT,affect production planning
+sample-039,IMPACT,signal cost pressure
+sample-039,LOC,California
+sample-039,LOC,Texas
+sample-039,ORG,Tesla
+sample-039,ORG,The Guardian
+sample-039,SOURCE,The Guardian
+sample-040,DATE,"June 25, 2024"
+sample-040,EVENT,investigation
+sample-040,IMPACT,harmed competition
+sample-040,LOC,Brussels
+sample-040,ORG,CNN
+sample-040,ORG,European Union
+sample-040,ORG,Microsoft
+sample-040,SOURCE,CNN
+sample-041,DATE,"April 4, 2024"
+sample-041,EVENT,meeting
+sample-041,IMPACT,strengthened NATO coordination
+sample-041,LOC,Washington
+sample-041,ORG,NATO
+sample-041,ORG,Reuters
+sample-041,PERSON,Jens Stoltenberg
+sample-041,PERSON,Joe Biden
+sample-041,SOURCE,Reuters
+sample-042,DATE,"May 2, 2024"
+sample-042,EVENT,quarterly earnings
+sample-042,EVENT,share buyback
+sample-042,IMPACT,boosted investor confidence
+sample-042,LOC,California
+sample-042,ORG,Apple
+sample-042,ORG,BBC
+sample-042,SOURCE,BBC
+sample-043,DATE,"April 3, 2024"
+sample-043,EVENT,earthquake
+sample-043,IMPACT,damaging buildings
+sample-043,IMPACT,disrupting transport
+sample-043,LOC,Hualien
+sample-043,LOC,Taiwan
+sample-043,ORG,AP News
+sample-043,SOURCE,AP News
+sample-044,DATE,2024
+sample-044,EVENT,layoffs
+sample-044,IMPACT,affect production planning
+sample-044,IMPACT,signal cost pressure
+sample-044,LOC,California
+sample-044,LOC,Texas
+sample-044,ORG,Tesla
+sample-044,ORG,The Guardian
+sample-044,SOURCE,The Guardian
+sample-045,DATE,"June 25, 2024"
+sample-045,EVENT,investigation
+sample-045,IMPACT,harmed competition
+sample-045,LOC,Brussels
+sample-045,ORG,CNN
+sample-045,ORG,European Union
+sample-045,ORG,Microsoft
+sample-045,SOURCE,CNN
+sample-046,DATE,"April 4, 2024"
+sample-046,EVENT,meeting
+sample-046,IMPACT,strengthened NATO coordination
+sample-046,LOC,Washington
+sample-046,ORG,NATO
+sample-046,ORG,Reuters
+sample-046,PERSON,Jens Stoltenberg
+sample-046,PERSON,Joe Biden
+sample-046,SOURCE,Reuters
+sample-047,DATE,"May 2, 2024"
+sample-047,EVENT,quarterly earnings
+sample-047,EVENT,share buyback
+sample-047,IMPACT,boosted investor confidence
+sample-047,LOC,California
+sample-047,ORG,Apple
+sample-047,ORG,BBC
+sample-047,SOURCE,BBC
+sample-048,DATE,"April 3, 2024"
+sample-048,EVENT,earthquake
+sample-048,IMPACT,damaging buildings
+sample-048,IMPACT,disrupting transport
+sample-048,LOC,Hualien
+sample-048,LOC,Taiwan
+sample-048,ORG,AP News
+sample-048,SOURCE,AP News
+sample-049,DATE,2024
+sample-049,EVENT,layoffs
+sample-049,IMPACT,affect production planning
+sample-049,IMPACT,signal cost pressure
+sample-049,LOC,California
+sample-049,LOC,Texas
+sample-049,ORG,Tesla
+sample-049,ORG,The Guardian
+sample-049,SOURCE,The Guardian
+sample-050,DATE,"June 25, 2024"
+sample-050,EVENT,investigation
+sample-050,IMPACT,harmed competition
+sample-050,LOC,Brussels
+sample-050,ORG,CNN
+sample-050,ORG,European Union
+sample-050,ORG,Microsoft
+sample-050,SOURCE,CNN
+sample-051,DATE,"April 4, 2024"
+sample-051,EVENT,meeting
+sample-051,IMPACT,strengthened NATO coordination
+sample-051,LOC,Washington
+sample-051,ORG,NATO
+sample-051,ORG,Reuters
+sample-051,PERSON,Jens Stoltenberg
+sample-051,PERSON,Joe Biden
+sample-051,SOURCE,Reuters
+sample-052,DATE,"May 2, 2024"
+sample-052,EVENT,quarterly earnings
+sample-052,EVENT,share buyback
+sample-052,IMPACT,boosted investor confidence
+sample-052,LOC,California
+sample-052,ORG,Apple
+sample-052,ORG,BBC
+sample-052,SOURCE,BBC
+sample-053,DATE,"April 3, 2024"
+sample-053,EVENT,earthquake
+sample-053,IMPACT,damaging buildings
+sample-053,IMPACT,disrupting transport
+sample-053,LOC,Hualien
+sample-053,LOC,Taiwan
+sample-053,ORG,AP News
+sample-053,SOURCE,AP News
+sample-054,DATE,2024
+sample-054,EVENT,layoffs
+sample-054,IMPACT,affect production planning
+sample-054,IMPACT,signal cost pressure
+sample-054,LOC,California
+sample-054,LOC,Texas
+sample-054,ORG,Tesla
+sample-054,ORG,The Guardian
+sample-054,SOURCE,The Guardian
+sample-055,DATE,"June 25, 2024"
+sample-055,EVENT,investigation
+sample-055,IMPACT,harmed competition
+sample-055,LOC,Brussels
+sample-055,ORG,CNN
+sample-055,ORG,European Union
+sample-055,ORG,Microsoft
+sample-055,SOURCE,CNN
+sample-056,DATE,"April 4, 2024"
+sample-056,EVENT,meeting
+sample-056,IMPACT,strengthened NATO coordination
+sample-056,LOC,Washington
+sample-056,ORG,NATO
+sample-056,ORG,Reuters
+sample-056,PERSON,Jens Stoltenberg
+sample-056,PERSON,Joe Biden
+sample-056,SOURCE,Reuters
+sample-057,DATE,"May 2, 2024"
+sample-057,EVENT,quarterly earnings
+sample-057,EVENT,share buyback
+sample-057,IMPACT,boosted investor confidence
+sample-057,LOC,California
+sample-057,ORG,Apple
+sample-057,ORG,BBC
+sample-057,SOURCE,BBC
+sample-058,DATE,"April 3, 2024"
+sample-058,EVENT,earthquake
+sample-058,IMPACT,damaging buildings
+sample-058,IMPACT,disrupting transport
+sample-058,LOC,Hualien
+sample-058,LOC,Taiwan
+sample-058,ORG,AP News
+sample-058,SOURCE,AP News
+sample-059,DATE,2024
+sample-059,EVENT,layoffs
+sample-059,IMPACT,affect production planning
+sample-059,IMPACT,signal cost pressure
+sample-059,LOC,California
+sample-059,LOC,Texas
+sample-059,ORG,Tesla
+sample-059,ORG,The Guardian
+sample-059,SOURCE,The Guardian
+sample-060,DATE,"June 25, 2024"
+sample-060,EVENT,investigation
+sample-060,IMPACT,harmed competition
+sample-060,LOC,Brussels
+sample-060,ORG,CNN
+sample-060,ORG,European Union
+sample-060,ORG,Microsoft
+sample-060,SOURCE,CNN
+sample-061,DATE,"April 4, 2024"
+sample-061,EVENT,meeting
+sample-061,IMPACT,strengthened NATO coordination
+sample-061,LOC,Washington
+sample-061,ORG,NATO
+sample-061,ORG,Reuters
+sample-061,PERSON,Jens Stoltenberg
+sample-061,PERSON,Joe Biden
+sample-061,SOURCE,Reuters
+sample-062,DATE,"May 2, 2024"
+sample-062,EVENT,quarterly earnings
+sample-062,EVENT,share buyback
+sample-062,IMPACT,boosted investor confidence
+sample-062,LOC,California
+sample-062,ORG,Apple
+sample-062,ORG,BBC
+sample-062,SOURCE,BBC
+sample-063,DATE,"April 3, 2024"
+sample-063,EVENT,earthquake
+sample-063,IMPACT,damaging buildings
+sample-063,IMPACT,disrupting transport
+sample-063,LOC,Hualien
+sample-063,LOC,Taiwan
+sample-063,ORG,AP News
+sample-063,SOURCE,AP News
+sample-064,DATE,2024
+sample-064,EVENT,layoffs
+sample-064,IMPACT,affect production planning
+sample-064,IMPACT,signal cost pressure
+sample-064,LOC,California
+sample-064,LOC,Texas
+sample-064,ORG,Tesla
+sample-064,ORG,The Guardian
+sample-064,SOURCE,The Guardian
+sample-065,DATE,"June 25, 2024"
+sample-065,EVENT,investigation
+sample-065,IMPACT,harmed competition
+sample-065,LOC,Brussels
+sample-065,ORG,CNN
+sample-065,ORG,European Union
+sample-065,ORG,Microsoft
+sample-065,SOURCE,CNN
+sample-066,DATE,"April 4, 2024"
+sample-066,EVENT,meeting
+sample-066,IMPACT,strengthened NATO coordination
+sample-066,LOC,Washington
+sample-066,ORG,NATO
+sample-066,ORG,Reuters
+sample-066,PERSON,Jens Stoltenberg
+sample-066,PERSON,Joe Biden
+sample-066,SOURCE,Reuters
+sample-067,DATE,"May 2, 2024"
+sample-067,EVENT,quarterly earnings
+sample-067,EVENT,share buyback
+sample-067,IMPACT,boosted investor confidence
+sample-067,LOC,California
+sample-067,ORG,Apple
+sample-067,ORG,BBC
+sample-067,SOURCE,BBC
+sample-068,DATE,"April 3, 2024"
+sample-068,EVENT,earthquake
+sample-068,IMPACT,damaging buildings
+sample-068,IMPACT,disrupting transport
+sample-068,LOC,Hualien
+sample-068,LOC,Taiwan
+sample-068,ORG,AP News
+sample-068,SOURCE,AP News
+sample-069,DATE,2024
+sample-069,EVENT,layoffs
+sample-069,IMPACT,affect production planning
+sample-069,IMPACT,signal cost pressure
+sample-069,LOC,California
+sample-069,LOC,Texas
+sample-069,ORG,Tesla
+sample-069,ORG,The Guardian
+sample-069,SOURCE,The Guardian
+sample-070,DATE,"June 25, 2024"
+sample-070,EVENT,investigation
+sample-070,IMPACT,harmed competition
+sample-070,LOC,Brussels
+sample-070,ORG,CNN
+sample-070,ORG,European Union
+sample-070,ORG,Microsoft
+sample-070,SOURCE,CNN
+sample-071,DATE,"April 4, 2024"
+sample-071,EVENT,meeting
+sample-071,IMPACT,strengthened NATO coordination
+sample-071,LOC,Washington
+sample-071,ORG,NATO
+sample-071,ORG,Reuters
+sample-071,PERSON,Jens Stoltenberg
+sample-071,PERSON,Joe Biden
+sample-071,SOURCE,Reuters
+sample-072,DATE,"May 2, 2024"
+sample-072,EVENT,quarterly earnings
+sample-072,EVENT,share buyback
+sample-072,IMPACT,boosted investor confidence
+sample-072,LOC,California
+sample-072,ORG,Apple
+sample-072,ORG,BBC
+sample-072,SOURCE,BBC
+sample-073,DATE,"April 3, 2024"
+sample-073,EVENT,earthquake
+sample-073,IMPACT,damaging buildings
+sample-073,IMPACT,disrupting transport
+sample-073,LOC,Hualien
+sample-073,LOC,Taiwan
+sample-073,ORG,AP News
+sample-073,SOURCE,AP News
+sample-074,DATE,2024
+sample-074,EVENT,layoffs
+sample-074,IMPACT,affect production planning
+sample-074,IMPACT,signal cost pressure
+sample-074,LOC,California
+sample-074,LOC,Texas
+sample-074,ORG,Tesla
+sample-074,ORG,The Guardian
+sample-074,SOURCE,The Guardian
+sample-075,DATE,"June 25, 2024"
+sample-075,EVENT,investigation
+sample-075,IMPACT,harmed competition
+sample-075,LOC,Brussels
+sample-075,ORG,CNN
+sample-075,ORG,European Union
+sample-075,ORG,Microsoft
+sample-075,SOURCE,CNN
+sample-076,DATE,"April 4, 2024"
+sample-076,EVENT,meeting
+sample-076,IMPACT,strengthened NATO coordination
+sample-076,LOC,Washington
+sample-076,ORG,NATO
+sample-076,ORG,Reuters
+sample-076,PERSON,Jens Stoltenberg
+sample-076,PERSON,Joe Biden
+sample-076,SOURCE,Reuters
+sample-077,DATE,"May 2, 2024"
+sample-077,EVENT,quarterly earnings
+sample-077,EVENT,share buyback
+sample-077,IMPACT,boosted investor confidence
+sample-077,LOC,California
+sample-077,ORG,Apple
+sample-077,ORG,BBC
+sample-077,SOURCE,BBC
+sample-078,DATE,"April 3, 2024"
+sample-078,EVENT,earthquake
+sample-078,IMPACT,damaging buildings
+sample-078,IMPACT,disrupting transport
+sample-078,LOC,Hualien
+sample-078,LOC,Taiwan
+sample-078,ORG,AP News
+sample-078,SOURCE,AP News
+sample-079,DATE,2024
+sample-079,EVENT,layoffs
+sample-079,IMPACT,affect production planning
+sample-079,IMPACT,signal cost pressure
+sample-079,LOC,California
+sample-079,LOC,Texas
+sample-079,ORG,Tesla
+sample-079,ORG,The Guardian
+sample-079,SOURCE,The Guardian
+sample-080,DATE,"June 25, 2024"
+sample-080,EVENT,investigation
+sample-080,IMPACT,harmed competition
+sample-080,LOC,Brussels
+sample-080,ORG,CNN
+sample-080,ORG,European Union
+sample-080,ORG,Microsoft
+sample-080,SOURCE,CNN
+sample-081,DATE,"April 4, 2024"
+sample-081,EVENT,meeting
+sample-081,IMPACT,strengthened NATO coordination
+sample-081,LOC,Washington
+sample-081,ORG,NATO
+sample-081,ORG,Reuters
+sample-081,PERSON,Jens Stoltenberg
+sample-081,PERSON,Joe Biden
+sample-081,SOURCE,Reuters
+sample-082,DATE,"May 2, 2024"
+sample-082,EVENT,quarterly earnings
+sample-082,EVENT,share buyback
+sample-082,IMPACT,boosted investor confidence
+sample-082,LOC,California
+sample-082,ORG,Apple
+sample-082,ORG,BBC
+sample-082,SOURCE,BBC
+sample-083,DATE,"April 3, 2024"
+sample-083,EVENT,earthquake
+sample-083,IMPACT,damaging buildings
+sample-083,IMPACT,disrupting transport
+sample-083,LOC,Hualien
+sample-083,LOC,Taiwan
+sample-083,ORG,AP News
+sample-083,SOURCE,AP News
+sample-084,DATE,2024
+sample-084,EVENT,layoffs
+sample-084,IMPACT,affect production planning
+sample-084,IMPACT,signal cost pressure
+sample-084,LOC,California
+sample-084,LOC,Texas
+sample-084,ORG,Tesla
+sample-084,ORG,The Guardian
+sample-084,SOURCE,The Guardian
+sample-085,DATE,"June 25, 2024"
+sample-085,EVENT,investigation
+sample-085,IMPACT,harmed competition
+sample-085,LOC,Brussels
+sample-085,ORG,CNN
+sample-085,ORG,European Union
+sample-085,ORG,Microsoft
+sample-085,SOURCE,CNN
+sample-086,DATE,"April 4, 2024"
+sample-086,EVENT,meeting
+sample-086,IMPACT,strengthened NATO coordination
+sample-086,LOC,Washington
+sample-086,ORG,NATO
+sample-086,ORG,Reuters
+sample-086,PERSON,Jens Stoltenberg
+sample-086,PERSON,Joe Biden
+sample-086,SOURCE,Reuters
+sample-087,DATE,"May 2, 2024"
+sample-087,EVENT,quarterly earnings
+sample-087,EVENT,share buyback
+sample-087,IMPACT,boosted investor confidence
+sample-087,LOC,California
+sample-087,ORG,Apple
+sample-087,ORG,BBC
+sample-087,SOURCE,BBC
+sample-088,DATE,"April 3, 2024"
+sample-088,EVENT,earthquake
+sample-088,IMPACT,damaging buildings
+sample-088,IMPACT,disrupting transport
+sample-088,LOC,Hualien
+sample-088,LOC,Taiwan
+sample-088,ORG,AP News
+sample-088,SOURCE,AP News
+sample-089,DATE,2024
+sample-089,EVENT,layoffs
+sample-089,IMPACT,affect production planning
+sample-089,IMPACT,signal cost pressure
+sample-089,LOC,California
+sample-089,LOC,Texas
+sample-089,ORG,Tesla
+sample-089,ORG,The Guardian
+sample-089,SOURCE,The Guardian
+sample-090,DATE,"June 25, 2024"
+sample-090,EVENT,investigation
+sample-090,IMPACT,harmed competition
+sample-090,LOC,Brussels
+sample-090,ORG,CNN
+sample-090,ORG,European Union
+sample-090,ORG,Microsoft
+sample-090,SOURCE,CNN
+sample-091,DATE,"April 4, 2024"
+sample-091,EVENT,meeting
+sample-091,IMPACT,strengthened NATO coordination
+sample-091,LOC,Washington
+sample-091,ORG,NATO
+sample-091,ORG,Reuters
+sample-091,PERSON,Jens Stoltenberg
+sample-091,PERSON,Joe Biden
+sample-091,SOURCE,Reuters
+sample-092,DATE,"May 2, 2024"
+sample-092,EVENT,quarterly earnings
+sample-092,EVENT,share buyback
+sample-092,IMPACT,boosted investor confidence
+sample-092,LOC,California
+sample-092,ORG,Apple
+sample-092,ORG,BBC
+sample-092,SOURCE,BBC
+sample-093,DATE,"April 3, 2024"
+sample-093,EVENT,earthquake
+sample-093,IMPACT,damaging buildings
+sample-093,IMPACT,disrupting transport
+sample-093,LOC,Hualien
+sample-093,LOC,Taiwan
+sample-093,ORG,AP News
+sample-093,SOURCE,AP News
+sample-094,DATE,2024
+sample-094,EVENT,layoffs
+sample-094,IMPACT,affect production planning
+sample-094,IMPACT,signal cost pressure
+sample-094,LOC,California
+sample-094,LOC,Texas
+sample-094,ORG,Tesla
+sample-094,ORG,The Guardian
+sample-094,SOURCE,The Guardian
+sample-095,DATE,"June 25, 2024"
+sample-095,EVENT,investigation
+sample-095,IMPACT,harmed competition
+sample-095,LOC,Brussels
+sample-095,ORG,CNN
+sample-095,ORG,European Union
+sample-095,ORG,Microsoft
+sample-095,SOURCE,CNN
+sample-096,DATE,"April 4, 2024"
+sample-096,EVENT,meeting
+sample-096,IMPACT,strengthened NATO coordination
+sample-096,LOC,Washington
+sample-096,ORG,NATO
+sample-096,ORG,Reuters
+sample-096,PERSON,Jens Stoltenberg
+sample-096,PERSON,Joe Biden
+sample-096,SOURCE,Reuters
+sample-097,DATE,"May 2, 2024"
+sample-097,EVENT,quarterly earnings
+sample-097,EVENT,share buyback
+sample-097,IMPACT,boosted investor confidence
+sample-097,LOC,California
+sample-097,ORG,Apple
+sample-097,ORG,BBC
+sample-097,SOURCE,BBC
+sample-098,DATE,"April 3, 2024"
+sample-098,EVENT,earthquake
+sample-098,IMPACT,damaging buildings
+sample-098,IMPACT,disrupting transport
+sample-098,LOC,Hualien
+sample-098,LOC,Taiwan
+sample-098,ORG,AP News
+sample-098,SOURCE,AP News
+sample-099,DATE,2024
+sample-099,EVENT,layoffs
+sample-099,IMPACT,affect production planning
+sample-099,IMPACT,signal cost pressure
+sample-099,LOC,California
+sample-099,LOC,Texas
+sample-099,ORG,Tesla
+sample-099,ORG,The Guardian
+sample-099,SOURCE,The Guardian
+sample-100,DATE,"June 25, 2024"
+sample-100,EVENT,investigation
+sample-100,IMPACT,harmed competition
+sample-100,LOC,Brussels
+sample-100,ORG,CNN
+sample-100,ORG,European Union
+sample-100,ORG,Microsoft
+sample-100,SOURCE,CNN

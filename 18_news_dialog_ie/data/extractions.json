@@ -1,0 +1,1734 @@
+[
+  {
+    "dialog_id": "sample-001",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "April 4, 2024",
+        "start": 109,
+        "end": 122,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Reuters",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "NATO",
+        "start": 52,
+        "end": 56,
+        "confidence": 0.75
+      },
+      {
+        "label": "PERSON",
+        "value": "Joe Biden",
+        "start": 28,
+        "end": 47,
+        "confidence": 0.75
+      },
+      {
+        "label": "PERSON",
+        "value": "Jens Stoltenberg",
+        "start": 57,
+        "end": 91,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Washington",
+        "start": 95,
+        "end": 105,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Ukraine",
+        "start": 179,
+        "end": 186,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "Reuters",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "strengthened NATO coordination",
+        "start": 195,
+        "end": 225,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "meeting",
+        "start": 160,
+        "end": 167,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "summit",
+        "start": 237,
+        "end": 243,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "meeting",
+        "source": "Reuters",
+        "date": "April 4, 2024",
+        "location": "Washington",
+        "impact": "strengthened NATO coordination"
+      },
+      {
+        "event": "summit",
+        "source": "Reuters",
+        "date": "April 4, 2024",
+        "location": "Washington",
+        "impact": "strengthened NATO coordination"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-002",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "May 2, 2024",
+        "start": 102,
+        "end": 113,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "BBC",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Apple",
+        "start": 15,
+        "end": 20,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "California",
+        "start": 88,
+        "end": 98,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "BBC",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "boosted investor confidence",
+        "start": 164,
+        "end": 191,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "lifted Apple shares",
+        "start": 196,
+        "end": 215,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "share buyback",
+        "start": 46,
+        "end": 59,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "quarterly earnings",
+        "start": 66,
+        "end": 84,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "announcement",
+        "start": 151,
+        "end": 163,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "share buyback",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      },
+      {
+        "event": "quarterly earnings",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      },
+      {
+        "event": "announcement",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-003",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "April 3, 2024",
+        "start": 61,
+        "end": 74,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "AP News",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Hualien",
+        "start": 42,
+        "end": 49,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Taiwan",
+        "start": 51,
+        "end": 57,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "AP News",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "damaging buildings",
+        "start": 76,
+        "end": 94,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "disrupting transport",
+        "start": 99,
+        "end": 119,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "earthquake",
+        "start": 26,
+        "end": 36,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "earthquake",
+        "source": "AP News",
+        "date": "April 3, 2024",
+        "location": "Hualien",
+        "impact": "damaging buildings"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-004",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "2024",
+        "start": 80,
+        "end": 84,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "The Guardian",
+        "start": 6,
+        "end": 18,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Tesla",
+        "start": 33,
+        "end": 38,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Texas",
+        "start": 56,
+        "end": 61,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "California",
+        "start": 66,
+        "end": 76,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "The Guardian",
+        "start": 6,
+        "end": 18,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "signal cost pressure",
+        "start": 138,
+        "end": 158,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "affect production planning",
+        "start": 167,
+        "end": 193,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "layoffs",
+        "start": 130,
+        "end": 137,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "layoffs",
+        "source": "The Guardian",
+        "date": "2024",
+        "location": "Texas",
+        "impact": "signal cost pressure"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-005",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "June 25, 2024",
+        "start": 97,
+        "end": 110,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "CNN",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "European Union",
+        "start": 28,
+        "end": 42,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Microsoft",
+        "start": 72,
+        "end": 81,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Brussels",
+        "start": 85,
+        "end": 93,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "CNN",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "harmed competition",
+        "start": 185,
+        "end": 203,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "investigation",
+        "start": 53,
+        "end": 66,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "investigation",
+        "source": "CNN",
+        "date": "June 25, 2024",
+        "location": "Brussels",
+        "impact": "harmed competition"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-006",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "April 4, 2024",
+        "start": 109,
+        "end": 122,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Reuters",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "NATO",
+        "start": 52,
+        "end": 56,
+        "confidence": 0.75
+      },
+      {
+        "label": "PERSON",
+        "value": "Joe Biden",
+        "start": 28,
+        "end": 47,
+        "confidence": 0.75
+      },
+      {
+        "label": "PERSON",
+        "value": "Jens Stoltenberg",
+        "start": 57,
+        "end": 91,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Washington",
+        "start": 95,
+        "end": 105,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Ukraine",
+        "start": 179,
+        "end": 186,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "Reuters",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "strengthened NATO coordination",
+        "start": 195,
+        "end": 225,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "meeting",
+        "start": 160,
+        "end": 167,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "summit",
+        "start": 237,
+        "end": 243,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "meeting",
+        "source": "Reuters",
+        "date": "April 4, 2024",
+        "location": "Washington",
+        "impact": "strengthened NATO coordination"
+      },
+      {
+        "event": "summit",
+        "source": "Reuters",
+        "date": "April 4, 2024",
+        "location": "Washington",
+        "impact": "strengthened NATO coordination"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-007",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "May 2, 2024",
+        "start": 102,
+        "end": 113,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "BBC",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Apple",
+        "start": 15,
+        "end": 20,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "California",
+        "start": 88,
+        "end": 98,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "BBC",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "boosted investor confidence",
+        "start": 164,
+        "end": 191,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "lifted Apple shares",
+        "start": 196,
+        "end": 215,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "share buyback",
+        "start": 46,
+        "end": 59,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "quarterly earnings",
+        "start": 66,
+        "end": 84,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "announcement",
+        "start": 151,
+        "end": 163,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "share buyback",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      },
+      {
+        "event": "quarterly earnings",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      },
+      {
+        "event": "announcement",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-008",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "April 3, 2024",
+        "start": 61,
+        "end": 74,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "AP News",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Hualien",
+        "start": 42,
+        "end": 49,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Taiwan",
+        "start": 51,
+        "end": 57,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "AP News",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "damaging buildings",
+        "start": 76,
+        "end": 94,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "disrupting transport",
+        "start": 99,
+        "end": 119,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "earthquake",
+        "start": 26,
+        "end": 36,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "earthquake",
+        "source": "AP News",
+        "date": "April 3, 2024",
+        "location": "Hualien",
+        "impact": "damaging buildings"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-009",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "2024",
+        "start": 80,
+        "end": 84,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "The Guardian",
+        "start": 6,
+        "end": 18,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Tesla",
+        "start": 33,
+        "end": 38,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Texas",
+        "start": 56,
+        "end": 61,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "California",
+        "start": 66,
+        "end": 76,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "The Guardian",
+        "start": 6,
+        "end": 18,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "signal cost pressure",
+        "start": 138,
+        "end": 158,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "affect production planning",
+        "start": 167,
+        "end": 193,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "layoffs",
+        "start": 130,
+        "end": 137,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "layoffs",
+        "source": "The Guardian",
+        "date": "2024",
+        "location": "Texas",
+        "impact": "signal cost pressure"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-010",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "June 25, 2024",
+        "start": 97,
+        "end": 110,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "CNN",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "European Union",
+        "start": 28,
+        "end": 42,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Microsoft",
+        "start": 72,
+        "end": 81,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Brussels",
+        "start": 85,
+        "end": 93,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "CNN",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "harmed competition",
+        "start": 185,
+        "end": 203,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "investigation",
+        "start": 53,
+        "end": 66,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "investigation",
+        "source": "CNN",
+        "date": "June 25, 2024",
+        "location": "Brussels",
+        "impact": "harmed competition"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-011",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "April 4, 2024",
+        "start": 109,
+        "end": 122,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Reuters",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "NATO",
+        "start": 52,
+        "end": 56,
+        "confidence": 0.75
+      },
+      {
+        "label": "PERSON",
+        "value": "Joe Biden",
+        "start": 28,
+        "end": 47,
+        "confidence": 0.75
+      },
+      {
+        "label": "PERSON",
+        "value": "Jens Stoltenberg",
+        "start": 57,
+        "end": 91,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Washington",
+        "start": 95,
+        "end": 105,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Ukraine",
+        "start": 179,
+        "end": 186,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "Reuters",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "strengthened NATO coordination",
+        "start": 195,
+        "end": 225,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "meeting",
+        "start": 160,
+        "end": 167,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "summit",
+        "start": 237,
+        "end": 243,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "meeting",
+        "source": "Reuters",
+        "date": "April 4, 2024",
+        "location": "Washington",
+        "impact": "strengthened NATO coordination"
+      },
+      {
+        "event": "summit",
+        "source": "Reuters",
+        "date": "April 4, 2024",
+        "location": "Washington",
+        "impact": "strengthened NATO coordination"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-012",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "May 2, 2024",
+        "start": 102,
+        "end": 113,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "BBC",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Apple",
+        "start": 15,
+        "end": 20,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "California",
+        "start": 88,
+        "end": 98,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "BBC",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "boosted investor confidence",
+        "start": 164,
+        "end": 191,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "lifted Apple shares",
+        "start": 196,
+        "end": 215,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "share buyback",
+        "start": 46,
+        "end": 59,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "quarterly earnings",
+        "start": 66,
+        "end": 84,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "announcement",
+        "start": 151,
+        "end": 163,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "share buyback",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      },
+      {
+        "event": "quarterly earnings",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      },
+      {
+        "event": "announcement",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-013",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "April 3, 2024",
+        "start": 61,
+        "end": 74,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "AP News",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Hualien",
+        "start": 42,
+        "end": 49,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Taiwan",
+        "start": 51,
+        "end": 57,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "AP News",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "damaging buildings",
+        "start": 76,
+        "end": 94,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "disrupting transport",
+        "start": 99,
+        "end": 119,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "earthquake",
+        "start": 26,
+        "end": 36,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "earthquake",
+        "source": "AP News",
+        "date": "April 3, 2024",
+        "location": "Hualien",
+        "impact": "damaging buildings"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-014",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "2024",
+        "start": 80,
+        "end": 84,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "The Guardian",
+        "start": 6,
+        "end": 18,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Tesla",
+        "start": 33,
+        "end": 38,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Texas",
+        "start": 56,
+        "end": 61,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "California",
+        "start": 66,
+        "end": 76,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "The Guardian",
+        "start": 6,
+        "end": 18,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "signal cost pressure",
+        "start": 138,
+        "end": 158,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "affect production planning",
+        "start": 167,
+        "end": 193,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "layoffs",
+        "start": 130,
+        "end": 137,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "layoffs",
+        "source": "The Guardian",
+        "date": "2024",
+        "location": "Texas",
+        "impact": "signal cost pressure"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-015",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "June 25, 2024",
+        "start": 97,
+        "end": 110,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "CNN",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "European Union",
+        "start": 28,
+        "end": 42,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Microsoft",
+        "start": 72,
+        "end": 81,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Brussels",
+        "start": 85,
+        "end": 93,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "CNN",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "harmed competition",
+        "start": 185,
+        "end": 203,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "investigation",
+        "start": 53,
+        "end": 66,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "investigation",
+        "source": "CNN",
+        "date": "June 25, 2024",
+        "location": "Brussels",
+        "impact": "harmed competition"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-016",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "April 4, 2024",
+        "start": 109,
+        "end": 122,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Reuters",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "NATO",
+        "start": 52,
+        "end": 56,
+        "confidence": 0.75
+      },
+      {
+        "label": "PERSON",
+        "value": "Joe Biden",
+        "start": 28,
+        "end": 47,
+        "confidence": 0.75
+      },
+      {
+        "label": "PERSON",
+        "value": "Jens Stoltenberg",
+        "start": 57,
+        "end": 91,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Washington",
+        "start": 95,
+        "end": 105,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Ukraine",
+        "start": 179,
+        "end": 186,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "Reuters",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "strengthened NATO coordination",
+        "start": 195,
+        "end": 225,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "meeting",
+        "start": 160,
+        "end": 167,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "summit",
+        "start": 237,
+        "end": 243,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "meeting",
+        "source": "Reuters",
+        "date": "April 4, 2024",
+        "location": "Washington",
+        "impact": "strengthened NATO coordination"
+      },
+      {
+        "event": "summit",
+        "source": "Reuters",
+        "date": "April 4, 2024",
+        "location": "Washington",
+        "impact": "strengthened NATO coordination"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-017",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "May 2, 2024",
+        "start": 102,
+        "end": 113,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "BBC",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Apple",
+        "start": 15,
+        "end": 20,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "California",
+        "start": 88,
+        "end": 98,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "BBC",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "boosted investor confidence",
+        "start": 164,
+        "end": 191,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "lifted Apple shares",
+        "start": 196,
+        "end": 215,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "share buyback",
+        "start": 46,
+        "end": 59,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "quarterly earnings",
+        "start": 66,
+        "end": 84,
+        "confidence": 0.75
+      },
+      {
+        "label": "EVENT",
+        "value": "announcement",
+        "start": 151,
+        "end": 163,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "share buyback",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      },
+      {
+        "event": "quarterly earnings",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      },
+      {
+        "event": "announcement",
+        "source": "BBC",
+        "date": "May 2, 2024",
+        "location": "California",
+        "impact": "boosted investor confidence"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-018",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "April 3, 2024",
+        "start": 61,
+        "end": 74,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "AP News",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Hualien",
+        "start": 42,
+        "end": 49,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Taiwan",
+        "start": 51,
+        "end": 57,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "AP News",
+        "start": 6,
+        "end": 13,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "damaging buildings",
+        "start": 76,
+        "end": 94,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "disrupting transport",
+        "start": 99,
+        "end": 119,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "earthquake",
+        "start": 26,
+        "end": 36,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "earthquake",
+        "source": "AP News",
+        "date": "April 3, 2024",
+        "location": "Hualien",
+        "impact": "damaging buildings"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-019",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "2024",
+        "start": 80,
+        "end": 84,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "The Guardian",
+        "start": 6,
+        "end": 18,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Tesla",
+        "start": 33,
+        "end": 38,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Texas",
+        "start": 56,
+        "end": 61,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "California",
+        "start": 66,
+        "end": 76,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "The Guardian",
+        "start": 6,
+        "end": 18,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "signal cost pressure",
+        "start": 138,
+        "end": 158,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "affect production planning",
+        "start": 167,
+        "end": 193,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "layoffs",
+        "start": 130,
+        "end": 137,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "layoffs",
+        "source": "The Guardian",
+        "date": "2024",
+        "location": "Texas",
+        "impact": "signal cost pressure"
+      }
+    ],
+    "raw_response": ""
+  },
+  {
+    "dialog_id": "sample-020",
+    "extractor": "rules",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "June 25, 2024",
+        "start": 97,
+        "end": 110,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "CNN",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "European Union",
+        "start": 28,
+        "end": 42,
+        "confidence": 0.75
+      },
+      {
+        "label": "ORG",
+        "value": "Microsoft",
+        "start": 72,
+        "end": 81,
+        "confidence": 0.75
+      },
+      {
+        "label": "LOC",
+        "value": "Brussels",
+        "start": 85,
+        "end": 93,
+        "confidence": 0.75
+      },
+      {
+        "label": "SOURCE",
+        "value": "CNN",
+        "start": 6,
+        "end": 9,
+        "confidence": 0.75
+      },
+      {
+        "label": "IMPACT",
+        "value": "harmed competition",
+        "start": 185,
+        "end": 203,
+        "confidence": 0.75
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "investigation",
+        "start": 53,
+        "end": 66,
+        "confidence": 0.75
+      }
+    ],
+    "relations": [
+      {
+        "event": "investigation",
+        "source": "CNN",
+        "date": "June 25, 2024",
+        "location": "Brussels",
+        "impact": "harmed competition"
+      }
+    ],
+    "raw_response": ""
+  }
+]
