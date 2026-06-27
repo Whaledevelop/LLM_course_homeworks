@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>LLM quality report</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 32px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #f2f2f2; text-align: left; }
+  </style>
+</head>
+<body>
+  <h1>LLM quality report</h1>
+  <p>Faithfulness: 1.000</p>
+  <p>Answer relevance: 0.847</p>
+  <p>Context recall: 1.000</p>
+  <p>Pass rate: 0.750</p>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Faithfulness</th><th>Answer relevance</th><th>Context recall</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>faithfulness-definition</td><td>1.000</td><td>0.545</td><td>1.000</td><td>fail</td></tr><tr><td>answer-relevance-definition</td><td>1.000</td><td>1.000</td><td>1.000</td><td>pass</td></tr><tr><td>context-recall-definition</td><td>1.000</td><td>1.000</td><td>1.000</td><td>pass</td></tr><tr><td>cicd-fail-condition</td><td>1.000</td><td>1.000</td><td>1.000</td><td>pass</td></tr><tr><td>goldens-purpose</td><td>1.000</td><td>0.333</td><td>1.000</td><td>fail</td></tr><tr><td>canary-purpose</td><td>1.000</td><td>0.538</td><td>1.000</td><td>fail</td></tr><tr><td>json-contracts</td><td>1.000</td><td>1.000</td><td>1.000</td><td>pass</td></tr><tr><td>monitoring-signals</td><td>1.000</td><td>1.000</td><td>1.000</td><td>pass</td></tr><tr><td>retrieval-diagnostics</td><td>1.000</td><td>0.750</td><td>1.000</td><td>pass</td></tr><tr><td>strict-output</td><td>1.000</td><td>1.000</td><td>1.000</td><td>pass</td></tr><tr><td>release-gates</td><td>1.000</td><td>1.000</td><td>1.000</td><td>pass</td></tr><tr><td>human-feedback</td><td>1.000</td><td>1.000</td><td>1.000</td><td>pass</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>
