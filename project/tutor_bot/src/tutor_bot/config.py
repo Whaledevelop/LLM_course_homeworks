@@ -7,11 +7,13 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
+        env_file_encoding="utf-8-sig",
         env_prefix="TUTOR_BOT_",
         extra="ignore",
     )
 
     project_root: Path = Path(__file__).resolve().parents[2]
+    source_notes_dir: Path
     ollama_base_url: str = "http://localhost:11434/v1"
 
     @property
