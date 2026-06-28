@@ -1,4 +1,4 @@
-﻿import pytest
+import pytest
 from pydantic import ValidationError
 
 from tutor_bot.schemas.retrieval_case import RetrievalCase

@@ -1,4 +1,4 @@
-﻿from uuid import UUID
+from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -12,8 +12,8 @@ class EvaluationCorpus(BaseModel):
     @field_validator("note_ids")
     @classmethod
     def validate_unique_note_ids(
-            cls,
-            note_ids: list[UUID],
+        cls,
+        note_ids: list[UUID],
     ) -> list[UUID]:
         if len(note_ids) != len(set(note_ids)):
             raise ValueError("Evaluation note ids must be unique")
