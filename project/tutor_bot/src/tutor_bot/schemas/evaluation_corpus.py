@@ -1,25 +1,21 @@
-﻿from pathlib import Path
-from typing import Self
-from uuid import UUID
+﻿from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class EvaluationCorpus(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     version: int = Field(ge=1)
-    notes: dict[UUID, Path] = Field(min_length=15, max_length=20)
+    note_ids: list[UUID] = Field(min_length=15, max_length=20)
 
-    @model_validator(mode="after")
-    def validate_note_paths(self) -> Self:
-        note_paths = list(self.notes.values())
+    @field_validator("note_ids")
+    @classmethod
+    def validate_unique_note_ids(
+            cls,
+            note_ids: list[UUID],
+    ) -> list[UUID]:
+        if len(note_ids) != len(set(note_ids)):
+            raise ValueError("Evaluation note ids must be unique")
 
-        if len(note_paths) != len(set(note_paths)):
-            raise ValueError("Evaluation note paths must be unique")
-
-        for note_path in note_paths:
-            if note_path.is_absolute() or note_path.suffix.lower() != ".md":
-                raise ValueError("Evaluation notes must be relative Markdown paths")
-
-        return self
+        return note_ids
