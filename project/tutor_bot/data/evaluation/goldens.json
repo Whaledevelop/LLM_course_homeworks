@@ -1,0 +1,35 @@
+﻿{
+  "version": 1,
+  "retrieval_cases": [
+    {
+      "id": "threads-parallelism",
+      "question": "Чем асинхронность отличается от многопоточности?",
+      "expected_note_ids": [
+        "e248dd6f-963d-552f-8616-d87082905b4e"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "garbage-collector-generations",
+      "question": "Какие поколения объектов используются сборщиком мусора .NET?",
+      "expected_note_ids": [
+        "2e2a0b1a-43f0-5d43-918f-393d557d5eac"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "kiss-dry-yagni",
+      "question": "В чём различие принципов KISS, DRY и YAGNI?",
+      "expected_note_ids": [
+        "55eb8d8a-77c3-5289-bbda-018dff4c0225"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "missing-kubernetes",
+      "question": "Как настроить отказоустойчивый Kubernetes-кластер?",
+      "expected_note_ids": [],
+      "should_find_answer": false
+    }
+  ]
+}
