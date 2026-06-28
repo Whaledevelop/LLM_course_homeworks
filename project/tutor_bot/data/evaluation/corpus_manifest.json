@@ -1,0 +1,20 @@
+﻿{
+  "version": 1,
+  "notes": {
+    "e248dd6f-963d-552f-8616-d87082905b4e": "threads/Поточность, синхронность, параллелизм (общее).md",
+    "55eb8d8a-77c3-5289-bbda-018dff4c0225": "architecture/Чистый код - KISS, DRY, YAGNI.md",
+    "69281476-c85e-547c-970e-8011c48a4ba9": "unity/IL2CPP.md",
+    "2e2a0b1a-43f0-5d43-918f-393d557d5eac": "csharp/Garbage collector.md",
+    "dba88431-008d-513f-bbc7-fd22f8671730": "physics/Rigidbody - modes, collision detection, movement.md",
+    "6200b952-8071-5258-abc9-10d5d4739116": "architecture/Шаблоны проектирования - GoF, GRASP, Game Programming Patterns.md",
+    "06a78e8f-dbb7-5528-8a46-9439beae2ed3": "build/Git, Git Flow.md",
+    "7cfbfd5d-c159-55cb-bdd1-829c58adbfb8": "csharp/Array, List, Dictionary.md",
+    "9894b415-6da2-5581-b5df-981115e9149f": "optimization/Culling - Frustrum, Occlusion.md",
+    "6e2dce7f-6f61-58f3-aeef-7899007120c3": "unity/Работа с углами - Quaternion, Euler.md",
+    "e6441860-579d-55fb-94d9-b7ac0c761819": "csharp/Delegate, Action, Func, event.md",
+    "d9936922-9835-5cb0-bc29-a1d3c5680c53": "optimization/Draw call, Batching, GPU Instancing.md",
+    "ac22fd8a-a5c4-501c-b2e6-73abb5cac6bc": "physics/Коллайдеры и триггеры - столкновения и ивенты.md",
+    "00ddf68b-1408-5075-813e-9f897e8ee27a": "architecture/SOLID.md",
+    "6ba716c0-f2b2-5a78-bde3-f4ff65dd0926": "architecture/Dependency injection, Zenject, VContainer.md"
+  }
+}
