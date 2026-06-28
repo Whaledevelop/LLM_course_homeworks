@@ -15,17 +15,60 @@ def render_browse_notes_page(
 
         return
 
-    st.caption(f"Найдено заметок: {len(notes)}")
+    search_text = st.text_input(
+        "Поиск",
+        placeholder="Название, тема или сложность",
+    )
+
+    themes = sorted({note.theme for note in notes if note.theme})
+
+    selected_theme = st.selectbox(
+        "Тема",
+        options=["Все", *themes],
+    )
+
+    normalized_search = search_text.strip().casefold()
+    filtered_notes = []
 
     for note in notes:
-        with st.container(border=True):
-            st.subheader(note.title)
+        searchable_text = " ".join(
+            [
+                note.title,
+                note.theme,
+                note.difficulty,
+            ]
+        ).casefold()
 
-            theme_column, difficulty_column = st.columns(2)
-            theme_column.write(f"Тема: `{note.theme or 'не указана'}`")
-            difficulty_column.write(f"Сложность: `{note.difficulty or 'не указана'}`")
+        matches_search = not normalized_search or normalized_search in searchable_text
 
-            importance_column, completeness_column, mastery_column = st.columns(3)
-            importance_column.metric("Важность", note.importance)
-            completeness_column.metric("Полнота", note.completeness)
-            mastery_column.metric("Освоение", note.mastery)
+        matches_theme = selected_theme == "Все" or note.theme == selected_theme
+
+        if not (matches_search and matches_theme):
+            continue
+
+        filtered_notes.append(note)
+
+    if not filtered_notes:
+        st.warning("По заданным условиям заметки не найдены.")
+
+        return
+
+    st.caption(f"Показано заметок: {len(filtered_notes)} из {len(notes)}")
+
+    rows = [
+        {
+            "Название": note.title,
+            "Тема": note.theme or "не указана",
+            "Сложность": note.difficulty or "не указана",
+            "Важность": note.importance,
+            "Полнота": note.completeness,
+            "Освоение": note.mastery,
+        }
+        for note in filtered_notes
+    ]
+
+    st.dataframe(
+        rows,
+        hide_index=True,
+        use_container_width=True,
+    )
