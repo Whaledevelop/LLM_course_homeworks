@@ -26,7 +26,7 @@ class Settings(BaseSettings):
 
     @property
     def metadata_file(self) -> Path:
-        return self.data_dir / "metadata" / "notes.json"
+        return self.data_dir / "metadata" / "notes_metadata.json"
 
     @property
     def history_dir(self) -> Path:

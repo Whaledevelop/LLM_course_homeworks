@@ -1,0 +1,896 @@
+{
+  "version": 2,
+  "version_time": "2026-06-28T22:43:52+03:00",
+  "notes": {
+    "0b2c61a8-505a-552c-b731-7b9627970eff": {
+      "theme": "algorithms",
+      "comment": "learn",
+      "difficulty": "middle",
+      "importance": 9,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Сложность алгоритмов",
+      "relative_path": "algorithms/Сложность алгоритмов.md"
+    },
+    "e585f85d-a822-54e5-833d-dc4b5403ba4a": {
+      "theme": "animation",
+      "comment": "rework",
+      "difficulty": "middle",
+      "importance": 4,
+      "completeness": 3,
+      "mastery": 1,
+      "last_recorded_name": "Анимации 2D , Spine",
+      "relative_path": "animation/Анимации 2D , Spine.md"
+    },
+    "0df1ea85-115f-5c42-8fee-45214abe7e93": {
+      "theme": "animation",
+      "comment": "empty",
+      "difficulty": "middle",
+      "importance": 4,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Animator - blend tree, mask, state machine",
+      "relative_path": "animation/Animator - blend tree, mask, state machine.md"
+    },
+    "03e93c10-b2ef-5a06-9328-858cf8457a26": {
+      "theme": "animation",
+      "comment": "empty",
+      "difficulty": "junior",
+      "importance": 4,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Tween анимации - DOTween",
+      "relative_path": "animation/Tween анимации - DOTween.md"
+    },
+    "6ba716c0-f2b2-5a78-bde3-f4ff65dd0926": {
+      "theme": "architecture",
+      "comment": "rework",
+      "difficulty": "middle",
+      "importance": 9,
+      "completeness": 3,
+      "mastery": 1,
+      "last_recorded_name": "Dependency injection, Zenject, VContainer",
+      "relative_path": "architecture/Dependency injection, Zenject, VContainer.md"
+    },
+    "fee810a1-30b0-58cf-ae09-fcdbad4dffee": {
+      "theme": "architecture",
+      "comment": "rework",
+      "difficulty": "middle",
+      "importance": 6,
+      "completeness": 3,
+      "mastery": 1,
+      "last_recorded_name": "MVP, MVC, MVVM",
+      "relative_path": "architecture/MVP, MVC, MVVM.md"
+    },
+    "00ddf68b-1408-5075-813e-9f897e8ee27a": {
+      "theme": "architecture",
+      "comment": "rework",
+      "difficulty": "middle",
+      "importance": 10,
+      "completeness": 3,
+      "mastery": 1,
+      "last_recorded_name": "SOLID",
+      "relative_path": "architecture/SOLID.md"
+    },
+    "f578c8ed-6645-5442-ac37-b121d8658e06": {
+      "theme": "architecture",
+      "comment": "repeat",
+      "difficulty": "junior",
+      "importance": 10,
+      "completeness": 6,
+      "mastery": 1,
+      "last_recorded_name": "Принципы ООП",
+      "relative_path": "architecture/Принципы ООП.md"
+    },
+    "45358bdb-07f4-586d-9d70-b0324811708a": {
+      "theme": "architecture",
+      "comment": "empty",
+      "difficulty": "senior",
+      "importance": 3,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Свой пример архитектурного решения",
+      "relative_path": "architecture/Свой пример архитектурного решения.md"
+    },
+    "55eb8d8a-77c3-5289-bbda-018dff4c0225": {
+      "theme": "architecture",
+      "comment": "ready",
+      "difficulty": "junior",
+      "importance": 8,
+      "completeness": 9,
+      "mastery": 1,
+      "last_recorded_name": "Чистый код - KISS, DRY, YAGNI",
+      "relative_path": "architecture/Чистый код - KISS, DRY, YAGNI.md"
+    },
+    "6200b952-8071-5258-abc9-10d5d4739116": {
+      "theme": "architecture",
+      "comment": "repeat",
+      "difficulty": "senior",
+      "importance": 9,
+      "completeness": 7,
+      "mastery": 1,
+      "last_recorded_name": "Шаблоны проектирования - GoF, GRASP, Game Programming Patterns",
+      "relative_path": "architecture/Шаблоны проектирования - GoF, GRASP, Game Programming Patterns.md"
+    },
+    "81dbf800-08e9-52be-9e6b-2fcffb2dd53b": {
+      "theme": "build",
+      "comment": "learn",
+      "difficulty": "middle",
+      "importance": 7,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "CI-CD - Unity Cloud, Jenkins, Github actions",
+      "relative_path": "build/CI-CD - Unity Cloud, Jenkins, Github actions.md"
+    },
+    "06a78e8f-dbb7-5528-8a46-9439beae2ed3": {
+      "theme": "build",
+      "comment": "repeat",
+      "difficulty": "junior",
+      "importance": 10,
+      "completeness": 6,
+      "mastery": 1,
+      "last_recorded_name": "Git, Git Flow",
+      "relative_path": "build/Git, Git Flow.md"
+    },
+    "b51d5023-9d61-5b06-9745-8a2e2df560b2": {
+      "theme": "build",
+      "comment": "empty",
+      "difficulty": "middle",
+      "importance": 3,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "LiveOps, AB testing",
+      "relative_path": "build/LiveOps, AB testing.md"
+    },
+    "4bf2df7a-84b3-50f1-8bb6-a8383e3a44c2": {
+      "theme": "build",
+      "comment": "empty",
+      "difficulty": "middle",
+      "importance": 7,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Автотесты, Unity Test Framework",
+      "relative_path": "build/Автотесты, Unity Test Framework.md"
+    },
+    "c87b28d0-0df5-5577-8394-1ec55fdd00af": {
+      "theme": "csharp",
+      "comment": "learn",
+      "difficulty": "junior",
+      "importance": 8,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "_data structures",
+      "relative_path": "csharp/_data structures.md"
+    },
+    "7cfbfd5d-c159-55cb-bdd1-829c58adbfb8": {
+      "theme": "csharp",
+      "comment": "repeat",
+      "difficulty": "junior",
+      "importance": 9,
+      "completeness": 6,
+      "mastery": 1,
+      "last_recorded_name": "Array, List, Dictionary",
+      "relative_path": "csharp/Array, List, Dictionary.md"
+    },
+    "a828c7df-14ec-5749-bda0-04d2175c8916": {
+      "theme": "csharp",
+      "comment": "repeat",
+      "difficulty": "middle",
+      "importance": 8,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Boxing-Unboxing",
+      "relative_path": "csharp/Boxing-Unboxing.md"
+    },
+    "d045fa3d-4894-5bc0-b158-3ee3b50262a9": {
+      "theme": "csharp",
+      "comment": "repeat",
+      "difficulty": "middle",
+      "importance": 7,
+      "completeness": 6,
+      "mastery": 1,
+      "last_recorded_name": "CLI, CLR, .NET, JIT, IL",
+      "relative_path": "csharp/CLI, CLR, .NET, JIT, IL.md"
+    },
+    "e6441860-579d-55fb-94d9-b7ac0c761819": {
+      "theme": "csharp",
+      "comment": "repeat",
+      "difficulty": "middle",
+      "importance": 9,
+      "completeness": 6,
+      "mastery": 1,
+      "last_recorded_name": "Delegate, Action, Func, event",
+      "relative_path": "csharp/Delegate, Action, Func, event.md"
+    },
+    "9401c0e4-f1c3-5536-a2b2-4b1a8b26ee5c": {
+      "theme": "csharp",
+      "comment": "improve",
+      "difficulty": "junior",
+      "importance": 6,
+      "completeness": 5,
+      "mastery": 1,
+      "last_recorded_name": "Enum, битовые маски",
+      "relative_path": "csharp/Enum, битовые маски.md"
+    },
+    "2e2a0b1a-43f0-5d43-918f-393d557d5eac": {
+      "theme": "csharp",
+      "comment": "repeat",
+      "difficulty": "middle",
+      "importance": 10,
+      "completeness": 7,
+      "mastery": 1,
+      "last_recorded_name": "Garbage collector",
+      "relative_path": "csharp/Garbage collector.md"
+    },
+    "1ff0a121-292f-5654-ba80-c240f34dc187": {
+      "theme": "csharp",
+      "comment": "repeat",
+      "difficulty": "junior",
+      "importance": 9,
+      "completeness": 4,
+      "mastery": 1,
+      "last_recorded_name": "interface & abstract class",
+      "relative_path": "csharp/interface & abstract class.md"
+    },
+    "e63f7f66-6151-5fff-b07d-bd14cecfaca9": {
+      "theme": "csharp",
+      "comment": "learn",
+      "difficulty": "junior",
+      "importance": 8,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Queue, Stack, Hashset, LinkedList",
+      "relative_path": "csharp/Queue, Stack, Hashset, LinkedList.md"
+    },
+    "5441c448-e641-5ec7-9b6f-93e9b5bc12cf": {
+      "theme": "csharp",
+      "comment": "repeat",
+      "difficulty": "junior",
+      "importance": 8,
+      "completeness": 6,
+      "mastery": 1,
+      "last_recorded_name": "string, StringBuilder",
+      "relative_path": "csharp/string, StringBuilder.md"
+    },
+    "f31c39c0-a273-5d6d-abe7-7687113ffd3d": {
+      "theme": "csharp",
+      "comment": "rework",
+      "difficulty": "junior",
+      "importance": 7,
+      "completeness": 3,
+      "mastery": 1,
+      "last_recorded_name": "Upcasting, downcasting, приведение типов",
+      "relative_path": "csharp/Upcasting, downcasting, приведение типов.md"
+    },
+    "67b16742-20b5-5480-be91-fc26d3400866": {
+      "theme": "csharp",
+      "comment": "repeat",
+      "difficulty": "junior/middle",
+      "importance": 10,
+      "completeness": 6,
+      "mastery": 1,
+      "last_recorded_name": "value and reference types",
+      "relative_path": "csharp/value and reference types.md"
+    },
+    "69eb029d-16c7-5a32-a74d-a968c03adab8": {
+      "theme": "csharp",
+      "comment": "learn",
+      "difficulty": "middle",
+      "importance": 6,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Атрибуты",
+      "relative_path": "csharp/Атрибуты.md"
+    },
+    "5f605c7d-b45a-56fa-9b36-997e5a83cabf": {
+      "theme": "csharp",
+      "comment": "learn",
+      "difficulty": "middle",
+      "importance": 6,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Итераторы, IEnumerable, IEnumerator, yield",
+      "relative_path": "csharp/Итераторы, IEnumerable, IEnumerator, yield.md"
+    },
+    "3198df51-f56c-57f3-b2a6-8a9c8407433d": {
+      "theme": "csharp",
+      "comment": "improve",
+      "difficulty": "middle",
+      "importance": 7,
+      "completeness": 5,
+      "mastery": 1,
+      "last_recorded_name": "Модификаторы параметровы ref, out, in, вариантность",
+      "relative_path": "csharp/Модификаторы параметровы ref, out, in, вариантность.md"
+    },
+    "c8127350-bb73-5953-90dd-80ec4b3041f7": {
+      "theme": "csharp",
+      "comment": "repeat",
+      "difficulty": "middle",
+      "importance": 7,
+      "completeness": 3,
+      "mastery": 1,
+      "last_recorded_name": "Рефлексия",
+      "relative_path": "csharp/Рефлексия.md"
+    },
+    "f4a964a7-165a-580d-9cef-86a10bc05135": {
+      "theme": "csharp",
+      "comment": "learn",
+      "difficulty": "junior",
+      "importance": 5,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Числовые типы - int, byte, float - бинарное представление",
+      "relative_path": "csharp/Числовые типы - int, byte, float - бинарное представление.md"
+    },
+    "89db3455-dc88-5929-a86b-03592d596763": {
+      "theme": "graphics",
+      "comment": "empty",
+      "difficulty": "middle",
+      "importance": 3,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "VFX, particles, effects",
+      "relative_path": "graphics/VFX, particles, effects.md"
+    },
+    "7627f811-08f1-5b68-860c-bae63e190369": {
+      "theme": "graphics",
+      "comment": "rework",
+      "difficulty": "junior",
+      "importance": 5,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Из чего состоит 3D модель, что такое меш",
+      "relative_path": "graphics/Из чего состоит 3D модель, что такое меш.md"
+    },
+    "80e1e710-f00a-5a43-a06f-95f5b33c1176": {
+      "theme": "graphics",
+      "comment": "learn",
+      "difficulty": "senior",
+      "importance": 5,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Полный процесс рендеринга 3D объекта",
+      "relative_path": "graphics/Полный процесс рендеринга 3D объекта.md"
+    },
+    "e042fa66-f3d1-5ac1-8636-e0183d3bca73": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Cross Product (векторное произведение)",
+      "relative_path": "math/Cross Product (векторное произведение).md"
+    },
+    "4c089616-f3c5-5788-b6e8-ad30048d65f0": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Dot Product (скалярное произведение)",
+      "relative_path": "math/Dot Product (скалярное произведение).md"
+    },
+    "ca718941-c416-567d-9953-2c8aaeef9586": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Векторы - база",
+      "relative_path": "math/Векторы - база.md"
+    },
+    "cc1d886c-ffa7-5716-88a7-ab4bbe48963a": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Векторы и операции над векторами",
+      "relative_path": "math/Векторы и операции над векторами.md"
+    },
+    "70400ba0-74df-5eb3-8bce-35c0cca8cc64": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Геометрия - задачи",
+      "relative_path": "math/Геометрия - задачи.md"
+    },
+    "ccc06468-931c-5621-8071-cb2ce6c2ccb1": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Кватернионы",
+      "relative_path": "math/Кватернионы.md"
+    },
+    "03652e02-8e48-5bdc-b494-f7b4dc4bdf29": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Координатные системы",
+      "relative_path": "math/Координатные системы.md"
+    },
+    "78a08fc2-4987-586b-876c-7b515de84eee": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Линейная интерполяция",
+      "relative_path": "math/Линейная интерполяция.md"
+    },
+    "12569a14-0e90-5ab1-8a71-335e09713943": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Лучи и Raycast",
+      "relative_path": "math/Лучи и Raycast.md"
+    },
+    "574d0eb4-cda6-56d1-934b-8b1be4ee5e0b": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Навигация - векторы и повороты",
+      "relative_path": "math/Навигация - векторы и повороты.md"
+    },
+    "7376df66-d77d-5c73-91c2-9d6d5485d243": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Нормали",
+      "relative_path": "math/Нормали.md"
+    },
+    "58511619-2009-5674-83e1-8829c6779e2e": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Плоскости",
+      "relative_path": "math/Плоскости.md"
+    },
+    "fedef36f-3be9-5439-8b91-70c334a86ff7": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Задачи на доске - Unity математика",
+      "relative_path": "math/Задачи на доске - Unity математика.md"
+    },
+    "c31893e9-becd-57dd-988c-881efd4ab683": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Проекции",
+      "relative_path": "math/Проекции.md"
+    },
+    "ab22d62f-0eb4-5afe-b54e-27387c4b784e": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Расстояние до точки",
+      "relative_path": "math/Расстояние до точки.md"
+    },
+    "388ca72e-fd13-5840-b6d9-bbdbca2ac39c": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Скалярное и векторное произведение",
+      "relative_path": "math/Скалярное и векторное произведение.md"
+    },
+    "52e361e5-3fea-5c1d-aaee-4cf65ef7e64a": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Теория 3D-графики",
+      "relative_path": "math/Теория 3D-графики.md"
+    },
+    "efd8c508-c949-52d2-ab14-737c6b22ff68": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Трансформации и матрицы",
+      "relative_path": "math/Трансформации и матрицы.md"
+    },
+    "c08e25e0-8a4f-5ffa-a425-9f5502b62e19": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Тригонометрия",
+      "relative_path": "math/Тригонометрия.md"
+    },
+    "609e20dd-4b6e-521d-8504-faf48325fd7a": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Угол между векторами",
+      "relative_path": "math/Угол между векторами.md"
+    },
+    "29dbfd6d-4ad7-5679-856a-4bffa7f8a7d3": {
+      "theme": "",
+      "comment": "",
+      "difficulty": "middle",
+      "importance": 0,
+      "completeness": 0,
+      "mastery": 0,
+      "last_recorded_name": "Физика - база для Unity",
+      "relative_path": "math/Физика - база для Unity.md"
+    },
+    "9894b415-6da2-5581-b5df-981115e9149f": {
+      "theme": "optimization",
+      "comment": "repeat",
+      "difficulty": "middle",
+      "importance": 6,
+      "completeness": 6,
+      "mastery": 1,
+      "last_recorded_name": "Culling - Frustrum, Occlusion",
+      "relative_path": "optimization/Culling - Frustrum, Occlusion.md"
+    },
+    "d9936922-9835-5cb0-bc29-a1d3c5680c53": {
+      "theme": "optimization",
+      "comment": "repeat",
+      "difficulty": "senior",
+      "importance": 9,
+      "completeness": 4,
+      "mastery": 1,
+      "last_recorded_name": "Draw call, Batching, GPU Instancing",
+      "relative_path": "optimization/Draw call, Batching, GPU Instancing.md"
+    },
+    "62081306-3ec8-5b44-9969-251909909f0e": {
+      "theme": "optimization",
+      "comment": "improve",
+      "difficulty": "middle",
+      "importance": 6,
+      "completeness": 5,
+      "mastery": 1,
+      "last_recorded_name": "LOD",
+      "relative_path": "optimization/LOD.md"
+    },
+    "f426d3c1-314a-51e9-a107-e032c44a478f": {
+      "theme": "optimization",
+      "comment": "empty",
+      "difficulty": "",
+      "importance": 9,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Object Pooling",
+      "relative_path": "optimization/Object Pooling.md"
+    },
+    "6fd08406-4ffc-5dd0-8111-022297b275cf": {
+      "theme": "optimization",
+      "comment": "improve",
+      "difficulty": "",
+      "importance": 8,
+      "completeness": 3,
+      "mastery": 1,
+      "last_recorded_name": "Оптимизация CPU, GPU, memory",
+      "relative_path": "optimization/Оптимизация CPU, GPU, memory.md"
+    },
+    "7f8d6269-49a2-51ef-8c4c-01a233e7c5ef": {
+      "theme": "optimization",
+      "comment": "empty",
+      "difficulty": "",
+      "importance": 6,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Оптимизация под мобильные",
+      "relative_path": "optimization/Оптимизация под мобильные.md"
+    },
+    "12f29a5e-b45a-51a9-9429-d74e80a6bc35": {
+      "theme": "optimization",
+      "comment": "learn",
+      "difficulty": "",
+      "importance": 6,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Оптимизация текстур (Texture Atlas, Packing, Mip Maps, Filtering)",
+      "relative_path": "optimization/Оптимизация текстур (Texture Atlas, Packing, Mip Maps, Filtering).md"
+    },
+    "1900fe40-0676-5802-9517-c28565ec21cb": {
+      "theme": "optimization",
+      "comment": "learn",
+      "difficulty": "",
+      "importance": 9,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Профилирование",
+      "relative_path": "optimization/Профилирование.md"
+    },
+    "9935d4e7-e359-5c02-af38-f910e43e77db": {
+      "theme": "physics",
+      "comment": "empty",
+      "difficulty": "",
+      "importance": 8,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Raycast, overlap, linecast, contact point",
+      "relative_path": "physics/Raycast, overlap, linecast, contact point.md"
+    },
+    "dba88431-008d-513f-bbc7-fd22f8671730": {
+      "theme": "physics",
+      "comment": "repeat",
+      "difficulty": "",
+      "importance": 9,
+      "completeness": 7,
+      "mastery": 1,
+      "last_recorded_name": "Rigidbody - modes, collision detection, movement",
+      "relative_path": "physics/Rigidbody - modes, collision detection, movement.md"
+    },
+    "ac22fd8a-a5c4-501c-b2e6-73abb5cac6bc": {
+      "theme": "physics",
+      "comment": "improve",
+      "difficulty": "",
+      "importance": 9,
+      "completeness": 4,
+      "mastery": 1,
+      "last_recorded_name": "Коллайдеры и триггеры - столкновения и ивенты",
+      "relative_path": "physics/Коллайдеры и триггеры - столкновения и ивенты.md"
+    },
+    "9ddbbfd1-4ba7-5eae-862e-58f3c250a9f0": {
+      "theme": "resources",
+      "comment": "empty",
+      "difficulty": "",
+      "importance": 8,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Addressables, AssetBundles, Resources",
+      "relative_path": "resources/Addressables, AssetBundles, Resources.md"
+    },
+    "6f51b24d-4740-5381-b566-1eaf21bb86f6": {
+      "theme": "sdk",
+      "comment": "empty",
+      "difficulty": "",
+      "importance": 6,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "IAP",
+      "relative_path": "sdk/IAP.md"
+    },
+    "7bd6a8d0-7cec-55a9-812d-8bc56f8ab5b4": {
+      "theme": "sdk",
+      "comment": "learn",
+      "difficulty": "",
+      "importance": 5,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Аналитика - интеграция Firebase, Adjust, Appsflyer, Amplitude",
+      "relative_path": "sdk/Аналитика - интеграция Firebase, Adjust, Appsflyer, Amplitude.md"
+    },
+    "edba4739-d968-55e6-9cb8-abf2741c50e3": {
+      "theme": "sdk",
+      "comment": "empty",
+      "difficulty": "",
+      "importance": 5,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Интеграция SDK - (Gradle, iOS)",
+      "relative_path": "sdk/Интеграция SDK - (Gradle, iOS).md"
+    },
+    "0d34ea01-9f65-5374-9c73-ea11a1a261a2": {
+      "theme": "sdk",
+      "comment": "empty",
+      "difficulty": "middle",
+      "importance": 5,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Реклама - AdMob, Applovin Max, IronSource",
+      "relative_path": "sdk/Реклама - AdMob, Applovin Max, IronSource.md"
+    },
+    "a8bc7c7e-2ffd-5b24-a5fa-eee3eb42e159": {
+      "theme": "threads",
+      "comment": "rework",
+      "difficulty": "middle",
+      "importance": 9,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "async-await, UniTask, Coroutine",
+      "relative_path": "threads/async-await, UniTask, Coroutine.md"
+    },
+    "4f7cf42c-da46-58d0-8705-be3cc2965641": {
+      "theme": "threads",
+      "comment": "empty",
+      "difficulty": "senior",
+      "importance": 8,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Основной поток - PlayerLoop, многопоточность - Job System, Burst",
+      "relative_path": "threads/Основной поток - PlayerLoop, многопоточность - Job System, Burst.md"
+    },
+    "0eb9c92e-0894-5fb7-bb5e-81100d5aeb9e": {
+      "theme": "threads",
+      "comment": "learn",
+      "difficulty": "senior",
+      "importance": 8,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Потокобезопасность - lock, mutex, semaphore",
+      "relative_path": "threads/Потокобезопасность - lock, mutex, semaphore.md"
+    },
+    "e248dd6f-963d-552f-8616-d87082905b4e": {
+      "theme": "threads",
+      "comment": "ready",
+      "difficulty": "middle",
+      "importance": 8,
+      "completeness": 9,
+      "mastery": 1,
+      "last_recorded_name": "Поточность, синхронность, параллелизм (общее)",
+      "relative_path": "threads/Поточность, синхронность, параллелизм (общее).md"
+    },
+    "a8efab7b-aa55-59cb-9580-97aaec7d03c1": {
+      "theme": "threads",
+      "comment": "learn",
+      "difficulty": "middle",
+      "importance": 4,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Реактивное программирование - UniRx, R3",
+      "relative_path": "threads/Реактивное программирование - UniRx, R3.md"
+    },
+    "a920585b-1253-554c-b65b-50f4c2efbed1": {
+      "theme": "ui",
+      "comment": "repeat",
+      "difficulty": "middle",
+      "importance": 7,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Оптимизация UI",
+      "relative_path": "ui/Оптимизация UI.md"
+    },
+    "69281476-c85e-547c-970e-8011c48a4ba9": {
+      "theme": "unity",
+      "comment": "repeat",
+      "difficulty": "senior",
+      "importance": 9,
+      "completeness": 8,
+      "mastery": 2,
+      "last_recorded_name": "IL2CPP",
+      "relative_path": "unity/IL2CPP.md"
+    },
+    "acf5bec8-82c5-5f80-9b81-4cc8149df34c": {
+      "theme": "unity",
+      "comment": "learn",
+      "difficulty": "senior",
+      "importance": 4,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Internal dispatch - вызов методов MonoBehaviour",
+      "relative_path": "unity/Internal dispatch - вызов методов MonoBehaviour.md"
+    },
+    "5138d59c-aecc-5b52-bc80-ec990ebed692": {
+      "theme": "unity",
+      "comment": "learn",
+      "difficulty": "junior",
+      "importance": 10,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "MonoBehaviour - жизненный цикл, Script Execution Order",
+      "relative_path": "unity/MonoBehaviour - жизненный цикл, Script Execution Order.md"
+    },
+    "95899365-cf96-5849-9bb0-c7264ae2cf91": {
+      "theme": "unity",
+      "comment": "learn",
+      "difficulty": "senior",
+      "importance": 6,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "NativeArray, NativeSlice, FixedList — коллекции Unity.Collections",
+      "relative_path": "unity/NativeArray, NativeSlice, FixedList — коллекции Unity.Collections.md"
+    },
+    "50fd91d4-e8ed-59b6-94bc-ea28f9c3c03f": {
+      "theme": "unity",
+      "comment": "empty",
+      "difficulty": "middle",
+      "importance": 7,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "ScriptableObject - конфиги, driven подход",
+      "relative_path": "unity/ScriptableObject - конфиги, driven подход.md"
+    },
+    "05d94261-402e-5c51-ba2a-9b0d7f932f60": {
+      "theme": "unity",
+      "comment": "learn",
+      "difficulty": "junior",
+      "importance": 6,
+      "completeness": 2,
+      "mastery": 1,
+      "last_recorded_name": "Как работает LayerMask, какое влияние на рендер и физику",
+      "relative_path": "unity/Как работает LayerMask, какое влияние на рендер и физику.md"
+    },
+    "c2896e13-b8ea-5ba6-bffd-a36ee60a713c": {
+      "theme": "unity",
+      "comment": "learn",
+      "difficulty": "junior",
+      "importance": 8,
+      "completeness": 4,
+      "mastery": 1,
+      "last_recorded_name": "Операции над Vector2, Vector3",
+      "relative_path": "unity/Операции над Vector2, Vector3.md"
+    },
+    "6d5a3e3b-cc22-50d0-819d-9e8a0692afb1": {
+      "theme": "unity",
+      "comment": "rework",
+      "difficulty": "middle",
+      "importance": 6,
+      "completeness": 3,
+      "mastery": 1,
+      "last_recorded_name": "Почему MonoBehaviour нужно минимизировать",
+      "relative_path": "unity/Почему MonoBehaviour нужно минимизировать.md"
+    },
+    "6e2dce7f-6f61-58f3-aeef-7899007120c3": {
+      "theme": "unity",
+      "comment": "improve",
+      "difficulty": "middle",
+      "importance": 8,
+      "completeness": 5,
+      "mastery": 1,
+      "last_recorded_name": "Работа с углами - Quaternion, Euler",
+      "relative_path": "unity/Работа с углами - Quaternion, Euler.md"
+    },
+    "a1bf36c6-6219-5ccf-8f15-133c15f1581a": {
+      "theme": "unity",
+      "comment": "empty",
+      "difficulty": "middle",
+      "importance": 8,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Сериализация, SerializeReference, атрибуты",
+      "relative_path": "unity/Сериализация, SerializeReference, атрибуты.md"
+    },
+    "9e21d23d-0d41-596d-9994-7b7a5adcf94f": {
+      "theme": "unity",
+      "comment": "repeat",
+      "difficulty": "junior",
+      "importance": 10,
+      "completeness": 1,
+      "mastery": 1,
+      "last_recorded_name": "Цикл обновления - Update vs FixedUpdate vs LateUpdate",
+      "relative_path": "unity/Цикл обновления - Update vs FixedUpdate vs LateUpdate.md"
+    }
+  }
+}
