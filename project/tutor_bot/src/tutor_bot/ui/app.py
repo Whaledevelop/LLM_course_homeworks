@@ -1,10 +1,24 @@
 import streamlit as st
 
 from tutor_bot.application.note_query_service import NoteQueryService
-from tutor_bot.infrastructure.mock_note_query_service import MockNoteQueryService
+from tutor_bot.config import get_settings
+from tutor_bot.infrastructure.metadata_note_query_service import (
+    MetadataNoteQueryService,
+)
+from tutor_bot.infrastructure.notes_metadata_repository import (
+    NotesMetadataRepository,
+)
 from tutor_bot.ui.app_mode import AppMode
 from tutor_bot.ui.views.browse_notes_page import render_browse_notes_page
 from tutor_bot.ui.views.placeholder_page import render_placeholder_page
+
+
+@st.cache_resource
+def create_note_query_service() -> NoteQueryService:
+    settings = get_settings()
+    metadata_repository = NotesMetadataRepository(settings.metadata_file)
+
+    return MetadataNoteQueryService(metadata_repository)
 
 
 def main() -> None:
@@ -23,7 +37,7 @@ def main() -> None:
         format_func=lambda app_mode: app_mode.value,
     )
 
-    note_query_service: NoteQueryService = MockNoteQueryService()
+    note_query_service = create_note_query_service()
 
     if selected_mode == AppMode.BROWSE_NOTES:
         render_browse_notes_page(note_query_service)
