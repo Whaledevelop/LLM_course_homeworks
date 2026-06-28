@@ -1,4 +1,4 @@
-﻿from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from tutor_bot.schemas.retrieval_case import RetrievalCase
 
@@ -12,8 +12,8 @@ class GoldenDataset(BaseModel):
     @field_validator("retrieval_cases")
     @classmethod
     def validate_unique_case_ids(
-            cls,
-            retrieval_cases: list[RetrievalCase],
+        cls,
+        retrieval_cases: list[RetrievalCase],
     ) -> list[RetrievalCase]:
         case_ids = [retrieval_case.id for retrieval_case in retrieval_cases]
 
