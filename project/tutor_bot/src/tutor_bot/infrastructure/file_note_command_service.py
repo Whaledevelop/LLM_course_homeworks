@@ -1,14 +1,18 @@
 import os
 import re
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from uuid import UUID, uuid4
 
+from tutor_bot.application.create_note_command import CreateNoteCommand
 from tutor_bot.application.note_details import NoteDetails
 from tutor_bot.application.update_note_command import UpdateNoteCommand
 from tutor_bot.infrastructure.notes_metadata_repository import (
     NotesMetadataRepository,
 )
+from tutor_bot.schemas.note_metadata import NoteMetadata
 
+
+_CREATED_NOTES_DIRECTORY = PurePosixPath("_tutor_bot")
 
 _FRONTMATTER_PATTERN = re.compile(
     r"\A---\s*\n(?P<content>.*?)\n---(?:\n|\Z)",
@@ -29,6 +33,69 @@ class FileNoteCommandService:
     ) -> None:
         self._metadata_repository = metadata_repository
         self._source_notes_dir = source_notes_dir
+
+    def create_note(
+        self,
+        command: CreateNoteCommand,
+    ) -> NoteDetails:
+        catalog = self._metadata_repository.load()
+        note_id = uuid4()
+        relative_path = _CREATED_NOTES_DIRECTORY / f"{note_id}.md"
+
+        source_root = self._source_notes_dir.resolve()
+        note_path = (source_root / relative_path).resolve()
+
+        if not note_path.is_relative_to(source_root):
+            raise ValueError(f"Note path escapes source directory: {note_path}")
+
+        if note_path.exists():
+            raise FileExistsError(f"Note file already exists: {note_path}")
+
+        note_path.parent.mkdir(parents=True, exist_ok=True)
+
+        saved_markdown_content, file_content = self._prepare_markdown(
+            note_id,
+            command.markdown_content,
+        )
+
+        metadata = NoteMetadata(
+            theme=command.theme,
+            comment=command.comment,
+            difficulty=command.difficulty,
+            importance=command.importance,
+            completeness=command.completeness,
+            mastery=command.mastery,
+            last_recorded_name=command.title,
+            relative_path=relative_path,
+        )
+
+        updated_notes = dict(catalog.notes)
+        updated_notes[note_id] = metadata
+        updated_catalog = catalog.model_copy(update={"notes": updated_notes})
+
+        self._write_atomically(
+            note_path,
+            file_content,
+        )
+
+        try:
+            self._metadata_repository.save(updated_catalog)
+        except Exception:
+            note_path.unlink(missing_ok=True)
+
+            raise
+
+        return NoteDetails(
+            id=note_id,
+            title=command.title,
+            theme=command.theme,
+            difficulty=command.difficulty,
+            importance=command.importance,
+            completeness=command.completeness,
+            mastery=command.mastery,
+            comment=command.comment,
+            markdown_content=saved_markdown_content,
+        )
 
     def update_note(
         self,
@@ -56,8 +123,10 @@ class FileNoteCommandService:
             note_path,
         )
 
-        saved_markdown_content = command.markdown_content.rstrip() + "\n"
-        updated_file_content = f"---\nid: {command.note_id}\n---\n\n{saved_markdown_content}"
+        saved_markdown_content, updated_file_content = self._prepare_markdown(
+            command.note_id,
+            command.markdown_content,
+        )
 
         updated_metadata = metadata.model_copy(
             update={
@@ -101,6 +170,16 @@ class FileNoteCommandService:
             comment=command.comment,
             markdown_content=saved_markdown_content,
         )
+
+    def _prepare_markdown(
+        self,
+        note_id: UUID,
+        markdown_content: str,
+    ) -> tuple[str, str]:
+        saved_markdown_content = markdown_content.rstrip() + "\n"
+        file_content = f"---\nid: {note_id}\n---\n\n{saved_markdown_content}"
+
+        return saved_markdown_content, file_content
 
     def _validate_note_id(
         self,

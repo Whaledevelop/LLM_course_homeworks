@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "version_time": "2026-06-29T22:52:41.180465+03:00",
+  "version_time": "2026-06-28T22:43:52+03:00",
   "notes": {
     "0b2c61a8-505a-552c-b731-7b9627970eff": {
       "theme": "algorithms",
@@ -891,16 +891,6 @@
       "mastery": 1,
       "last_recorded_name": "Цикл обновления - Update vs FixedUpdate vs LateUpdate",
       "relative_path": "unity/Цикл обновления - Update vs FixedUpdate vs LateUpdate.md"
-    },
-    "89ff3724-7b3e-424c-8218-2408281fc171": {
-      "theme": "test",
-      "comment": "тестовая",
-      "difficulty": "middle",
-      "importance": 5,
-      "completeness": 4,
-      "mastery": 3,
-      "last_recorded_name": "Тестовая заметка",
-      "relative_path": "_tutor_bot/89ff3724-7b3e-424c-8218-2408281fc171.md"
     }
   }
 }

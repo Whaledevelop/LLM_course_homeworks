@@ -13,6 +13,7 @@ from tutor_bot.infrastructure.notes_metadata_repository import (
     NotesMetadataRepository,
 )
 from tutor_bot.ui.app_mode import AppMode
+from tutor_bot.ui.views.add_note_page import render_add_note_page
 from tutor_bot.ui.views.browse_notes_page import render_browse_notes_page
 from tutor_bot.ui.views.placeholder_page import render_placeholder_page
 
@@ -55,6 +56,11 @@ def main() -> None:
     )
 
     note_query_service, note_command_service = create_note_services()
+
+    if selected_mode == AppMode.ADD_NOTE:
+        render_add_note_page(note_command_service)
+
+        return
 
     if selected_mode == AppMode.BROWSE_NOTES:
         render_browse_notes_page(
