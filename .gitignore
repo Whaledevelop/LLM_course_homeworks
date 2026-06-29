@@ -1,4 +1,10 @@
 .idea
+.codex
+.agents
+.streamlit*
+.codex_pytest_tmp
+project/tutor_bot/data/metadata/backups
+.streamlit-8513.err.log
 **/.venv/
 **/data/chroma/
 **/__pycache__/
