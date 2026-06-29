@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from uuid import uuid4
 
 from tutor_bot.evaluation.corpus_loader import resolve_corpus_files
@@ -18,8 +18,9 @@ def test_resolves_corpus_files(tmp_path: Path) -> None:
 
     for i in range(15):
         note_id = uuid4()
-        relative_path = Path("topic") / f"note-{i}.md"
+        relative_path = PurePosixPath("topic") / f"note-{i}.md"
         note_path = source_notes_dir / relative_path
+
         note_path.write_text(
             f"---\nid: {note_id}\n---\n\nTest content",
             encoding="utf-8",

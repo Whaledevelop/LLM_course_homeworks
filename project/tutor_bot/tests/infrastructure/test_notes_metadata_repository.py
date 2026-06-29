@@ -44,12 +44,17 @@ def test_saves_metadata_atomically_with_backup(
     updated_catalog = repository.save(catalog)
 
     saved_catalog = repository.load()
+    saved_content = metadata_file.read_text(encoding="utf-8")
+    saved_metadata = next(iter(saved_catalog.notes.values()))
+
     backup_files = list((tmp_path / "backups").glob("*.json"))
     temporary_files = list(tmp_path.glob("*.tmp"))
 
     assert saved_catalog == updated_catalog
     assert saved_catalog.version_time > catalog.version_time
     assert len(saved_catalog.notes) == 1
+    assert saved_metadata.relative_path.as_posix() == ("csharp/garbage-collector.md")
+    assert '"relative_path": "csharp/garbage-collector.md"' in saved_content
     assert len(backup_files) == 1
     assert backup_files[0].read_text(encoding="utf-8") == original_content
     assert temporary_files == []

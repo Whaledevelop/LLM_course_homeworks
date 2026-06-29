@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import PurePosixPath
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -13,11 +13,14 @@ class NoteMetadata(BaseModel):
     completeness: int = Field(ge=0, le=10)
     mastery: int = Field(ge=0, le=10)
     last_recorded_name: str = Field(min_length=1)
-    relative_path: Path
+    relative_path: PurePosixPath
 
     @field_validator("relative_path")
     @classmethod
-    def validate_relative_path(cls, relative_path: Path) -> Path:
+    def validate_relative_path(
+        cls,
+        relative_path: PurePosixPath,
+    ) -> PurePosixPath:
         if (
             relative_path.is_absolute()
             or ".." in relative_path.parts

@@ -4,6 +4,7 @@ from uuid import UUID
 
 import pytest
 
+from tutor_bot.application.create_note_command import CreateNoteCommand
 from tutor_bot.application.update_note_command import UpdateNoteCommand
 from tutor_bot.infrastructure.file_note_command_service import (
     FileNoteCommandService,
@@ -25,6 +26,52 @@ class _FailingMetadataRepository(NotesMetadataRepository):
         raise RuntimeError("Metadata save failed")
 
 
+def test_creates_markdown_and_metadata(
+    tmp_path: Path,
+) -> None:
+    metadata_file, source_notes_dir, _ = _create_storage(tmp_path)
+    repository = NotesMetadataRepository(metadata_file)
+    service = FileNoteCommandService(
+        repository,
+        source_notes_dir,
+    )
+
+    created_note = service.create_note(_create_create_command())
+
+    saved_catalog = repository.load()
+    saved_metadata = saved_catalog.notes[created_note.id]
+    note_path = source_notes_dir / saved_metadata.relative_path
+    saved_markdown = note_path.read_text(encoding="utf-8")
+
+    assert created_note.title == "New note"
+    assert saved_metadata.relative_path.as_posix() == (f"_tutor_bot/{created_note.id}.md")
+    assert saved_metadata.last_recorded_name == "New note"
+    assert note_path.is_file()
+    assert f"id: {created_note.id}" in saved_markdown
+    assert "# New content" in saved_markdown
+    assert len(list((tmp_path / "backups").glob("*.json"))) == 1
+
+
+def test_removes_created_markdown_when_metadata_save_fails(
+    tmp_path: Path,
+) -> None:
+    metadata_file, source_notes_dir, _ = _create_storage(tmp_path)
+    repository = _FailingMetadataRepository(metadata_file)
+    service = FileNoteCommandService(
+        repository,
+        source_notes_dir,
+    )
+
+    with pytest.raises(RuntimeError, match="Metadata save failed"):
+        service.create_note(_create_create_command())
+
+    created_files = list((source_notes_dir / "_tutor_bot").glob("*.md"))
+    saved_catalog = repository.load()
+
+    assert created_files == []
+    assert len(saved_catalog.notes) == 1
+
+
 def test_updates_markdown_and_metadata(
     tmp_path: Path,
 ) -> None:
@@ -35,7 +82,7 @@ def test_updates_markdown_and_metadata(
         source_notes_dir,
     )
 
-    updated_note = service.update_note(_create_command())
+    updated_note = service.update_note(_create_update_command())
 
     saved_catalog = repository.load()
     saved_metadata = saved_catalog.notes[_NOTE_ID]
@@ -62,7 +109,7 @@ def test_restores_markdown_when_metadata_save_fails(
     )
 
     with pytest.raises(RuntimeError, match="Metadata save failed"):
-        service.update_note(_create_command())
+        service.update_note(_create_update_command())
 
     assert note_path.read_text(encoding="utf-8") == original_content
 
@@ -107,7 +154,20 @@ def _create_storage(
     return metadata_file, source_notes_dir, note_path
 
 
-def _create_command() -> UpdateNoteCommand:
+def _create_create_command() -> CreateNoteCommand:
+    return CreateNoteCommand(
+        title="New note",
+        theme="csharp",
+        comment="learn",
+        difficulty="middle",
+        importance=7,
+        completeness=3,
+        mastery=0,
+        markdown_content="# New content",
+    )
+
+
+def _create_update_command() -> UpdateNoteCommand:
     return UpdateNoteCommand(
         note_id=_NOTE_ID,
         title="Updated GC",
