@@ -10,7 +10,7 @@ class NotesMetadataCatalog(BaseModel):
 
     version: int = Field(ge=2)
     version_time: AwareDatetime
-    notes: dict[UUID, NoteMetadata] = Field(min_length=1)
+    notes: dict[UUID, NoteMetadata]
 
     @field_validator("notes")
     @classmethod
