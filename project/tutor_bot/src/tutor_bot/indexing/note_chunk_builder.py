@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 from uuid import UUID, uuid5
 
 from tutor_bot.indexing.indexed_chunk import IndexedChunk
@@ -14,33 +14,29 @@ from tutor_bot.schemas.note_metadata import NoteMetadata
 
 class NoteChunkBuilder:
     def __init__(
-            self,
-            markdown_cleaner: MarkdownCleaner,
-            section_splitter: MarkdownSectionSplitter,
-            section_chunker: MarkdownSectionChunker,
+        self,
+        markdown_cleaner: MarkdownCleaner,
+        section_splitter: MarkdownSectionSplitter,
+        section_chunker: MarkdownSectionChunker,
     ) -> None:
         self._markdown_cleaner = markdown_cleaner
         self._section_splitter = section_splitter
         self._section_chunker = section_chunker
 
     def build(
-            self,
-            note_id: UUID,
-            metadata: NoteMetadata,
-            markdown_content: str,
-            source_modified_at: datetime,
+        self,
+        note_id: UUID,
+        metadata: NoteMetadata,
+        markdown_content: str,
+        source_modified_at: datetime,
     ) -> list[IndexedChunk]:
-        cleaned_markdown = self._markdown_cleaner.clean(
-            markdown_content
-        )
+        cleaned_markdown = self._markdown_cleaner.clean(markdown_content)
         sections = self._section_splitter.split(cleaned_markdown)
         markdown_chunks = self._section_chunker.chunk(sections)
         indexed_chunks = []
 
         for markdown_chunk in markdown_chunks:
-            heading_context = " > ".join(
-                markdown_chunk.heading_path
-            )
+            heading_context = " > ".join(markdown_chunk.heading_path)
 
             text = markdown_chunk.content
 
@@ -51,10 +47,7 @@ class NoteChunkBuilder:
                 IndexedChunk(
                     chunk_id=uuid5(
                         note_id,
-                        (
-                            f"{markdown_chunk.section_index}:"
-                            f"{markdown_chunk.chunk_index}"
-                        ),
+                        (f"{markdown_chunk.section_index}:{markdown_chunk.chunk_index}"),
                     ),
                     note_id=note_id,
                     section_index=markdown_chunk.section_index,
