@@ -1,4 +1,4 @@
-﻿from pathlib import PurePosixPath
+from pathlib import PurePosixPath
 from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
