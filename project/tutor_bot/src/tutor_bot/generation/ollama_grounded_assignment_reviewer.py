@@ -1,10 +1,10 @@
-from openai import OpenAI
+from ollama import Client
 
 from tutor_bot.application.assignment_review import AssignmentReview
 from tutor_bot.retrieval.context_gate_result import ContextGateResult
 
 
-_DEFAULT_MODEL_NAME = "qwen2.5:3b"
+_DEFAULT_MODEL_NAME = "qwen3.5:9b"
 _SYSTEM_PROMPT = """Ты проверяешь учебное задание по локальным заметкам.
 Оценивай ответ ученика только по переданному контексту и формулировке задания.
 Не добавляй требования и факты из внешних знаний.
@@ -12,8 +12,13 @@ _SYSTEM_PROMPT = """Ты проверяешь учебное задание по
 Вердикт correct используй только для полного ответа без существенных ошибок.
 Вердикт partially_correct используй для ответа с верными тезисами, но заметными пропусками.
 Вердикт incorrect используй для ответа с ключевыми фактическими ошибками.
+Если errors или missing_points не пусты, verdict не может быть correct.
+Если missing_points не пуст, но ключевых ошибок нет, используй partially_correct.
 Все элементы списков и обратную связь пиши на русском языке.
 Не повторяй один смысл в нескольких формулировках.
+Верни только JSON, соответствующий переданной схеме, без Markdown и дополнительного текста.
+Используй только ключи verdict, correct_points, errors, missing_points и feedback.
+Поле feedback должно содержать непустую итоговую рекомендацию ученику.
 Пиши конкретно и без лишней похвалы."""
 
 
@@ -25,18 +30,19 @@ class OllamaGroundedAssignmentReviewer:
         temperature: float = 0.0,
         max_tokens: int = 1000,
         timeout_seconds: float = 120.0,
+        think: bool = False,
     ) -> None:
         if temperature < 0 or max_tokens <= 0 or timeout_seconds <= 0:
             raise ValueError("Temperature must be non-negative and limits must be positive")
 
-        self._client = OpenAI(
-            base_url=base_url,
-            api_key="ollama",
+        self._client = Client(
+            host=base_url.removesuffix("/v1").rstrip("/"),
             timeout=timeout_seconds,
         )
         self._model_name = model_name
         self._temperature = temperature
         self._max_tokens = max_tokens
+        self._think = think
 
     def review(
         self,
@@ -53,7 +59,7 @@ class OllamaGroundedAssignmentReviewer:
                 feedback="В заметках недостаточно информации для проверки этого задания.",
             )
 
-        completion = self._client.chat.completions.create(
+        response = self._client.chat(
             model=self._model_name,
             messages=[
                 {
@@ -69,21 +75,17 @@ class OllamaGroundedAssignmentReviewer:
                     ),
                 },
             ],
-            temperature=self._temperature,
-            max_tokens=self._max_tokens,
-            response_format={
-                "type": "json_schema",
-                "json_schema": {
-                    "name": "assignment_review",
-                    "strict": True,
-                    "schema": AssignmentReview.model_json_schema(),
-                },
+            options={
+                "temperature": self._temperature,
+                "num_predict": self._max_tokens,
             },
+            format=AssignmentReview.model_json_schema(),
+            think=self._think,
         )
 
-        content = completion.choices[0].message.content
+        content = response.message.content
 
-        if content is None:
+        if not content:
             raise RuntimeError("Ollama returned an empty assignment review")
 
         return AssignmentReview.model_validate_json(content)
