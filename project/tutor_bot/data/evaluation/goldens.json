@@ -26,8 +26,134 @@
       "should_find_answer": true
     },
     {
+      "id": "il2cpp-build-pipeline",
+      "question": "Как IL2CPP преобразует C#-код Unity в нативный бинарник?",
+      "expected_note_ids": [
+        "69281476-c85e-547c-970e-8011c48a4ba9"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "rigidbody-modes-collision-detection",
+      "question": "Чем Kinematic Rigidbody отличается от Dynamic и когда нужен Continuous Collision Detection?",
+      "expected_note_ids": [
+        "dba88431-008d-513f-bbc7-fd22f8671730"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "git-flow-branches",
+      "question": "Какие ветки используются в Git Flow и чем он отличается от trunk-based разработки?",
+      "expected_note_ids": [
+        "06a78e8f-dbb7-5528-8a46-9439beae2ed3"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "collections-comparison",
+      "question": "Чем Array, List<T> и Dictionary<TKey, TValue> отличаются по устройству и сложности доступа?",
+      "expected_note_ids": [
+        "7cfbfd5d-c159-55cb-bdd1-829c58adbfb8"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "culling-comparison",
+      "question": "Чем Frustum Culling отличается от Occlusion Culling в Unity?",
+      "expected_note_ids": [
+        "9894b415-6da2-5581-b5df-981115e9149f"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "quaternion-vs-euler",
+      "question": "Почему для вращений в Unity используют Quaternion вместо Euler-углов?",
+      "expected_note_ids": [
+        "6e2dce7f-6f61-58f3-aeef-7899007120c3"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "delegates-action-func-event",
+      "question": "Чем Action, Func и event отличаются от обычного делегата C#?",
+      "expected_note_ids": [
+        "e6441860-579d-55fb-94d9-b7ac0c761819"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "rendering-optimization",
+      "question": "Как в Unity уменьшить число отрисовываемых объектов и draw calls?",
+      "expected_note_ids": [
+        "9894b415-6da2-5581-b5df-981115e9149f",
+        "d9936922-9835-5cb0-bc29-a1d3c5680c53"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "physics-collision-events",
+      "question": "Какие настройки Rigidbody и Collider нужны для корректных Collision и Trigger событий?",
+      "expected_note_ids": [
+        "dba88431-008d-513f-bbc7-fd22f8671730",
+        "ac22fd8a-a5c4-501c-b2e6-73abb5cac6bc"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "dependency-inversion-injection",
+      "question": "Как принцип инверсии зависимостей связан с Dependency Injection и IoC-контейнерами?",
+      "expected_note_ids": [
+        "00ddf68b-1408-5075-813e-9f897e8ee27a",
+        "6ba716c0-f2b2-5a78-bde3-f4ff65dd0926"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "architecture-principles-patterns",
+      "question": "Какие принципы и шаблоны помогают уменьшать связанность и сложность архитектуры Unity-проекта?",
+      "expected_note_ids": [
+        "55eb8d8a-77c3-5289-bbda-018dff4c0225",
+        "6200b952-8071-5258-abc9-10d5d4739116",
+        "00ddf68b-1408-5075-813e-9f897e8ee27a"
+      ],
+      "should_find_answer": true
+    },
+    {
+      "id": "il2cpp-garbage-collection",
+      "question": "Как управление памятью и сборка мусора работают в Unity-проектах с IL2CPP?",
+      "expected_note_ids": [
+        "69281476-c85e-547c-970e-8011c48a4ba9",
+        "2e2a0b1a-43f0-5d43-918f-393d557d5eac"
+      ],
+      "should_find_answer": true
+    },
+    {
       "id": "missing-kubernetes",
       "question": "Как настроить отказоустойчивый Kubernetes-кластер?",
+      "expected_note_ids": [],
+      "should_find_answer": false
+    },
+    {
+      "id": "missing-postgresql-replication",
+      "question": "Как настроить потоковую репликацию PostgreSQL с автоматическим failover?",
+      "expected_note_ids": [],
+      "should_find_answer": false
+    },
+    {
+      "id": "missing-rust-borrow-checker",
+      "question": "Как borrow checker в Rust проверяет времена жизни ссылок?",
+      "expected_note_ids": [],
+      "should_find_answer": false
+    },
+    {
+      "id": "missing-kafka-exactly-once",
+      "question": "Как обеспечить exactly-once обработку сообщений в Apache Kafka?",
+      "expected_note_ids": [],
+      "should_find_answer": false
+    },
+    {
+      "id": "missing-react-server-components",
+      "question": "Как React Server Components разделяют серверный и клиентский рендеринг?",
       "expected_note_ids": [],
       "should_find_answer": false
     }
