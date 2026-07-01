@@ -26,6 +26,7 @@ def render_active_recall_page(
 ) -> None:
     st.header("Active Recall")
     st.caption("Вспомните материал без подсказок, затем сравните ответ с критериями заметки.")
+    _render_history(recall_service.get_history())
 
     notes = note_query_service.list_notes()
 
@@ -158,3 +159,27 @@ def _render_points(
 
     for point in points:
         st.markdown(f"- {point}")
+
+
+def _render_history(
+    history: tuple[RecallSessionResult, ...],
+) -> None:
+    if not history:
+        return
+
+    verdict_counts = {
+        verdict: sum(result.review.verdict == verdict for result in history)
+        for verdict in _VERDICT_LABELS
+    }
+    columns = st.columns(4)
+    columns[0].metric("Попыток", len(history))
+    columns[1].metric("Правильных", verdict_counts["correct"])
+    columns[2].metric("Частичных", verdict_counts["partially_correct"])
+    columns[3].metric("Ошибочных", verdict_counts["incorrect"])
+
+    with st.expander("Последние попытки"):
+        for result in reversed(history[-5:]):
+            st.markdown(
+                f"**{result.session.note_title}** — {_VERDICT_LABELS[result.review.verdict]}"
+            )
+            st.caption(result.session.exercise.question)

@@ -34,3 +34,15 @@ class ActiveRecallHistoryRepository:
             newline="\n",
         ) as history_file:
             history_file.write(serialized_record + "\n")
+
+    def load_results(self) -> tuple[RecallSessionResult, ...]:
+        if not self._history_file.exists():
+            return ()
+
+        results = []
+
+        for line in self._history_file.read_text(encoding="utf-8").splitlines():
+            record = json.loads(line)
+            results.append(RecallSessionResult.model_validate(record["result"]))
+
+        return tuple(results)
