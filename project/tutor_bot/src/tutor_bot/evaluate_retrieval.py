@@ -22,6 +22,7 @@ def main() -> int:
         ChromaChunkIndex(settings.indexes_dir / "chroma"),
         Bm25ChunkIndex(settings.indexes_dir / "bm25"),
         SentenceTransformerReranker(device="cpu"),
+        max_chunks_per_note=arguments.max_chunks_per_note,
     )
 
     context_gate = RerankerContextGate(
@@ -46,6 +47,11 @@ def main() -> int:
 
 def _parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--max-chunks-per-note",
+        type=int,
+        default=2,
+    )
     parser.add_argument(
         "--minimum-reranker-score",
         type=float,
