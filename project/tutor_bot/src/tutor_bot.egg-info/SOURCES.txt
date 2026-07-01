@@ -2,6 +2,7 @@ pyproject.toml
 src/tutor_bot/__init__.py
 src/tutor_bot/check_consistency.py
 src/tutor_bot/config.py
+src/tutor_bot/evaluate_retrieval.py
 src/tutor_bot/rebuild_index.py
 src/tutor_bot/synchronize_metadata.py
 src/tutor_bot.egg-info/PKG-INFO
@@ -20,6 +21,10 @@ src/tutor_bot/application/note_query_service.py
 src/tutor_bot/application/update_note_command.py
 src/tutor_bot/evaluation/corpus_loader.py
 src/tutor_bot/evaluation/golden_loader.py
+src/tutor_bot/evaluation/retrieval_evaluation_report.py
+src/tutor_bot/evaluation/retrieval_evaluator.py
+src/tutor_bot/generation/grounded_answer_generator.py
+src/tutor_bot/generation/ollama_grounded_answer_generator.py
 src/tutor_bot/indexing/bm25_chunk_index.py
 src/tutor_bot/indexing/chroma_chunk_index.py
 src/tutor_bot/indexing/corpus_chunk_builder.py
@@ -42,6 +47,13 @@ src/tutor_bot/infrastructure/metadata_synchronization_service.py
 src/tutor_bot/infrastructure/mock_note_query_service.py
 src/tutor_bot/infrastructure/note_consistency_checker.py
 src/tutor_bot/infrastructure/notes_metadata_repository.py
+src/tutor_bot/retrieval/chunk_search_result.py
+src/tutor_bot/retrieval/context_gate_result.py
+src/tutor_bot/retrieval/hybrid_search_result.py
+src/tutor_bot/retrieval/hybrid_search_service.py
+src/tutor_bot/retrieval/reranker.py
+src/tutor_bot/retrieval/reranker_context_gate.py
+src/tutor_bot/retrieval/sentence_transformer_reranker.py
 src/tutor_bot/schemas/evaluation_corpus.py
 src/tutor_bot/schemas/golden_dataset.py
 src/tutor_bot/schemas/note_metadata.py
