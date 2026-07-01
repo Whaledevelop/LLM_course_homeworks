@@ -20,6 +20,10 @@ def render_active_recall_session(
     study_session: RecallStudySession,
     state_key: str,
 ) -> None:
+    if st.button("Прервать сессию"):
+        st.session_state.pop(state_key, None)
+        st.rerun()
+
     st.progress(
         study_session.answered_count / study_session.total_count,
         text=f"Отвечено: {study_session.answered_count}/{study_session.total_count}",
@@ -117,6 +121,10 @@ def _render_result(result: RecallSessionResult) -> None:
     _render_points("Ошибки", review.errors)
     st.markdown("#### Эталонный ответ")
     st.markdown(result.session.exercise.reference_answer)
+
+    if result.session.source_markdown:
+        with st.expander("Исходная заметка"):
+            st.markdown(result.session.source_markdown)
 
 
 def _render_points(
