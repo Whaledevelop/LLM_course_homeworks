@@ -1,6 +1,8 @@
 from uuid import UUID
 
 import streamlit as st
+from httpx import HTTPError
+from ollama import ResponseError
 from openai import OpenAIError
 
 from tutor_bot.application.tutor_answer import TutorAnswer
@@ -59,7 +61,7 @@ def _submit_question(
     try:
         with st.spinner("Ищу информацию в заметках и формирую ответ..."):
             st.session_state[_ANSWER_KEY] = answer_service.answer(question)
-    except OpenAIError as error:
+    except (HTTPError, OpenAIError, ResponseError) as error:
         st.error(f"Не удалось получить ответ от Ollama: {error}")
 
 

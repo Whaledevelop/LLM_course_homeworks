@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     project_root: Path = Path(__file__).resolve().parents[2]
     source_notes_dir: Path
     ollama_base_url: str = "http://localhost:11434/v1"
+    ollama_model: str = "qwen3.5:9b"
+    ollama_think: bool = False
 
     @property
     def data_dir(self) -> Path:

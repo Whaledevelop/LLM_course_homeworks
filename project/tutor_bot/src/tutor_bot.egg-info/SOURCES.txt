@@ -10,6 +10,7 @@ src/tutor_bot.egg-info/SOURCES.txt
 src/tutor_bot.egg-info/dependency_links.txt
 src/tutor_bot.egg-info/requires.txt
 src/tutor_bot.egg-info/top_level.txt
+src/tutor_bot/application/assignment_review.py
 src/tutor_bot/application/create_note_command.py
 src/tutor_bot/application/delete_note_command.py
 src/tutor_bot/application/metadata_synchronization_plan.py
@@ -18,13 +19,17 @@ src/tutor_bot/application/note_consistency_report.py
 src/tutor_bot/application/note_details.py
 src/tutor_bot/application/note_list_item.py
 src/tutor_bot/application/note_query_service.py
+src/tutor_bot/application/tutor_answer.py
+src/tutor_bot/application/tutor_answer_service.py
 src/tutor_bot/application/update_note_command.py
 src/tutor_bot/evaluation/corpus_loader.py
 src/tutor_bot/evaluation/golden_loader.py
 src/tutor_bot/evaluation/retrieval_evaluation_report.py
 src/tutor_bot/evaluation/retrieval_evaluator.py
 src/tutor_bot/generation/grounded_answer_generator.py
+src/tutor_bot/generation/grounded_assignment_reviewer.py
 src/tutor_bot/generation/ollama_grounded_answer_generator.py
+src/tutor_bot/generation/ollama_grounded_assignment_reviewer.py
 src/tutor_bot/indexing/bm25_chunk_index.py
 src/tutor_bot/indexing/chroma_chunk_index.py
 src/tutor_bot/indexing/corpus_chunk_builder.py
@@ -61,7 +66,9 @@ src/tutor_bot/schemas/notes_metadata_catalog.py
 src/tutor_bot/schemas/retrieval_case.py
 src/tutor_bot/ui/app.py
 src/tutor_bot/ui/app_mode.py
+src/tutor_bot/ui/tutor_answer_service_factory.py
 src/tutor_bot/ui/views/add_note_page.py
 src/tutor_bot/ui/views/browse_notes_page.py
 src/tutor_bot/ui/views/note_actions.py
 src/tutor_bot/ui/views/placeholder_page.py
+src/tutor_bot/ui/views/questions_page.py

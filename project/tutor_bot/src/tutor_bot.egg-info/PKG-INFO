@@ -4,6 +4,7 @@ Version: 0.1.0
 Requires-Python: <3.13,>=3.12
 Requires-Dist: bm25s<0.4,>=0.3
 Requires-Dist: chromadb<2,>=1.1.13
+Requires-Dist: ollama<1,>=0.6
 Requires-Dist: openai<3,>=1.60
 Requires-Dist: pydantic<3,>=2.10
 Requires-Dist: pydantic-settings<3,>=2.7

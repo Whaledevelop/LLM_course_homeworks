@@ -1,5 +1,6 @@
 bm25s<0.4,>=0.3
 chromadb<2,>=1.1.13
+ollama<1,>=0.6
 openai<3,>=1.60
 pydantic<3,>=2.10
 pydantic-settings<3,>=2.7
