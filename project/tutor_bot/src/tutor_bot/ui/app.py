@@ -16,6 +16,8 @@ from tutor_bot.ui.app_mode import AppMode
 from tutor_bot.ui.views.add_note_page import render_add_note_page
 from tutor_bot.ui.views.browse_notes_page import render_browse_notes_page
 from tutor_bot.ui.views.placeholder_page import render_placeholder_page
+from tutor_bot.ui.views.questions_page import render_questions_page
+from tutor_bot.ui.tutor_answer_service_factory import create_tutor_answer_service
 
 
 @st.cache_resource
@@ -54,6 +56,11 @@ def main() -> None:
         options=list(AppMode),
         format_func=lambda app_mode: app_mode.value,
     )
+
+    if selected_mode == AppMode.QUESTIONS:
+        render_questions_page(create_tutor_answer_service())
+
+        return
 
     note_query_service, note_command_service = create_note_services()
 
