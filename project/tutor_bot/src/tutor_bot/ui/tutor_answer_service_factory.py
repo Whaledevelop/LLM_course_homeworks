@@ -30,5 +30,9 @@ def create_tutor_answer_service() -> TutorAnswerService:
             minimum_reranker_score=0.0,
             context_limit=5,
         ),
-        OllamaGroundedAnswerGenerator(settings.ollama_base_url),
+        OllamaGroundedAnswerGenerator(
+            settings.ollama_base_url,
+            model_name=settings.ollama_model,
+            think=settings.ollama_think,
+        ),
     )

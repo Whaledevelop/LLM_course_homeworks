@@ -1,4 +1,4 @@
-from openai import OpenAI
+from ollama import Client
 
 from tutor_bot.retrieval.context_gate_result import ContextGateResult
 
@@ -21,18 +21,19 @@ class OllamaGroundedAnswerGenerator:
         temperature: float = 0.0,
         max_tokens: int = 800,
         timeout_seconds: float = 120.0,
+        think: bool = False,
     ) -> None:
         if temperature < 0 or max_tokens <= 0 or timeout_seconds <= 0:
             raise ValueError("Temperature must be non-negative and limits must be positive")
 
-        self._client = OpenAI(
-            base_url=base_url,
-            api_key="ollama",
+        self._client = Client(
+            host=base_url.removesuffix("/v1").rstrip("/"),
             timeout=timeout_seconds,
         )
         self._model_name = model_name
         self._temperature = temperature
         self._max_tokens = max_tokens
+        self._think = think
 
     def generate(
         self,
@@ -42,7 +43,7 @@ class OllamaGroundedAnswerGenerator:
         if not context.has_sufficient_context:
             return _NO_CONTEXT_RESPONSE
 
-        completion = self._client.chat.completions.create(
+        response = self._client.chat(
             model=self._model_name,
             messages=[
                 {
@@ -57,13 +58,16 @@ class OllamaGroundedAnswerGenerator:
                     ),
                 },
             ],
-            temperature=self._temperature,
-            max_tokens=self._max_tokens,
+            options={
+                "temperature": self._temperature,
+                "num_predict": self._max_tokens,
+            },
+            think=self._think,
         )
 
-        answer = completion.choices[0].message.content
+        answer = response.message.content
 
-        if answer is None:
+        if not answer:
             raise RuntimeError("Ollama returned an empty answer")
 
         source_list = self._build_source_list(context)
