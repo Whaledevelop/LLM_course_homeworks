@@ -15,16 +15,18 @@ class HybridSearchService:
         vector_index: ChromaChunkIndex,
         bm25_index: Bm25ChunkIndex,
         reranker: Reranker,
+        max_chunks_per_note: int = 2,
         candidate_limit: int = 20,
         rrf_constant: int = 60,
     ) -> None:
-        if candidate_limit <= 0 or rrf_constant <= 0:
-            raise ValueError("Candidate limit and RRF constant must be positive")
+        if candidate_limit <= 0 or rrf_constant <= 0 or max_chunks_per_note <= 0:
+            raise ValueError("Search limits and RRF constant must be positive")
 
         self._embedding_service = embedding_service
         self._vector_index = vector_index
         self._bm25_index = bm25_index
         self._reranker = reranker
+        self._max_chunks_per_note = max_chunks_per_note
         self._candidate_limit = candidate_limit
         self._rrf_constant = rrf_constant
 
@@ -105,6 +107,22 @@ class HybridSearchService:
             ),
         )
 
+        selected_chunk_ids = []
+        chunk_counts_by_note: dict[UUID, int] = {}
+
+        for chunk_id in reranked_chunk_ids:
+            note_id = chunks_by_id[chunk_id].note_id
+            note_chunk_count = chunk_counts_by_note.get(note_id, 0)
+
+            if note_chunk_count >= self._max_chunks_per_note:
+                continue
+
+            selected_chunk_ids.append(chunk_id)
+            chunk_counts_by_note[note_id] = note_chunk_count + 1
+
+            if len(selected_chunk_ids) == limit:
+                break
+
         return [
             HybridSearchResult(
                 chunk=chunks_by_id[chunk_id],
@@ -113,7 +131,7 @@ class HybridSearchService:
                 vector_rank=vector_ranks.get(chunk_id),
                 bm25_rank=bm25_ranks.get(chunk_id),
             )
-            for chunk_id in reranked_chunk_ids[:limit]
+            for chunk_id in selected_chunk_ids
         ]
 
     def _add_ranked_results(
