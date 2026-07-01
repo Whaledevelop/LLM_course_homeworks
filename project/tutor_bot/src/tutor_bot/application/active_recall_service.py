@@ -20,6 +20,8 @@ class _RecallHistoryWriter(Protocol):
         review_duration_seconds: float,
     ) -> None: ...
 
+    def load_results(self) -> tuple[RecallSessionResult, ...]: ...
+
 
 class ActiveRecallService:
     def __init__(
@@ -77,3 +79,6 @@ class ActiveRecallService:
         )
 
         return result
+
+    def get_history(self) -> tuple[RecallSessionResult, ...]:
+        return self._history_writer.load_results()
