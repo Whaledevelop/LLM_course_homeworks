@@ -51,6 +51,7 @@ class ActiveRecallService:
         return RecallSession(
             note_id=note.id,
             note_title=note.title,
+            source_markdown=note.markdown_content,
             exercise=exercise,
         )
 

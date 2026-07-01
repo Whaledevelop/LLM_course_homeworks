@@ -1,4 +1,5 @@
 from ollama import Client
+from pydantic import ValidationError
 
 from tutor_bot.application.assignment_review import AssignmentReview
 from tutor_bot.retrieval.context_gate_result import ContextGateResult
@@ -20,6 +21,9 @@ _SYSTEM_PROMPT = """Ты проверяешь учебное задание по
 Используй только ключи verdict, correct_points, errors, missing_points и feedback.
 Поле feedback должно содержать непустую итоговую рекомендацию ученику.
 Пиши конкретно и без лишней похвалы."""
+_REPAIR_PROMPT = """Предыдущий ответ не прошёл проверку JSON.
+Исправь только JSON-структуру, сохранив смысл оценки.
+Верни полный корректный JSON без Markdown и пояснений."""
 
 
 class OllamaGroundedAssignmentReviewer:
@@ -59,22 +63,48 @@ class OllamaGroundedAssignmentReviewer:
                 feedback="В заметках недостаточно информации для проверки этого задания.",
             )
 
+        messages = [
+            {
+                "role": "system",
+                "content": _SYSTEM_PROMPT,
+            },
+            {
+                "role": "user",
+                "content": self._build_user_prompt(
+                    assignment_text,
+                    student_answer,
+                    context,
+                ),
+            },
+        ]
+        content = self._request_content(messages)
+
+        try:
+            return AssignmentReview.model_validate_json(content)
+        except ValidationError:
+            messages.extend(
+                [
+                    {
+                        "role": "assistant",
+                        "content": content,
+                    },
+                    {
+                        "role": "user",
+                        "content": _REPAIR_PROMPT,
+                    },
+                ]
+            )
+            repaired_content = self._request_content(messages)
+
+            return AssignmentReview.model_validate_json(repaired_content)
+
+    def _request_content(
+        self,
+        messages: list[dict[str, str]],
+    ) -> str:
         response = self._client.chat(
             model=self._model_name,
-            messages=[
-                {
-                    "role": "system",
-                    "content": _SYSTEM_PROMPT,
-                },
-                {
-                    "role": "user",
-                    "content": self._build_user_prompt(
-                        assignment_text,
-                        student_answer,
-                        context,
-                    ),
-                },
-            ],
+            messages=messages,
             options={
                 "temperature": self._temperature,
                 "num_predict": self._max_tokens,
@@ -82,13 +112,12 @@ class OllamaGroundedAssignmentReviewer:
             format=AssignmentReview.model_json_schema(),
             think=self._think,
         )
-
         content = response.message.content
 
         if not content:
             raise RuntimeError("Ollama returned an empty assignment review")
 
-        return AssignmentReview.model_validate_json(content)
+        return content
 
     def _build_user_prompt(
         self,
