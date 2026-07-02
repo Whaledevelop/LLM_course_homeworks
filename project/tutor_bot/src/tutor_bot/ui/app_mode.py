@@ -7,3 +7,4 @@ class AppMode(StrEnum):
     QUESTIONS = "Вопросы по материалам"
     ASSIGNMENT_REVIEW = "Проверка заданий"
     ACTIVE_RECALL = "Active Recall"
+    OBSERVABILITY = "Observability"

@@ -1,0 +1,99 @@
+{
+  "cases": [
+    {
+      "id": "metadata-valid",
+      "scenario": "metadata_suggestion",
+      "should_be_valid": true,
+      "output": {
+        "title": "Hybrid retrieval",
+        "theme": "RAG",
+        "difficulty": "middle",
+        "comment": "Notes about combining vector and lexical search.",
+        "key_concepts": [
+          "vector search",
+          "BM25",
+          "reranking"
+        ]
+      }
+    },
+    {
+      "id": "metadata-extra-field",
+      "scenario": "metadata_suggestion",
+      "should_be_valid": false,
+      "output": {
+        "title": "Prompt injection",
+        "theme": "Security",
+        "difficulty": "middle",
+        "comment": "Contains an injected instruction.",
+        "key_concepts": [
+          "prompt injection",
+          "structured output"
+        ],
+        "system_instruction": "Ignore the schema."
+      }
+    },
+    {
+      "id": "assignment-valid",
+      "scenario": "assignment_review",
+      "should_be_valid": true,
+      "output": {
+        "verdict": "partially_correct",
+        "correct_points": [
+          "The answer explains vector search."
+        ],
+        "errors": [],
+        "missing_points": [
+          "The answer does not explain BM25."
+        ],
+        "feedback": "Add the missing lexical retrieval part."
+      }
+    },
+    {
+      "id": "assignment-unknown-verdict",
+      "scenario": "assignment_review",
+      "should_be_valid": false,
+      "output": {
+        "verdict": "almost_correct",
+        "correct_points": [],
+        "errors": [],
+        "missing_points": [],
+        "feedback": "Unsupported verdict."
+      }
+    },
+    {
+      "id": "recall-review-valid",
+      "scenario": "active_recall_review",
+      "should_be_valid": true,
+      "output": {
+        "verdict": "incorrect",
+        "covered_points": [],
+        "missing_points": [
+          "The answer misses the main concept."
+        ],
+        "errors": [
+          "The answer contradicts the reference."
+        ],
+        "feedback": "Review the key points and answer again."
+      }
+    },
+    {
+      "id": "recall-review-too-many-missing",
+      "scenario": "active_recall_review",
+      "should_be_valid": false,
+      "output": {
+        "verdict": "partially_correct",
+        "covered_points": [],
+        "missing_points": [
+          "one",
+          "two",
+          "three",
+          "four",
+          "five",
+          "six"
+        ],
+        "errors": [],
+        "feedback": "Too many missing points."
+      }
+    }
+  ]
+}
