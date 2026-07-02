@@ -57,10 +57,8 @@ class NoteChunkBuilder:
                     heading_path=markdown_chunk.heading_path,
                     text=text,
                     theme=metadata.theme,
-                    difficulty=metadata.difficulty,
                     importance=metadata.importance,
-                    completeness=metadata.completeness,
-                    mastery=metadata.mastery,
+                    knowledge=metadata.knowledge,
                     relative_path=metadata.relative_path,
                     source_modified_at=source_modified_at,
                 )

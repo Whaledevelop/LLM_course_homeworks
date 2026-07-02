@@ -18,13 +18,15 @@ def render_note_actions(
     edit_column, delete_column = st.columns(2)
 
     edit_requested = edit_column.button(
-        "Редактировать заметку",
+        "✎",
+        help="Редактировать заметку",
         key=f"open-editor-{note_id}",
         width="stretch",
     )
 
     delete_requested = delete_column.button(
-        "Удалить заметку",
+        "🗑",
+        help="Удалить заметку",
         key=f"open-delete-{note_id}",
         width="stretch",
     )
@@ -67,11 +69,6 @@ def _render_edit_form(
             value=note_details.theme,
         )
 
-        difficulty = st.text_input(
-            "Сложность",
-            value=note_details.difficulty,
-        )
-
         comment = st.text_input(
             "Комментарий",
             value=note_details.comment,
@@ -84,18 +81,11 @@ def _render_edit_form(
             value=note_details.importance,
         )
 
-        completeness = st.slider(
-            "Полнота",
+        knowledge = st.slider(
+            "Знание",
             min_value=0,
             max_value=10,
-            value=note_details.completeness,
-        )
-
-        mastery = st.slider(
-            "Освоение",
-            min_value=0,
-            max_value=10,
-            value=note_details.mastery,
+            value=note_details.knowledge,
         )
 
         markdown_content = st.text_area(
@@ -129,10 +119,8 @@ def _render_edit_form(
         title=title,
         theme=theme,
         comment=comment,
-        difficulty=difficulty,
         importance=importance,
-        completeness=completeness,
-        mastery=mastery,
+        knowledge=knowledge,
         markdown_content=markdown_content,
     )
 

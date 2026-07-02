@@ -73,7 +73,7 @@ def test_updates_markdown_and_metadata(
 
     assert updated_note.title == "Updated GC"
     assert saved_metadata.last_recorded_name == "Updated GC"
-    assert saved_metadata.mastery == 4
+    assert saved_metadata.knowledge == 4
     assert "# Updated content" in saved_markdown
     assert f"id: {NOTE_ID}" in saved_markdown
     assert len(list((tmp_path / "backups").glob("*.json"))) == 1

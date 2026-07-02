@@ -44,10 +44,8 @@ def create_storage(
                     str(NOTE_ID): {
                         "theme": "csharp",
                         "comment": "repeat",
-                        "difficulty": "middle",
                         "importance": 8,
-                        "completeness": 7,
-                        "mastery": 1,
+                        "knowledge": 1,
                         "last_recorded_name": "GC",
                         "relative_path": "csharp/gc.md",
                     }
@@ -67,10 +65,8 @@ def create_create_command() -> CreateNoteCommand:
         title="New note",
         theme="csharp",
         comment="learn",
-        difficulty="middle",
         importance=7,
-        completeness=3,
-        mastery=0,
+        knowledge=0,
         markdown_content="# New content",
     )
 
@@ -81,10 +77,8 @@ def create_update_command() -> UpdateNoteCommand:
         title="Updated GC",
         theme="csharp",
         comment="ready",
-        difficulty="middle",
         importance=9,
-        completeness=8,
-        mastery=4,
+        knowledge=4,
         markdown_content="# Updated content",
     )
 

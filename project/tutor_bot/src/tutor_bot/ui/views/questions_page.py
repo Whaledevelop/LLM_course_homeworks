@@ -16,7 +16,6 @@ _ANSWER_KEY = "tutor_answer"
 def render_questions_page(
     answer_service: TutorAnswerService,
 ) -> None:
-    st.header("Вопросы по материалам")
     st.caption("Ответ формируется только по найденным фрагментам локальных заметок.")
 
     with st.form("question-form"):

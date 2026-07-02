@@ -9,7 +9,6 @@ class NoteMetadataSuggestion(BaseModel):
 
     title: str = Field(min_length=1)
     theme: str = Field(min_length=1)
-    difficulty: str = Field(min_length=1)
     comment: str = Field(min_length=1)
     key_concepts: tuple[str, ...] = Field(
         min_length=2,

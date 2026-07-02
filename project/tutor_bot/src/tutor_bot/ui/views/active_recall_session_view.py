@@ -19,6 +19,8 @@ def render_active_recall_session(
     recall_service: ActiveRecallService,
     study_session: RecallStudySession,
     state_key: str,
+    show_note_before_question: bool,
+    show_note_after_question: bool,
 ) -> None:
     if st.button("Прервать сессию"):
         st.session_state.pop(state_key, None)
@@ -32,9 +34,20 @@ def render_active_recall_session(
         f"Вопрос {study_session.current_index + 1}/{study_session.total_count} · "
         f"Заметка: {study_session.current_exercise.note_title}"
     )
-    st.subheader(study_session.current_exercise.exercise.question)
-
     current_result = _get_current_result(study_session)
+
+    if (
+        current_result is None
+        and show_note_before_question
+        and study_session.current_exercise.source_markdown
+    ):
+        with st.expander(
+            "Исходная заметка",
+            expanded=True,
+        ):
+            st.markdown(study_session.current_exercise.source_markdown)
+
+    st.subheader(study_session.current_exercise.exercise.question)
 
     if current_result is None:
         _render_answer_form(
@@ -45,7 +58,10 @@ def render_active_recall_session(
 
         return
 
-    _render_result(current_result)
+    _render_result(
+        current_result,
+        show_note_after_question,
+    )
 
     if study_session.is_complete:
         _render_summary(study_session)
@@ -104,7 +120,10 @@ def _render_answer_form(
         st.error(f"Не удалось проверить ответ: {error}")
 
 
-def _render_result(result: RecallSessionResult) -> None:
+def _render_result(
+    result: RecallSessionResult,
+    show_note_after_question: bool,
+) -> None:
     review = result.review
     verdict_label = VERDICT_LABELS[review.verdict]
 
@@ -122,7 +141,7 @@ def _render_result(result: RecallSessionResult) -> None:
     st.markdown("#### Эталонный ответ")
     st.markdown(result.session.exercise.reference_answer)
 
-    if result.session.source_markdown:
+    if show_note_after_question and result.session.source_markdown:
         with st.expander("Исходная заметка"):
             st.markdown(result.session.source_markdown)
 

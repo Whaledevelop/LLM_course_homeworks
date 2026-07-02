@@ -30,10 +30,8 @@ def test_resolves_corpus_files(tmp_path: Path) -> None:
         metadata_entries[note_id] = NoteMetadata(
             theme="topic",
             comment="",
-            difficulty="middle",
             importance=5,
-            completeness=5,
-            mastery=0,
+            knowledge=0,
             last_recorded_name=f"note-{i}",
             relative_path=relative_path,
         )
