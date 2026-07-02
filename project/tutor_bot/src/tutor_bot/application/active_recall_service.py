@@ -1,7 +1,7 @@
 from random import Random, SystemRandom
 from time import perf_counter
 from typing import Protocol
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from tutor_bot.application.note_query_service import NoteQueryService
 from tutor_bot.application.recall_session import RecallSession
@@ -13,6 +13,7 @@ from tutor_bot.generation.grounded_recall_answer_reviewer import (
 from tutor_bot.generation.grounded_recall_exercise_generator import (
     GroundedRecallExerciseGenerator,
 )
+from tutor_bot.schemas.observability_event import ObservabilityEvent
 
 
 class _RecallHistoryWriter(Protocol):
@@ -25,6 +26,14 @@ class _RecallHistoryWriter(Protocol):
     def load_results(self) -> tuple[RecallSessionResult, ...]: ...
 
 
+class _ObservabilityEventRecorder(Protocol):
+    def record(
+        self,
+        event: ObservabilityEvent,
+    ) -> None:
+        pass
+
+
 class ActiveRecallService:
     def __init__(
         self,
@@ -32,11 +41,13 @@ class ActiveRecallService:
         exercise_generator: GroundedRecallExerciseGenerator,
         answer_reviewer: GroundedRecallAnswerReviewer,
         history_writer: _RecallHistoryWriter,
+        observability_event_service: _ObservabilityEventRecorder | None = None,
     ) -> None:
         self._note_query_service = note_query_service
         self._exercise_generator = exercise_generator
         self._answer_reviewer = answer_reviewer
         self._history_writer = history_writer
+        self._observability_event_service = observability_event_service
 
     def create_session(
         self,
@@ -86,21 +97,78 @@ class ActiveRecallService:
         if not normalized_answer:
             raise ValueError("Student answer must not be empty")
 
+        trace_id = str(uuid4())
         review_started_at = perf_counter()
-        review = self._answer_reviewer.review(
-            session.exercise,
-            normalized_answer,
+        self._record_event(
+            ObservabilityEvent(
+                scenario="active_recall",
+                event_type="answer_review",
+                status="started",
+                trace_id=trace_id,
+                session_id=str(session.note_id),
+                payload={
+                    "note_id": str(session.note_id),
+                    "note_title": session.note_title,
+                    "student_answer_length": len(normalized_answer),
+                    "key_points_count": len(session.exercise.key_points),
+                },
+            )
         )
-        review_duration_seconds = perf_counter() - review_started_at
-        result = RecallSessionResult(
-            session=session,
-            student_answer=normalized_answer,
-            review=review,
-        )
-        self._history_writer.save(
-            result,
-            review_duration_seconds,
-        )
+
+        try:
+            review = self._answer_reviewer.review(
+                session.exercise,
+                normalized_answer,
+            )
+            review_duration_seconds = perf_counter() - review_started_at
+            result = RecallSessionResult(
+                session=session,
+                student_answer=normalized_answer,
+                review=review,
+            )
+            self._history_writer.save(
+                result,
+                review_duration_seconds,
+            )
+            self._record_event(
+                ObservabilityEvent(
+                    scenario="active_recall",
+                    event_type="answer_review",
+                    status="succeeded",
+                    trace_id=trace_id,
+                    session_id=str(session.note_id),
+                    duration_seconds=review_duration_seconds,
+                    payload={
+                        "note_id": str(session.note_id),
+                        "note_title": session.note_title,
+                        "student_answer_length": len(normalized_answer),
+                        "key_points_count": len(session.exercise.key_points),
+                        "verdict": review.verdict,
+                        "covered_points_count": len(review.covered_points),
+                        "missing_points_count": len(review.missing_points),
+                        "errors_count": len(review.errors),
+                    },
+                )
+            )
+        except Exception as exception:
+            self._record_event(
+                ObservabilityEvent(
+                    scenario="active_recall",
+                    event_type="answer_review",
+                    status="failed",
+                    trace_id=trace_id,
+                    session_id=str(session.note_id),
+                    duration_seconds=perf_counter() - review_started_at,
+                    payload={
+                        "note_id": str(session.note_id),
+                        "note_title": session.note_title,
+                        "student_answer_length": len(normalized_answer),
+                        "key_points_count": len(session.exercise.key_points),
+                    },
+                    error=exception.__class__.__name__,
+                )
+            )
+            raise
 
         return result
 
@@ -144,3 +212,12 @@ class ActiveRecallService:
                 "current_exercise": next_exercise,
             },
         )
+
+    def _record_event(
+        self,
+        event: ObservabilityEvent,
+    ) -> None:
+        if self._observability_event_service is None:
+            return
+
+        self._observability_event_service.record(event)
