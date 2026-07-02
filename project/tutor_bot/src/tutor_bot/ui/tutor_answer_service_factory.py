@@ -15,6 +15,9 @@ from tutor_bot.generation.ollama_grounded_recall_answer_reviewer import (
 from tutor_bot.generation.ollama_grounded_recall_exercise_generator import (
     OllamaGroundedRecallExerciseGenerator,
 )
+from tutor_bot.generation.ollama_note_metadata_suggester import (
+    OllamaNoteMetadataSuggester,
+)
 from tutor_bot.indexing.bm25_chunk_index import Bm25ChunkIndex
 from tutor_bot.indexing.chroma_chunk_index import ChromaChunkIndex
 from tutor_bot.indexing.sentence_transformer_embedding_service import (
@@ -97,4 +100,15 @@ def create_active_recall_service(
         ActiveRecallHistoryRepository(
             settings.history_dir / "active_recall.jsonl",
         ),
+    )
+
+
+@st.cache_resource
+def create_note_metadata_suggester() -> OllamaNoteMetadataSuggester:
+    settings = get_settings()
+
+    return OllamaNoteMetadataSuggester(
+        settings.ollama_base_url,
+        model_name=settings.ollama_model,
+        think=settings.ollama_think,
     )
