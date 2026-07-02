@@ -3,6 +3,7 @@ import streamlit as st
 from tutor_bot.application.active_recall_service import ActiveRecallService
 from tutor_bot.application.assignment_review_service import AssignmentReviewService
 from tutor_bot.application.note_query_service import NoteQueryService
+from tutor_bot.application.observability_event_service import ObservabilityEventService
 from tutor_bot.application.tutor_answer_service import TutorAnswerService
 from tutor_bot.config import get_settings
 from tutor_bot.generation.ollama_grounded_assignment_reviewer import (
@@ -26,6 +27,9 @@ from tutor_bot.indexing.sentence_transformer_embedding_service import (
 from tutor_bot.infrastructure.active_recall_history_repository import (
     ActiveRecallHistoryRepository,
 )
+from tutor_bot.infrastructure.jsonl_observability_event_repository import (
+    JsonlObservabilityEventRepository,
+)
 from tutor_bot.retrieval.hybrid_search_service import HybridSearchService
 from tutor_bot.retrieval.reranker_context_gate import RerankerContextGate
 from tutor_bot.retrieval.sentence_transformer_reranker import SentenceTransformerReranker
@@ -44,6 +48,17 @@ def create_hybrid_search_service() -> HybridSearchService:
 
 
 @st.cache_resource
+def create_observability_event_service() -> ObservabilityEventService:
+    settings = get_settings()
+
+    return ObservabilityEventService(
+        JsonlObservabilityEventRepository(
+            settings.history_dir / "observability_events.jsonl",
+        ),
+    )
+
+
+@st.cache_resource
 def create_tutor_answer_service() -> TutorAnswerService:
     settings = get_settings()
 
@@ -58,6 +73,7 @@ def create_tutor_answer_service() -> TutorAnswerService:
             model_name=settings.ollama_model,
             think=settings.ollama_think,
         ),
+        observability_event_service=create_observability_event_service(),
     )
 
 
@@ -76,6 +92,7 @@ def create_assignment_review_service() -> AssignmentReviewService:
             model_name=settings.ollama_model,
             think=settings.ollama_think,
         ),
+        observability_event_service=create_observability_event_service(),
     )
 
 
@@ -100,6 +117,7 @@ def create_active_recall_service(
         ActiveRecallHistoryRepository(
             settings.history_dir / "active_recall.jsonl",
         ),
+        observability_event_service=create_observability_event_service(),
     )
 
 
@@ -111,4 +129,5 @@ def create_note_metadata_suggester() -> OllamaNoteMetadataSuggester:
         settings.ollama_base_url,
         model_name=settings.ollama_model,
         think=settings.ollama_think,
+        observability_event_service=create_observability_event_service(),
     )
