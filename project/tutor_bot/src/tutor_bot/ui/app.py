@@ -16,6 +16,7 @@ from tutor_bot.ui.app_mode import AppMode
 from tutor_bot.ui.tutor_answer_service_factory import (
     create_active_recall_service,
     create_assignment_review_service,
+    create_note_metadata_suggester,
     create_tutor_answer_service,
 )
 from tutor_bot.ui.views.active_recall_page import render_active_recall_page
@@ -85,7 +86,10 @@ def main() -> None:
     note_query_service, note_command_service = create_note_services()
 
     if selected_mode == AppMode.ADD_NOTE:
-        render_add_note_page(note_command_service)
+        render_add_note_page(
+            note_command_service,
+            create_note_metadata_suggester(),
+        )
 
         return
 
