@@ -17,12 +17,14 @@ from tutor_bot.ui.tutor_answer_service_factory import (
     create_active_recall_service,
     create_assignment_review_service,
     create_note_metadata_suggester,
+    create_observability_event_service,
     create_tutor_answer_service,
 )
 from tutor_bot.ui.views.active_recall_page import render_active_recall_page
 from tutor_bot.ui.views.add_note_page import render_add_note_page
 from tutor_bot.ui.views.assignment_review_page import render_assignment_review_page
 from tutor_bot.ui.views.browse_notes_page import render_browse_notes_page
+from tutor_bot.ui.views.observability_page import render_observability_page
 from tutor_bot.ui.views.placeholder_page import render_placeholder_page
 from tutor_bot.ui.views.questions_page import render_questions_page
 
@@ -80,6 +82,11 @@ def main() -> None:
             note_query_service,
             create_active_recall_service(note_query_service),
         )
+
+        return
+
+    if selected_mode == AppMode.OBSERVABILITY:
+        render_observability_page(create_observability_event_service())
 
         return
 

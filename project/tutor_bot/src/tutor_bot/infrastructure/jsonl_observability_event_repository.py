@@ -23,3 +23,16 @@ class JsonlObservabilityEventRepository:
             newline="\n",
         ) as events_file:
             events_file.write(serialized_event + "\n")
+
+    def load_events(
+        self,
+    ) -> tuple[ObservabilityEvent, ...]:
+        if not self._events_file.exists():
+            return ()
+
+        events = []
+
+        for line in self._events_file.read_text(encoding="utf-8").splitlines():
+            events.append(ObservabilityEvent.model_validate_json(line))
+
+        return tuple(events)
