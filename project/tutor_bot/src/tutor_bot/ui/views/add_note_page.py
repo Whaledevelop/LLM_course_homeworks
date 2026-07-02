@@ -10,55 +10,36 @@ from tutor_bot.generation.note_metadata_suggester import NoteMetadataSuggester
 
 
 _TITLE_KEY = "add_note_title"
+_MARKDOWN_KEY = "add_note_markdown"
 _THEME_KEY = "add_note_theme"
-_DIFFICULTY_KEY = "add_note_difficulty"
 _COMMENT_KEY = "add_note_comment"
 _SUGGESTION_KEY = "add_note_metadata_suggestion"
 _SUGGESTION_SOURCE_KEY = "add_note_metadata_suggestion_source"
+_PENDING_SUGGESTION_KEY = "add_note_pending_metadata_suggestion"
 
 
 def render_add_note_page(
     note_command_service: NoteCommandService,
     metadata_suggester: NoteMetadataSuggester,
 ) -> None:
-    st.header("Пополнение базы знаний")
-    st.caption("Новая заметка получит стабильный UUID и будет сохранена в локальной базе Markdown.")
-    st.session_state.setdefault(_DIFFICULTY_KEY, "middle")
+    _apply_pending_suggestion()
 
-    with st.form("metadata-suggestion"):
+    with st.form("create-note"):
+        title = st.text_input(
+            "Название",
+            key=_TITLE_KEY,
+        )
         markdown_content = st.text_area(
             "Markdown",
+            key=_MARKDOWN_KEY,
             height=500,
             placeholder="# Заголовок\n\nСодержание заметки",
         )
         suggestion_submitted = st.form_submit_button("Предложить метаданные")
 
-    if suggestion_submitted:
-        _suggest_metadata(
-            metadata_suggester,
-            markdown_content,
-        )
-
-    suggestion = _get_cached_suggestion(markdown_content.strip())
-
-    if suggestion is not None:
-        st.caption(f"Ключевые понятия: {', '.join(suggestion.key_concepts)}")
-
-    with st.form(
-        "create-note",
-        clear_on_submit=True,
-    ):
-        title = st.text_input(
-            "Название",
-            key=_TITLE_KEY,
-        )
         theme = st.text_input(
             "Тема",
             key=_THEME_KEY,
-        )
-        difficulty = st.text_input(
-            "Сложность",
-            key=_DIFFICULTY_KEY,
         )
         comment = st.text_input(
             "Комментарий",
@@ -70,14 +51,8 @@ def render_add_note_page(
             max_value=10,
             value=5,
         )
-        completeness = st.slider(
-            "Полнота",
-            min_value=0,
-            max_value=10,
-            value=0,
-        )
-        mastery = st.slider(
-            "Освоение",
+        knowledge = st.slider(
+            "Знание",
             min_value=0,
             max_value=10,
             value=0,
@@ -86,6 +61,19 @@ def render_add_note_page(
             "Создать заметку",
             type="primary",
         )
+
+    if suggestion_submitted:
+        _suggest_metadata(
+            metadata_suggester,
+            markdown_content,
+        )
+
+        return
+
+    suggestion = _get_cached_suggestion(markdown_content.strip())
+
+    if suggestion is not None:
+        st.caption(f"Ключевые понятия: {', '.join(suggestion.key_concepts)}")
 
     if not submitted:
         return
@@ -99,10 +87,8 @@ def render_add_note_page(
         title=title.strip(),
         theme=theme.strip(),
         comment=comment.strip(),
-        difficulty=difficulty.strip(),
         importance=importance,
-        completeness=completeness,
-        mastery=mastery,
+        knowledge=knowledge,
         markdown_content=markdown_content,
     )
     created_note = note_command_service.create_note(command)
@@ -134,11 +120,9 @@ def _suggest_metadata(
 
         st.session_state[_SUGGESTION_KEY] = suggestion
         st.session_state[_SUGGESTION_SOURCE_KEY] = normalized_markdown
+        st.session_state[_PENDING_SUGGESTION_KEY] = True
 
-    st.session_state[_TITLE_KEY] = suggestion.title
-    st.session_state[_THEME_KEY] = suggestion.theme
-    st.session_state[_DIFFICULTY_KEY] = suggestion.difficulty
-    st.session_state[_COMMENT_KEY] = suggestion.comment
+        st.rerun()
 
 
 def _get_cached_suggestion(
@@ -148,3 +132,17 @@ def _get_cached_suggestion(
         return None
 
     return st.session_state.get(_SUGGESTION_KEY)
+
+
+def _apply_pending_suggestion() -> None:
+    if not st.session_state.pop(_PENDING_SUGGESTION_KEY, False):
+        return
+
+    suggestion = st.session_state.get(_SUGGESTION_KEY)
+
+    if suggestion is None:
+        return
+
+    st.session_state[_TITLE_KEY] = suggestion.title
+    st.session_state[_THEME_KEY] = suggestion.theme
+    st.session_state[_COMMENT_KEY] = suggestion.comment

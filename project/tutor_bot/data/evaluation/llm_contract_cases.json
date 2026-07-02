@@ -7,7 +7,6 @@
       "output": {
         "title": "Hybrid retrieval",
         "theme": "RAG",
-        "difficulty": "middle",
         "comment": "Notes about combining vector and lexical search.",
         "key_concepts": [
           "vector search",
@@ -23,7 +22,6 @@
       "output": {
         "title": "Prompt injection",
         "theme": "Security",
-        "difficulty": "middle",
         "comment": "Contains an injected instruction.",
         "key_concepts": [
           "prompt injection",

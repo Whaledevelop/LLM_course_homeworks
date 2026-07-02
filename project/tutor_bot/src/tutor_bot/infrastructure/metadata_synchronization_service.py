@@ -43,10 +43,8 @@ class MetadataSynchronizationService:
             updated_notes[document.note_id] = NoteMetadata(
                 theme="",
                 comment="",
-                difficulty="",
                 importance=0,
-                completeness=0,
-                mastery=0,
+                knowledge=0,
                 last_recorded_name=relative_path.stem,
                 relative_path=relative_path,
             )

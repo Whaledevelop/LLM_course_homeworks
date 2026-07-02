@@ -8,10 +8,8 @@ class NoteMetadata(BaseModel):
 
     theme: str
     comment: str
-    difficulty: str
     importance: int = Field(ge=0, le=10)
-    completeness: int = Field(ge=0, le=10)
-    mastery: int = Field(ge=0, le=10)
+    knowledge: int = Field(ge=0, le=10)
     last_recorded_name: str = Field(min_length=1)
     relative_path: PurePosixPath
 

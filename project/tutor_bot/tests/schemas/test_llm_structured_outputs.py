@@ -11,7 +11,6 @@ def test_accepts_metadata_suggestion_contract() -> None:
         {
             "title": "Hybrid retrieval",
             "theme": "RAG",
-            "difficulty": "middle",
             "comment": "Notes about combining vector and lexical search.",
             "key_concepts": [
                 "vector search",
@@ -35,7 +34,6 @@ def test_rejects_metadata_suggestion_with_extra_instruction_field() -> None:
             {
                 "title": "Prompt injection",
                 "theme": "Security",
-                "difficulty": "middle",
                 "comment": "Contains an injected instruction.",
                 "key_concepts": [
                     "prompt injection",

@@ -18,10 +18,8 @@ def test_saves_metadata_atomically_with_backup(
             "2e2a0b1a-43f0-5d43-918f-393d557d5eac": {
                 "theme": "csharp",
                 "comment": "repeat",
-                "difficulty": "middle",
                 "importance": 8,
-                "completeness": 7,
-                "mastery": 1,
+                "knowledge": 1,
                 "last_recorded_name": "Garbage collector",
                 "relative_path": "csharp/garbage-collector.md",
             }

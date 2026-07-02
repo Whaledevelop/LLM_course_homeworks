@@ -7,8 +7,6 @@ from tutor_bot.application.observability_statistics import ObservabilityStatisti
 def render_observability_page(
     observability_event_service: ObservabilityEventService,
 ) -> None:
-    st.header("Observability")
-
     statistics = observability_event_service.get_statistics()
 
     if statistics.total_events == 0:

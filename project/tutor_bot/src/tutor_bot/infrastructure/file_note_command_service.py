@@ -40,10 +40,8 @@ class FileNoteCommandService:
         metadata = NoteMetadata(
             theme=command.theme,
             comment=command.comment,
-            difficulty=command.difficulty,
             importance=command.importance,
-            completeness=command.completeness,
-            mastery=command.mastery,
+            knowledge=command.knowledge,
             last_recorded_name=command.title,
             relative_path=relative_path,
         )
@@ -88,10 +86,8 @@ class FileNoteCommandService:
                 "last_recorded_name": command.title,
                 "theme": command.theme,
                 "comment": command.comment,
-                "difficulty": command.difficulty,
                 "importance": command.importance,
-                "completeness": command.completeness,
-                "mastery": command.mastery,
+                "knowledge": command.knowledge,
             }
         )
 
@@ -185,10 +181,8 @@ class FileNoteCommandService:
             id=note_id,
             title=metadata.last_recorded_name,
             theme=metadata.theme,
-            difficulty=metadata.difficulty,
             importance=metadata.importance,
-            completeness=metadata.completeness,
-            mastery=metadata.mastery,
+            knowledge=metadata.knowledge,
             comment=metadata.comment,
             markdown_content=document.normalized_content,
         )

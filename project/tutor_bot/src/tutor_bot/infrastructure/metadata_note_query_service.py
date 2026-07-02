@@ -37,10 +37,8 @@ class MetadataNoteQueryService:
                 id=note_id,
                 title=metadata.last_recorded_name,
                 theme=metadata.theme,
-                difficulty=metadata.difficulty,
                 importance=metadata.importance,
-                completeness=metadata.completeness,
-                mastery=metadata.mastery,
+                knowledge=metadata.knowledge,
             )
             for note_id, metadata in metadata_catalog.notes.items()
         ]
@@ -88,10 +86,8 @@ class MetadataNoteQueryService:
             id=note_id,
             title=metadata.last_recorded_name,
             theme=metadata.theme,
-            difficulty=metadata.difficulty,
             importance=metadata.importance,
-            completeness=metadata.completeness,
-            mastery=metadata.mastery,
+            knowledge=metadata.knowledge,
             comment=metadata.comment,
             markdown_content=markdown_content,
         )

@@ -2,6 +2,7 @@ import streamlit as st
 
 from tutor_bot.application.active_recall_service import ActiveRecallService
 from tutor_bot.application.assignment_review_service import AssignmentReviewService
+from tutor_bot.application.note_command_service import NoteCommandService
 from tutor_bot.application.note_query_service import NoteQueryService
 from tutor_bot.application.observability_event_service import ObservabilityEventService
 from tutor_bot.application.tutor_answer_service import TutorAnswerService
@@ -99,6 +100,7 @@ def create_assignment_review_service() -> AssignmentReviewService:
 @st.cache_resource
 def create_active_recall_service(
     _note_query_service: NoteQueryService,
+    _note_command_service: NoteCommandService | None = None,
 ) -> ActiveRecallService:
     settings = get_settings()
 
@@ -117,6 +119,7 @@ def create_active_recall_service(
         ActiveRecallHistoryRepository(
             settings.history_dir / "active_recall.jsonl",
         ),
+        note_command_service=_note_command_service,
         observability_event_service=create_observability_event_service(),
     )
 

@@ -4,9 +4,11 @@ from typing import Protocol
 from uuid import UUID, uuid4
 
 from tutor_bot.application.note_query_service import NoteQueryService
+from tutor_bot.application.note_command_service import NoteCommandService
 from tutor_bot.application.recall_session import RecallSession
 from tutor_bot.application.recall_session_result import RecallSessionResult
 from tutor_bot.application.recall_study_session import RecallStudySession
+from tutor_bot.application.update_note_command import UpdateNoteCommand
 from tutor_bot.generation.grounded_recall_answer_reviewer import (
     GroundedRecallAnswerReviewer,
 )
@@ -41,12 +43,14 @@ class ActiveRecallService:
         exercise_generator: GroundedRecallExerciseGenerator,
         answer_reviewer: GroundedRecallAnswerReviewer,
         history_writer: _RecallHistoryWriter,
+        note_command_service: NoteCommandService | None = None,
         observability_event_service: _ObservabilityEventRecorder | None = None,
     ) -> None:
         self._note_query_service = note_query_service
         self._exercise_generator = exercise_generator
         self._answer_reviewer = answer_reviewer
         self._history_writer = history_writer
+        self._note_command_service = note_command_service
         self._observability_event_service = observability_event_service
 
     def create_session(
@@ -68,23 +72,31 @@ class ActiveRecallService:
 
     def create_study_session(
         self,
-        first_note_id: UUID,
+        question_count: int,
     ) -> RecallStudySession:
+        if question_count <= 0:
+            raise ValueError("Question count must be positive")
+
         notes = self._note_query_service.list_notes()
-        remaining_note_ids = [note.id for note in notes if note.id != first_note_id]
+        note_ids = [note.id for note in notes]
+
+        if not note_ids:
+            raise ValueError("Active Recall requires at least one note")
+
         seed = SystemRandom().randrange(2**32)
         random_generator = Random(seed)
-        selected_note_ids = random_generator.sample(
-            remaining_note_ids,
-            k=min(9, len(remaining_note_ids)),
+        selected_note_ids = tuple(
+            random_generator.sample(
+                note_ids,
+                k=min(question_count, len(note_ids)),
+            )
         )
-        note_ids = (first_note_id, *selected_note_ids)
 
         return RecallStudySession(
             seed=seed,
-            note_ids=note_ids,
+            note_ids=selected_note_ids,
             current_index=0,
-            current_exercise=self.create_session(first_note_id),
+            current_exercise=self.create_session(selected_note_ids[0]),
         )
 
     def review_answer(
@@ -187,6 +199,7 @@ class ActiveRecallService:
             study_session.current_exercise,
             student_answer,
         )
+        self._increase_note_knowledge(result)
 
         return study_session.model_copy(
             update={"results": (*study_session.results, result)},
@@ -221,3 +234,38 @@ class ActiveRecallService:
             return
 
         self._observability_event_service.record(event)
+
+    def _increase_note_knowledge(
+        self,
+        result: RecallSessionResult,
+    ) -> None:
+        if self._note_command_service is None:
+            return
+
+        increment = 0
+
+        if result.review.verdict == "correct":
+            increment = 2
+        elif result.review.verdict == "partially_correct":
+            increment = 1
+
+        if increment == 0:
+            return
+
+        note = self._note_query_service.get_note(result.session.note_id)
+        updated_knowledge = min(10, note.knowledge + increment)
+
+        if updated_knowledge == note.knowledge:
+            return
+
+        self._note_command_service.update_note(
+            UpdateNoteCommand(
+                note_id=note.id,
+                title=note.title,
+                theme=note.theme,
+                comment=note.comment,
+                importance=note.importance,
+                knowledge=updated_knowledge,
+                markdown_content=note.markdown_content,
+            )
+        )

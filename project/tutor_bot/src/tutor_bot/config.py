@@ -42,6 +42,10 @@ class Settings(BaseSettings):
     def evaluation_dir(self) -> Path:
         return self.data_dir / "evaluation"
 
+    @property
+    def ui_state_file(self) -> Path:
+        return self.data_dir / "ui_state" / "ui_state.json"
+
 
 @lru_cache
 def get_settings() -> Settings:
