@@ -34,6 +34,13 @@ class Settings(BaseSettings):
     )
     yandex_max_tokens: int = Field(default=2000, validation_alias="YANDEX_MAX_TOKENS")
     yandex_temperature: float = Field(default=0.3, validation_alias="YANDEX_TEMPERATURE")
+    langfuse_enabled: bool = Field(default=False, validation_alias="LANGFUSE_ENABLED")
+    langfuse_public_key: str = Field(default="", validation_alias="LANGFUSE_PUBLIC_KEY")
+    langfuse_secret_key: str = Field(default="", validation_alias="LANGFUSE_SECRET_KEY")
+    langfuse_base_url: str = Field(
+        default="https://cloud.langfuse.com",
+        validation_alias="LANGFUSE_BASE_URL",
+    )
 
     @property
     def data_dir(self) -> Path:

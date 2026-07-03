@@ -41,6 +41,12 @@ from tutor_bot.infrastructure.database_notes_repository import DatabaseNotesRepo
 from tutor_bot.infrastructure.jsonl_observability_event_repository import (
     JsonlObservabilityEventRepository,
 )
+from tutor_bot.infrastructure.composite_observability_event_repository import (
+    CompositeObservabilityEventRepository,
+)
+from tutor_bot.infrastructure.langfuse_observability_event_repository import (
+    LangfuseObservabilityEventRepository,
+)
 from tutor_bot.retrieval.hybrid_search_service import HybridSearchService
 from tutor_bot.retrieval.reranker_context_gate import RerankerContextGate
 from tutor_bot.retrieval.sentence_transformer_reranker import SentenceTransformerReranker
@@ -63,10 +69,25 @@ def create_hybrid_search_service(db_id: str) -> HybridSearchService:
 @st.cache_resource
 def create_observability_event_service() -> ObservabilityEventService:
     settings = get_settings()
+    local_repository = JsonlObservabilityEventRepository(
+        settings.history_dir / "observability_events.jsonl",
+    )
+    optional_repositories = ()
+
+    if settings.langfuse_enabled:
+        optional_repositories = (
+            LangfuseObservabilityEventRepository(
+                settings.langfuse_public_key,
+                settings.langfuse_secret_key,
+                settings.langfuse_base_url,
+            ),
+        )
 
     return ObservabilityEventService(
-        JsonlObservabilityEventRepository(
-            settings.history_dir / "observability_events.jsonl",
+        CompositeObservabilityEventRepository(
+            local_repository,
+            optional_repositories,
+            langfuse_enabled=settings.langfuse_enabled,
         ),
     )
 

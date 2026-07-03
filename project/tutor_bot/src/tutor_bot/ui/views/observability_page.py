@@ -8,6 +8,7 @@ def render_observability_page(
     observability_event_service: ObservabilityEventService,
 ) -> None:
     statistics = observability_event_service.get_statistics()
+    _render_sink_statuses(observability_event_service)
 
     if statistics.total_events == 0:
         st.info("События пока не записаны.")
@@ -29,6 +30,10 @@ def render_observability_page(
         statistics.events_by_event_type,
     )
     _render_counts(
+        "Trace / observations",
+        statistics.events_by_observation_type,
+    )
+    _render_counts(
         "События по статусам",
         statistics.events_by_status,
     )
@@ -39,6 +44,17 @@ def render_observability_page(
     _render_success_rates(statistics)
     _render_durations(statistics)
     _render_latest_errors(statistics)
+
+
+def _render_sink_statuses(
+    observability_event_service: ObservabilityEventService,
+) -> None:
+    st.subheader("Observability sinks")
+    st.dataframe(
+        [status.model_dump() for status in observability_event_service.get_sink_statuses()],
+        hide_index=True,
+        use_container_width=True,
+    )
 
 
 def _render_counts(
@@ -94,9 +110,7 @@ def _render_success_rates(
                 "scenario": scenario,
                 "success_rate_percent": success_rate,
             }
-            for scenario, success_rate in sorted(
-                statistics.success_rate_by_scenario.items()
-            )
+            for scenario, success_rate in sorted(statistics.success_rate_by_scenario.items())
         ],
         hide_index=True,
         use_container_width=True,

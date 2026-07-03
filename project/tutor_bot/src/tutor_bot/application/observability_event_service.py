@@ -1,5 +1,11 @@
-from typing import Protocol
+from contextlib import contextmanager
+from contextvars import ContextVar
+from time import perf_counter
+from typing import Any, Iterator, Protocol
+from uuid import uuid4
 
+from tutor_bot.application.observability_scope import ObservabilityScope
+from tutor_bot.application.observability_sink_status import ObservabilitySinkStatus
 from tutor_bot.application.observability_statistics import ObservabilityStatistics
 from tutor_bot.schemas.observability_event import ObservabilityEvent
 
@@ -17,6 +23,12 @@ class _ObservabilityEventRepository(Protocol):
         pass
 
 
+_current_scope: ContextVar[ObservabilityScope | None] = ContextVar(
+    "current_observability_scope",
+    default=None,
+)
+
+
 class ObservabilityEventService:
     def __init__(
         self,
@@ -29,6 +41,111 @@ class ObservabilityEventService:
         event: ObservabilityEvent,
     ) -> None:
         self._event_repository.append(event)
+
+    @contextmanager
+    def observe(
+        self,
+        scenario: str,
+        name: str,
+        observation_type: str = "span",
+        payload: dict[str, Any] | None = None,
+        session_id: str | None = None,
+        trace_id: str | None = None,
+        parent_observation_id=None,
+    ) -> Iterator[ObservabilityScope]:
+        parent_scope = _current_scope.get()
+        resolved_trace_id = trace_id or (
+            parent_scope.trace_id if parent_scope is not None else str(uuid4())
+        )
+        scope = ObservabilityScope(
+            trace_id=resolved_trace_id,
+            observation_id=uuid4(),
+            payload=dict(payload or {}),
+        )
+        started_at = perf_counter()
+        event_arguments = {
+            "scenario": scenario,
+            "event_type": name,
+            "observation_type": observation_type,
+            "observation_id": scope.observation_id,
+            "parent_observation_id": parent_observation_id
+            or (parent_scope.observation_id if parent_scope is not None else None),
+            "trace_id": resolved_trace_id,
+            "session_id": session_id,
+        }
+        self.record(
+            ObservabilityEvent(
+                **event_arguments,
+                status="started",
+                payload=scope.payload,
+            )
+        )
+        context_token = _current_scope.set(scope)
+
+        try:
+            yield scope
+        except Exception as exception:
+            self.record(
+                ObservabilityEvent(
+                    **event_arguments,
+                    status="failed",
+                    duration_seconds=perf_counter() - started_at,
+                    payload=scope.payload,
+                    error=exception.__class__.__name__,
+                )
+            )
+            raise
+        else:
+            self.record(
+                ObservabilityEvent(
+                    **event_arguments,
+                    status="succeeded",
+                    duration_seconds=perf_counter() - started_at,
+                    payload=scope.payload,
+                )
+            )
+        finally:
+            _current_scope.reset(context_token)
+
+    def add_current_metadata(self, **metadata: Any) -> None:
+        scope = _current_scope.get()
+
+        if scope is not None:
+            scope.add_metadata(**metadata)
+
+    def get_sink_statuses(self) -> tuple[ObservabilitySinkStatus, ...]:
+        get_statuses = getattr(self._event_repository, "get_statuses", None)
+
+        if get_statuses is None:
+            return (
+                ObservabilitySinkStatus(
+                    name="Local JSONL",
+                    enabled=True,
+                    available=True,
+                    message="Активен",
+                ),
+            )
+
+        return get_statuses()
+
+    def record_feedback(
+        self,
+        trace_id: str,
+        score: float,
+        comment: str | None = None,
+        session_id: str | None = None,
+    ) -> None:
+        self.record(
+            ObservabilityEvent(
+                scenario="user_feedback",
+                event_type="user_feedback",
+                observation_type="evaluator",
+                status="succeeded",
+                trace_id=trace_id,
+                session_id=session_id,
+                payload={"score": score, "comment": comment},
+            )
+        )
 
     def load_events(
         self,
@@ -45,6 +162,7 @@ class ObservabilityEventService:
         events = self.load_events()
         events_by_scenario: dict[str, int] = {}
         events_by_event_type: dict[str, int] = {}
+        events_by_observation_type: dict[str, int] = {}
         events_by_status: dict[str, int] = {}
         events_by_model: dict[str, int] = {}
         terminal_statuses_by_scenario: dict[str, dict[str, int]] = {}
@@ -55,6 +173,9 @@ class ObservabilityEventService:
             events_by_scenario[event.scenario] = events_by_scenario.get(event.scenario, 0) + 1
             events_by_event_type[event.event_type] = (
                 events_by_event_type.get(event.event_type, 0) + 1
+            )
+            events_by_observation_type[event.observation_type] = (
+                events_by_observation_type.get(event.observation_type, 0) + 1
             )
             events_by_status[event.status] = events_by_status.get(event.status, 0) + 1
 
@@ -87,9 +208,7 @@ class ObservabilityEventService:
         }
         success_rate_by_scenario = {
             scenario: round(
-                statuses["succeeded"]
-                / (statuses["succeeded"] + statuses["failed"])
-                * 100,
+                statuses["succeeded"] / (statuses["succeeded"] + statuses["failed"]) * 100,
                 1,
             )
             for scenario, statuses in terminal_statuses_by_scenario.items()
@@ -106,9 +225,17 @@ class ObservabilityEventService:
             total_events=len(events),
             events_by_scenario=events_by_scenario,
             events_by_event_type=events_by_event_type,
+            events_by_observation_type=events_by_observation_type,
             events_by_status=events_by_status,
             events_by_model=events_by_model,
             success_rate_by_scenario=success_rate_by_scenario,
             average_duration_seconds_by_scenario=average_duration_seconds_by_scenario,
             latest_errors=latest_errors,
         )
+
+
+def add_current_observation_metadata(**metadata: Any) -> None:
+    scope = _current_scope.get()
+
+    if scope is not None:
+        scope.add_metadata(**metadata)

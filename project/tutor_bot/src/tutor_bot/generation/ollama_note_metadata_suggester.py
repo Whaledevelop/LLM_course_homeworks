@@ -54,11 +54,14 @@ class OllamaNoteMetadataSuggester:
         markdown_content: str,
     ) -> NoteMetadataSuggestion:
         trace_id = str(uuid4())
+        generation_observation_id = uuid4()
         suggestion_started_at = perf_counter()
         self._record_event(
             ObservabilityEvent(
                 scenario="metadata_suggestion",
                 event_type="generation",
+                observation_type="generation",
+                observation_id=generation_observation_id,
                 status="started",
                 trace_id=trace_id,
                 payload={
@@ -107,6 +110,8 @@ class OllamaNoteMetadataSuggester:
                 ObservabilityEvent(
                     scenario="metadata_suggestion",
                     event_type="generation",
+                    observation_type="generation",
+                    observation_id=generation_observation_id,
                     status="succeeded",
                     trace_id=trace_id,
                     duration_seconds=perf_counter() - suggestion_started_at,
@@ -132,6 +137,8 @@ class OllamaNoteMetadataSuggester:
                 ObservabilityEvent(
                     scenario="metadata_suggestion",
                     event_type="generation",
+                    observation_type="generation",
+                    observation_id=generation_observation_id,
                     status="failed",
                     trace_id=trace_id,
                     duration_seconds=perf_counter() - suggestion_started_at,

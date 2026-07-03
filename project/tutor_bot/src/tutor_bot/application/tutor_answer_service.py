@@ -46,11 +46,14 @@ class TutorAnswerService:
             raise ValueError("Question must not be empty")
 
         trace_id = str(uuid4())
+        pipeline_observation_id = uuid4()
         pipeline_started_at = perf_counter()
         self._record_event(
             ObservabilityEvent(
                 scenario="rag_answer",
                 event_type="pipeline",
+                observation_type="trace",
+                observation_id=pipeline_observation_id,
                 status="started",
                 trace_id=trace_id,
                 payload={
@@ -67,22 +70,76 @@ class TutorAnswerService:
                 limit=self._search_limit,
             )
             retrieval_duration_seconds = perf_counter() - search_started_at
+            self._record_event(
+                ObservabilityEvent(
+                    scenario="rag_answer",
+                    event_type="retrieval",
+                    observation_type="retriever",
+                    parent_observation_id=pipeline_observation_id,
+                    status="succeeded",
+                    trace_id=trace_id,
+                    duration_seconds=retrieval_duration_seconds,
+                    payload={
+                        "search_limit": self._search_limit,
+                        "candidate_count": len(search_results),
+                    },
+                )
+            )
 
             context_started_at = perf_counter()
             context = self._context_gate.select(search_results)
             context_duration_seconds = perf_counter() - context_started_at
+            self._record_event(
+                ObservabilityEvent(
+                    scenario="rag_answer",
+                    event_type="reranking_context_gate",
+                    observation_type="span",
+                    parent_observation_id=pipeline_observation_id,
+                    status="succeeded",
+                    trace_id=trace_id,
+                    duration_seconds=context_duration_seconds,
+                    payload={
+                        "selected_context_count": len(context.selected_results),
+                        "has_sufficient_context": context.has_sufficient_context,
+                        "sources": self._build_source_payload(context.selected_results),
+                    },
+                )
+            )
 
             generation_started_at = perf_counter()
-            generated_answer = self._answer_generator.generate(
-                normalized_question,
-                context,
-            )
+
+            if self._observability_event_service is None:
+                generated_answer = self._answer_generator.generate(
+                    normalized_question,
+                    context,
+                )
+            else:
+                with self._observability_event_service.observe(
+                    "rag_answer",
+                    "generation",
+                    observation_type="generation",
+                    payload={
+                        "input": {"question_length": len(normalized_question)},
+                        "selected_context_count": len(context.selected_results),
+                    },
+                    trace_id=trace_id,
+                    parent_observation_id=pipeline_observation_id,
+                ) as generation_scope:
+                    generated_answer = self._answer_generator.generate(
+                        normalized_question,
+                        context,
+                    )
+                    generation_scope.set_output(generated_answer)
+                    generation_scope.add_metadata(answer_length=len(generated_answer))
+
             generation_duration_seconds = perf_counter() - generation_started_at
 
             self._record_event(
                 ObservabilityEvent(
                     scenario="rag_answer",
                     event_type="pipeline",
+                    observation_type="trace",
+                    observation_id=pipeline_observation_id,
                     status="succeeded",
                     trace_id=trace_id,
                     duration_seconds=perf_counter() - pipeline_started_at,
@@ -105,6 +162,8 @@ class TutorAnswerService:
                 ObservabilityEvent(
                     scenario="rag_answer",
                     event_type="pipeline",
+                    observation_type="trace",
+                    observation_id=pipeline_observation_id,
                     status="failed",
                     trace_id=trace_id,
                     duration_seconds=perf_counter() - pipeline_started_at,
