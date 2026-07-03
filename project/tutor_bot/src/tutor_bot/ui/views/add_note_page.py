@@ -3,6 +3,7 @@ from httpx import HTTPError
 from pydantic import ValidationError
 
 from tutor_bot.application.create_note_command import CreateNoteCommand
+from tutor_bot.application.note_fullness import estimate_note_fullness
 from tutor_bot.application.note_command_service import NoteCommandService
 from tutor_bot.application.note_metadata_suggestion import NoteMetadataSuggestion
 from tutor_bot.generation.note_metadata_suggester import NoteMetadataSuggester
@@ -32,7 +33,7 @@ def render_add_note_page(
             "Markdown",
             key=_MARKDOWN_KEY,
             height=500,
-            placeholder="# Заголовок\n\nСодержание заметки",
+            placeholder="Содержание заметки",
         )
         suggestion_submitted = st.form_submit_button("Предложить метаданные")
 
@@ -56,6 +57,22 @@ def render_add_note_page(
             max_value=10,
             value=0,
         )
+        automatic_fullness = st.toggle(
+            "Рассчитать заполненность автоматически",
+            value=True,
+        )
+
+        if automatic_fullness:
+            fullness = estimate_note_fullness(markdown_content)
+            st.caption(f"Заполненность: {fullness}")
+        else:
+            fullness = st.slider(
+                "Заполненность",
+                min_value=0,
+                max_value=10,
+                value=5,
+            )
+
         submitted = st.form_submit_button(
             "Создать заметку",
             type="primary",
@@ -88,6 +105,9 @@ def render_add_note_page(
         comment=comment.strip(),
         importance=importance,
         knowledge=knowledge,
+        fullness=(
+            estimate_note_fullness(markdown_content) if automatic_fullness else fullness
+        ),
         markdown_content=markdown_content,
     )
     created_note = note_command_service.create_note(command)

@@ -25,9 +25,18 @@ def render_observability_page(
         statistics.events_by_scenario,
     )
     _render_counts(
+        "События по типам",
+        statistics.events_by_event_type,
+    )
+    _render_counts(
         "События по статусам",
         statistics.events_by_status,
     )
+    _render_counts(
+        "LLM модели",
+        statistics.events_by_model,
+    )
+    _render_success_rates(statistics)
     _render_durations(statistics)
     _render_latest_errors(statistics)
 
@@ -65,6 +74,28 @@ def _render_durations(
             }
             for scenario, duration_seconds in sorted(
                 statistics.average_duration_seconds_by_scenario.items()
+            )
+        ],
+        hide_index=True,
+        use_container_width=True,
+    )
+
+
+def _render_success_rates(
+    statistics: ObservabilityStatistics,
+) -> None:
+    if not statistics.success_rate_by_scenario:
+        return
+
+    st.subheader("Успешность сценариев")
+    st.dataframe(
+        [
+            {
+                "scenario": scenario,
+                "success_rate_percent": success_rate,
+            }
+            for scenario, success_rate in sorted(
+                statistics.success_rate_by_scenario.items()
             )
         ],
         hide_index=True,

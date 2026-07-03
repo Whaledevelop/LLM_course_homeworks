@@ -44,7 +44,7 @@ from tutor_bot.infrastructure.jsonl_observability_event_repository import (
 from tutor_bot.retrieval.hybrid_search_service import HybridSearchService
 from tutor_bot.retrieval.reranker_context_gate import RerankerContextGate
 from tutor_bot.retrieval.sentence_transformer_reranker import SentenceTransformerReranker
-from tutor_bot.ui.llm_session_state import get_active_provider, record_usage
+from tutor_bot.ui.llm_session_state import get_active_model, get_active_provider, record_usage
 
 
 @st.cache_resource(show_spinner="Загрузка моделей поиска...")
@@ -147,19 +147,23 @@ def _create_llm_provider() -> OllamaProvider | YandexProvider:
     provider_name = get_active_provider(settings.llm_provider)
 
     if provider_name == "yandex":
+        model_name = get_active_model(settings.yandex_model)
+
         return YandexProvider(
             settings.yandex_base_url,
             settings.yandex_api_key,
             settings.yandex_folder_id,
-            settings.yandex_model,
+            model_name,
             max_tokens=settings.yandex_max_tokens,
             temperature=settings.yandex_temperature,
             usage_callback=record_usage,
         )
 
+    model_name = get_active_model(settings.ollama_model)
+
     return OllamaProvider(
         settings.ollama_base_url,
-        settings.ollama_model,
+        model_name,
         think=settings.ollama_think,
         usage_callback=record_usage,
     )

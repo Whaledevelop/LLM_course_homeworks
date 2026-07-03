@@ -50,6 +50,7 @@ def test_builds_observability_statistics(
             event_type="pipeline",
             status="succeeded",
             duration_seconds=1.0,
+            payload={"provider": "ollama", "model": "qwen3.5:9b"},
         )
     )
     service.record(
@@ -80,6 +81,17 @@ def test_builds_observability_statistics(
     assert statistics.events_by_status == {
         "failed": 1,
         "succeeded": 2,
+    }
+    assert statistics.events_by_event_type == {
+        "answer_review": 1,
+        "pipeline": 2,
+    }
+    assert statistics.events_by_model == {
+        "ollama / qwen3.5:9b": 1,
+    }
+    assert statistics.success_rate_by_scenario == {
+        "active_recall": 0.0,
+        "rag_answer": 100.0,
     }
     assert statistics.average_duration_seconds_by_scenario == {
         "active_recall": 0.5,

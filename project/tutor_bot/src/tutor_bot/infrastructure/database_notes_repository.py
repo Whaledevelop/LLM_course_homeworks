@@ -1,8 +1,8 @@
-import re
 from datetime import datetime
 from pathlib import Path
 
 from tutor_bot.infrastructure.database_repository import DatabaseRepository
+from tutor_bot.application.note_fullness import estimate_note_fullness
 from tutor_bot.schemas.database import (
     DatabaseIndex,
     DatabaseIndexNote,
@@ -11,11 +11,6 @@ from tutor_bot.schemas.database import (
 )
 from tutor_bot.schemas.note_metadata import NoteMetadata
 from tutor_bot.schemas.notes_metadata_catalog import NotesMetadataCatalog
-
-
-_TITLE_PATTERN = re.compile(r"^#\s+(?P<title>.+?)\s*$", re.MULTILINE)
-_FRONTMATTER_TITLE_PATTERN = re.compile(r"^title:\s*(?P<title>.+?)\s*$", re.MULTILINE)
-
 
 class DatabaseNotesRepository:
     def __init__(self, metadata_dir: Path, db_id: str, root_path: Path) -> None:
@@ -32,6 +27,11 @@ class DatabaseNotesRepository:
                 comment=note_metadata.comment,
                 importance=note_metadata.importance,
                 knowledge=note_metadata.knowledge,
+                fullness=(
+                    note_metadata.fullness
+                    if note_metadata.fullness is not None
+                    else self._load_fullness(index_note.path)
+                ),
                 last_recorded_name=self._load_title(index_note.path),
                 relative_path=index_note.path,
             )
@@ -61,6 +61,7 @@ class DatabaseNotesRepository:
                 comment=note_metadata.comment,
                 importance=note_metadata.importance,
                 knowledge=note_metadata.knowledge,
+                fullness=note_metadata.fullness,
             )
             for note_id, note_metadata in catalog.notes.items()
         }
@@ -75,16 +76,9 @@ class DatabaseNotesRepository:
         return catalog
 
     def _load_title(self, relative_path) -> str:
+        return relative_path.stem
+
+    def _load_fullness(self, relative_path) -> int:
         note_path = self._root_path / relative_path
-        content = note_path.read_text(encoding="utf-8-sig")
-        frontmatter_title_match = _FRONTMATTER_TITLE_PATTERN.search(content)
 
-        if frontmatter_title_match is not None:
-            return frontmatter_title_match.group("title")
-
-        title_match = _TITLE_PATTERN.search(content)
-
-        if title_match is not None:
-            return title_match.group("title")
-
-        return note_path.stem
+        return estimate_note_fullness(note_path.read_text(encoding="utf-8-sig"))

@@ -52,24 +52,7 @@ def prepare_note(path: Path) -> PreparedNote:
         tutor_matches[0] if tutor_matches else legacy_matches[0] if legacy_matches else None
     )
     note_id = UUID(selected_match.group("value").strip()) if selected_match else uuid4()
-
-    if tutor_matches:
-        updated_frontmatter = frontmatter
-    elif legacy_matches:
-        legacy_match = legacy_matches[0]
-        updated_frontmatter = (
-            frontmatter[: legacy_match.start()]
-            + f"tutor_bot_note_id: {note_id}"
-            + frontmatter[legacy_match.end() :]
-        )
-    else:
-        updated_frontmatter = f"{frontmatter.rstrip()}\ntutor_bot_note_id: {note_id}"
-
-    if tutor_matches and legacy_matches:
-        legacy_match = legacy_matches[0]
-        updated_frontmatter = (
-            updated_frontmatter[: legacy_match.start()] + updated_frontmatter[legacy_match.end() :]
-        )
+    updated_frontmatter = f"tutor_bot_note_id: {note_id}"
 
     updated_content = (
         original_content[: frontmatter_match.start("content")]

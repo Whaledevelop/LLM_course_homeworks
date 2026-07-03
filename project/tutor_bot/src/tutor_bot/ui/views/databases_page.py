@@ -36,7 +36,7 @@ def render_databases_page(database_service: ActiveDatabaseService) -> None:
     selected_summary = next(summary for summary in summaries if summary.db_id == selected_db_id)
     _render_summary(selected_summary)
 
-    if st.button("Update index", type="primary", use_container_width=True):
+    if st.button("Update index", type="primary", width=360):
         _update_index(database_service)
 
     st.subheader("Зарегистрированные DB")

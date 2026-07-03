@@ -1,3 +1,4 @@
+from random import Random
 from uuid import UUID
 
 from tutor_bot.application.active_recall_service import ActiveRecallService
@@ -23,6 +24,47 @@ def test_creates_study_session_with_requested_question_count() -> None:
     assert session.current_exercise.note_id in {_FIRST_NOTE_ID, _SECOND_NOTE_ID}
 
 
+def test_creates_study_session_for_specific_note() -> None:
+    service = _create_service()
+
+    session = service.create_note_study_session(_SECOND_NOTE_ID)
+
+    assert session.note_ids == (_SECOND_NOTE_ID,)
+    assert session.current_exercise.note_id == _SECOND_NOTE_ID
+
+
+def test_excludes_notes_with_low_fullness() -> None:
+    service = ActiveRecallService(
+        _LowFullnessNoteQueryService(),
+        _FakeExerciseGenerator(),
+        _FakeAnswerReviewer(),
+        _FakeHistoryWriter(),
+    )
+
+    session = service.create_study_session(2)
+
+    assert session.note_ids == (_SECOND_NOTE_ID,)
+
+
+def test_higher_importance_increases_selection_probability() -> None:
+    service = _create_service()
+    low_importance_note = _create_note_list_item(_FIRST_NOTE_ID, importance=0)
+    high_importance_note = _create_note_list_item(_SECOND_NOTE_ID, importance=10)
+    high_importance_selections = 0
+
+    for seed in range(200):
+        selected_note_id = service._select_note_ids(
+            [low_importance_note, high_importance_note],
+            1,
+            Random(seed),
+        )[0]
+
+        if selected_note_id == _SECOND_NOTE_ID:
+            high_importance_selections += 1
+
+    assert high_importance_selections > 150
+
+
 def test_correct_recall_answer_increases_note_knowledge() -> None:
     command_service = _FakeNoteCommandService()
     service = _create_service(command_service)
@@ -35,6 +77,32 @@ def test_correct_recall_answer_increases_note_knowledge() -> None:
 
     assert command_service.last_update is not None
     assert command_service.last_update.knowledge == 4
+
+
+def test_imitated_answer_does_not_change_knowledge_and_is_saved_to_history() -> None:
+    command_service = _FakeNoteCommandService()
+    history_writer = _FakeHistoryWriter()
+    service = _create_service(command_service, history_writer)
+    session = service.create_study_session(1)
+
+    updated_session = service.imitate_study_answer(session)
+
+    assert updated_session.current_question_is_imitated
+    assert updated_session.is_complete
+    assert command_service.last_update is None
+    assert len(history_writer.results) == 1
+    assert history_writer.results[0].imitated
+
+
+def test_advances_after_imitated_answer() -> None:
+    service = _create_service()
+    session = service.create_study_session(2)
+
+    imitated_session = service.imitate_study_answer(session)
+    advanced_session = service.advance_study_session(imitated_session)
+
+    assert advanced_session.current_index == 1
+    assert advanced_session.answered_count == 1
 
 
 def test_clears_recall_history() -> None:
@@ -76,9 +144,18 @@ class _FakeNoteQueryService:
             group="tests",
             importance=5,
             knowledge=2,
+            fullness=5,
             comment="",
             markdown_content="# Test note",
         )
+
+
+class _LowFullnessNoteQueryService(_FakeNoteQueryService):
+    def list_notes(self) -> list[NoteListItem]:
+        return [
+            _create_note_list_item(_FIRST_NOTE_ID, fullness=3),
+            _create_note_list_item(_SECOND_NOTE_ID, fullness=4),
+        ]
 
 
 class _FakeExerciseGenerator:
@@ -161,11 +238,14 @@ class _FakeNoteCommandService:
 
 def _create_note_list_item(
     note_id: UUID,
+    importance: int = 5,
+    fullness: int = 5,
 ) -> NoteListItem:
     return NoteListItem(
         id=note_id,
         title="Test note",
         group="tests",
-        importance=5,
+        importance=importance,
         knowledge=2,
+        fullness=fullness,
     )

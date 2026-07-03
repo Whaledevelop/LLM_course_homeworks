@@ -35,9 +35,11 @@ def render_active_recall_session(
         f"Заметка: {study_session.current_exercise.note_title}"
     )
     current_result = _get_current_result(study_session)
+    question_is_imitated = study_session.current_question_is_imitated
     question_is_revealed = (
         not show_note_before_question
         or current_result is not None
+        or question_is_imitated
         or st.session_state.get(_REVEALED_QUESTION_KEY) == study_session.current_index
     )
 
@@ -56,7 +58,7 @@ def render_active_recall_session(
 
     st.subheader(study_session.current_exercise.exercise.question)
 
-    if current_result is None:
+    if current_result is None and not question_is_imitated:
         _render_answer_form(
             recall_service,
             study_session,
@@ -65,13 +67,20 @@ def render_active_recall_session(
 
         return
 
-    _render_result(
-        current_result,
-        show_note_after_question,
-    )
+    if question_is_imitated:
+        _render_imitated_answer(study_session)
+    else:
+        _render_result(
+            current_result,
+            show_note_after_question,
+        )
 
     if study_session.is_complete:
         _render_summary(study_session)
+
+        if st.button("Завершить тест", type="primary"):
+            st.session_state.pop(state_key, None)
+            st.rerun()
 
         return
 
@@ -87,10 +96,12 @@ def render_active_recall_session(
 def _get_current_result(
     study_session: RecallStudySession,
 ) -> RecallSessionResult | None:
-    if study_session.answered_count <= study_session.current_index:
+    if not study_session.current_question_is_reviewed:
         return None
 
-    return study_session.results[study_session.current_index]
+    result_index = study_session.reviewed_indices.index(study_session.current_index)
+
+    return study_session.results[result_index]
 
 
 def _render_answer_form(
@@ -104,8 +115,9 @@ def _render_answer_form(
         "Imitate Answer",
         on_click=_imitate_answer,
         args=(
-            answer_key,
-            study_session.current_exercise.exercise.reference_answer,
+            recall_service,
+            study_session,
+            state_key,
         ),
     )
 
@@ -140,10 +152,19 @@ def _render_answer_form(
 
 
 def _imitate_answer(
-    answer_key: str,
-    reference_answer: str,
+    recall_service: ActiveRecallService,
+    study_session: RecallStudySession,
+    state_key: str,
 ) -> None:
-    st.session_state[answer_key] = reference_answer
+    st.session_state[state_key] = recall_service.imitate_study_answer(study_session)
+
+
+def _render_imitated_answer(
+    study_session: RecallStudySession,
+) -> None:
+    st.info("Ответ показан без проверки. Knowledge заметки не изменён.")
+    st.markdown("#### Эталонный ответ")
+    st.markdown(study_session.current_exercise.exercise.reference_answer)
 
 
 def _render_result(
@@ -187,12 +208,16 @@ def _render_points(
 
 def _render_summary(study_session: RecallStudySession) -> None:
     verdict_counts = {
-        verdict: sum(result.review.verdict == verdict for result in study_session.results)
+        verdict: sum(
+            result.review.verdict == verdict and not result.imitated
+            for result in study_session.results
+        )
         for verdict in VERDICT_LABELS
     }
     st.divider()
     st.subheader("Сессия завершена")
-    columns = st.columns(3)
+    columns = st.columns(4)
     columns[0].metric("Правильных", verdict_counts["correct"])
     columns[1].metric("Частичных", verdict_counts["partially_correct"])
     columns[2].metric("Ошибочных", verdict_counts["incorrect"])
+    columns[3].metric("Показан ответ", len(study_session.imitated_indices))
