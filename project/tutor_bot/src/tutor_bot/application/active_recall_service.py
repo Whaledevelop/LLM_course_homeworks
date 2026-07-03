@@ -27,6 +27,8 @@ class _RecallHistoryWriter(Protocol):
 
     def load_results(self) -> tuple[RecallSessionResult, ...]: ...
 
+    def clear(self) -> None: ...
+
 
 class _ObservabilityEventRecorder(Protocol):
     def record(
@@ -187,6 +189,9 @@ class ActiveRecallService:
     def get_history(self) -> tuple[RecallSessionResult, ...]:
         return self._history_writer.load_results()
 
+    def clear_history(self) -> None:
+        self._history_writer.clear()
+
     def review_study_answer(
         self,
         study_session: RecallStudySession,
@@ -262,7 +267,7 @@ class ActiveRecallService:
             UpdateNoteCommand(
                 note_id=note.id,
                 title=note.title,
-                theme=note.theme,
+                group=note.group,
                 comment=note.comment,
                 importance=note.importance,
                 knowledge=updated_knowledge,

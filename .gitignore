@@ -1,16 +1,23 @@
 .idea
 .agents
-**/.streamlit-*.log
+
 
 .codex
 .codex*
 .codex_pytest_tmp
+**/.env
 
 project/tutor_bot/data/metadata/backups
 project/tutor_bot/data/history/*.jsonl
-.streamlit-8513.err.log
 **/.venv/
 **/data/chroma/
+**/.pytest*
+
 **/__pycache__/
 **/context
 **/local
+
+**/.streamlit-*.log
+**/.streamlit
+
+**/.ruff_cache

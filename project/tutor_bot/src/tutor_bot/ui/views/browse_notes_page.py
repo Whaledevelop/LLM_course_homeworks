@@ -34,41 +34,37 @@ def render_browse_notes_page(
 
         return
 
-    search_text = st.text_input(
-        "Поиск",
-        placeholder="Название или тема",
-    )
-
     content_column, list_column = st.columns(
         [0.68, 0.32],
         gap="large",
     )
 
-    themes = sorted({note.theme for note in notes if note.theme})
+    groups = sorted({note.group for note in notes if note.group})
 
     with list_column:
-        with st.expander(
-            "Заметки",
-            expanded=True,
-        ):
-            selected_theme = st.selectbox(
-                "Тема",
-                options=["Все", *themes],
-            )
+        st.subheader("Заметки")
+        search_text = st.text_input(
+            "Поиск",
+            placeholder="Название или тема",
+        )
+        selected_group = st.selectbox(
+            "Группа",
+            options=["Все", *groups],
+        )
 
-            filtered_notes = _filter_notes(
-                notes,
-                search_text,
-                selected_theme,
-            )
+        filtered_notes = _filter_notes(
+            notes,
+            search_text,
+            selected_group,
+        )
 
-            if not filtered_notes:
-                st.warning("По заданным условиям заметки не найдены.")
+        if not filtered_notes:
+            st.warning("По заданным условиям заметки не найдены.")
 
-                return
+            return
 
-            st.caption(f"Показано: {len(filtered_notes)} из {len(notes)}")
-            selected_note = _render_notes_table(filtered_notes)
+        st.caption(f"Показано: {len(filtered_notes)} из {len(notes)}")
+        selected_note = _render_notes_table(filtered_notes)
 
     if selected_note is None:
         selected_note = _resolve_selected_note(
@@ -85,26 +81,21 @@ def render_browse_notes_page(
     note_details = note_query_service.get_note(selected_note.id)
 
     with content_column:
-        title_column, actions_column = st.columns([0.86, 0.14])
-        title_column.subheader(note_details.title)
-
-        with actions_column:
-            action_message = render_note_actions(
-                note_details,
-                note_command_service,
-            )
+        st.subheader(note_details.title)
+        action_message = render_note_actions(
+            note_details,
+            note_command_service,
+        )
 
         st.caption(
-            f"Тема: {note_details.theme or 'не указана'} · "
+            f"Группа: {note_details.group or 'не указана'} · "
             f"Важность: {note_details.importance} · "
             f"Знание: {note_details.knowledge}"
         )
 
         if action_message:
             st.session_state[_SUCCESS_MESSAGE_KEY] = action_message
-            st.session_state[_TABLE_VERSION_KEY] = (
-                st.session_state.get(_TABLE_VERSION_KEY, 0) + 1
-            )
+            st.session_state[_TABLE_VERSION_KEY] = st.session_state.get(_TABLE_VERSION_KEY, 0) + 1
             st.rerun()
 
         if note_details.comment:
@@ -116,7 +107,7 @@ def render_browse_notes_page(
 def _filter_notes(
     notes: list[NoteListItem],
     search_text: str,
-    selected_theme: str,
+    selected_group: str,
 ) -> list[NoteListItem]:
     normalized_search = search_text.strip().casefold()
     filtered_notes = []
@@ -125,14 +116,14 @@ def _filter_notes(
         searchable_text = " ".join(
             [
                 note.title,
-                note.theme,
+                note.group,
             ]
         ).casefold()
 
         matches_search = not normalized_search or normalized_search in searchable_text
-        matches_theme = selected_theme == "Все" or note.theme == selected_theme
+        matches_group = selected_group == "Все" or note.group == selected_group
 
-        if matches_search and matches_theme:
+        if matches_search and matches_group:
             filtered_notes.append(note)
 
     return filtered_notes
@@ -144,7 +135,7 @@ def _render_notes_table(
     rows = [
         {
             "Название": f"🔗 {note.title}",
-            "Тема": note.theme or "не указана",
+            "Группа": note.group or "не указана",
         }
         for note in filtered_notes
     ]
@@ -155,6 +146,7 @@ def _render_notes_table(
         rows,
         hide_index=True,
         width="stretch",
+        height=720,
         key=f"notes_table_{table_version}",
         on_select="rerun",
         selection_mode="single-cell",

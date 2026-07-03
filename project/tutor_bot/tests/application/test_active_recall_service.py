@@ -37,14 +37,24 @@ def test_correct_recall_answer_increases_note_knowledge() -> None:
     assert command_service.last_update.knowledge == 4
 
 
+def test_clears_recall_history() -> None:
+    history_writer = _FakeHistoryWriter()
+    service = _create_service(history_writer=history_writer)
+
+    service.clear_history()
+
+    assert history_writer.was_cleared
+
+
 def _create_service(
     command_service: "_FakeNoteCommandService | None" = None,
+    history_writer: "_FakeHistoryWriter | None" = None,
 ) -> ActiveRecallService:
     return ActiveRecallService(
         _FakeNoteQueryService(),
         _FakeExerciseGenerator(),
         _FakeAnswerReviewer(),
-        _FakeHistoryWriter(),
+        history_writer or _FakeHistoryWriter(),
         note_command_service=command_service,
     )
 
@@ -63,7 +73,7 @@ class _FakeNoteQueryService:
         return NoteDetails(
             id=note_id,
             title="Test note",
-            theme="tests",
+            group="tests",
             importance=5,
             knowledge=2,
             comment="",
@@ -105,6 +115,7 @@ class _FakeAnswerReviewer:
 class _FakeHistoryWriter:
     def __init__(self) -> None:
         self.results: list[RecallSessionResult] = []
+        self.was_cleared = False
 
     def save(
         self,
@@ -115,6 +126,10 @@ class _FakeHistoryWriter:
 
     def load_results(self) -> tuple[RecallSessionResult, ...]:
         return tuple(self.results)
+
+    def clear(self) -> None:
+        self.results.clear()
+        self.was_cleared = True
 
 
 class _FakeNoteCommandService:
@@ -130,7 +145,7 @@ class _FakeNoteCommandService:
         return NoteDetails(
             id=command.note_id,
             title=command.title,
-            theme=command.theme,
+            group=command.group,
             importance=command.importance,
             knowledge=command.knowledge,
             comment=command.comment,
@@ -150,7 +165,7 @@ def _create_note_list_item(
     return NoteListItem(
         id=note_id,
         title="Test note",
-        theme="tests",
+        group="tests",
         importance=5,
         knowledge=2,
     )

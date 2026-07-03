@@ -6,7 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 class NoteMetadata(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    theme: str
+    group: str
     comment: str
     importance: int = Field(ge=0, le=10)
     knowledge: int = Field(ge=0, le=10)

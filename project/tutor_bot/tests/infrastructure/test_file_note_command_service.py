@@ -13,6 +13,7 @@ from note_command_test_support import (
 from tutor_bot.infrastructure.file_note_command_service import (
     FileNoteCommandService,
 )
+from tutor_bot.infrastructure.metadata_note_query_service import MetadataNoteQueryService
 from tutor_bot.infrastructure.notes_metadata_repository import (
     NotesMetadataRepository,
 )
@@ -92,6 +93,27 @@ def test_restores_markdown_when_metadata_save_fails(
         service.update_note(create_update_command())
 
     assert note_path.read_text(encoding="utf-8") == original_content
+
+
+def test_creates_reads_and_updates_empty_note_content(tmp_path: Path) -> None:
+    metadata_file, source_notes_dir, _ = create_storage(tmp_path)
+    repository = NotesMetadataRepository(metadata_file)
+    command_service = FileNoteCommandService(repository, source_notes_dir)
+    query_service = MetadataNoteQueryService(repository, source_notes_dir)
+    created_note = command_service.create_note(
+        create_create_command().model_copy(update={"markdown_content": ""})
+    )
+
+    loaded_note = query_service.get_note(created_note.id)
+    updated_note = command_service.update_note(
+        create_update_command().model_copy(
+            update={"note_id": created_note.id, "markdown_content": ""}
+        )
+    )
+
+    assert created_note.markdown_content == "\n"
+    assert loaded_note.markdown_content == ""
+    assert updated_note.markdown_content == "\n"
 
 
 def test_deletes_markdown_and_metadata(

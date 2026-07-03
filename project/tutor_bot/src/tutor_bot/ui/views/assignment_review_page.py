@@ -2,7 +2,6 @@ from uuid import UUID
 
 import streamlit as st
 from httpx import HTTPError
-from ollama import ResponseError
 from pydantic import ValidationError
 
 from tutor_bot.application.assignment_review_result import AssignmentReviewResult
@@ -77,7 +76,7 @@ def _submit_review(
                 assignment_text,
                 student_answer,
             )
-    except (HTTPError, ResponseError, RuntimeError, ValidationError) as error:
+    except (HTTPError, RuntimeError, ValidationError) as error:
         st.error(f"Не удалось проверить ответ: {error}")
 
 

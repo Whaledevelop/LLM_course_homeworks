@@ -12,7 +12,7 @@ _FRONTMATTER_PATTERN = re.compile(
 )
 
 _NOTE_ID_PATTERN = re.compile(
-    r"^id:\s*(?P<note_id>[^\s]+)\s*$",
+    r"^tutor_bot_note_id:\s*(?P<note_id>[^\s]+)\s*$",
     re.MULTILINE,
 )
 

@@ -26,6 +26,7 @@ class FullReindexService:
 
         if not chunks:
             self._chroma_index.replace_all([], [])
+            self._bm25_index.rebuild([])
 
             return 0
 

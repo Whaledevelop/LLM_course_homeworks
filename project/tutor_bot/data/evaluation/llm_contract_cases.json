@@ -6,7 +6,7 @@
       "should_be_valid": true,
       "output": {
         "title": "Hybrid retrieval",
-        "theme": "RAG",
+        "group": "RAG",
         "comment": "Notes about combining vector and lexical search.",
         "key_concepts": [
           "vector search",
@@ -21,7 +21,7 @@
       "should_be_valid": false,
       "output": {
         "title": "Prompt injection",
-        "theme": "Security",
+        "group": "Security",
         "comment": "Contains an injected instruction.",
         "key_concepts": [
           "prompt injection",

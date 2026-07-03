@@ -104,6 +104,6 @@ def _write_markdown(
     note_id: UUID,
 ) -> None:
     note_path.write_text(
-        f"---\nid: {note_id}\n---\n\n# Test note\n",
+        f"---\ntutor_bot_note_id: {note_id}\n---\n\n# Test note\n",
         encoding="utf-8",
     )

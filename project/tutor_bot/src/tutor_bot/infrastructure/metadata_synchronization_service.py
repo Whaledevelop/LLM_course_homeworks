@@ -41,7 +41,7 @@ class MetadataSynchronizationService:
                 raise ValueError(f"Metadata already exists for note: {document.note_id}")
 
             updated_notes[document.note_id] = NoteMetadata(
-                theme="",
+                group="",
                 comment="",
                 importance=0,
                 knowledge=0,

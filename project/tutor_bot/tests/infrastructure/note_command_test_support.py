@@ -30,7 +30,7 @@ def create_storage(
     note_path.parent.mkdir(parents=True)
 
     note_path.write_text(
-        f"---\nid: {NOTE_ID}\n---\n\n# Original content\n",
+        f"---\ntutor_bot_note_id: {NOTE_ID}\n---\n\n# Original content\n",
         encoding="utf-8",
     )
 
@@ -42,7 +42,7 @@ def create_storage(
                 "version_time": "2026-06-28T22:43:52+03:00",
                 "notes": {
                     str(NOTE_ID): {
-                        "theme": "csharp",
+                        "group": "csharp",
                         "comment": "repeat",
                         "importance": 8,
                         "knowledge": 1,
@@ -63,7 +63,7 @@ def create_storage(
 def create_create_command() -> CreateNoteCommand:
     return CreateNoteCommand(
         title="New note",
-        theme="csharp",
+        group="csharp",
         comment="learn",
         importance=7,
         knowledge=0,
@@ -75,7 +75,7 @@ def create_update_command() -> UpdateNoteCommand:
     return UpdateNoteCommand(
         note_id=NOTE_ID,
         title="Updated GC",
-        theme="csharp",
+        group="csharp",
         comment="ready",
         importance=9,
         knowledge=4,

@@ -18,21 +18,25 @@ def render_note_actions(
     edit_column, delete_column = st.columns(2)
 
     edit_requested = edit_column.button(
-        "✎",
-        help="Редактировать заметку",
+        "Редактировать заметку",
         key=f"open-editor-{note_id}",
         width="stretch",
     )
 
     delete_requested = delete_column.button(
-        "🗑",
-        help="Удалить заметку",
+        "Удалить заметки",
         key=f"open-delete-{note_id}",
         width="stretch",
     )
 
     if edit_requested:
-        st.session_state[_ACTIVE_EDITOR_KEY] = note_id
+        active_editor = st.session_state.get(_ACTIVE_EDITOR_KEY)
+
+        if active_editor == note_id:
+            st.session_state.pop(_ACTIVE_EDITOR_KEY, None)
+        else:
+            st.session_state[_ACTIVE_EDITOR_KEY] = note_id
+
         st.session_state.pop(_ACTIVE_DELETE_KEY, None)
 
     if delete_requested:
@@ -64,9 +68,9 @@ def _render_edit_form(
             value=note_details.title,
         )
 
-        theme = st.text_input(
-            "Тема",
-            value=note_details.theme,
+        group = st.text_input(
+            "Группа",
+            value=note_details.group,
         )
 
         comment = st.text_input(
@@ -117,7 +121,7 @@ def _render_edit_form(
     command = UpdateNoteCommand(
         note_id=note_details.id,
         title=title,
-        theme=theme,
+        group=group,
         comment=comment,
         importance=importance,
         knowledge=knowledge,

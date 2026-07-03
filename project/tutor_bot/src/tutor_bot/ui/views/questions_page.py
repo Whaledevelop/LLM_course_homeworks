@@ -1,12 +1,9 @@
 from uuid import UUID
 
 import streamlit as st
-from httpx import HTTPError
-from ollama import ResponseError
-from openai import OpenAIError
-
 from tutor_bot.application.tutor_answer import TutorAnswer
 from tutor_bot.application.tutor_answer_service import TutorAnswerService
+from tutor_bot.generation.llm_provider_error import LlmProviderError
 from tutor_bot.retrieval.hybrid_search_result import HybridSearchResult
 
 
@@ -60,8 +57,8 @@ def _submit_question(
     try:
         with st.spinner("Ищу информацию в заметках и формирую ответ..."):
             st.session_state[_ANSWER_KEY] = answer_service.answer(question)
-    except (HTTPError, OpenAIError, ResponseError) as error:
-        st.error(f"Не удалось получить ответ от Ollama: {error}")
+    except LlmProviderError as error:
+        st.error(f"Не удалось получить ответ от LLM: {error}")
 
 
 def _render_answer(answer: TutorAnswer) -> None:

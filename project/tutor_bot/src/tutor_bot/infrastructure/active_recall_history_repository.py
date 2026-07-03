@@ -46,3 +46,6 @@ class ActiveRecallHistoryRepository:
             results.append(RecallSessionResult.model_validate(record["result"]))
 
         return tuple(results)
+
+    def clear(self) -> None:
+        self._history_file.unlink(missing_ok=True)

@@ -1,6 +1,7 @@
 from functools import lru_cache
 from pathlib import Path
 
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -14,9 +15,25 @@ class Settings(BaseSettings):
 
     project_root: Path = Path(__file__).resolve().parents[2]
     source_notes_dir: Path
-    ollama_base_url: str = "http://localhost:11434/v1"
-    ollama_model: str = "qwen3.5:9b"
+    llm_provider: str = Field(default="ollama", validation_alias="LLM_PROVIDER")
+    ollama_base_url: str = Field(
+        default="http://localhost:11434",
+        validation_alias="OLLAMA_BASE_URL",
+    )
+    ollama_model: str = Field(default="qwen3.5:9b", validation_alias="OLLAMA_MODEL")
     ollama_think: bool = False
+    yandex_api_key: str = Field(default="", validation_alias="YANDEX_API_KEY")
+    yandex_folder_id: str = Field(default="", validation_alias="YANDEX_FOLDER_ID")
+    yandex_base_url: str = Field(
+        default="https://ai.api.cloud.yandex.net/v1",
+        validation_alias="YANDEX_BASE_URL",
+    )
+    yandex_model: str = Field(
+        default="qwen3.6-35b-a3b",
+        validation_alias="YANDEX_MODEL",
+    )
+    yandex_max_tokens: int = Field(default=2000, validation_alias="YANDEX_MAX_TOKENS")
+    yandex_temperature: float = Field(default=0.3, validation_alias="YANDEX_TEMPERATURE")
 
     @property
     def data_dir(self) -> Path:
@@ -45,6 +62,10 @@ class Settings(BaseSettings):
     @property
     def ui_state_file(self) -> Path:
         return self.data_dir / "ui_state" / "ui_state.json"
+
+    @property
+    def llm_usage_file(self) -> Path:
+        return self.history_dir / "llm_usage.jsonl"
 
 
 @lru_cache

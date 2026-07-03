@@ -68,7 +68,7 @@ def test_removes_stale_metadata_and_registers_markdown(
     assert NOTE_ID not in synchronized_catalog.notes
     assert synchronized_metadata.last_recorded_name == "orphan"
     assert synchronized_metadata.relative_path.as_posix() == "orphan.md"
-    assert synchronized_metadata.theme == ""
+    assert synchronized_metadata.group == ""
     assert synchronized_metadata.importance == 0
     assert len(backup_files) == 1
     assert backup_files[0].read_text(encoding="utf-8") == original_metadata
@@ -159,6 +159,6 @@ def _write_markdown(
     note_id: UUID,
 ) -> None:
     note_path.write_text(
-        f"---\nid: {note_id}\n---\n\n# Test note\n",
+        f"---\ntutor_bot_note_id: {note_id}\n---\n\n# Test note\n",
         encoding="utf-8",
     )

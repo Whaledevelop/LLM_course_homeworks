@@ -1,11 +1,10 @@
-from ollama import Client
 from pydantic import ValidationError
 
 from tutor_bot.application.assignment_review import AssignmentReview
+from tutor_bot.generation.llm_provider import LlmProvider
 from tutor_bot.retrieval.context_gate_result import ContextGateResult
 
 
-_DEFAULT_MODEL_NAME = "qwen3.5:9b"
 _SYSTEM_PROMPT = """Ты проверяешь учебное задание по локальным заметкам.
 Оценивай ответ ученика только по переданному контексту и формулировке задания.
 Не добавляй требования и факты из внешних знаний.
@@ -29,24 +28,16 @@ _REPAIR_PROMPT = """Предыдущий ответ не прошёл прове
 class OllamaGroundedAssignmentReviewer:
     def __init__(
         self,
-        base_url: str,
-        model_name: str = _DEFAULT_MODEL_NAME,
+        provider: LlmProvider,
         temperature: float = 0.0,
         max_tokens: int = 1000,
-        timeout_seconds: float = 120.0,
-        think: bool = False,
     ) -> None:
-        if temperature < 0 or max_tokens <= 0 or timeout_seconds <= 0:
-            raise ValueError("Temperature must be non-negative and limits must be positive")
+        if temperature < 0 or max_tokens <= 0:
+            raise ValueError("Temperature must be non-negative and max tokens must be positive")
 
-        self._client = Client(
-            host=base_url.removesuffix("/v1").rstrip("/"),
-            timeout=timeout_seconds,
-        )
-        self._model_name = model_name
+        self._provider = provider
         self._temperature = temperature
         self._max_tokens = max_tokens
-        self._think = think
 
     def review(
         self,
@@ -102,22 +93,14 @@ class OllamaGroundedAssignmentReviewer:
         self,
         messages: list[dict[str, str]],
     ) -> str:
-        response = self._client.chat(
-            model=self._model_name,
+        response = self._provider.generate(
             messages=messages,
-            options={
-                "temperature": self._temperature,
-                "num_predict": self._max_tokens,
-            },
-            format=AssignmentReview.model_json_schema(),
-            think=self._think,
+            temperature=self._temperature,
+            max_tokens=self._max_tokens,
+            json_schema=AssignmentReview.model_json_schema(),
         )
-        content = response.message.content
 
-        if not content:
-            raise RuntimeError("Ollama returned an empty assignment review")
-
-        return content
+        return response.text
 
     def _build_user_prompt(
         self,

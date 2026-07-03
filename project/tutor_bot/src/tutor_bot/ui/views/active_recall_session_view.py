@@ -1,6 +1,5 @@
 import streamlit as st
 from httpx import HTTPError
-from ollama import ResponseError
 from pydantic import ValidationError
 
 from tutor_bot.application.active_recall_service import ActiveRecallService
@@ -13,6 +12,7 @@ VERDICT_LABELS = {
     "partially_correct": "Ответ частично корректный",
     "incorrect": "Ответ содержит существенные ошибки",
 }
+_REVEALED_QUESTION_KEY = "active_recall_revealed_question"
 
 
 def render_active_recall_session(
@@ -35,17 +35,24 @@ def render_active_recall_session(
         f"Заметка: {study_session.current_exercise.note_title}"
     )
     current_result = _get_current_result(study_session)
+    question_is_revealed = (
+        not show_note_before_question
+        or current_result is not None
+        or st.session_state.get(_REVEALED_QUESTION_KEY) == study_session.current_index
+    )
 
-    if (
-        current_result is None
-        and show_note_before_question
-        and study_session.current_exercise.source_markdown
-    ):
+    if current_result is None and not question_is_revealed:
         with st.expander(
             "Исходная заметка",
             expanded=True,
         ):
             st.markdown(study_session.current_exercise.source_markdown)
+
+        if st.button("К вопросу", type="primary"):
+            st.session_state[_REVEALED_QUESTION_KEY] = study_session.current_index
+            st.rerun()
+
+        return
 
     st.subheader(study_session.current_exercise.exercise.question)
 
@@ -73,7 +80,7 @@ def render_active_recall_session(
             with st.spinner("Генерирую следующий вопрос..."):
                 st.session_state[state_key] = recall_service.advance_study_session(study_session)
             st.rerun()
-        except (HTTPError, ResponseError, RuntimeError, ValueError, ValidationError) as error:
+        except (HTTPError, RuntimeError, ValueError, ValidationError) as error:
             st.error(f"Не удалось перейти к следующему вопросу: {error}")
 
 
@@ -91,10 +98,22 @@ def _render_answer_form(
     study_session: RecallStudySession,
     state_key: str,
 ) -> None:
+    answer_key = f"active_recall_answer_{study_session.current_index}"
+
+    st.button(
+        "Imitate Answer",
+        on_click=_imitate_answer,
+        args=(
+            answer_key,
+            study_session.current_exercise.exercise.reference_answer,
+        ),
+    )
+
     with st.form("active-recall-answer-form"):
         student_answer = st.text_area(
             "Ваш ответ",
             height=220,
+            key=answer_key,
         )
         submitted = st.form_submit_button(
             "Проверить ответ",
@@ -116,8 +135,15 @@ def _render_answer_form(
                 student_answer,
             )
         st.rerun()
-    except (HTTPError, ResponseError, RuntimeError, ValueError, ValidationError) as error:
+    except (HTTPError, RuntimeError, ValueError, ValidationError) as error:
         st.error(f"Не удалось проверить ответ: {error}")
+
+
+def _imitate_answer(
+    answer_key: str,
+    reference_answer: str,
+) -> None:
+    st.session_state[answer_key] = reference_answer
 
 
 def _render_result(
