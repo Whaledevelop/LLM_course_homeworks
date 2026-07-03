@@ -15,7 +15,7 @@ _FRONTMATTER_PATTERN = re.compile(
 )
 
 _NOTE_ID_PATTERN = re.compile(
-    r"^id:\s*(?P<note_id>[^\s]+)\s*$",
+    r"^tutor_bot_note_id:\s*(?P<note_id>[^\s]+)\s*$",
     re.MULTILINE,
 )
 
@@ -36,7 +36,7 @@ class MetadataNoteQueryService:
             NoteListItem(
                 id=note_id,
                 title=metadata.last_recorded_name,
-                theme=metadata.theme,
+                group=metadata.group,
                 importance=metadata.importance,
                 knowledge=metadata.knowledge,
             )
@@ -85,7 +85,7 @@ class MetadataNoteQueryService:
         return NoteDetails(
             id=note_id,
             title=metadata.last_recorded_name,
-            theme=metadata.theme,
+            group=metadata.group,
             importance=metadata.importance,
             knowledge=metadata.knowledge,
             comment=metadata.comment,

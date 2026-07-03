@@ -8,8 +8,8 @@ class CreateNoteCommand(BaseModel):
     )
 
     title: str = Field(min_length=1)
-    theme: str
+    group: str
     comment: str
     importance: int = Field(ge=0, le=10)
     knowledge: int = Field(ge=0, le=10)
-    markdown_content: str = Field(min_length=1)
+    markdown_content: str

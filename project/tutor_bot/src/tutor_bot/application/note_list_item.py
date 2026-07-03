@@ -8,6 +8,6 @@ class NoteListItem(BaseModel):
 
     id: UUID
     title: str = Field(min_length=1)
-    theme: str
+    group: str
     importance: int = Field(ge=0, le=10)
     knowledge: int = Field(ge=0, le=10)

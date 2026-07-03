@@ -34,7 +34,7 @@ class HybridSearchService:
         self,
         query: str,
         limit: int = 10,
-        theme: str | None = None,
+        group: str | None = None,
     ) -> list[HybridSearchResult]:
         if limit <= 0:
             raise ValueError("Search result limit must be positive")
@@ -49,13 +49,13 @@ class HybridSearchService:
         vector_results = self._vector_index.search(
             query_embedding,
             limit=candidate_limit,
-            theme=theme,
+            group=group,
         )
 
         bm25_results = self._bm25_index.search(
             query,
             limit=candidate_limit,
-            theme=theme,
+            group=group,
         )
 
         chunks_by_id: dict[UUID, ChunkSearchResult] = {}

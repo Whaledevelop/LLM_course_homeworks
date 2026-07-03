@@ -23,14 +23,22 @@ from tutor_bot.indexing.note_chunk_builder import NoteChunkBuilder
 from tutor_bot.indexing.sentence_transformer_embedding_service import (
     SentenceTransformerEmbeddingService,
 )
-from tutor_bot.infrastructure.notes_metadata_repository import (
-    NotesMetadataRepository,
-)
+from tutor_bot.infrastructure.active_database_service import ActiveDatabaseService
+from tutor_bot.infrastructure.database_notes_repository import DatabaseNotesRepository
 
 
 def main() -> int:
     settings = get_settings()
-    metadata_repository = NotesMetadataRepository(settings.metadata_file)
+    active_database = ActiveDatabaseService(settings.data_dir).get_active()
+
+    if active_database is None:
+        raise RuntimeError("Active DB is not selected")
+
+    metadata_repository = DatabaseNotesRepository(
+        settings.data_dir / "metadata",
+        active_database.db_id,
+        active_database.root_path,
+    )
 
     note_chunk_builder = NoteChunkBuilder(
         MarkdownCleaner(),
@@ -40,14 +48,14 @@ def main() -> int:
 
     corpus_chunk_builder = CorpusChunkBuilder(
         metadata_repository,
-        settings.source_notes_dir,
+        active_database.root_path,
         note_chunk_builder,
     )
 
     embedding_service = SentenceTransformerEmbeddingService(device="cpu")
 
-    chroma_index = ChromaChunkIndex(settings.indexes_dir / "chroma")
-    bm25_index = Bm25ChunkIndex(settings.indexes_dir / "bm25")
+    chroma_index = ChromaChunkIndex(active_database.indexes_dir / "chroma")
+    bm25_index = Bm25ChunkIndex(active_database.indexes_dir / "bm25")
 
     reindex_service = FullReindexService(
         corpus_chunk_builder,
@@ -63,7 +71,8 @@ def main() -> int:
     print(
         json.dumps(
             {
-                "notes_directory": str(settings.source_notes_dir),
+                "db_id": active_database.db_id,
+                "notes_directory": str(active_database.root_path),
                 "chunks": chunk_count,
                 "chroma_records": chroma_index.count,
                 "bm25_records": chunk_count,

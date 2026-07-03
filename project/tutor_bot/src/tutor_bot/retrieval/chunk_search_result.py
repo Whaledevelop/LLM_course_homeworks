@@ -19,7 +19,7 @@ class ChunkSearchResult(BaseModel):
     heading_title: str
     heading_path: tuple[str, ...]
     text: str
-    theme: str
+    group: str
     relative_path: PurePosixPath
     score: float
     retrieval_method: Literal["vector", "bm25"]

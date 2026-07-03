@@ -18,7 +18,7 @@ class IndexedChunk(BaseModel):
     heading_title: str
     heading_path: tuple[str, ...]
     text: str = Field(min_length=1)
-    theme: str
+    group: str
     importance: int = Field(ge=0, le=10)
     knowledge: int = Field(ge=0, le=10)
     relative_path: PurePosixPath

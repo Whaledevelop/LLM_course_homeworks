@@ -1,0 +1,2 @@
+class LlmProviderError(RuntimeError):
+    pass

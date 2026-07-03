@@ -1,6 +1,5 @@
 import streamlit as st
 from httpx import HTTPError
-from ollama import ResponseError
 from pydantic import ValidationError
 
 from tutor_bot.application.create_note_command import CreateNoteCommand
@@ -11,7 +10,7 @@ from tutor_bot.generation.note_metadata_suggester import NoteMetadataSuggester
 
 _TITLE_KEY = "add_note_title"
 _MARKDOWN_KEY = "add_note_markdown"
-_THEME_KEY = "add_note_theme"
+_GROUP_KEY = "add_note_group"
 _COMMENT_KEY = "add_note_comment"
 _SUGGESTION_KEY = "add_note_metadata_suggestion"
 _SUGGESTION_SOURCE_KEY = "add_note_metadata_suggestion_source"
@@ -37,9 +36,9 @@ def render_add_note_page(
         )
         suggestion_submitted = st.form_submit_button("Предложить метаданные")
 
-        theme = st.text_input(
-            "Тема",
-            key=_THEME_KEY,
+        group = st.text_input(
+            "Группа",
+            key=_GROUP_KEY,
         )
         comment = st.text_input(
             "Комментарий",
@@ -85,7 +84,7 @@ def render_add_note_page(
 
     command = CreateNoteCommand(
         title=title.strip(),
-        theme=theme.strip(),
+        group=group.strip(),
         comment=comment.strip(),
         importance=importance,
         knowledge=knowledge,
@@ -113,7 +112,7 @@ def _suggest_metadata(
         try:
             with st.spinner("Анализирую заметку и предлагаю метаданные..."):
                 suggestion = metadata_suggester.suggest(normalized_markdown)
-        except (HTTPError, ResponseError, RuntimeError, ValidationError) as error:
+        except (HTTPError, RuntimeError, ValidationError) as error:
             st.error(f"Не удалось предложить метаданные: {error}")
 
             return
@@ -144,5 +143,5 @@ def _apply_pending_suggestion() -> None:
         return
 
     st.session_state[_TITLE_KEY] = suggestion.title
-    st.session_state[_THEME_KEY] = suggestion.theme
+    st.session_state[_GROUP_KEY] = suggestion.group
     st.session_state[_COMMENT_KEY] = suggestion.comment

@@ -76,7 +76,7 @@ class Bm25ChunkIndex:
         self,
         query: str,
         limit: int = 10,
-        theme: str | None = None,
+        group: str | None = None,
     ) -> list[ChunkSearchResult]:
         if limit <= 0:
             raise ValueError("Search result limit must be positive")
@@ -93,7 +93,7 @@ class Bm25ChunkIndex:
             show_progress=False,
         )
 
-        candidate_limit = corpus_count if theme else min(limit, corpus_count)
+        candidate_limit = corpus_count if group else min(limit, corpus_count)
 
         records, scores = retriever.retrieve(
             query_tokens,
@@ -104,7 +104,7 @@ class Bm25ChunkIndex:
         results = []
 
         for record, score in zip(records[0], scores[0]):
-            if theme and record["theme"] != theme:
+            if group and record["group"] != group:
                 continue
 
             results.append(
@@ -117,7 +117,7 @@ class Bm25ChunkIndex:
                     heading_title=str(record["heading_title"]),
                     heading_path=tuple(record["heading_path"]),
                     text=str(record["text"]),
-                    theme=str(record["theme"]),
+                    group=str(record["group"]),
                     relative_path=PurePosixPath(str(record["relative_path"])),
                     score=float(score),
                     retrieval_method="bm25",
@@ -161,7 +161,7 @@ class Bm25ChunkIndex:
             "heading_title": chunk.heading_title,
             "heading_path": list(chunk.heading_path),
             "text": chunk.text,
-            "theme": chunk.theme,
+            "group": chunk.group,
             "importance": chunk.importance,
             "knowledge": chunk.knowledge,
             "relative_path": (chunk.relative_path.as_posix()),

@@ -10,6 +10,13 @@ def render_active_recall_history_page(
 ) -> None:
     history = recall_service.get_history()
 
+    if st.button(
+        "Clear History",
+        disabled=not history,
+    ):
+        recall_service.clear_history()
+        st.rerun()
+
     if not history:
         st.info("История попыток пока отсутствует.")
 
@@ -39,7 +46,5 @@ def _render_latest_attempts(
     st.subheader("Последние попытки")
 
     for result in reversed(history[-10:]):
-        st.markdown(
-            f"**{result.session.note_title}** — {VERDICT_LABELS[result.review.verdict]}"
-        )
+        st.markdown(f"**{result.session.note_title}** — {VERDICT_LABELS[result.review.verdict]}")
         st.caption(result.session.exercise.question)

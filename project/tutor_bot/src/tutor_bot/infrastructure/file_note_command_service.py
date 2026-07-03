@@ -34,11 +34,12 @@ class FileNoteCommandService:
 
         relative_path, document = self._markdown_storage.create(
             note_id,
+            command.title,
             command.markdown_content,
         )
 
         metadata = NoteMetadata(
-            theme=command.theme,
+            group=command.group,
             comment=command.comment,
             importance=command.importance,
             knowledge=command.knowledge,
@@ -78,13 +79,14 @@ class FileNoteCommandService:
         original_file_content, document = self._markdown_storage.update(
             command.note_id,
             metadata.relative_path,
+            command.title,
             command.markdown_content,
         )
 
         updated_metadata = metadata.model_copy(
             update={
                 "last_recorded_name": command.title,
-                "theme": command.theme,
+                "group": command.group,
                 "comment": command.comment,
                 "importance": command.importance,
                 "knowledge": command.knowledge,
@@ -180,7 +182,7 @@ class FileNoteCommandService:
         return NoteDetails(
             id=note_id,
             title=metadata.last_recorded_name,
-            theme=metadata.theme,
+            group=metadata.group,
             importance=metadata.importance,
             knowledge=metadata.knowledge,
             comment=metadata.comment,

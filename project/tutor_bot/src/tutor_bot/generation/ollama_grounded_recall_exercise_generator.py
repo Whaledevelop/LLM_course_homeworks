@@ -1,10 +1,9 @@
-from ollama import Client
 from pydantic import ValidationError
 
 from tutor_bot.application.recall_exercise import RecallExercise
+from tutor_bot.generation.llm_provider import LlmProvider
 
 
-_DEFAULT_MODEL_NAME = "qwen3.5:9b"
 _SYSTEM_PROMPT = """Ты создаёшь упражнение Active Recall по одной учебной заметке.
 Используй только информацию из переданной заметки и не добавляй внешние факты.
 Сформулируй один сфокусированный открытый вопрос по одной основной теме заметки.
@@ -26,24 +25,16 @@ _REPAIR_PROMPT = """Предыдущий ответ не прошёл прове
 class OllamaGroundedRecallExerciseGenerator:
     def __init__(
         self,
-        base_url: str,
-        model_name: str = _DEFAULT_MODEL_NAME,
+        provider: LlmProvider,
         temperature: float = 0.2,
         max_tokens: int = 1000,
-        timeout_seconds: float = 120.0,
-        think: bool = False,
     ) -> None:
-        if temperature < 0 or max_tokens <= 0 or timeout_seconds <= 0:
-            raise ValueError("Temperature must be non-negative and limits must be positive")
+        if temperature < 0 or max_tokens <= 0:
+            raise ValueError("Temperature must be non-negative and max tokens must be positive")
 
-        self._client = Client(
-            host=base_url.removesuffix("/v1").rstrip("/"),
-            timeout=timeout_seconds,
-        )
-        self._model_name = model_name
+        self._provider = provider
         self._temperature = temperature
         self._max_tokens = max_tokens
-        self._think = think
 
     def generate(
         self,
@@ -87,19 +78,11 @@ class OllamaGroundedRecallExerciseGenerator:
         self,
         messages: list[dict[str, str]],
     ) -> str:
-        response = self._client.chat(
-            model=self._model_name,
+        response = self._provider.generate(
             messages=messages,
-            options={
-                "temperature": self._temperature,
-                "num_predict": self._max_tokens,
-            },
-            format=RecallExercise.model_json_schema(),
-            think=self._think,
+            temperature=self._temperature,
+            max_tokens=self._max_tokens,
+            json_schema=RecallExercise.model_json_schema(),
         )
-        content = response.message.content
 
-        if not content:
-            raise RuntimeError("Ollama returned an empty recall exercise")
-
-        return content
+        return response.text

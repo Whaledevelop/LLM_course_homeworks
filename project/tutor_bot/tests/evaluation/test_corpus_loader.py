@@ -22,13 +22,13 @@ def test_resolves_corpus_files(tmp_path: Path) -> None:
         note_path = source_notes_dir / relative_path
 
         note_path.write_text(
-            f"---\nid: {note_id}\n---\n\nTest content",
+            f"---\ntutor_bot_note_id: {note_id}\n---\n\nTest content",
             encoding="utf-8",
         )
 
         note_ids.append(note_id)
         metadata_entries[note_id] = NoteMetadata(
-            theme="topic",
+            group="topic",
             comment="",
             importance=5,
             knowledge=0,

@@ -16,7 +16,7 @@ def test_saves_metadata_atomically_with_backup(
         "version_time": "2026-06-28T22:43:52+03:00",
         "notes": {
             "2e2a0b1a-43f0-5d43-918f-393d557d5eac": {
-                "theme": "csharp",
+                "group": "csharp",
                 "comment": "repeat",
                 "importance": 8,
                 "knowledge": 1,

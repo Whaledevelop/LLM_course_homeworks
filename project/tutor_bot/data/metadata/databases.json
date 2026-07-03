@@ -1,0 +1,11 @@
+{
+  "active_db_id": "LLM_course",
+  "databases": {
+    "unity": {
+      "root_path": "D:\\ObsidianVault\\projects\\devlib\\unity devlib"
+    },
+    "LLM_course": {
+      "root_path": "D:\\ObsidianVault\\projects\\LLM_course\\LLM конспекты"
+    }
+  }
+}

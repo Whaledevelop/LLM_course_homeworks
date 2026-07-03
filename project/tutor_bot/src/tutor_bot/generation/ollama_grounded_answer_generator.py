@@ -1,9 +1,7 @@
-from ollama import Client
-
+from tutor_bot.generation.llm_provider import LlmProvider
 from tutor_bot.retrieval.context_gate_result import ContextGateResult
 
 
-_DEFAULT_MODEL_NAME = "qwen2.5:3b"
 _NO_CONTEXT_RESPONSE = "В заметках недостаточно информации для ответа на этот вопрос."
 _SYSTEM_PROMPT = """Ты локальный учебный ассистент.
 Отвечай только на основе переданных фрагментов заметок.
@@ -16,24 +14,16 @@ _SYSTEM_PROMPT = """Ты локальный учебный ассистент.
 class OllamaGroundedAnswerGenerator:
     def __init__(
         self,
-        base_url: str,
-        model_name: str = _DEFAULT_MODEL_NAME,
+        provider: LlmProvider,
         temperature: float = 0.0,
         max_tokens: int = 800,
-        timeout_seconds: float = 120.0,
-        think: bool = False,
     ) -> None:
-        if temperature < 0 or max_tokens <= 0 or timeout_seconds <= 0:
-            raise ValueError("Temperature must be non-negative and limits must be positive")
+        if temperature < 0 or max_tokens <= 0:
+            raise ValueError("Temperature must be non-negative and max tokens must be positive")
 
-        self._client = Client(
-            host=base_url.removesuffix("/v1").rstrip("/"),
-            timeout=timeout_seconds,
-        )
-        self._model_name = model_name
+        self._provider = provider
         self._temperature = temperature
         self._max_tokens = max_tokens
-        self._think = think
 
     def generate(
         self,
@@ -43,8 +33,7 @@ class OllamaGroundedAnswerGenerator:
         if not context.has_sufficient_context:
             return _NO_CONTEXT_RESPONSE
 
-        response = self._client.chat(
-            model=self._model_name,
+        response = self._provider.generate(
             messages=[
                 {
                     "role": "system",
@@ -58,17 +47,10 @@ class OllamaGroundedAnswerGenerator:
                     ),
                 },
             ],
-            options={
-                "temperature": self._temperature,
-                "num_predict": self._max_tokens,
-            },
-            think=self._think,
+            temperature=self._temperature,
+            max_tokens=self._max_tokens,
         )
-
-        answer = response.message.content
-
-        if not answer:
-            raise RuntimeError("Ollama returned an empty answer")
+        answer = response.text
 
         source_list = self._build_source_list(context)
 

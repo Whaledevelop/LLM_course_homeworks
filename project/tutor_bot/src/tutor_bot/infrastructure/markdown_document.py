@@ -10,7 +10,11 @@ _FRONTMATTER_PATTERN = re.compile(
 )
 
 _NOTE_ID_PATTERN = re.compile(
-    r"^id:\s*(?P<note_id>[^\s]+)\s*$",
+    r"^tutor_bot_note_id:\s*(?P<note_id>[^\s]+)\s*$",
+    re.MULTILINE,
+)
+_TITLE_PATTERN = re.compile(
+    r"^title:\s*(?P<title>.+?)\s*$",
     re.MULTILINE,
 )
 
@@ -22,13 +26,18 @@ _NOTE_ID_PATTERN = re.compile(
 class MarkdownDocument:
     note_id: UUID
     content: str
+    title: str | None = None
 
     @property
     def normalized_content(self) -> str:
         return self.content.rstrip() + "\n"
 
     def serialize(self) -> str:
-        return f"---\nid: {self.note_id}\n---\n\n{self.normalized_content}"
+        title_line = f"title: {self.title}\n" if self.title else ""
+
+        return (
+            f"---\ntutor_bot_note_id: {self.note_id}\n{title_line}---\n\n{self.normalized_content}"
+        )
 
     @classmethod
     def parse(
@@ -47,9 +56,11 @@ class MarkdownDocument:
             raise ValueError(f"Note id not found in frontmatter: {note_path}")
 
         note_id = UUID(note_id_match.group("note_id"))
+        title_match = _TITLE_PATTERN.search(frontmatter_match.group("content"))
         content = file_content[frontmatter_match.end() :].lstrip("\r\n")
 
         return cls(
             note_id=note_id,
             content=content,
+            title=title_match.group("title") if title_match is not None else None,
         )

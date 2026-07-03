@@ -1,6 +1,5 @@
 import streamlit as st
 from httpx import HTTPError
-from ollama import ResponseError
 from pydantic import ValidationError
 
 from tutor_bot.application.active_recall_service import ActiveRecallService
@@ -16,12 +15,14 @@ _SHOW_NOTE_BEFORE_KEY = "active_recall_show_note_before"
 _SHOW_NOTE_AFTER_KEY = "active_recall_show_note_after"
 
 
+def interrupt_active_recall_session() -> None:
+    st.session_state.pop(_STUDY_SESSION_KEY, None)
+
+
 def render_active_recall_page(
     note_query_service: NoteQueryService,
     recall_service: ActiveRecallService,
 ) -> None:
-    st.caption("Вспомните материал без подсказок, затем сравните ответ с критериями заметки.")
-
     notes = note_query_service.list_notes()
 
     if not notes:
@@ -82,7 +83,7 @@ def _create_study_session(
             st.session_state[_STUDY_SESSION_KEY] = study_session
 
             return study_session
-    except (HTTPError, ResponseError, RuntimeError, ValueError, ValidationError) as error:
+    except (HTTPError, RuntimeError, ValueError, ValidationError) as error:
         st.error(f"Не удалось начать сессию: {error}")
 
         return None

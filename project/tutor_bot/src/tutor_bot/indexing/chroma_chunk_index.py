@@ -109,7 +109,7 @@ class ChromaChunkIndex:
         self,
         query_embedding: list[float],
         limit: int = 10,
-        theme: str | None = None,
+        group: str | None = None,
     ) -> list[ChunkSearchResult]:
         if limit <= 0:
             raise ValueError("Search result limit must be positive")
@@ -119,9 +119,9 @@ class ChromaChunkIndex:
 
         where = None
 
-        if theme:
+        if group:
             where = {
-                "theme": theme,
+                "group": group,
             }
 
         query_result = self._collection.query(
@@ -159,7 +159,7 @@ class ChromaChunkIndex:
                     heading_title=str(metadata["heading_title"]),
                     heading_path=(tuple(heading_path.split(" > ")) if heading_path else ()),
                     text=str(document),
-                    theme=str(metadata["theme"]),
+                    group=str(metadata["group"]),
                     relative_path=PurePosixPath(str(metadata["relative_path"])),
                     score=1.0 - float(distance),
                     retrieval_method="vector",
@@ -197,7 +197,7 @@ class ChromaChunkIndex:
             "chunk_index": chunk.chunk_index,
             "heading_title": chunk.heading_title,
             "heading_path": " > ".join(chunk.heading_path),
-            "theme": chunk.theme,
+            "group": chunk.group,
             "importance": chunk.importance,
             "knowledge": chunk.knowledge,
             "relative_path": chunk.relative_path.as_posix(),
