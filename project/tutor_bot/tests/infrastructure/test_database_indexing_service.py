@@ -14,7 +14,9 @@ def test_indexes_nested_notes_and_migrates_frontmatter(tmp_path: Path) -> None:
     hidden_dir.mkdir()
     legacy_note = notes_root / "legacy.md"
     plain_note = nested_dir / "plain.md"
-    legacy_note.write_text("---\nid: 0b2c61a8-505a-552c-b731-7b9627970eff\ntag: x\n---\nBody\n")
+    legacy_note.write_text(
+        "---\nid: 0b2c61a8-505a-552c-b731-7b9627970eff\ntitle: Legacy\ntag: x\n---\nBody\n"
+    )
     plain_note.write_text("# Plain\n")
     (hidden_dir / "ignored.md").write_text("# Ignored\n")
     service = DatabaseIndexingService(DatabaseRepository(metadata_dir))
@@ -26,9 +28,10 @@ def test_indexes_nested_notes_and_migrates_frontmatter(tmp_path: Path) -> None:
     assert result.added == 2
     assert len(index["notes"]) == 2
     assert set(index["notes"]) == set(metadata["notes"])
-    assert "tutor_bot_note_id:" in legacy_note.read_text()
-    assert "\nid:" not in legacy_note.read_text()
-    assert "tag: x" in legacy_note.read_text()
+    assert all(note["fullness"] >= 1 for note in metadata["notes"].values())
+    assert legacy_note.read_text() == (
+        "---\ntutor_bot_note_id: 0b2c61a8-505a-552c-b731-7b9627970eff\n---\nBody\n"
+    )
     assert "tutor_bot_note_id:" in plain_note.read_text()
 
 

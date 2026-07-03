@@ -34,7 +34,6 @@ class FileNoteCommandService:
 
         relative_path, document = self._markdown_storage.create(
             note_id,
-            command.title,
             command.markdown_content,
         )
 
@@ -43,6 +42,7 @@ class FileNoteCommandService:
             comment=command.comment,
             importance=command.importance,
             knowledge=command.knowledge,
+            fullness=command.fullness,
             last_recorded_name=command.title,
             relative_path=relative_path,
         )
@@ -79,7 +79,6 @@ class FileNoteCommandService:
         original_file_content, document = self._markdown_storage.update(
             command.note_id,
             metadata.relative_path,
-            command.title,
             command.markdown_content,
         )
 
@@ -90,6 +89,7 @@ class FileNoteCommandService:
                 "comment": command.comment,
                 "importance": command.importance,
                 "knowledge": command.knowledge,
+                "fullness": command.fullness,
             }
         )
 
@@ -185,6 +185,7 @@ class FileNoteCommandService:
             group=metadata.group,
             importance=metadata.importance,
             knowledge=metadata.knowledge,
+            fullness=metadata.fullness,
             comment=metadata.comment,
             markdown_content=document.normalized_content,
         )

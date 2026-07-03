@@ -8,6 +8,7 @@ from tutor_bot.infrastructure.notes_metadata_repository import (
     NotesMetadataRepository,
 )
 from tutor_bot.schemas.note_metadata import NoteMetadata
+from tutor_bot.application.note_fullness import estimate_note_fullness
 from tutor_bot.schemas.notes_metadata_catalog import NotesMetadataCatalog
 
 
@@ -45,6 +46,7 @@ class MetadataSynchronizationService:
                 comment="",
                 importance=0,
                 knowledge=0,
+                fullness=estimate_note_fullness(document.content),
                 last_recorded_name=relative_path.stem,
                 relative_path=relative_path,
             )

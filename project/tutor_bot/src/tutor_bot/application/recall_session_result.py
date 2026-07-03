@@ -13,3 +13,4 @@ class RecallSessionResult(BaseModel):
     session: RecallSession
     student_answer: str = Field(min_length=1)
     review: RecallAnswerReview
+    imitated: bool = False

@@ -5,6 +5,7 @@ from uuid import UUID, uuid4
 
 from tutor_bot.application.note_query_service import NoteQueryService
 from tutor_bot.application.note_command_service import NoteCommandService
+from tutor_bot.application.recall_answer_review import RecallAnswerReview
 from tutor_bot.application.recall_session import RecallSession
 from tutor_bot.application.recall_session_result import RecallSessionResult
 from tutor_bot.application.recall_study_session import RecallStudySession
@@ -60,10 +61,58 @@ class ActiveRecallService:
         note_id: UUID,
     ) -> RecallSession:
         note = self._note_query_service.get_note(note_id)
-        exercise = self._exercise_generator.generate(
-            note.title,
-            note.markdown_content,
+        trace_id = str(uuid4())
+        generation_started_at = perf_counter()
+        event_payload = {
+            "note_id": str(note.id),
+            "note_title": note.title,
+            "markdown_length": len(note.markdown_content),
+        }
+        self._record_event(
+            ObservabilityEvent(
+                scenario="active_recall_question",
+                event_type="generation",
+                status="started",
+                trace_id=trace_id,
+                session_id=str(note.id),
+                payload=event_payload,
+            )
         )
+
+        try:
+            exercise = self._exercise_generator.generate(
+                note.title,
+                note.markdown_content,
+            )
+            self._record_event(
+                ObservabilityEvent(
+                    scenario="active_recall_question",
+                    event_type="generation",
+                    status="succeeded",
+                    trace_id=trace_id,
+                    session_id=str(note.id),
+                    duration_seconds=perf_counter() - generation_started_at,
+                    payload={
+                        **event_payload,
+                        "key_points_count": len(exercise.key_points),
+                        "question_length": len(exercise.question),
+                    },
+                )
+            )
+        except Exception as exception:
+            self._record_event(
+                ObservabilityEvent(
+                    scenario="active_recall_question",
+                    event_type="generation",
+                    status="failed",
+                    trace_id=trace_id,
+                    session_id=str(note.id),
+                    duration_seconds=perf_counter() - generation_started_at,
+                    payload=event_payload,
+                    error=exception.__class__.__name__,
+                )
+            )
+            raise
 
         return RecallSession(
             note_id=note.id,
@@ -80,18 +129,17 @@ class ActiveRecallService:
             raise ValueError("Question count must be positive")
 
         notes = self._note_query_service.list_notes()
-        note_ids = [note.id for note in notes]
+        eligible_notes = [note for note in notes if note.fullness >= 4]
 
-        if not note_ids:
-            raise ValueError("Active Recall requires at least one note")
+        if not eligible_notes:
+            raise ValueError("Test Notes requires at least one note with fullness 4 or higher")
 
         seed = SystemRandom().randrange(2**32)
         random_generator = Random(seed)
-        selected_note_ids = tuple(
-            random_generator.sample(
-                note_ids,
-                k=min(question_count, len(note_ids)),
-            )
+        selected_note_ids = self._select_note_ids(
+            eligible_notes,
+            min(question_count, len(eligible_notes)),
+            random_generator,
         )
 
         return RecallStudySession(
@@ -100,6 +148,37 @@ class ActiveRecallService:
             current_index=0,
             current_exercise=self.create_session(selected_note_ids[0]),
         )
+
+    def create_note_study_session(
+        self,
+        note_id: UUID,
+    ) -> RecallStudySession:
+        return RecallStudySession(
+            seed=SystemRandom().randrange(2**32),
+            note_ids=(note_id,),
+            current_index=0,
+            current_exercise=self.create_session(note_id),
+        )
+
+    def _select_note_ids(
+        self,
+        notes,
+        question_count: int,
+        random_generator: Random,
+    ) -> tuple[UUID, ...]:
+        remaining_notes = list(notes)
+        selected_note_ids = []
+
+        while len(selected_note_ids) < question_count:
+            selected_note = random_generator.choices(
+                remaining_notes,
+                weights=[note.importance + 1 for note in remaining_notes],
+                k=1,
+            )[0]
+            selected_note_ids.append(selected_note.id)
+            remaining_notes.remove(selected_note)
+
+        return tuple(selected_note_ids)
 
     def review_answer(
         self,
@@ -207,7 +286,57 @@ class ActiveRecallService:
         self._increase_note_knowledge(result)
 
         return study_session.model_copy(
-            update={"results": (*study_session.results, result)},
+            update={
+                "results": (*study_session.results, result),
+                "reviewed_indices": (*study_session.reviewed_indices, study_session.current_index),
+            },
+        )
+
+    def imitate_study_answer(
+        self,
+        study_session: RecallStudySession,
+    ) -> RecallStudySession:
+        if study_session.answered_count != study_session.current_index:
+            raise ValueError("Current exercise has already been completed")
+
+        result = RecallSessionResult(
+            session=study_session.current_exercise,
+            student_answer=study_session.current_exercise.exercise.reference_answer,
+            review=RecallAnswerReview(
+                verdict="incorrect",
+                covered_points=(),
+                missing_points=(),
+                errors=(),
+                feedback="Эталонный ответ показан без проверки.",
+            ),
+            imitated=True,
+        )
+        self._history_writer.save(
+            result,
+            0.0,
+        )
+        self._record_event(
+            ObservabilityEvent(
+                scenario="active_recall",
+                event_type="answer_imitated",
+                status="skipped",
+                session_id=str(study_session.current_exercise.note_id),
+                payload={
+                    "note_id": str(study_session.current_exercise.note_id),
+                    "note_title": study_session.current_exercise.note_title,
+                    "question_index": study_session.current_index,
+                },
+            )
+        )
+
+        return study_session.model_copy(
+            update={
+                "results": (*study_session.results, result),
+                "imitated_indices": (
+                    *study_session.imitated_indices,
+                    study_session.current_index,
+                )
+            },
         )
 
     def advance_study_session(
@@ -215,7 +344,7 @@ class ActiveRecallService:
         study_session: RecallStudySession,
     ) -> RecallStudySession:
         if study_session.answered_count <= study_session.current_index:
-            raise ValueError("Current exercise must be reviewed before advancing")
+            raise ValueError("Current exercise must be completed before advancing")
 
         next_index = study_session.current_index + 1
 
@@ -271,6 +400,7 @@ class ActiveRecallService:
                 comment=note.comment,
                 importance=note.importance,
                 knowledge=updated_knowledge,
+                fullness=note.fullness,
                 markdown_content=note.markdown_content,
             )
         )

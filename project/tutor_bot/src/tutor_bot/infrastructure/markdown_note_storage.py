@@ -18,7 +18,6 @@ class MarkdownNoteStorage:
     def create(
         self,
         note_id: UUID,
-        title: str,
         markdown_content: str,
     ) -> tuple[PurePosixPath, MarkdownDocument]:
         relative_path = _CREATED_NOTES_DIRECTORY / f"{note_id}.md"
@@ -35,7 +34,6 @@ class MarkdownNoteStorage:
         document = MarkdownDocument(
             note_id=note_id,
             content=markdown_content,
-            title=title,
         )
 
         self._write_atomically(
@@ -49,7 +47,6 @@ class MarkdownNoteStorage:
         self,
         note_id: UUID,
         relative_path: PurePosixPath,
-        title: str,
         markdown_content: str,
     ) -> tuple[str, MarkdownDocument]:
         note_path = self._get_existing_path(relative_path)
@@ -61,7 +58,6 @@ class MarkdownNoteStorage:
         updated_document = MarkdownDocument(
             note_id=note_id,
             content=markdown_content,
-            title=title,
         )
 
         self._write_atomically(

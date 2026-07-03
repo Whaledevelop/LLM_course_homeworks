@@ -73,6 +73,7 @@ class DatabaseNoteMetadata(BaseModel):
     comment: str = ""
     importance: int = Field(default=0, ge=0, le=10)
     knowledge: int = Field(default=0, ge=0, le=10)
+    fullness: int | None = Field(default=None, ge=0, le=10)
 
 
 class DatabaseMetadata(BaseModel):

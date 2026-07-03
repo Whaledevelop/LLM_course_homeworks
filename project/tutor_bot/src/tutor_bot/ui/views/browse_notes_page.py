@@ -3,10 +3,12 @@ from uuid import UUID
 import streamlit as st
 
 from tutor_bot.application.note_command_service import NoteCommandService
+from tutor_bot.application.active_recall_service import ActiveRecallService
 from tutor_bot.application.note_list_item import NoteListItem
 from tutor_bot.application.note_query_service import NoteQueryService
 from tutor_bot.infrastructure.ui_state_repository import UiStateRepository
 from tutor_bot.ui.views.note_actions import render_note_actions
+from tutor_bot.ui.views.active_recall_page import start_note_test
 
 
 _SUCCESS_MESSAGE_KEY = "note_action_success"
@@ -18,6 +20,7 @@ def render_browse_notes_page(
     note_query_service: NoteQueryService,
     note_command_service: NoteCommandService,
     ui_state_repository: UiStateRepository,
+    recall_service: ActiveRecallService,
 ) -> None:
     success_message = st.session_state.pop(
         _SUCCESS_MESSAGE_KEY,
@@ -85,12 +88,14 @@ def render_browse_notes_page(
         action_message = render_note_actions(
             note_details,
             note_command_service,
+            lambda note_id: start_note_test(recall_service, note_id),
         )
 
         st.caption(
             f"Группа: {note_details.group or 'не указана'} · "
             f"Важность: {note_details.importance} · "
-            f"Знание: {note_details.knowledge}"
+            f"Знание: {note_details.knowledge} · "
+            f"Заполненность: {note_details.fullness}"
         )
 
         if action_message:

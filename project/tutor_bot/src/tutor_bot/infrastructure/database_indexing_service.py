@@ -3,6 +3,7 @@ from pathlib import Path
 from uuid import UUID
 
 from tutor_bot.infrastructure.database_repository import DatabaseRepository
+from tutor_bot.application.note_fullness import estimate_note_fullness
 from tutor_bot.infrastructure.note_frontmatter import (
     PreparedNote,
     prepare_note,
@@ -48,6 +49,7 @@ class DatabaseIndexingService:
         archive = self._repository.load_archive(db_id)
         updated_metadata, updated_archive, restored = self._synchronize_metadata(
             db_id,
+            root_path,
             metadata,
             archive,
             new_index,
@@ -117,6 +119,7 @@ class DatabaseIndexingService:
     def _synchronize_metadata(
         self,
         db_id: str,
+        root_path: Path,
         metadata: DatabaseMetadata,
         archive: DatabaseMetadata,
         index: DatabaseIndex,
@@ -127,12 +130,24 @@ class DatabaseIndexingService:
 
         for note_id in index.notes:
             if note_id in metadata.notes:
-                active_notes[note_id] = metadata.notes[note_id]
+                note_metadata = metadata.notes[note_id]
             elif note_id in archived_notes:
-                active_notes[note_id] = archived_notes.pop(note_id)
+                note_metadata = archived_notes.pop(note_id)
                 restored += 1
             else:
-                active_notes[note_id] = DatabaseNoteMetadata()
+                note_metadata = DatabaseNoteMetadata()
+
+            if note_metadata.fullness is None:
+                note_path = root_path / index.notes[note_id].path
+                note_metadata = note_metadata.model_copy(
+                    update={
+                        "fullness": estimate_note_fullness(
+                            note_path.read_text(encoding="utf-8-sig")
+                        )
+                    }
+                )
+
+            active_notes[note_id] = note_metadata
 
         for note_id, note_metadata in metadata.notes.items():
             if note_id not in index.notes:

@@ -30,14 +30,17 @@ def _render_summary(
     history: tuple[RecallSessionResult, ...],
 ) -> None:
     verdict_counts = {
-        verdict: sum(result.review.verdict == verdict for result in history)
+        verdict: sum(
+            result.review.verdict == verdict and not result.imitated for result in history
+        )
         for verdict in VERDICT_LABELS
     }
-    columns = st.columns(4)
+    columns = st.columns(5)
     columns[0].metric("Попыток", len(history))
     columns[1].metric("Правильных", verdict_counts["correct"])
     columns[2].metric("Частичных", verdict_counts["partially_correct"])
     columns[3].metric("Ошибочных", verdict_counts["incorrect"])
+    columns[4].metric("Показан ответ", sum(result.imitated for result in history))
 
 
 def _render_latest_attempts(
@@ -46,5 +49,10 @@ def _render_latest_attempts(
     st.subheader("Последние попытки")
 
     for result in reversed(history[-10:]):
-        st.markdown(f"**{result.session.note_title}** — {VERDICT_LABELS[result.review.verdict]}")
+        verdict_label = (
+            "Эталонный ответ показан"
+            if result.imitated
+            else VERDICT_LABELS[result.review.verdict]
+        )
+        st.markdown(f"**{result.session.note_title}** — {verdict_label}")
         st.caption(result.session.exercise.question)

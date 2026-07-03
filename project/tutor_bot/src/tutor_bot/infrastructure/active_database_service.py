@@ -174,6 +174,7 @@ class ActiveDatabaseService:
                 comment=str(legacy_note.get("comment", "")),
                 importance=int(legacy_note.get("importance", 0)),
                 knowledge=int(legacy_note.get("knowledge", 0)),
+                fullness=int(legacy_note.get("fullness", 0)),
             )
 
         backup_dir = legacy_file.parent / "backups"

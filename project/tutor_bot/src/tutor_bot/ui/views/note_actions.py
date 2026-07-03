@@ -1,8 +1,11 @@
 import streamlit as st
+from collections.abc import Callable
+from uuid import UUID
 
 from tutor_bot.application.delete_note_command import DeleteNoteCommand
 from tutor_bot.application.note_command_service import NoteCommandService
 from tutor_bot.application.note_details import NoteDetails
+from tutor_bot.application.note_fullness import estimate_note_fullness
 from tutor_bot.application.update_note_command import UpdateNoteCommand
 
 
@@ -13,19 +16,31 @@ _ACTIVE_DELETE_KEY = "active_note_delete"
 def render_note_actions(
     note_details: NoteDetails,
     note_command_service: NoteCommandService,
+    test_note: Callable[[UUID], None],
 ) -> str | None:
     note_id = str(note_details.id)
-    edit_column, delete_column = st.columns(2)
+    edit_column, test_column, delete_column = st.columns(3)
 
     edit_requested = edit_column.button(
         "Редактировать заметку",
         key=f"open-editor-{note_id}",
+        type="primary",
         width="stretch",
     )
 
+    test_column.button(
+        "Тестировать заметку",
+        key=f"test-note-{note_id}",
+        type="primary",
+        width="stretch",
+        on_click=test_note,
+        args=(note_details.id,),
+    )
+
     delete_requested = delete_column.button(
-        "Удалить заметки",
+        "Удалить заметку",
         key=f"open-delete-{note_id}",
+        type="tertiary",
         width="stretch",
     )
 
@@ -98,6 +113,22 @@ def _render_edit_form(
             height=500,
         )
 
+        automatic_fullness = st.toggle(
+            "Рассчитать заполненность автоматически",
+            value=True,
+        )
+
+        if automatic_fullness:
+            fullness = estimate_note_fullness(markdown_content)
+            st.caption(f"Заполненность: {fullness}")
+        else:
+            fullness = st.slider(
+                "Заполненность",
+                min_value=0,
+                max_value=10,
+                value=note_details.fullness,
+            )
+
         save_column, cancel_column = st.columns(2)
 
         submitted = save_column.form_submit_button(
@@ -125,6 +156,9 @@ def _render_edit_form(
         comment=comment,
         importance=importance,
         knowledge=knowledge,
+        fullness=(
+            estimate_note_fullness(markdown_content) if automatic_fullness else fullness
+        ),
         markdown_content=markdown_content,
     )
 
