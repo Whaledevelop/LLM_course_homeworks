@@ -4,6 +4,9 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict
 
 from tutor_bot.config import get_settings
+from tutor_bot.application.observability_event_service import (
+    add_current_observation_metadata,
+)
 from tutor_bot.generation.llm_response import LlmResponse
 from tutor_bot.infrastructure.atomic_json import write_json_atomically
 from tutor_bot.infrastructure.llm_usage_repository import LlmUsageRepository
@@ -94,10 +97,15 @@ def set_default_llm(provider: str, model: str | None) -> None:
 
 def record_usage(response: LlmResponse) -> None:
     _get_usage_repository().save(response)
+    add_current_observation_metadata(
+        provider=response.provider,
+        model=response.model,
+        prompt_tokens=response.prompt_tokens,
+        completion_tokens=response.completion_tokens,
+        total_tokens=response.total_tokens,
+    )
     settings = get_settings()
-    JsonlObservabilityEventRepository(
-        settings.history_dir / "observability_events.jsonl"
-    ).append(
+    JsonlObservabilityEventRepository(settings.history_dir / "observability_events.jsonl").append(
         ObservabilityEvent(
             scenario="llm_generation",
             event_type="generation",

@@ -48,11 +48,14 @@ class AssignmentReviewService:
             raise ValueError("Assignment and student answer must not be empty")
 
         trace_id = str(uuid4())
+        pipeline_observation_id = uuid4()
         pipeline_started_at = perf_counter()
         self._record_event(
             ObservabilityEvent(
                 scenario="assignment_review",
                 event_type="pipeline",
+                observation_type="trace",
+                observation_id=pipeline_observation_id,
                 status="started",
                 trace_id=trace_id,
                 payload={
@@ -70,23 +73,93 @@ class AssignmentReviewService:
                 limit=self._search_limit,
             )
             retrieval_duration_seconds = perf_counter() - search_started_at
+            self._record_event(
+                ObservabilityEvent(
+                    scenario="assignment_review",
+                    event_type="retrieval",
+                    observation_type="retriever",
+                    parent_observation_id=pipeline_observation_id,
+                    status="succeeded",
+                    trace_id=trace_id,
+                    duration_seconds=retrieval_duration_seconds,
+                    payload={"candidate_count": len(search_results)},
+                )
+            )
 
             context_started_at = perf_counter()
             context = self._context_gate.select(search_results)
             context_duration_seconds = perf_counter() - context_started_at
+            self._record_event(
+                ObservabilityEvent(
+                    scenario="assignment_review",
+                    event_type="reranking_context_gate",
+                    observation_type="span",
+                    parent_observation_id=pipeline_observation_id,
+                    status="succeeded",
+                    trace_id=trace_id,
+                    duration_seconds=context_duration_seconds,
+                    payload={
+                        "selected_context_count": len(context.selected_results),
+                        "has_sufficient_context": context.has_sufficient_context,
+                        "sources": self._build_source_payload(context.selected_results),
+                    },
+                )
+            )
 
             review_started_at = perf_counter()
-            review = self._reviewer.review(
-                normalized_assignment,
-                normalized_answer,
-                context,
-            )
+
+            if self._observability_event_service is None:
+                review = self._reviewer.review(
+                    normalized_assignment,
+                    normalized_answer,
+                    context,
+                )
+            else:
+                with self._observability_event_service.observe(
+                    "assignment_review",
+                    "generation",
+                    observation_type="generation",
+                    payload={
+                        "input": {
+                            "assignment_length": len(normalized_assignment),
+                            "student_answer_length": len(normalized_answer),
+                        }
+                    },
+                    trace_id=trace_id,
+                    parent_observation_id=pipeline_observation_id,
+                ) as generation_scope:
+                    review = self._reviewer.review(
+                        normalized_assignment,
+                        normalized_answer,
+                        context,
+                    )
+                    generation_scope.set_output(review.model_dump(mode="json"))
+                    generation_scope.add_metadata(validation_succeeded=True)
+
             review_duration_seconds = perf_counter() - review_started_at
+            self._record_event(
+                ObservabilityEvent(
+                    scenario="assignment_review",
+                    event_type="generation_validation",
+                    observation_type="evaluator",
+                    parent_observation_id=pipeline_observation_id,
+                    status="succeeded",
+                    trace_id=trace_id,
+                    duration_seconds=review_duration_seconds,
+                    payload={
+                        "validation_succeeded": True,
+                        "verdict": review.verdict,
+                        "output": review.model_dump(mode="json"),
+                    },
+                )
+            )
 
             self._record_event(
                 ObservabilityEvent(
                     scenario="assignment_review",
                     event_type="pipeline",
+                    observation_type="trace",
+                    observation_id=pipeline_observation_id,
                     status="succeeded",
                     trace_id=trace_id,
                     duration_seconds=perf_counter() - pipeline_started_at,
@@ -113,6 +186,8 @@ class AssignmentReviewService:
                 ObservabilityEvent(
                     scenario="assignment_review",
                     event_type="pipeline",
+                    observation_type="trace",
+                    observation_id=pipeline_observation_id,
                     status="failed",
                     trace_id=trace_id,
                     duration_seconds=perf_counter() - pipeline_started_at,

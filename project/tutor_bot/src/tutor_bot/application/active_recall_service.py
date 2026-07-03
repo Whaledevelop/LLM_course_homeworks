@@ -62,6 +62,7 @@ class ActiveRecallService:
     ) -> RecallSession:
         note = self._note_query_service.get_note(note_id)
         trace_id = str(uuid4())
+        generation_observation_id = uuid4()
         generation_started_at = perf_counter()
         event_payload = {
             "note_id": str(note.id),
@@ -72,6 +73,8 @@ class ActiveRecallService:
             ObservabilityEvent(
                 scenario="active_recall_question",
                 event_type="generation",
+                observation_type="generation",
+                observation_id=generation_observation_id,
                 status="started",
                 trace_id=trace_id,
                 session_id=str(note.id),
@@ -88,6 +91,8 @@ class ActiveRecallService:
                 ObservabilityEvent(
                     scenario="active_recall_question",
                     event_type="generation",
+                    observation_type="generation",
+                    observation_id=generation_observation_id,
                     status="succeeded",
                     trace_id=trace_id,
                     session_id=str(note.id),
@@ -104,6 +109,8 @@ class ActiveRecallService:
                 ObservabilityEvent(
                     scenario="active_recall_question",
                     event_type="generation",
+                    observation_type="generation",
+                    observation_id=generation_observation_id,
                     status="failed",
                     trace_id=trace_id,
                     session_id=str(note.id),
@@ -191,11 +198,14 @@ class ActiveRecallService:
             raise ValueError("Student answer must not be empty")
 
         trace_id = str(uuid4())
+        review_observation_id = uuid4()
         review_started_at = perf_counter()
         self._record_event(
             ObservabilityEvent(
                 scenario="active_recall",
                 event_type="answer_review",
+                observation_type="evaluator",
+                observation_id=review_observation_id,
                 status="started",
                 trace_id=trace_id,
                 session_id=str(session.note_id),
@@ -227,6 +237,8 @@ class ActiveRecallService:
                 ObservabilityEvent(
                     scenario="active_recall",
                     event_type="answer_review",
+                    observation_type="evaluator",
+                    observation_id=review_observation_id,
                     status="succeeded",
                     trace_id=trace_id,
                     session_id=str(session.note_id),
@@ -248,6 +260,8 @@ class ActiveRecallService:
                 ObservabilityEvent(
                     scenario="active_recall",
                     event_type="answer_review",
+                    observation_type="evaluator",
+                    observation_id=review_observation_id,
                     status="failed",
                     trace_id=trace_id,
                     session_id=str(session.note_id),
