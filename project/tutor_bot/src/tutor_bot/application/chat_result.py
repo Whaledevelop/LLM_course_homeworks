@@ -36,6 +36,7 @@ class StartRecallDraft(BaseModel):
 
     note_id: UUID
     title: str = Field(min_length=1)
+    requires_title_confirmation: bool = False
 
 
 class ChatResult(BaseModel):

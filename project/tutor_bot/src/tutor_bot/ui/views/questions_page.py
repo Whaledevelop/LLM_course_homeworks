@@ -188,6 +188,15 @@ def _render_start_recall_draft(
     draft: StartRecallDraft,
 ) -> None:
     st.divider()
+
+    if draft.requires_title_confirmation:
+        _render_start_recall_title_confirmation(
+            answer_service_factory,
+            draft,
+        )
+
+        return
+
     st.subheader(f"Active Recall: {draft.title}")
     st.write("Будет создан один вопрос по выбранной заметке.")
 
@@ -208,6 +217,38 @@ def _render_start_recall_draft(
     st.session_state.pop(_ANSWER_KEY, None)
     open_note_study_session(study_session)
     st.rerun()
+
+
+def _render_start_recall_title_confirmation(
+    answer_service_factory: Callable[[], ChatService],
+    draft: StartRecallDraft,
+) -> None:
+    st.write(f'Вы это "{draft.title}" имели ввиду?')
+    action_columns = st.columns(2)
+
+    if action_columns[0].button(
+        "Да",
+        type="primary",
+        use_container_width=True,
+    ):
+        try:
+            with st.spinner("Генерирую вопрос по заметке..."):
+                study_session = answer_service_factory().start_recall(draft)
+        except (KeyError, OSError, RuntimeError, ValueError) as error:
+            st.error(f"Не удалось начать Active Recall: {error}")
+
+            return
+
+        st.session_state.pop(_ANSWER_KEY, None)
+        open_note_study_session(study_session)
+        st.rerun()
+
+    if action_columns[1].button(
+        "Нет",
+        use_container_width=True,
+    ):
+        st.session_state.pop(_ANSWER_KEY, None)
+        st.rerun()
 
 
 def _render_answer(answer: TutorAnswer) -> None:
