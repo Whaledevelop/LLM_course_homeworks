@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { margin: 0; font-family: sans-serif; }
+    button { min-height: 38px; padding: 0 14px; border: 1px solid rgba(49, 51, 63, .2); border-radius: 8px; background: white; cursor: pointer; font-size: 14px; }
+    button:hover { border-color: #ff4b4b; color: #ff4b4b; }
+    button.recording { background: #ff4b4b; border-color: #ff4b4b; color: white; }
+    button:disabled { opacity: .55; cursor: default; }
+    #status { margin-left: 10px; color: #555; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <button id="record">Записать голосом</button><span id="status"></span>
+  <script>
+    const button = document.getElementById("record")
+    const status = document.getElementById("status")
+    let recorder
+    let stream
+    let chunks = []
+    let cursorPosition = 0
+    let questionText = ""
+    let textareaLabel = ""
+
+    const sendMessage = (type, data = {}) => {
+      window.parent.postMessage({ isStreamlitMessage: true, type, ...data }, "*")
+    }
+
+    const findQuestionInput = () => {
+      const textareas = window.parent.document.querySelectorAll("textarea")
+      return Array.from(textareas).find(element => element.getAttribute("aria-label") === textareaLabel)
+    }
+
+    const startRecording = async () => {
+      const questionInput = findQuestionInput()
+      cursorPosition = questionInput ? questionInput.selectionStart : 0
+      questionText = questionInput ? questionInput.value : ""
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      recorder = new MediaRecorder(stream)
+      chunks = []
+      recorder.ondataavailable = event => chunks.push(event.data)
+      recorder.onstop = sendRecording
+      recorder.start()
+      button.textContent = "Превратить в текст"
+      button.classList.add("recording")
+      status.textContent = "Идёт запись…"
+    }
+
+    const stopRecording = () => {
+      button.disabled = true
+      status.textContent = "Подготавливаю аудио…"
+      recorder.stop()
+      stream.getTracks().forEach(track => track.stop())
+    }
+
+    const sendRecording = () => {
+      const blob = new Blob(chunks, { type: recorder.mimeType })
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        sendMessage("streamlit:setComponentValue", {
+          value: {
+            audio: reader.result.split(",")[1],
+            cursor_position: cursorPosition,
+            question_text: questionText,
+            event_id: crypto.randomUUID()
+          }
+        })
+        button.disabled = false
+        button.textContent = "Записать голосом"
+        button.classList.remove("recording")
+        status.textContent = ""
+      }
+      reader.readAsDataURL(blob)
+    }
+
+    button.addEventListener("click", async () => {
+      try {
+        if (recorder && recorder.state === "recording") {
+          stopRecording()
+        } else {
+          await startRecording()
+        }
+      } catch (error) {
+        status.textContent = "Нет доступа к микрофону"
+        sendMessage("streamlit:setComponentValue", { value: { error: error.message, event_id: crypto.randomUUID() } })
+      }
+    })
+
+    window.addEventListener("message", event => {
+      if (event.data.type === "streamlit:render") {
+        textareaLabel = event.data.args.textarea_label
+        sendMessage("streamlit:setFrameHeight", { height: 42 })
+      }
+    })
+
+    sendMessage("streamlit:componentReady", { apiVersion: 1 })
+    sendMessage("streamlit:setFrameHeight", { height: 42 })
+  </script>
+</body>
+</html>

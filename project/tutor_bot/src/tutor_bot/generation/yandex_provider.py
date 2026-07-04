@@ -56,7 +56,7 @@ class YandexProvider:
             "model": self._model_uri,
             "messages": messages,
             "temperature": self._temperature,
-            "max_tokens": self._max_tokens,
+            "max_tokens": max(self._max_tokens, max_tokens),
         }
 
         if json_schema is not None:

@@ -5,6 +5,7 @@ from pydantic import ValidationError
 from tutor_bot.application.active_recall_service import ActiveRecallService
 from tutor_bot.application.recall_session_result import RecallSessionResult
 from tutor_bot.application.recall_study_session import RecallStudySession
+from tutor_bot.ui.speech_input import render_speech_input
 
 
 VERDICT_LABELS = {
@@ -119,6 +120,11 @@ def _render_answer_form(
             study_session,
             state_key,
         ),
+    )
+    render_speech_input(
+        answer_key,
+        "Ваш ответ",
+        f"active-recall-speech-{study_session.current_index}",
     )
 
     with st.form("active-recall-answer-form"):

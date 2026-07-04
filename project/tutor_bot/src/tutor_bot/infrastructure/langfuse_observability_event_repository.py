@@ -2,7 +2,6 @@ from typing import Any
 
 from langfuse import Langfuse
 
-from tutor_bot.application.observability_sink_status import ObservabilitySinkStatus
 from tutor_bot.schemas.observability_event import ObservabilityEvent
 
 
@@ -49,27 +48,6 @@ class LangfuseObservabilityEventRepository:
         )
         observation.end()
 
-    def check_connection(self) -> bool:
-        return self._client.auth_check()
-
-    def get_status(self) -> ObservabilitySinkStatus:
-        try:
-            is_available = self.check_connection()
-        except Exception as exception:
-            return ObservabilitySinkStatus(
-                name="Langfuse",
-                enabled=True,
-                available=False,
-                message=exception.__class__.__name__,
-            )
-
-        return ObservabilitySinkStatus(
-            name="Langfuse",
-            enabled=True,
-            available=is_available,
-            message="Подключён" if is_available else "Недоступен",
-        )
-
     def flush(self) -> None:
         self._client.flush()
 
@@ -87,12 +65,14 @@ class LangfuseObservabilityEventRepository:
         observation_type = (
             "span" if event.observation_type in {"trace", "event"} else event.observation_type
         )
+        model = event.payload.get("model") or event.payload.get("model_name")
 
         return self._client.start_observation(
             trace_context=trace_context,
             name=event.event_type,
             as_type=observation_type,
             input=event.payload.get("input"),
+            model=model if isinstance(model, str) else None,
             metadata={
                 **event.payload,
                 "scenario": event.scenario,

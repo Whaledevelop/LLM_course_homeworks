@@ -105,7 +105,7 @@ def test_crud_uses_only_selected_database_files(tmp_path: Path) -> None:
     )
 
     loaded_note = query_service.get_note(created_note.id)
-    assert loaded_note.title == str(created_note.id)
+    assert loaded_note.title == "SOLID"
     assert loaded_note.group == "architecture"
     assert tuple(unity_root.rglob("*.md"))
     assert not tuple(llm_root.rglob("*.md"))

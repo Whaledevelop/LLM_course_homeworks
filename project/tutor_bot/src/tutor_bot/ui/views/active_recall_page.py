@@ -6,7 +6,7 @@ from uuid import UUID
 from tutor_bot.application.active_recall_service import ActiveRecallService
 from tutor_bot.application.note_query_service import NoteQueryService
 from tutor_bot.application.recall_study_session import RecallStudySession
-from tutor_bot.ui.app_mode import AppMode
+from tutor_bot.ui.app_mode import APP_MODE_STATE_KEY, AppMode
 from tutor_bot.ui.views.active_recall_session_view import (
     render_active_recall_session,
 )
@@ -28,15 +28,20 @@ def start_note_test(
 ) -> None:
     try:
         with st.spinner("Генерирую вопрос по заметке..."):
-            st.session_state[_STUDY_SESSION_KEY] = recall_service.create_note_study_session(
-                note_id
-            )
+            st.session_state[_STUDY_SESSION_KEY] = recall_service.create_note_study_session(note_id)
     except (HTTPError, RuntimeError, ValueError, ValidationError) as error:
         st.error(f"Не удалось начать тест заметки: {error}")
 
         return
 
-    st.session_state["selected_app_mode"] = AppMode.TEST_NOTES
+    st.session_state[APP_MODE_STATE_KEY] = AppMode.TEST_NOTES
+
+
+def open_note_study_session(
+    study_session: RecallStudySession,
+) -> None:
+    st.session_state[_STUDY_SESSION_KEY] = study_session
+    st.session_state[APP_MODE_STATE_KEY] = AppMode.TEST_NOTES
 
 
 def render_active_recall_page(

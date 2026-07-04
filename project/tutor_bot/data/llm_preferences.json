@@ -1,3 +1,4 @@
 {
-  "default_provider": "yandex"
+  "default_provider": "yandex",
+  "default_model": "qwen3-235b-a22b-fp8"
 }

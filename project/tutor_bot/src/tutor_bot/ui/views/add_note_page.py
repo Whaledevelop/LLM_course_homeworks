@@ -7,6 +7,7 @@ from tutor_bot.application.note_fullness import estimate_note_fullness
 from tutor_bot.application.note_command_service import NoteCommandService
 from tutor_bot.application.note_metadata_suggestion import NoteMetadataSuggestion
 from tutor_bot.generation.note_metadata_suggester import NoteMetadataSuggester
+from tutor_bot.generation.note_content_generator import NoteContentGenerator
 
 
 _TITLE_KEY = "add_note_title"
@@ -16,18 +17,32 @@ _COMMENT_KEY = "add_note_comment"
 _SUGGESTION_KEY = "add_note_metadata_suggestion"
 _SUGGESTION_SOURCE_KEY = "add_note_metadata_suggestion_source"
 _PENDING_SUGGESTION_KEY = "add_note_pending_metadata_suggestion"
+_PENDING_CONTENT_KEY = "add_note_pending_content"
+_CONTENT_GENERATION_REQUEST_KEY = "add_note_content_generation_request"
+_GENERATING_CONTENT_TEXT = "Генерирую содержание заметки..."
+_CONTENT_FULLNESS_KEY = "add_note_content_fullness"
 
 
 def render_add_note_page(
     note_command_service: NoteCommandService,
     metadata_suggester: NoteMetadataSuggester,
+    content_generator: NoteContentGenerator,
 ) -> None:
+    _apply_pending_content()
     _apply_pending_suggestion()
 
     with st.form("create-note"):
         title = st.text_input(
             "Название",
             key=_TITLE_KEY,
+        )
+        content_submitted = st.form_submit_button("Предложить содержание")
+        content_fullness = st.slider(
+            "Fullness генерируемого содержания",
+            min_value=4,
+            max_value=10,
+            value=7,
+            key=_CONTENT_FULLNESS_KEY,
         )
         markdown_content = st.text_area(
             "Markdown",
@@ -86,6 +101,33 @@ def render_add_note_page(
 
         return
 
+    if content_submitted:
+        normalized_title = title.strip()
+
+        if not normalized_title:
+            st.error("Сначала укажите название заметки.")
+
+            return
+
+        st.session_state[_PENDING_CONTENT_KEY] = _GENERATING_CONTENT_TEXT
+        st.session_state[_CONTENT_GENERATION_REQUEST_KEY] = (
+            normalized_title,
+            content_fullness,
+        )
+        st.rerun()
+
+    generation_request = st.session_state.pop(_CONTENT_GENERATION_REQUEST_KEY, None)
+
+    if generation_request is not None:
+        requested_title, requested_fullness = generation_request
+        _generate_content(
+            content_generator,
+            requested_title,
+            requested_fullness,
+        )
+
+        return
+
     suggestion = _get_cached_suggestion(markdown_content.strip())
 
     if suggestion is not None:
@@ -105,9 +147,7 @@ def render_add_note_page(
         comment=comment.strip(),
         importance=importance,
         knowledge=knowledge,
-        fullness=(
-            estimate_note_fullness(markdown_content) if automatic_fullness else fullness
-        ),
+        fullness=(estimate_note_fullness(markdown_content) if automatic_fullness else fullness),
         markdown_content=markdown_content,
     )
     created_note = note_command_service.create_note(command)
@@ -165,3 +205,32 @@ def _apply_pending_suggestion() -> None:
     st.session_state[_TITLE_KEY] = suggestion.title
     st.session_state[_GROUP_KEY] = suggestion.group
     st.session_state[_COMMENT_KEY] = suggestion.comment
+
+
+def _generate_content(
+    content_generator: NoteContentGenerator,
+    title: str,
+    fullness: int,
+) -> None:
+    try:
+        with st.spinner("Генерирую содержание заметки..."):
+            generated_content = content_generator.generate(
+                title,
+                fullness=fullness,
+            )
+    except (HTTPError, RuntimeError, ValidationError) as error:
+        st.error(f"Не удалось предложить содержание: {error}")
+
+        return
+
+    st.session_state[_PENDING_CONTENT_KEY] = generated_content
+    st.rerun()
+
+
+def _apply_pending_content() -> None:
+    generated_content = st.session_state.pop(_PENDING_CONTENT_KEY, None)
+
+    if generated_content is None:
+        return
+
+    st.session_state[_MARKDOWN_KEY] = generated_content

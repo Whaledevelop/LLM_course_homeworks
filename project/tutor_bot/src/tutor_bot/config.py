@@ -32,9 +32,8 @@ class Settings(BaseSettings):
         default="qwen3.6-35b-a3b",
         validation_alias="YANDEX_MODEL",
     )
-    yandex_max_tokens: int = Field(default=2000, validation_alias="YANDEX_MAX_TOKENS")
+    yandex_max_tokens: int = Field(default=8000, validation_alias="YANDEX_MAX_TOKENS")
     yandex_temperature: float = Field(default=0.3, validation_alias="YANDEX_TEMPERATURE")
-    langfuse_enabled: bool = Field(default=False, validation_alias="LANGFUSE_ENABLED")
     langfuse_public_key: str = Field(default="", validation_alias="LANGFUSE_PUBLIC_KEY")
     langfuse_secret_key: str = Field(default="", validation_alias="LANGFUSE_SECRET_KEY")
     langfuse_base_url: str = Field(

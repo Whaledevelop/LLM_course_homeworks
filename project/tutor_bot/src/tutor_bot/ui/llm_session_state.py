@@ -10,10 +10,6 @@ from tutor_bot.application.observability_event_service import (
 from tutor_bot.generation.llm_response import LlmResponse
 from tutor_bot.infrastructure.atomic_json import write_json_atomically
 from tutor_bot.infrastructure.llm_usage_repository import LlmUsageRepository
-from tutor_bot.infrastructure.jsonl_observability_event_repository import (
-    JsonlObservabilityEventRepository,
-)
-from tutor_bot.schemas.observability_event import ObservabilityEvent
 
 
 _PROVIDER_KEY = "llm_provider"
@@ -103,21 +99,6 @@ def record_usage(response: LlmResponse) -> None:
         prompt_tokens=response.prompt_tokens,
         completion_tokens=response.completion_tokens,
         total_tokens=response.total_tokens,
-    )
-    settings = get_settings()
-    JsonlObservabilityEventRepository(settings.history_dir / "observability_events.jsonl").append(
-        ObservabilityEvent(
-            scenario="llm_generation",
-            event_type="generation",
-            status="succeeded",
-            payload={
-                "provider": response.provider,
-                "model": response.model,
-                "prompt_tokens": response.prompt_tokens,
-                "completion_tokens": response.completion_tokens,
-                "total_tokens": response.total_tokens,
-            },
-        )
     )
 
 
