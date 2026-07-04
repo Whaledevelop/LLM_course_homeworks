@@ -1,12 +1,14 @@
 from enum import StrEnum
 
 
+APP_MODE_STATE_KEY = "selected_app_mode_v2"
+
+
 class AppMode(StrEnum):
+    QUESTIONS = "Chat"
     BROWSE_NOTES = "Просмотр и редактирование заметок"
     ADD_NOTE = "Добавление заметок"
-    QUESTIONS = "Вопросы по заметкам"
     ASSIGNMENT_REVIEW = "Проверка заданий"
     TEST_NOTES = "Test Notes"
     LLMS = "LLMs"
-    OBSERVABILITY = "Observability"
     DATABASES = "Базы данных"

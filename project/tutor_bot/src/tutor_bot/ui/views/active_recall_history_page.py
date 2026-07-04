@@ -30,9 +30,7 @@ def _render_summary(
     history: tuple[RecallSessionResult, ...],
 ) -> None:
     verdict_counts = {
-        verdict: sum(
-            result.review.verdict == verdict and not result.imitated for result in history
-        )
+        verdict: sum(result.review.verdict == verdict and not result.imitated for result in history)
         for verdict in VERDICT_LABELS
     }
     columns = st.columns(5)
@@ -50,9 +48,7 @@ def _render_latest_attempts(
 
     for result in reversed(history[-10:]):
         verdict_label = (
-            "Эталонный ответ показан"
-            if result.imitated
-            else VERDICT_LABELS[result.review.verdict]
+            "Эталонный ответ показан" if result.imitated else VERDICT_LABELS[result.review.verdict]
         )
         st.markdown(f"**{result.session.note_title}** — {verdict_label}")
         st.caption(result.session.exercise.question)

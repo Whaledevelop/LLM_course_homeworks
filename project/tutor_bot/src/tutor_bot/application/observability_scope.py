@@ -9,6 +9,7 @@ from uuid import UUID
 class ObservabilityScope:
     trace_id: str
     observation_id: UUID
+    observation_type: str
     payload: dict[str, Any] = field(default_factory=dict)
 
     def add_metadata(self, **metadata: Any) -> None:

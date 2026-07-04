@@ -1,5 +1,6 @@
 from random import Random, SystemRandom
 from time import perf_counter
+from contextlib import AbstractContextManager
 from typing import Protocol
 from uuid import UUID, uuid4
 
@@ -17,6 +18,7 @@ from tutor_bot.generation.grounded_recall_exercise_generator import (
     GroundedRecallExerciseGenerator,
 )
 from tutor_bot.schemas.observability_event import ObservabilityEvent
+from tutor_bot.application.observability_scope import ObservabilityScope
 
 
 class _RecallHistoryWriter(Protocol):
@@ -37,6 +39,17 @@ class _ObservabilityEventRecorder(Protocol):
         event: ObservabilityEvent,
     ) -> None:
         pass
+
+    def observe(
+        self,
+        scenario: str,
+        name: str,
+        observation_type: str = "span",
+        payload: dict | None = None,
+        session_id: str | None = None,
+        trace_id: str | None = None,
+        parent_observation_id=None,
+    ) -> AbstractContextManager[ObservabilityScope]: ...
 
 
 class ActiveRecallService:
@@ -62,64 +75,35 @@ class ActiveRecallService:
     ) -> RecallSession:
         note = self._note_query_service.get_note(note_id)
         trace_id = str(uuid4())
-        generation_observation_id = uuid4()
-        generation_started_at = perf_counter()
         event_payload = {
             "note_id": str(note.id),
             "note_title": note.title,
             "markdown_length": len(note.markdown_content),
         }
-        self._record_event(
-            ObservabilityEvent(
-                scenario="active_recall_question",
-                event_type="generation",
-                observation_type="generation",
-                observation_id=generation_observation_id,
-                status="started",
-                trace_id=trace_id,
-                session_id=str(note.id),
-                payload=event_payload,
-            )
-        )
 
-        try:
+        if self._observability_event_service is None:
             exercise = self._exercise_generator.generate(
                 note.title,
                 note.markdown_content,
             )
-            self._record_event(
-                ObservabilityEvent(
-                    scenario="active_recall_question",
-                    event_type="generation",
-                    observation_type="generation",
-                    observation_id=generation_observation_id,
-                    status="succeeded",
-                    trace_id=trace_id,
-                    session_id=str(note.id),
-                    duration_seconds=perf_counter() - generation_started_at,
-                    payload={
-                        **event_payload,
-                        "key_points_count": len(exercise.key_points),
-                        "question_length": len(exercise.question),
-                    },
+        else:
+            with self._observability_event_service.observe(
+                "active_recall_question",
+                "generation",
+                observation_type="generation",
+                payload=event_payload,
+                trace_id=trace_id,
+                session_id=str(note.id),
+            ) as generation_scope:
+                exercise = self._exercise_generator.generate(
+                    note.title,
+                    note.markdown_content,
                 )
-            )
-        except Exception as exception:
-            self._record_event(
-                ObservabilityEvent(
-                    scenario="active_recall_question",
-                    event_type="generation",
-                    observation_type="generation",
-                    observation_id=generation_observation_id,
-                    status="failed",
-                    trace_id=trace_id,
-                    session_id=str(note.id),
-                    duration_seconds=perf_counter() - generation_started_at,
-                    payload=event_payload,
-                    error=exception.__class__.__name__,
+                generation_scope.set_output(exercise.model_dump(mode="json"))
+                generation_scope.add_metadata(
+                    key_points_count=len(exercise.key_points),
+                    question_length=len(exercise.question),
                 )
-            )
-            raise
 
         return RecallSession(
             note_id=note.id,
@@ -349,7 +333,7 @@ class ActiveRecallService:
                 "imitated_indices": (
                     *study_session.imitated_indices,
                     study_session.current_index,
-                )
+                ),
             },
         )
 

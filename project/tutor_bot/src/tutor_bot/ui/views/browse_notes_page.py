@@ -9,6 +9,7 @@ from tutor_bot.application.note_query_service import NoteQueryService
 from tutor_bot.infrastructure.ui_state_repository import UiStateRepository
 from tutor_bot.ui.views.note_actions import render_note_actions
 from tutor_bot.ui.views.active_recall_page import start_note_test
+from tutor_bot.generation.note_content_generator import NoteContentGenerator
 
 
 _SUCCESS_MESSAGE_KEY = "note_action_success"
@@ -21,6 +22,7 @@ def render_browse_notes_page(
     note_command_service: NoteCommandService,
     ui_state_repository: UiStateRepository,
     recall_service: ActiveRecallService,
+    content_generator: NoteContentGenerator,
 ) -> None:
     success_message = st.session_state.pop(
         _SUCCESS_MESSAGE_KEY,
@@ -89,6 +91,7 @@ def render_browse_notes_page(
             note_details,
             note_command_service,
             lambda note_id: start_note_test(recall_service, note_id),
+            content_generator,
         )
 
         st.caption(

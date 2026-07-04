@@ -17,13 +17,13 @@ from tutor_bot.infrastructure.metadata_note_query_service import (
     MetadataNoteQueryService,
 )
 from tutor_bot.infrastructure.ui_state_repository import UiStateRepository
-from tutor_bot.ui.app_mode import AppMode
+from tutor_bot.ui.app_mode import APP_MODE_STATE_KEY, AppMode
 from tutor_bot.ui.tutor_answer_service_factory import (
     create_active_recall_service,
     create_assignment_review_service,
+    create_chat_service,
     create_note_metadata_suggester,
-    create_observability_event_service,
-    create_tutor_answer_service,
+    create_note_content_generator,
 )
 from tutor_bot.ui.views.active_recall_page import (
     interrupt_active_recall_session,
@@ -33,19 +33,17 @@ from tutor_bot.ui.views.add_note_page import render_add_note_page
 from tutor_bot.ui.views.assignment_review_page import render_assignment_review_page
 from tutor_bot.ui.views.browse_notes_page import render_browse_notes_page
 from tutor_bot.ui.views.databases_page import render_databases_page
-from tutor_bot.ui.views.observability_page import render_observability_page
 from tutor_bot.ui.views.placeholder_page import render_placeholder_page
 from tutor_bot.ui.views.questions_page import render_questions_page
 from tutor_bot.ui.views.settings_page import render_llms_page
 
 
 _VISIBLE_APP_MODES = [
+    AppMode.QUESTIONS,
     AppMode.BROWSE_NOTES,
     AppMode.ADD_NOTE,
-    AppMode.QUESTIONS,
     AppMode.TEST_NOTES,
     AppMode.LLMS,
-    AppMode.OBSERVABILITY,
     AppMode.DATABASES,
 ]
 
@@ -98,7 +96,7 @@ def main() -> None:
         "Режим работы",
         options=_VISIBLE_APP_MODES,
         format_func=lambda app_mode: app_mode.value,
-        key="selected_app_mode",
+        key=APP_MODE_STATE_KEY,
         on_change=interrupt_active_recall_session,
         label_visibility="collapsed",
     )
@@ -112,7 +110,6 @@ def main() -> None:
 
     if active_database is None and selected_mode not in {
         AppMode.LLMS,
-        AppMode.OBSERVABILITY,
         AppMode.DATABASES,
     }:
         st.error("Активная DB не выбрана. Создайте или выберите DB в режиме «Базы данных».")
@@ -120,7 +117,17 @@ def main() -> None:
         return
 
     if selected_mode == AppMode.QUESTIONS:
-        render_questions_page(create_tutor_answer_service(active_database.db_id))
+        note_query_service, note_command_service = create_note_services(
+            active_database.db_id,
+            str(active_database.root_path),
+        )
+        render_questions_page(
+            lambda: create_chat_service(
+                active_database.db_id,
+                note_query_service,
+                note_command_service,
+            ),
+        )
 
         return
 
@@ -145,11 +152,6 @@ def main() -> None:
 
         return
 
-    if selected_mode == AppMode.OBSERVABILITY:
-        render_observability_page(create_observability_event_service())
-
-        return
-
     if selected_mode == AppMode.DATABASES:
         render_databases_page(ActiveDatabaseService(get_settings().data_dir))
 
@@ -164,6 +166,7 @@ def main() -> None:
         render_add_note_page(
             note_command_service,
             create_note_metadata_suggester(),
+            create_note_content_generator(),
         )
 
         return
@@ -178,6 +181,7 @@ def main() -> None:
                 note_command_service,
                 active_database.db_id,
             ),
+            create_note_content_generator(),
         )
 
         return

@@ -69,6 +69,7 @@ class DatabaseIndex(BaseModel):
 class DatabaseNoteMetadata(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
+    title: str | None = None
     group: str = ""
     comment: str = ""
     importance: int = Field(default=0, ge=0, le=10)

@@ -1,31 +1,26 @@
 # Langfuse observability
 
-Tutor Bot always writes observability events to
-`data/history/observability_events.jsonl`. Langfuse is an optional second sink.
-If Langfuse is unavailable, application requests and local logging continue.
+Tutor Bot sends observability events directly to Langfuse. It does not keep a local
+observability event store or dashboard.
 
 ## Configuration
 
 Install the project dependencies and add the following values to `.env`:
 
 ```dotenv
-LANGFUSE_ENABLED=true
 LANGFUSE_PUBLIC_KEY=pk-lf-...
 LANGFUSE_SECRET_KEY=sk-lf-...
 LANGFUSE_BASE_URL=https://cloud.langfuse.com
 ```
 
-For self-hosting, set `LANGFUSE_BASE_URL` to the deployment URL. Keep
-`LANGFUSE_ENABLED=false` for autonomous local operation.
+For self-hosting, set `LANGFUSE_BASE_URL` to the deployment URL. Valid Langfuse
+credentials are required to run LLM-backed features.
 
 Run the application from the project directory:
 
 ```powershell
 .\.venv\Scripts\python.exe -m streamlit run src\tutor_bot\ui\app.py
 ```
-
-The Observability page shows both sink statuses and performs an explicit Langfuse
-authentication check when opened. This diagnostic check is not performed for every request.
 
 ## Trace model
 
@@ -34,5 +29,5 @@ validation and evaluation are child observations. Generation observations contai
 provider, model and token usage when returned by the provider. Source metadata contains
 note and chunk identifiers, paths and ranking scores; full source documents are not sent.
 
-The local service provides `record_feedback(...)` for future explicit user ratings.
+The application service provides `record_feedback(...)` for future explicit user ratings.
 There is no feedback UI yet, so the integration does not create implicit ratings.

@@ -20,8 +20,11 @@ class _OllamaClient:
 class _YandexCompletions:
     def __init__(self, response: ChatCompletion) -> None:
         self._response = response
+        self.request_options: dict[str, object] = {}
 
     def create(self, **kwargs: object) -> ChatCompletion:
+        self.request_options = kwargs
+
         return self._response
 
 
@@ -94,6 +97,31 @@ def test_yandex_provider_rejects_reasoning_without_final_answer() -> None:
 
     with pytest.raises(LlmProviderError, match="YANDEX_MAX_TOKENS"):
         provider.generate([], temperature=0.0, max_tokens=100)
+
+
+def test_yandex_provider_uses_larger_scenario_token_limit() -> None:
+    provider = _create_yandex_provider()
+    response = ChatCompletion.model_validate(
+        {
+            "id": "test",
+            "choices": [
+                {
+                    "finish_reason": "stop",
+                    "index": 0,
+                    "message": {"content": "answer", "role": "assistant"},
+                }
+            ],
+            "created": 0,
+            "model": "test",
+            "object": "chat.completion",
+        }
+    )
+    completions = _YandexCompletions(response)
+    provider._client = SimpleNamespace(chat=SimpleNamespace(completions=completions))
+
+    provider.generate([], temperature=0.0, max_tokens=4000)
+
+    assert completions.request_options["max_tokens"] == 4000
 
 
 def _create_yandex_provider() -> YandexProvider:

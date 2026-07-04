@@ -12,6 +12,7 @@ from tutor_bot.schemas.database import (
 from tutor_bot.schemas.note_metadata import NoteMetadata
 from tutor_bot.schemas.notes_metadata_catalog import NotesMetadataCatalog
 
+
 class DatabaseNotesRepository:
     def __init__(self, metadata_dir: Path, db_id: str, root_path: Path) -> None:
         self._repository = DatabaseRepository(metadata_dir)
@@ -32,7 +33,7 @@ class DatabaseNotesRepository:
                     if note_metadata.fullness is not None
                     else self._load_fullness(index_note.path)
                 ),
-                last_recorded_name=self._load_title(index_note.path),
+                last_recorded_name=note_metadata.title or self._load_title(index_note.path),
                 relative_path=index_note.path,
             )
             for note_id, index_note in index.notes.items()
@@ -57,6 +58,7 @@ class DatabaseNotesRepository:
         }
         metadata_notes = {
             note_id: DatabaseNoteMetadata(
+                title=note_metadata.last_recorded_name,
                 group=note_metadata.group,
                 comment=note_metadata.comment,
                 importance=note_metadata.importance,

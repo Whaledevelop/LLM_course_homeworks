@@ -3,6 +3,7 @@ from pathlib import Path
 
 from tutor_bot.application.active_recall_service import ActiveRecallService
 from tutor_bot.application.assignment_review_service import AssignmentReviewService
+from tutor_bot.application.chat_service import ChatService
 from tutor_bot.application.note_command_service import NoteCommandService
 from tutor_bot.application.note_query_service import NoteQueryService
 from tutor_bot.application.observability_event_service import ObservabilityEventService
@@ -21,6 +22,9 @@ from tutor_bot.generation.ollama_grounded_recall_exercise_generator import (
 from tutor_bot.generation.ollama_note_metadata_suggester import (
     OllamaNoteMetadataSuggester,
 )
+from tutor_bot.generation.llm_note_content_generator import LlmNoteContentGenerator
+from tutor_bot.generation.llm_provider import LlmProvider
+from tutor_bot.generation.observed_llm_provider import ObservedLlmProvider
 from tutor_bot.generation.ollama_provider import OllamaProvider
 from tutor_bot.generation.yandex_provider import YandexProvider
 from tutor_bot.indexing.bm25_chunk_index import Bm25ChunkIndex
@@ -38,12 +42,6 @@ from tutor_bot.infrastructure.active_recall_history_repository import (
     ActiveRecallHistoryRepository,
 )
 from tutor_bot.infrastructure.database_notes_repository import DatabaseNotesRepository
-from tutor_bot.infrastructure.jsonl_observability_event_repository import (
-    JsonlObservabilityEventRepository,
-)
-from tutor_bot.infrastructure.composite_observability_event_repository import (
-    CompositeObservabilityEventRepository,
-)
 from tutor_bot.infrastructure.langfuse_observability_event_repository import (
     LangfuseObservabilityEventRepository,
 )
@@ -67,52 +65,67 @@ def create_hybrid_search_service(db_id: str) -> HybridSearchService:
 
 
 @st.cache_resource
-def create_observability_event_service() -> ObservabilityEventService:
+def create_observability_event_service(
+    provider_name: str | None = None,
+    model_name: str | None = None,
+) -> ObservabilityEventService:
     settings = get_settings()
-    local_repository = JsonlObservabilityEventRepository(
-        settings.history_dir / "observability_events.jsonl",
-    )
-    optional_repositories = ()
-
-    if settings.langfuse_enabled:
-        optional_repositories = (
-            LangfuseObservabilityEventRepository(
-                settings.langfuse_public_key,
-                settings.langfuse_secret_key,
-                settings.langfuse_base_url,
-            ),
-        )
 
     return ObservabilityEventService(
-        CompositeObservabilityEventRepository(
-            local_repository,
-            optional_repositories,
-            langfuse_enabled=settings.langfuse_enabled,
+        LangfuseObservabilityEventRepository(
+            settings.langfuse_public_key,
+            settings.langfuse_secret_key,
+            settings.langfuse_base_url,
         ),
+        generation_provider=provider_name,
+        generation_model=model_name,
     )
 
 
 def create_tutor_answer_service(db_id: str) -> TutorAnswerService:
+    provider = _create_llm_provider()
+
     return TutorAnswerService(
         create_hybrid_search_service(db_id),
         RerankerContextGate(
             minimum_reranker_score=0.0,
             context_limit=5,
         ),
-        OllamaGroundedAnswerGenerator(_create_llm_provider()),
-        observability_event_service=create_observability_event_service(),
+        OllamaGroundedAnswerGenerator(provider),
+        observability_event_service=_get_provider_observability_service(provider),
+    )
+
+
+def create_chat_service(
+    db_id: str,
+    note_query_service: NoteQueryService,
+    note_command_service: NoteCommandService,
+) -> ChatService:
+    return ChatService(
+        _create_llm_provider(),
+        lambda: create_tutor_answer_service(db_id),
+        note_command_service,
+        create_note_content_generator(),
+        note_query_service,
+        create_active_recall_service(
+            note_query_service,
+            note_command_service,
+            db_id,
+        ),
     )
 
 
 def create_assignment_review_service(db_id: str) -> AssignmentReviewService:
+    provider = _create_llm_provider()
+
     return AssignmentReviewService(
         create_hybrid_search_service(db_id),
         RerankerContextGate(
             minimum_reranker_score=0.0,
             context_limit=5,
         ),
-        OllamaGroundedAssignmentReviewer(_create_llm_provider()),
-        observability_event_service=create_observability_event_service(),
+        OllamaGroundedAssignmentReviewer(provider),
+        observability_event_service=_get_provider_observability_service(provider),
     )
 
 
@@ -121,23 +134,31 @@ def create_active_recall_service(
     _note_command_service: NoteCommandService | None = None,
     db_id: str = "default",
 ) -> ActiveRecallService:
+    exercise_provider = _create_llm_provider()
+    review_provider = _create_llm_provider()
+
     return ActiveRecallService(
         _note_query_service,
-        OllamaGroundedRecallExerciseGenerator(_create_llm_provider()),
-        OllamaGroundedRecallAnswerReviewer(_create_llm_provider()),
+        OllamaGroundedRecallExerciseGenerator(exercise_provider),
+        OllamaGroundedRecallAnswerReviewer(review_provider),
         ActiveRecallHistoryRepository(
             get_settings().history_dir / db_id / "active_recall.jsonl",
         ),
         note_command_service=_note_command_service,
-        observability_event_service=create_observability_event_service(),
+        observability_event_service=_get_provider_observability_service(exercise_provider),
     )
 
 
 def create_note_metadata_suggester() -> OllamaNoteMetadataSuggester:
+    provider = _create_llm_provider()
+
     return OllamaNoteMetadataSuggester(
-        _create_llm_provider(),
-        observability_event_service=create_observability_event_service(),
+        provider,
     )
+
+
+def create_note_content_generator() -> LlmNoteContentGenerator:
+    return LlmNoteContentGenerator(_create_llm_provider())
 
 
 def rebuild_database_search_index(db_id: str, root_path: str) -> int:
@@ -163,14 +184,14 @@ def rebuild_database_search_index(db_id: str, root_path: str) -> int:
     return service.rebuild()
 
 
-def _create_llm_provider() -> OllamaProvider | YandexProvider:
+def _create_llm_provider() -> LlmProvider:
     settings = get_settings()
     provider_name = get_active_provider(settings.llm_provider)
 
     if provider_name == "yandex":
         model_name = get_active_model(settings.yandex_model)
 
-        return YandexProvider(
+        provider = YandexProvider(
             settings.yandex_base_url,
             settings.yandex_api_key,
             settings.yandex_folder_id,
@@ -179,12 +200,28 @@ def _create_llm_provider() -> OllamaProvider | YandexProvider:
             temperature=settings.yandex_temperature,
             usage_callback=record_usage,
         )
+    else:
+        model_name = get_active_model(settings.ollama_model)
+        provider = OllamaProvider(
+            settings.ollama_base_url,
+            model_name,
+            think=settings.ollama_think,
+            usage_callback=record_usage,
+        )
 
-    model_name = get_active_model(settings.ollama_model)
+    return ObservedLlmProvider(
+        provider,
+        create_observability_event_service(
+            provider.provider_name,
+            provider.model_name,
+        ),
+    )
 
-    return OllamaProvider(
-        settings.ollama_base_url,
-        model_name,
-        think=settings.ollama_think,
-        usage_callback=record_usage,
+
+def _get_provider_observability_service(
+    provider: LlmProvider,
+) -> ObservabilityEventService:
+    return create_observability_event_service(
+        provider.provider_name,
+        provider.model_name,
     )
