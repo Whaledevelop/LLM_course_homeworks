@@ -72,14 +72,14 @@ class _NoteCommandService:
 
 
 class _NoteQueryService:
-    def __init__(self, note: NoteDetails) -> None:
-        self._note = note
+    def __init__(self, note: NoteDetails, *other_notes: NoteDetails) -> None:
+        self._notes = [note, *other_notes]
 
     def list_notes(self):
-        return [self._note]
+        return self._notes
 
     def get_note(self, note_id):
-        return self._note
+        return next(note for note in self._notes if note.id == note_id)
 
 
 class _ActiveRecallService:
@@ -200,12 +200,55 @@ def test_start_recall_route_prepares_selected_note() -> None:
     result = service.answer('Запусти Active Recall по заметке "LLM в Unity разработке"')
 
     assert result.start_recall_draft.note_id == note.id
+    assert result.start_recall_draft.requires_title_confirmation is False
     assert active_recall_service.note_ids == []
 
     study_session = service.start_recall(result.start_recall_draft)
 
     assert study_session == "study-session"
     assert active_recall_service.note_ids == [note.id]
+
+
+def test_start_recall_route_matches_partial_note_title_with_typo_using_llm() -> None:
+    expected_note = _create_note("Addressables, AssetBundles, Resources")
+    other_note = _create_note("Unity UI Toolkit")
+    service = ChatService(
+        _FakeProvider(
+            [
+                '{"route":"start_recall","note_title":"Adrressables"}',
+                '{"matched_title":"Addressables, AssetBundles, Resources"}',
+            ]
+        ),
+        lambda: _LocalAnswerService(),
+        note_query_service=_NoteQueryService(expected_note, other_note),
+        active_recall_service=_ActiveRecallService(),
+    )
+
+    result = service.answer("Начни Active Recall по заметке Adrressables")
+
+    assert result.start_recall_draft.note_id == expected_note.id
+    assert result.start_recall_draft.title == expected_note.title
+    assert result.start_recall_draft.requires_title_confirmation is True
+
+
+def test_start_recall_route_rejects_title_not_present_in_available_notes() -> None:
+    note = _create_note("Addressables, AssetBundles, Resources")
+    service = ChatService(
+        _FakeProvider(
+            [
+                '{"route":"start_recall","note_title":"несуществующая"}',
+                '{"matched_title":"Придуманная заметка"}',
+            ]
+        ),
+        lambda: _LocalAnswerService(),
+        note_query_service=_NoteQueryService(note),
+        active_recall_service=_ActiveRecallService(),
+    )
+
+    result = service.answer("Начни Active Recall по несуществующей заметке")
+
+    assert result.start_recall_draft is None
+    assert result.answer.answer == "Заметка с таким точным названием не найдена"
 
 
 def _create_note(title: str) -> NoteDetails:
