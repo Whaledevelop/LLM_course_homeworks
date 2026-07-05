@@ -51,4 +51,8 @@ def _render_latest_attempts(
             "Эталонный ответ показан" if result.imitated else VERDICT_LABELS[result.review.verdict]
         )
         st.markdown(f"**{result.session.note_title}** — {verdict_label}")
+        if result.session.context_title is not None:
+            st.caption(
+                f"Vacancy: {result.session.context_title} · Тема: {result.session.focus_topic}"
+            )
         st.caption(result.session.exercise.question)

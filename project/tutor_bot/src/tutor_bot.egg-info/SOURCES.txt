@@ -2,7 +2,6 @@ pyproject.toml
 src/tutor_bot/__init__.py
 src/tutor_bot/check_consistency.py
 src/tutor_bot/config.py
-src/tutor_bot/evaluate_llm_contracts.py
 src/tutor_bot/evaluate_retrieval.py
 src/tutor_bot/rebuild_index.py
 src/tutor_bot/synchronize_metadata.py
@@ -15,10 +14,14 @@ src/tutor_bot/application/active_recall_service.py
 src/tutor_bot/application/assignment_review.py
 src/tutor_bot/application/assignment_review_result.py
 src/tutor_bot/application/assignment_review_service.py
+src/tutor_bot/application/chat_result.py
 src/tutor_bot/application/chat_route.py
 src/tutor_bot/application/chat_service.py
+src/tutor_bot/application/chat_supervisor.py
+src/tutor_bot/application/chat_workflow.py
 src/tutor_bot/application/create_note_command.py
 src/tutor_bot/application/delete_note_command.py
+src/tutor_bot/application/llm_note_title_matcher.py
 src/tutor_bot/application/metadata_synchronization_plan.py
 src/tutor_bot/application/note_command_service.py
 src/tutor_bot/application/note_consistency_report.py
@@ -27,6 +30,7 @@ src/tutor_bot/application/note_fullness.py
 src/tutor_bot/application/note_list_item.py
 src/tutor_bot/application/note_metadata_suggestion.py
 src/tutor_bot/application/note_query_service.py
+src/tutor_bot/application/note_title_match.py
 src/tutor_bot/application/observability_event_service.py
 src/tutor_bot/application/observability_scope.py
 src/tutor_bot/application/recall_answer_review.py
@@ -109,6 +113,7 @@ src/tutor_bot/schemas/retrieval_case.py
 src/tutor_bot/ui/app.py
 src/tutor_bot/ui/app_mode.py
 src/tutor_bot/ui/llm_session_state.py
+src/tutor_bot/ui/speech_input.py
 src/tutor_bot/ui/tutor_answer_service_factory.py
 src/tutor_bot/ui/components/speech_recorder/index.html
 src/tutor_bot/ui/views/active_recall_history_page.py

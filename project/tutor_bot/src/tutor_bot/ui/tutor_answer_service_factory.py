@@ -23,6 +23,8 @@ from tutor_bot.generation.ollama_note_metadata_suggester import (
     OllamaNoteMetadataSuggester,
 )
 from tutor_bot.generation.llm_note_content_generator import LlmNoteContentGenerator
+from tutor_bot.generation.focused_recall_exercise_generator import FocusedRecallExerciseGenerator
+from tutor_bot.generation.vacancy_analyzer import VacancyAnalyzer
 from tutor_bot.generation.llm_provider import LlmProvider
 from tutor_bot.generation.observed_llm_provider import ObservedLlmProvider
 from tutor_bot.generation.ollama_provider import OllamaProvider
@@ -48,6 +50,8 @@ from tutor_bot.infrastructure.langfuse_observability_event_repository import (
 from tutor_bot.retrieval.hybrid_search_service import HybridSearchService
 from tutor_bot.retrieval.reranker_context_gate import RerankerContextGate
 from tutor_bot.retrieval.sentence_transformer_reranker import SentenceTransformerReranker
+from tutor_bot.application.vacancy_matching_service import VacancyMatchingService
+from tutor_bot.application.vacancy_preparation_service import VacancyPreparationService
 from tutor_bot.ui.llm_session_state import get_active_model, get_active_provider, record_usage
 
 
@@ -159,6 +163,35 @@ def create_note_metadata_suggester() -> OllamaNoteMetadataSuggester:
 
 def create_note_content_generator() -> LlmNoteContentGenerator:
     return LlmNoteContentGenerator(_create_llm_provider())
+
+
+def create_vacancy_analyzer() -> VacancyAnalyzer:
+    return VacancyAnalyzer(_create_llm_provider())
+
+
+def create_vacancy_matching_service(db_id: str) -> VacancyMatchingService:
+    return VacancyMatchingService(
+        create_hybrid_search_service(db_id),
+        _create_llm_provider(),
+    )
+
+
+def create_vacancy_preparation_service(
+    note_query_service: NoteQueryService,
+    note_command_service: NoteCommandService,
+    db_id: str,
+) -> VacancyPreparationService:
+    provider = _create_llm_provider()
+
+    return VacancyPreparationService(
+        note_query_service,
+        FocusedRecallExerciseGenerator(provider),
+        create_active_recall_service(
+            note_query_service,
+            note_command_service,
+            db_id,
+        ),
+    )
 
 
 def rebuild_database_search_index(db_id: str, root_path: str) -> int:
