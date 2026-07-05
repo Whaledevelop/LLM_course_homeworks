@@ -34,6 +34,12 @@ class Settings(BaseSettings):
     )
     yandex_max_tokens: int = Field(default=8000, validation_alias="YANDEX_MAX_TOKENS")
     yandex_temperature: float = Field(default=0.3, validation_alias="YANDEX_TEMPERATURE")
+    vllm_base_url: str = Field(
+        default="http://localhost:8000/v1",
+        validation_alias="VLLM_BASE_URL",
+    )
+    vllm_api_key: str = Field(default="", validation_alias="VLLM_API_KEY")
+    vllm_model: str = Field(default="", validation_alias="VLLM_MODEL")
     langfuse_public_key: str = Field(default="", validation_alias="LANGFUSE_PUBLIC_KEY")
     langfuse_secret_key: str = Field(default="", validation_alias="LANGFUSE_SECRET_KEY")
     langfuse_base_url: str = Field(

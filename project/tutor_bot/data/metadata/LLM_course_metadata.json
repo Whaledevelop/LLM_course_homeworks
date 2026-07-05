@@ -2,130 +2,184 @@
   "db_id": "LLM_course",
   "notes": {
     "a8b6951c-4bfe-40df-86e0-ad3a5546d71b": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
     },
     "0305220d-92ec-43ff-9d80-97dba1e9b997": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
     },
     "bb6b3e3c-7341-4816-8b5d-883d59e44523": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 3
     },
     "85ded3ac-c0b5-4027-81c5-2e2724ced3c4": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 7
     },
     "c4afbed0-bb11-4767-af6e-1f719320515b": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
     },
     "c4c0e094-db1c-44f1-aaba-47b996c78424": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 7
     },
     "1a6ee0e0-7149-4dd3-84ca-471d7333f782": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
-      "fullness": 7
+      "fullness": 6
     },
     "6d2140be-12fb-46df-b05b-5bd07ade7309": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 9
     },
     "c9896d1c-be1e-443f-a34e-6904181ef1f0": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
-      "knowledge": 2,
+      "knowledge": 0,
       "fullness": 10
     },
     "3d0796bd-884f-431e-b471-4d2933a7b60c": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
-      "fullness": 9
+      "fullness": 8
     },
     "13de9f00-f891-4387-9535-b7193ecaf027": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 6
     },
     "9a6859bc-2069-4dbb-8732-14c0a04c1031": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
     },
     "b27b4f15-4781-4bf2-85b9-e5e7ed645b0f": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
     },
     "cf75ca4d-d077-4936-ac42-262c39cb3132": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 9
     },
     "98ac62e5-74a6-4fed-9f31-848bdbad8ae7": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 2
     },
     "f1324254-43fa-47c2-81e2-ef4f41a5289c": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
     },
     "c638f4dc-fa3a-4e65-bb22-eebbaa198793": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
     },
     "a095e6fb-1e7b-43b9-b60f-412b2bc38269": {
+      "title": null,
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 2
+    },
+    "f610c61a-b46b-49d7-97f9-55f518844ad2": {
+      "title": null,
+      "group": "",
+      "comment": "",
+      "questions_for_tests": [],
+      "importance": 0,
+      "knowledge": 0,
+      "fullness": 3
+    },
+    "d65b26bc-9b39-4222-912b-19de98fc8a68": {
+      "title": null,
+      "group": "",
+      "comment": "",
+      "questions_for_tests": [],
+      "importance": 0,
+      "knowledge": 0,
+      "fullness": 4
     }
   }
 }

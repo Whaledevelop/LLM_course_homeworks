@@ -8,4 +8,5 @@ class GroundedRecallExerciseGenerator(Protocol):
         self,
         note_title: str,
         markdown_content: str,
+        question: str | None = None,
     ) -> RecallExercise: ...

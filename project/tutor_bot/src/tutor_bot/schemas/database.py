@@ -72,6 +72,7 @@ class DatabaseNoteMetadata(BaseModel):
     title: str | None = None
     group: str = ""
     comment: str = ""
+    questions_for_tests: list[str] = Field(default_factory=list)
     importance: int = Field(default=0, ge=0, le=10)
     knowledge: int = Field(default=0, ge=0, le=10)
     fullness: int | None = Field(default=None, ge=0, le=10)

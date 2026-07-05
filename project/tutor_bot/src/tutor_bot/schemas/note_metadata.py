@@ -8,6 +8,7 @@ class NoteMetadata(BaseModel):
 
     group: str
     comment: str
+    questions_for_tests: tuple[str, ...] = ()
     importance: int = Field(ge=0, le=10)
     knowledge: int = Field(ge=0, le=10)
     fullness: int = Field(default=0, ge=0, le=10)

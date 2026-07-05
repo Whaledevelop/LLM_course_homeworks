@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Literal
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -15,6 +16,7 @@ class Vacancy(BaseModel):
     id: UUID
     sha256: str = Field(min_length=64, max_length=64)
     original_filename: str = Field(min_length=1)
+    source_format: Literal["pdf", "md"] = "pdf"
     title: str = Field(min_length=1)
     uploaded_at: datetime
     extracted_text: str = Field(min_length=1)

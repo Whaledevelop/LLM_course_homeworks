@@ -15,6 +15,8 @@ from tutor_bot.generation.note_content_generator import NoteContentGenerator
 _SUCCESS_MESSAGE_KEY = "note_action_success"
 _TABLE_VERSION_KEY = "notes_table_version"
 _SELECTED_NOTE_ID_KEY = "selected_browse_note_id"
+_SORT_BY_IMPORTANCE = "По важности"
+_SORT_ALPHABETICALLY = "По алфавиту"
 
 
 def render_browse_notes_page(
@@ -56,12 +58,17 @@ def render_browse_notes_page(
             "Группа",
             options=["Все", *groups],
         )
+        sorting = st.selectbox(
+            "Сортировка",
+            options=[_SORT_BY_IMPORTANCE, _SORT_ALPHABETICALLY],
+        )
 
         filtered_notes = _filter_notes(
             notes,
             search_text,
             selected_group,
         )
+        filtered_notes = _sort_notes(filtered_notes, sorting)
 
         if not filtered_notes:
             st.warning("По заданным условиям заметки не найдены.")
@@ -137,13 +144,25 @@ def _filter_notes(
     return filtered_notes
 
 
+def _sort_notes(
+    notes: list[NoteListItem],
+    sorting: str,
+) -> list[NoteListItem]:
+    if sorting == _SORT_ALPHABETICALLY:
+        return sorted(notes, key=lambda note: note.title.casefold())
+
+    return sorted(
+        notes,
+        key=lambda note: (-note.importance, note.title.casefold()),
+    )
+
+
 def _render_notes_table(
     filtered_notes: list[NoteListItem],
 ) -> NoteListItem | None:
     rows = [
         {
             "Название": f"🔗 {note.title}",
-            "Группа": note.group or "не указана",
         }
         for note in filtered_notes
     ]

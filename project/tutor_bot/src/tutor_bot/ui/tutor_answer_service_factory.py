@@ -29,6 +29,7 @@ from tutor_bot.generation.llm_provider import LlmProvider
 from tutor_bot.generation.observed_llm_provider import ObservedLlmProvider
 from tutor_bot.generation.ollama_provider import OllamaProvider
 from tutor_bot.generation.yandex_provider import YandexProvider
+from tutor_bot.generation.vllm_provider import VllmProvider
 from tutor_bot.indexing.bm25_chunk_index import Bm25ChunkIndex
 from tutor_bot.indexing.chroma_chunk_index import ChromaChunkIndex
 from tutor_bot.indexing.corpus_chunk_builder import CorpusChunkBuilder
@@ -231,6 +232,14 @@ def _create_llm_provider() -> LlmProvider:
             model_name,
             max_tokens=settings.yandex_max_tokens,
             temperature=settings.yandex_temperature,
+            usage_callback=record_usage,
+        )
+    elif provider_name == "vllm":
+        model_name = get_active_model(settings.vllm_model)
+        provider = VllmProvider(
+            settings.vllm_base_url,
+            settings.vllm_api_key,
+            model_name,
             usage_callback=record_usage,
         )
     else:

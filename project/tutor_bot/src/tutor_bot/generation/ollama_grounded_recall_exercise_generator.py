@@ -6,7 +6,7 @@ from tutor_bot.generation.llm_provider import LlmProvider
 
 _SYSTEM_PROMPT = """Ты создаёшь упражнение Active Recall по одной учебной заметке.
 Используй только информацию из переданной заметки и не добавляй внешние факты.
-Сформулируй один сфокусированный открытый вопрос по одной основной теме заметки.
+Если передан готовый вопрос, используй его без изменений. Иначе сформулируй один сфокусированный открытый вопрос по одной основной теме заметки.
 Не объединяй в одном вопросе больше двух тесно связанных понятий.
 Вопрос не должен предполагать ответ да или нет.
 Выдели от двух до пяти коротких обязательных неповторяющихся тезисов правильного ответа.
@@ -40,7 +40,13 @@ class OllamaGroundedRecallExerciseGenerator:
         self,
         note_title: str,
         markdown_content: str,
+        question: str | None = None,
     ) -> RecallExercise:
+        question_instruction = (
+            f"Используй этот вопрос без изменений:\n{question}"
+            if question is not None
+            else "Сформулируй вопрос самостоятельно."
+        )
         messages = [
             {
                 "role": "system",
@@ -49,7 +55,9 @@ class OllamaGroundedRecallExerciseGenerator:
             {
                 "role": "user",
                 "content": (
-                    f"Название заметки:\n{note_title}\n\nСодержимое заметки:\n{markdown_content}"
+                    f"Название заметки:\n{note_title}\n\n"
+                    f"{question_instruction}\n\n"
+                    f"Содержимое заметки:\n{markdown_content}"
                 ),
             },
         ]

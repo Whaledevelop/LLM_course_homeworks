@@ -22,21 +22,33 @@ class VacancyRepository:
         pdf_content: bytes,
         analysis: VacancyAnalysis,
     ) -> Vacancy:
-        content_hash = sha256(pdf_content).hexdigest()
+        return self.save_document(filename, pdf_content, analysis)
+
+    def save_document(
+        self,
+        filename: str,
+        content: bytes,
+        analysis: VacancyAnalysis,
+    ) -> Vacancy:
+        source_format = self._get_source_format(filename)
+        content_hash = sha256(content).hexdigest()
         existing_vacancy = self.find_by_sha256(content_hash)
         vacancy_id = existing_vacancy.id if existing_vacancy is not None else uuid4()
         vacancy = Vacancy(
             id=vacancy_id,
             sha256=content_hash,
             original_filename=Path(filename).name,
+            source_format=source_format,
             title=analysis.title,
             uploaded_at=datetime.now(timezone.utc),
-            extracted_text=self.extract_text(pdf_content),
+            extracted_text=self.extract_text(filename, content),
             requirements=analysis.requirements,
         )
         vacancy_dir = self._vacancies_dir / str(vacancy_id)
         vacancy_dir.mkdir(parents=True, exist_ok=True)
-        self._write_pdf(vacancy_dir / "vacancy.pdf", pdf_content)
+        self._write_source(vacancy_dir / f"vacancy.{source_format}", content)
+        stale_format = "md" if source_format == "pdf" else "pdf"
+        (vacancy_dir / f"vacancy.{stale_format}").unlink(missing_ok=True)
         write_json_atomically(vacancy_dir / "vacancy.json", vacancy)
 
         return vacancy
@@ -48,7 +60,9 @@ class VacancyRepository:
         vacancies = []
 
         for vacancy_file in self._vacancies_dir.glob("*/vacancy.json"):
-            vacancies.append(Vacancy.model_validate_json(vacancy_file.read_text(encoding="utf-8-sig")))
+            vacancies.append(
+                Vacancy.model_validate_json(vacancy_file.read_text(encoding="utf-8-sig"))
+            )
 
         return tuple(sorted(vacancies, key=lambda vacancy: vacancy.uploaded_at, reverse=True))
 
@@ -67,7 +81,16 @@ class VacancyRepository:
         )
 
     @staticmethod
-    def extract_text(pdf_content: bytes) -> str:
+    def extract_text(filename: str, content: bytes) -> str:
+        source_format = VacancyRepository._get_source_format(filename)
+
+        if source_format == "md":
+            return VacancyRepository._extract_markdown_text(content)
+
+        return VacancyRepository.extract_pdf_text(content)
+
+    @staticmethod
+    def extract_pdf_text(pdf_content: bytes) -> str:
         try:
             reader = PdfReader(BytesIO(pdf_content))
             text = "\n\n".join((page.extract_text() or "").strip() for page in reader.pages).strip()
@@ -80,7 +103,28 @@ class VacancyRepository:
         return text
 
     @staticmethod
-    def _write_pdf(path: Path, content: bytes) -> None:
+    def _extract_markdown_text(content: bytes) -> str:
+        try:
+            text = content.decode("utf-8-sig").strip()
+        except UnicodeDecodeError as error:
+            raise ValueError("MD-файл должен быть сохранен в UTF-8") from error
+
+        if not text:
+            raise ValueError("MD-файл не содержит текста")
+
+        return text
+
+    @staticmethod
+    def _get_source_format(filename: str) -> str:
+        source_format = Path(filename).suffix.lower().lstrip(".")
+
+        if source_format not in {"pdf", "md"}:
+            raise ValueError("Поддерживаются только PDF и MD файлы")
+
+        return source_format
+
+    @staticmethod
+    def _write_source(path: Path, content: bytes) -> None:
         temporary_path = path.with_name(f".{path.name}.{uuid4().hex}.tmp")
 
         try:

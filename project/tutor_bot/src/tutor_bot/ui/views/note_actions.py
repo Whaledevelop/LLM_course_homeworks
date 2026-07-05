@@ -54,6 +54,7 @@ def render_note_actions(
     )
 
     generate_requested = False
+    save_requested = False
 
     if note_details.fullness < 4:
         generate_requested = action_columns[2].button(
@@ -64,10 +65,9 @@ def render_note_actions(
 
     if edit_requested:
         active_editor = st.session_state.get(_ACTIVE_EDITOR_KEY)
+        save_requested = active_editor == note_id
 
-        if active_editor == note_id:
-            st.session_state.pop(_ACTIVE_EDITOR_KEY, None)
-        else:
+        if active_editor != note_id:
             st.session_state[_ACTIVE_EDITOR_KEY] = note_id
 
         st.session_state.pop(_ACTIVE_DELETE_KEY, None)
@@ -98,6 +98,7 @@ def render_note_actions(
             note_details,
             note_command_service,
             content_generator,
+            save_requested,
         )
 
     if st.session_state.get(_ACTIVE_DELETE_KEY) == note_id:
@@ -113,6 +114,7 @@ def _render_edit_form(
     note_details: NoteDetails,
     note_command_service: NoteCommandService,
     content_generator: NoteContentGenerator,
+    save_requested: bool,
 ) -> str | None:
     pending_content_key = f"{_PENDING_CONTENT_PREFIX}{note_details.id}"
     editor_markdown_key = f"{_EDITOR_MARKDOWN_PREFIX}{note_details.id}"
@@ -123,77 +125,85 @@ def _render_edit_form(
     elif editor_markdown_key not in st.session_state:
         st.session_state[editor_markdown_key] = note_details.markdown_content
 
-    with st.form(f"edit-note-{note_details.id}"):
-        title = st.text_input(
-            "Название",
-            value=note_details.title,
+    title = st.text_input(
+        "Название",
+        value=note_details.title,
+    )
+
+    group = st.text_input(
+        "Группа",
+        value=note_details.group,
+    )
+
+    comment = st.text_input(
+        "Комментарий",
+        value=note_details.comment,
+    )
+
+    questions_for_tests_text = st.text_area(
+        "Вопросы для тестов",
+        value="\n".join(note_details.questions_for_tests),
+        placeholder="Один вопрос на строку",
+    )
+
+    importance = st.slider(
+        "Важность",
+        min_value=0,
+        max_value=10,
+        value=note_details.importance,
+    )
+
+    knowledge = st.slider(
+        "Знание",
+        min_value=0,
+        max_value=10,
+        value=note_details.knowledge,
+    )
+
+    markdown_content = st.text_area(
+        "Markdown",
+        key=editor_markdown_key,
+        height=500,
+    )
+
+    generate_submitted = False
+
+    if note_details.fullness < 4:
+        generate_submitted = st.button(
+            "Сгенерировать содержание",
+            key=f"generate-editor-content-{note_details.id}",
         )
 
-        group = st.text_input(
-            "Группа",
-            value=note_details.group,
-        )
+    automatic_fullness = st.toggle(
+        "Рассчитать заполненность автоматически",
+        value=True,
+    )
 
-        comment = st.text_input(
-            "Комментарий",
-            value=note_details.comment,
-        )
-
-        importance = st.slider(
-            "Важность",
+    if automatic_fullness:
+        fullness = estimate_note_fullness(markdown_content)
+        st.caption(f"Заполненность: {fullness}")
+    else:
+        fullness = st.slider(
+            "Заполненность",
             min_value=0,
             max_value=10,
-            value=note_details.importance,
+            value=note_details.fullness,
         )
 
-        knowledge = st.slider(
-            "Знание",
-            min_value=0,
-            max_value=10,
-            value=note_details.knowledge,
-        )
+    save_column, cancel_column = st.columns(2)
 
-        markdown_content = st.text_area(
-            "Markdown",
-            key=editor_markdown_key,
-            height=500,
-        )
+    submitted = save_column.button(
+        "Сохранить",
+        type="primary",
+        key=f"save-note-{note_details.id}",
+        width="stretch",
+    )
 
-        generate_submitted = False
-
-        if note_details.fullness < 4:
-            generate_submitted = st.form_submit_button(
-                "Сгенерировать содержание",
-            )
-
-        automatic_fullness = st.toggle(
-            "Рассчитать заполненность автоматически",
-            value=True,
-        )
-
-        if automatic_fullness:
-            fullness = estimate_note_fullness(markdown_content)
-            st.caption(f"Заполненность: {fullness}")
-        else:
-            fullness = st.slider(
-                "Заполненность",
-                min_value=0,
-                max_value=10,
-                value=note_details.fullness,
-            )
-
-        save_column, cancel_column = st.columns(2)
-
-        submitted = save_column.form_submit_button(
-            "Сохранить",
-            type="primary",
-            width="stretch",
-        )
-
-        cancelled = cancel_column.form_submit_button(
-            "Отмена",
-            width="stretch",
-        )
+    cancelled = cancel_column.button(
+        "Отмена",
+        key=f"cancel-edit-note-{note_details.id}",
+        width="stretch",
+    )
 
     if cancelled:
         _close_actions(note_details.id)
@@ -214,7 +224,7 @@ def _render_edit_form(
         st.session_state[pending_content_key] = generated_content
         st.rerun()
 
-    if not submitted:
+    if not submitted and not save_requested:
         return None
 
     command = UpdateNoteCommand(
@@ -222,6 +232,7 @@ def _render_edit_form(
         title=title,
         group=group,
         comment=comment,
+        questions_for_tests=_parse_questions_for_tests(questions_for_tests_text),
         importance=importance,
         knowledge=knowledge,
         fullness=(estimate_note_fullness(markdown_content) if automatic_fullness else fullness),
@@ -232,6 +243,10 @@ def _render_edit_form(
     _close_actions(note_details.id)
 
     return f"Заметка «{updated_note.title}» сохранена."
+
+
+def _parse_questions_for_tests(value: str) -> tuple[str, ...]:
+    return tuple(question.strip() for question in value.splitlines() if question.strip())
 
 
 def _render_delete_confirmation(
