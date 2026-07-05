@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 import streamlit as st
 from httpx import HTTPError
 from pydantic import ValidationError
@@ -24,29 +26,38 @@ def interrupt_vacancy_session() -> None:
 
 def render_prepare_for_vacancy_page(
     repository: VacancyRepository,
-    analyzer: VacancyAnalyzer,
-    matching_service: VacancyMatchingService,
-    preparation_service: VacancyPreparationService,
+    analyzer_factory: Callable[[], VacancyAnalyzer],
+    matching_service_factory: Callable[[], VacancyMatchingService],
+    preparation_service_factory: Callable[[], VacancyPreparationService],
 ) -> None:
     st.header("Prepare for Vacancy")
-    _render_uploader(repository, analyzer)
+    _render_uploader(repository, analyzer_factory)
     vacancies = repository.list_vacancies()
 
     if not vacancies:
-        st.info("Загрузите PDF вакансии, чтобы начать подготовку.")
+        st.info("Загрузите PDF или MD вакансии, чтобы начать подготовку.")
 
         return
 
     selected_vacancy = _render_vacancy_selector(vacancies)
-    matches = _get_matches(selected_vacancy, matching_service)
+    matches = _get_matches(selected_vacancy, matching_service_factory)
+
+    if matches is None:
+        return
+
     _render_coverage(matches)
     study_session = st.session_state.get(_SESSION_KEY)
 
     if study_session is None:
-        _render_start_controls(selected_vacancy, matches, preparation_service)
+        _render_start_controls(
+            selected_vacancy,
+            matches,
+            preparation_service_factory,
+        )
 
         return
 
+    preparation_service = preparation_service_factory()
     st.divider()
     render_active_recall_session(
         preparation_service,
@@ -59,30 +70,39 @@ def render_prepare_for_vacancy_page(
 
 def _render_uploader(
     repository: VacancyRepository,
-    analyzer: VacancyAnalyzer,
+    analyzer_factory: Callable[[], VacancyAnalyzer],
 ) -> None:
     with st.form("vacancy-upload-form", clear_on_submit=True):
-        uploaded_file = st.file_uploader("PDF вакансии", type=("pdf",))
-        submitted = st.form_submit_button("Загрузить и проанализировать", type="primary")
+        uploaded_file = st.file_uploader(
+            "PDF или MD вакансии",
+            type=("pdf", "md"),
+        )
+        submitted = st.form_submit_button(
+            "Загрузить и проанализировать",
+            type="primary",
+        )
 
     if not submitted:
         return
 
     if uploaded_file is None:
-        st.error("Выберите PDF-файл.")
+        st.error("Выберите PDF или MD файл.")
 
         return
 
     try:
-        pdf_content = uploaded_file.getvalue()
-        vacancy_text = repository.extract_text(pdf_content)
+        source_content = uploaded_file.getvalue()
+        vacancy_text = repository.extract_text(uploaded_file.name, source_content)
 
         with st.spinner("Анализирую требования вакансии..."):
-            analysis = analyzer.analyze(vacancy_text)
-            vacancy = repository.save_pdf(uploaded_file.name, pdf_content, analysis)
+            analysis = analyzer_factory().analyze(vacancy_text)
+            vacancy = repository.save_document(
+                uploaded_file.name,
+                source_content,
+                analysis,
+            )
 
         st.session_state[_SELECTED_VACANCY_KEY] = str(vacancy.id)
-        _clear_matches()
         interrupt_vacancy_session()
         st.success(f"Вакансия «{vacancy.title}» сохранена.")
     except (HTTPError, RuntimeError, ValueError, ValidationError) as error:
@@ -110,15 +130,20 @@ def _render_vacancy_selector(vacancies: tuple[Vacancy, ...]) -> Vacancy:
 
 def _get_matches(
     vacancy: Vacancy,
-    matching_service: VacancyMatchingService,
-) -> tuple[VacancyMatch, ...]:
+    matching_service_factory: Callable[[], VacancyMatchingService],
+) -> tuple[VacancyMatch, ...] | None:
     cached_vacancy_id = st.session_state.get(_MATCHES_VACANCY_KEY)
 
     if cached_vacancy_id == str(vacancy.id):
         return st.session_state[_MATCHES_KEY]
 
+    if not st.button("Проанализировать покрытие", type="primary"):
+        st.caption("Модели поиска загрузятся после запуска анализа покрытия.")
+
+        return None
+
     with st.spinner("Сопоставляю требования с текущей базой заметок..."):
-        matches = matching_service.match_all(vacancy.requirements)
+        matches = matching_service_factory().match_all(vacancy.requirements)
 
     st.session_state[_MATCHES_KEY] = matches
     st.session_state[_MATCHES_VACANCY_KEY] = str(vacancy.id)
@@ -147,7 +172,7 @@ def _render_coverage(matches: tuple[VacancyMatch, ...]) -> None:
 def _render_start_controls(
     vacancy: Vacancy,
     matches: tuple[VacancyMatch, ...],
-    preparation_service: VacancyPreparationService,
+    preparation_service_factory: Callable[[], VacancyPreparationService],
 ) -> None:
     covered_count = sum(vacancy_match.is_covered for vacancy_match in matches)
 
@@ -167,6 +192,7 @@ def _render_start_controls(
     if st.button("Начать подготовку", type="primary"):
         try:
             with st.spinner("Генерирую первый вопрос..."):
+                preparation_service = preparation_service_factory()
                 st.session_state[_SESSION_KEY] = preparation_service.create_study_session(
                     vacancy.title,
                     matches,
@@ -178,7 +204,6 @@ def _render_start_controls(
 
 
 def _on_vacancy_changed() -> None:
-    _clear_matches()
     interrupt_vacancy_session()
 
 

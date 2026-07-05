@@ -80,12 +80,19 @@ class ActiveRecallService:
             "note_title": note.title,
             "markdown_length": len(note.markdown_content),
         }
+        question = (
+            SystemRandom().choice(note.questions_for_tests) if note.questions_for_tests else None
+        )
 
         if self._observability_event_service is None:
             exercise = self._exercise_generator.generate(
                 note.title,
                 note.markdown_content,
+                question,
             )
+
+            if question is not None:
+                exercise = exercise.model_copy(update={"question": question})
         else:
             with self._observability_event_service.observe(
                 "active_recall_question",
@@ -98,7 +105,12 @@ class ActiveRecallService:
                 exercise = self._exercise_generator.generate(
                     note.title,
                     note.markdown_content,
+                    question,
                 )
+
+                if question is not None:
+                    exercise = exercise.model_copy(update={"question": question})
+
                 generation_scope.set_output(exercise.model_dump(mode="json"))
                 generation_scope.add_metadata(
                     key_points_count=len(exercise.key_points),
@@ -396,6 +408,7 @@ class ActiveRecallService:
                 title=note.title,
                 group=note.group,
                 comment=note.comment,
+                questions_for_tests=note.questions_for_tests,
                 importance=note.importance,
                 knowledge=updated_knowledge,
                 fullness=note.fullness,

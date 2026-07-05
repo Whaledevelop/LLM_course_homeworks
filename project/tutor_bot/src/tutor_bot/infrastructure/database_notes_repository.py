@@ -26,6 +26,7 @@ class DatabaseNotesRepository:
             note_id: NoteMetadata(
                 group=note_metadata.group,
                 comment=note_metadata.comment,
+                questions_for_tests=tuple(note_metadata.questions_for_tests),
                 importance=note_metadata.importance,
                 knowledge=note_metadata.knowledge,
                 fullness=(
@@ -61,6 +62,7 @@ class DatabaseNotesRepository:
                 title=note_metadata.last_recorded_name,
                 group=note_metadata.group,
                 comment=note_metadata.comment,
+                questions_for_tests=list(note_metadata.questions_for_tests),
                 importance=note_metadata.importance,
                 knowledge=note_metadata.knowledge,
                 fullness=note_metadata.fullness,

@@ -171,9 +171,9 @@ def main() -> None:
                 get_settings().data_dir / "vacancies",
                 active_database.db_id,
             ),
-            create_vacancy_analyzer(),
-            create_vacancy_matching_service(active_database.db_id),
-            create_vacancy_preparation_service(
+            create_vacancy_analyzer,
+            lambda: create_vacancy_matching_service(active_database.db_id),
+            lambda: create_vacancy_preparation_service(
                 note_query_service,
                 note_command_service,
                 active_database.db_id,

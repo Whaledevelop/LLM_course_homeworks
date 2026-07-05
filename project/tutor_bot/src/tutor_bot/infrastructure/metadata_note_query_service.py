@@ -91,5 +91,6 @@ class MetadataNoteQueryService:
             knowledge=metadata.knowledge,
             fullness=metadata.fullness,
             comment=metadata.comment,
+            questions_for_tests=metadata.questions_for_tests,
             markdown_content=markdown_content,
         )

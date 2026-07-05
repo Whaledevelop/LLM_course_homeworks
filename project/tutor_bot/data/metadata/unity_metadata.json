@@ -4,7 +4,8 @@
     "0b2c61a8-505a-552c-b731-7b9627970eff": {
       "title": "Сложность алгоритмов",
       "group": "algorithms",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 4
@@ -12,7 +13,8 @@
     "0df1ea85-115f-5c42-8fee-45214abe7e93": {
       "title": "Animator - blend tree, mask, state machine",
       "group": "animation",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 4,
       "knowledge": 0,
       "fullness": 10
@@ -20,7 +22,8 @@
     "03e93c10-b2ef-5a06-9328-858cf8457a26": {
       "title": "Tween анимации - DOTween",
       "group": "animation",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 4,
       "knowledge": 1,
       "fullness": 1
@@ -28,7 +31,8 @@
     "e585f85d-a822-54e5-833d-dc4b5403ba4a": {
       "title": "Анимации 2D , Spine",
       "group": "animation",
-      "comment": "rework",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 4,
       "knowledge": 1,
       "fullness": 2
@@ -36,7 +40,8 @@
     "6ba716c0-f2b2-5a78-bde3-f4ff65dd0926": {
       "title": "Dependency injection, Zenject, VContainer",
       "group": "architecture",
-      "comment": "rework",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 5
@@ -44,7 +49,8 @@
     "fee810a1-30b0-58cf-ae09-fcdbad4dffee": {
       "title": "MVP, MVC, MVVM",
       "group": "architecture",
-      "comment": "rework",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 8
@@ -52,7 +58,8 @@
     "00ddf68b-1408-5075-813e-9f897e8ee27a": {
       "title": "SOLID",
       "group": "architecture",
-      "comment": "rework",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 10,
       "knowledge": 1,
       "fullness": 3
@@ -60,7 +67,8 @@
     "f578c8ed-6645-5442-ac37-b121d8658e06": {
       "title": "Принципы ООП",
       "group": "architecture",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 10,
       "knowledge": 1,
       "fullness": 7
@@ -68,7 +76,8 @@
     "45358bdb-07f4-586d-9d70-b0324811708a": {
       "title": "Свой пример архитектурного решения",
       "group": "architecture",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 3,
       "knowledge": 1,
       "fullness": 2
@@ -76,7 +85,8 @@
     "55eb8d8a-77c3-5289-bbda-018dff4c0225": {
       "title": "Чистый код - KISS, DRY, YAGNI",
       "group": "architecture",
-      "comment": "ready",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 3
@@ -84,7 +94,8 @@
     "6200b952-8071-5258-abc9-10d5d4739116": {
       "title": "Шаблоны проектирования - GoF, GRASP, Game Programming Patterns",
       "group": "architecture",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 9
@@ -92,7 +103,8 @@
     "81dbf800-08e9-52be-9e6b-2fcffb2dd53b": {
       "title": "CI-CD - Unity Cloud, Jenkins, Github actions",
       "group": "build",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 7,
       "knowledge": 1,
       "fullness": 7
@@ -100,15 +112,17 @@
     "06a78e8f-dbb7-5528-8a46-9439beae2ed3": {
       "title": "Git, Git Flow",
       "group": "build",
-      "comment": "repeat",
-      "importance": 10,
+      "comment": "",
+      "questions_for_tests": [],
+      "importance": 1,
       "knowledge": 1,
       "fullness": 10
     },
     "b51d5023-9d61-5b06-9745-8a2e2df560b2": {
       "title": "LiveOps, AB testing",
       "group": "build",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 3,
       "knowledge": 1,
       "fullness": 1
@@ -116,7 +130,8 @@
     "4bf2df7a-84b3-50f1-8bb6-a8383e3a44c2": {
       "title": "Автотесты, Unity Test Framework",
       "group": "build",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 7,
       "knowledge": 1,
       "fullness": 1
@@ -125,6 +140,7 @@
       "title": "Array, List, Dictionary",
       "group": "csharp",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 10
@@ -132,7 +148,8 @@
     "a828c7df-14ec-5749-bda0-04d2175c8916": {
       "title": "Boxing-Unboxing",
       "group": "csharp",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 7
@@ -140,7 +157,8 @@
     "d045fa3d-4894-5bc0-b158-3ee3b50262a9": {
       "title": "CLI, CLR, .NET, JIT, IL",
       "group": "csharp",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 7,
       "knowledge": 1,
       "fullness": 5
@@ -148,7 +166,8 @@
     "c87b28d0-0df5-5577-8394-1ec55fdd00af": {
       "title": "data structures",
       "group": "csharp",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 3
@@ -157,6 +176,7 @@
       "title": "Delegate, Action, Func, event",
       "group": "csharp",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 8
@@ -164,7 +184,8 @@
     "9401c0e4-f1c3-5536-a2b2-4b1a8b26ee5c": {
       "title": "Enum, битовые маски",
       "group": "csharp",
-      "comment": "improve",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 9
@@ -172,15 +193,17 @@
     "2e2a0b1a-43f0-5d43-918f-393d557d5eac": {
       "title": "Garbage collector",
       "group": "csharp",
-      "comment": "repeat",
+      "comment": "Повторить поколения GC",
+      "questions_for_tests": [],
       "importance": 10,
-      "knowledge": 1,
+      "knowledge": 2,
       "fullness": 10
     },
     "1ff0a121-292f-5654-ba80-c240f34dc187": {
       "title": "interface & abstract class",
       "group": "csharp",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 5
@@ -188,7 +211,8 @@
     "e63f7f66-6151-5fff-b07d-bd14cecfaca9": {
       "title": "Queue, Stack, Hashset, LinkedList",
       "group": "csharp",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 8
@@ -196,7 +220,8 @@
     "5441c448-e641-5ec7-9b6f-93e9b5bc12cf": {
       "title": "string, StringBuilder",
       "group": "csharp",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 10
@@ -204,7 +229,8 @@
     "f31c39c0-a273-5d6d-abe7-7687113ffd3d": {
       "title": "Upcasting, downcasting, приведение типов",
       "group": "csharp",
-      "comment": "rework",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 7,
       "knowledge": 1,
       "fullness": 3
@@ -212,7 +238,8 @@
     "67b16742-20b5-5480-be91-fc26d3400866": {
       "title": "value and reference types",
       "group": "csharp",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 10,
       "knowledge": 1,
       "fullness": 7
@@ -220,7 +247,8 @@
     "69eb029d-16c7-5a32-a74d-a968c03adab8": {
       "title": "Атрибуты",
       "group": "csharp",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 8
@@ -228,7 +256,8 @@
     "5f605c7d-b45a-56fa-9b36-997e5a83cabf": {
       "title": "Итераторы, IEnumerable, IEnumerator, yield",
       "group": "csharp",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 10
@@ -236,7 +265,8 @@
     "3198df51-f56c-57f3-b2a6-8a9c8407433d": {
       "title": "Модификаторы параметровы ref, out, in, вариантность",
       "group": "csharp",
-      "comment": "improve",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 7,
       "knowledge": 1,
       "fullness": 5
@@ -244,7 +274,8 @@
     "c8127350-bb73-5953-90dd-80ec4b3041f7": {
       "title": "Рефлексия",
       "group": "csharp",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 7,
       "knowledge": 1,
       "fullness": 9
@@ -252,7 +283,8 @@
     "f4a964a7-165a-580d-9cef-86a10bc05135": {
       "title": "Числовые типы - int, byte, float - бинарное представление",
       "group": "csharp",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 5,
       "knowledge": 1,
       "fullness": 9
@@ -260,7 +292,8 @@
     "89db3455-dc88-5929-a86b-03592d596763": {
       "title": "VFX, particles, effects",
       "group": "graphics",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 3,
       "knowledge": 1,
       "fullness": 1
@@ -268,7 +301,8 @@
     "7627f811-08f1-5b68-860c-bae63e190369": {
       "title": "Из чего состоит 3D модель, что такое меш",
       "group": "graphics",
-      "comment": "rework",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 5,
       "knowledge": 1,
       "fullness": 2
@@ -276,7 +310,8 @@
     "80e1e710-f00a-5a43-a06f-95f5b33c1176": {
       "title": "Полный процесс рендеринга 3D объекта",
       "group": "graphics",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 5,
       "knowledge": 1,
       "fullness": 10
@@ -285,6 +320,7 @@
       "title": "Cross Product (векторное произведение)",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 4
@@ -293,6 +329,7 @@
       "title": "Dot Product (скалярное произведение)",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 2,
       "fullness": 5
@@ -301,6 +338,7 @@
       "title": "Векторы - база",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 8
@@ -309,6 +347,7 @@
       "title": "Векторы и операции над векторами",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
@@ -317,6 +356,7 @@
       "title": "Геометрия - задачи",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 4
@@ -325,6 +365,7 @@
       "title": "Задачи на доске - Unity математика",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 7
@@ -333,6 +374,7 @@
       "title": "Кватернионы",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 6
@@ -341,6 +383,7 @@
       "title": "Координатные системы",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 4
@@ -349,6 +392,7 @@
       "title": "Линейная интерполяция",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 4
@@ -357,6 +401,7 @@
       "title": "Лучи и Raycast",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 4
@@ -365,6 +410,7 @@
       "title": "Навигация - векторы и повороты",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 4
@@ -373,6 +419,7 @@
       "title": "Нормали",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 3
@@ -381,6 +428,7 @@
       "title": "Плоскости",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 3
@@ -389,6 +437,7 @@
       "title": "Проекции",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 3
@@ -397,6 +446,7 @@
       "title": "Расстояние до точки",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
@@ -405,6 +455,7 @@
       "title": "Скалярное и векторное произведение",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 5
@@ -413,6 +464,7 @@
       "title": "Теория 3D-графики",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 5
@@ -421,6 +473,7 @@
       "title": "Трансформации и матрицы",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 10
@@ -429,6 +482,7 @@
       "title": "Тригонометрия",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 4
@@ -437,6 +491,7 @@
       "title": "Угол между векторами",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 3
@@ -445,6 +500,7 @@
       "title": "Физика - база для Unity",
       "group": "",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 0,
       "knowledge": 0,
       "fullness": 5
@@ -452,7 +508,8 @@
     "9894b415-6da2-5581-b5df-981115e9149f": {
       "title": "Culling - Frustrum, Occlusion",
       "group": "optimization",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 5
@@ -460,7 +517,8 @@
     "d9936922-9835-5cb0-bc29-a1d3c5680c53": {
       "title": "Draw call, Batching, GPU Instancing",
       "group": "optimization",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 7
@@ -468,7 +526,8 @@
     "62081306-3ec8-5b44-9969-251909909f0e": {
       "title": "LOD",
       "group": "optimization",
-      "comment": "improve",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 2
@@ -476,7 +535,8 @@
     "f426d3c1-314a-51e9-a107-e032c44a478f": {
       "title": "Object Pooling",
       "group": "optimization",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 2
@@ -484,7 +544,8 @@
     "6fd08406-4ffc-5dd0-8111-022297b275cf": {
       "title": "Оптимизация CPU, GPU, memory",
       "group": "optimization",
-      "comment": "improve",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 9
@@ -492,7 +553,8 @@
     "7f8d6269-49a2-51ef-8c4c-01a233e7c5ef": {
       "title": "Оптимизация под мобильные",
       "group": "optimization",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 2
@@ -500,7 +562,8 @@
     "12f29a5e-b45a-51a9-9429-d74e80a6bc35": {
       "title": "Оптимизация текстур (Texture Atlas, Packing, Mip Maps, Filtering)",
       "group": "optimization",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 5
@@ -508,15 +571,23 @@
     "1900fe40-0676-5802-9517-c28565ec21cb": {
       "title": "Профилирование",
       "group": "optimization",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [
+        "Как определить, перегружен ли CPU или GPU?",
+        "Как найти утечки памяти в Unity? Что такое \"Managed\", \"Native\", \"Tracked\"?",
+        "Почему `GC Alloc` вызывается в каждом кадре, даже если я не создаю объекты?",
+        "Как работать с Frame Debugger и понять, почему не срабатывает batching?",
+        "Что делать, если на устройстве FPS низкий, но в Profiler ничего подозрительного нет?_"
+      ],
       "importance": 9,
       "knowledge": 1,
-      "fullness": 10
+      "fullness": 9
     },
     "9935d4e7-e359-5c02-af38-f910e43e77db": {
       "title": "Raycast, overlap, linecast, contact point",
       "group": "physics",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 1
@@ -524,7 +595,8 @@
     "dba88431-008d-513f-bbc7-fd22f8671730": {
       "title": "Rigidbody - modes, collision detection, movement",
       "group": "physics",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 10
@@ -532,7 +604,8 @@
     "ac22fd8a-a5c4-501c-b2e6-73abb5cac6bc": {
       "title": "Коллайдеры и триггеры - столкновения и ивенты",
       "group": "physics",
-      "comment": "improve",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 5
@@ -541,6 +614,7 @@
       "title": "Addressables, AssetBundles, Resources",
       "group": "resources",
       "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 10
@@ -548,7 +622,8 @@
     "6f51b24d-4740-5381-b566-1eaf21bb86f6": {
       "title": "IAP",
       "group": "sdk",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 1
@@ -556,7 +631,8 @@
     "7bd6a8d0-7cec-55a9-812d-8bc56f8ab5b4": {
       "title": "Аналитика - интеграция Firebase, Adjust, Appsflyer, Amplitude",
       "group": "sdk",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 5,
       "knowledge": 1,
       "fullness": 8
@@ -564,7 +640,8 @@
     "edba4739-d968-55e6-9cb8-abf2741c50e3": {
       "title": "Интеграция SDK - (Gradle, iOS)",
       "group": "sdk",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 5,
       "knowledge": 1,
       "fullness": 2
@@ -572,7 +649,8 @@
     "0d34ea01-9f65-5374-9c73-ea11a1a261a2": {
       "title": "Реклама - AdMob, Applovin Max, IronSource",
       "group": "sdk",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 5,
       "knowledge": 1,
       "fullness": 1
@@ -580,7 +658,8 @@
     "a8bc7c7e-2ffd-5b24-a5fa-eee3eb42e159": {
       "title": "async-await, UniTask, Coroutine",
       "group": "threads",
-      "comment": "rework",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 1,
       "fullness": 10
@@ -588,7 +667,8 @@
     "4f7cf42c-da46-58d0-8705-be3cc2965641": {
       "title": "Основной поток - PlayerLoop, многопоточность - Job System, Burst",
       "group": "threads",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 9
@@ -596,7 +676,8 @@
     "0eb9c92e-0894-5fb7-bb5e-81100d5aeb9e": {
       "title": "Потокобезопасность - lock, mutex, semaphore",
       "group": "threads",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 6
@@ -604,7 +685,8 @@
     "e248dd6f-963d-552f-8616-d87082905b4e": {
       "title": "Поточность, синхронность, параллелизм (общее)",
       "group": "threads",
-      "comment": "ready",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 7
@@ -612,7 +694,8 @@
     "a8efab7b-aa55-59cb-9580-97aaec7d03c1": {
       "title": "Реактивное программирование - UniRx, R3",
       "group": "threads",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 4,
       "knowledge": 1,
       "fullness": 10
@@ -620,7 +703,8 @@
     "a920585b-1253-554c-b65b-50f4c2efbed1": {
       "title": "Оптимизация UI",
       "group": "ui",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 7,
       "knowledge": 1,
       "fullness": 5
@@ -628,7 +712,8 @@
     "69281476-c85e-547c-970e-8011c48a4ba9": {
       "title": "IL2CPP",
       "group": "unity",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 9,
       "knowledge": 2,
       "fullness": 3
@@ -636,7 +721,8 @@
     "acf5bec8-82c5-5f80-9b81-4cc8149df34c": {
       "title": "Internal dispatch - вызов методов MonoBehaviour",
       "group": "unity",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 4,
       "knowledge": 1,
       "fullness": 8
@@ -644,7 +730,8 @@
     "5138d59c-aecc-5b52-bc80-ec990ebed692": {
       "title": "MonoBehaviour - жизненный цикл, Script Execution Order",
       "group": "unity",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 10,
       "knowledge": 1,
       "fullness": 8
@@ -652,7 +739,8 @@
     "95899365-cf96-5849-9bb0-c7264ae2cf91": {
       "title": "NativeArray, NativeSlice, FixedList — коллекции Unity.Collections",
       "group": "unity",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 10
@@ -660,7 +748,8 @@
     "50fd91d4-e8ed-59b6-94bc-ea28f9c3c03f": {
       "title": "ScriptableObject - конфиги, driven подход",
       "group": "unity",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 7,
       "knowledge": 1,
       "fullness": 2
@@ -668,7 +757,8 @@
     "05d94261-402e-5c51-ba2a-9b0d7f932f60": {
       "title": "Как работает LayerMask, какое влияние на рендер и физику",
       "group": "unity",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 9
@@ -676,7 +766,8 @@
     "c2896e13-b8ea-5ba6-bffd-a36ee60a713c": {
       "title": "Операции над Vector2, Vector3",
       "group": "unity",
-      "comment": "learn",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 7
@@ -684,7 +775,8 @@
     "6d5a3e3b-cc22-50d0-819d-9e8a0692afb1": {
       "title": "Почему MonoBehaviour нужно минимизировать",
       "group": "unity",
-      "comment": "rework",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 6,
       "knowledge": 1,
       "fullness": 6
@@ -692,7 +784,8 @@
     "6e2dce7f-6f61-58f3-aeef-7899007120c3": {
       "title": "Работа с углами - Quaternion, Euler",
       "group": "unity",
-      "comment": "improve",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 6
@@ -700,7 +793,8 @@
     "a1bf36c6-6219-5ccf-8f15-133c15f1581a": {
       "title": "Сериализация, SerializeReference, атрибуты",
       "group": "unity",
-      "comment": "empty",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 8,
       "knowledge": 1,
       "fullness": 1
@@ -708,7 +802,8 @@
     "9e21d23d-0d41-596d-9994-7b7a5adcf94f": {
       "title": "Цикл обновления - Update vs FixedUpdate vs LateUpdate",
       "group": "unity",
-      "comment": "repeat",
+      "comment": "",
+      "questions_for_tests": [],
       "importance": 10,
       "knowledge": 1,
       "fullness": 9

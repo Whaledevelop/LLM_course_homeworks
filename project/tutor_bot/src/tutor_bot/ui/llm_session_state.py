@@ -20,7 +20,7 @@ _PREFERENCES_FILE_NAME = "llm_preferences.json"
 class _LlmPreferences(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    default_provider: Literal["ollama", "yandex"]
+    default_provider: Literal["ollama", "yandex", "vllm"]
     default_model: str | None = None
 
 

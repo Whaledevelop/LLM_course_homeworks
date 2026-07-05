@@ -40,6 +40,7 @@ class FileNoteCommandService:
         metadata = NoteMetadata(
             group=command.group,
             comment=command.comment,
+            questions_for_tests=command.questions_for_tests,
             importance=command.importance,
             knowledge=command.knowledge,
             fullness=command.fullness,
@@ -87,6 +88,7 @@ class FileNoteCommandService:
                 "last_recorded_name": command.title,
                 "group": command.group,
                 "comment": command.comment,
+                "questions_for_tests": command.questions_for_tests,
                 "importance": command.importance,
                 "knowledge": command.knowledge,
                 "fullness": command.fullness,
@@ -187,5 +189,6 @@ class FileNoteCommandService:
             knowledge=metadata.knowledge,
             fullness=metadata.fullness,
             comment=metadata.comment,
+            questions_for_tests=metadata.questions_for_tests,
             markdown_content=document.normalized_content,
         )

@@ -14,6 +14,7 @@ _TITLE_KEY = "add_note_title"
 _MARKDOWN_KEY = "add_note_markdown"
 _GROUP_KEY = "add_note_group"
 _COMMENT_KEY = "add_note_comment"
+_QUESTIONS_FOR_TESTS_KEY = "add_note_questions_for_tests"
 _SUGGESTION_KEY = "add_note_metadata_suggestion"
 _SUGGESTION_SOURCE_KEY = "add_note_metadata_suggestion_source"
 _PENDING_SUGGESTION_KEY = "add_note_pending_metadata_suggestion"
@@ -59,6 +60,11 @@ def render_add_note_page(
         comment = st.text_input(
             "Комментарий",
             key=_COMMENT_KEY,
+        )
+        questions_for_tests_text = st.text_area(
+            "Вопросы для тестов",
+            key=_QUESTIONS_FOR_TESTS_KEY,
+            placeholder="Один вопрос на строку",
         )
         importance = st.slider(
             "Важность",
@@ -145,6 +151,7 @@ def render_add_note_page(
         title=title.strip(),
         group=group.strip(),
         comment=comment.strip(),
+        questions_for_tests=_parse_questions_for_tests(questions_for_tests_text),
         importance=importance,
         knowledge=knowledge,
         fullness=(estimate_note_fullness(markdown_content) if automatic_fullness else fullness),
@@ -153,6 +160,10 @@ def render_add_note_page(
     created_note = note_command_service.create_note(command)
 
     st.success(f"Заметка «{created_note.title}» создана. ID: {created_note.id}")
+
+
+def _parse_questions_for_tests(value: str) -> tuple[str, ...]:
+    return tuple(question.strip() for question in value.splitlines() if question.strip())
 
 
 def _suggest_metadata(
