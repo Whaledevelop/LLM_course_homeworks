@@ -24,6 +24,9 @@ from tutor_bot.ui.tutor_answer_service_factory import (
     create_chat_service,
     create_note_metadata_suggester,
     create_note_content_generator,
+    create_vacancy_analyzer,
+    create_vacancy_matching_service,
+    create_vacancy_preparation_service,
 )
 from tutor_bot.ui.views.active_recall_page import (
     interrupt_active_recall_session,
@@ -36,6 +39,11 @@ from tutor_bot.ui.views.databases_page import render_databases_page
 from tutor_bot.ui.views.placeholder_page import render_placeholder_page
 from tutor_bot.ui.views.questions_page import render_questions_page
 from tutor_bot.ui.views.settings_page import render_llms_page
+from tutor_bot.ui.views.prepare_for_vacancy_page import (
+    interrupt_vacancy_session,
+    render_prepare_for_vacancy_page,
+)
+from tutor_bot.infrastructure.vacancy_repository import VacancyRepository
 
 
 _VISIBLE_APP_MODES = [
@@ -43,6 +51,7 @@ _VISIBLE_APP_MODES = [
     AppMode.BROWSE_NOTES,
     AppMode.ADD_NOTE,
     AppMode.TEST_NOTES,
+    AppMode.PREPARE_FOR_VACANCY,
     AppMode.LLMS,
     AppMode.DATABASES,
 ]
@@ -97,7 +106,7 @@ def main() -> None:
         options=_VISIBLE_APP_MODES,
         format_func=lambda app_mode: app_mode.value,
         key=APP_MODE_STATE_KEY,
-        on_change=interrupt_active_recall_session,
+        on_change=_interrupt_study_sessions,
         label_visibility="collapsed",
     )
 
@@ -144,6 +153,27 @@ def main() -> None:
         render_active_recall_page(
             note_query_service,
             create_active_recall_service(
+                note_query_service,
+                note_command_service,
+                active_database.db_id,
+            ),
+        )
+
+        return
+
+    if selected_mode == AppMode.PREPARE_FOR_VACANCY:
+        note_query_service, note_command_service = create_note_services(
+            active_database.db_id,
+            str(active_database.root_path),
+        )
+        render_prepare_for_vacancy_page(
+            VacancyRepository(
+                get_settings().data_dir / "vacancies",
+                active_database.db_id,
+            ),
+            create_vacancy_analyzer(),
+            create_vacancy_matching_service(active_database.db_id),
+            create_vacancy_preparation_service(
                 note_query_service,
                 note_command_service,
                 active_database.db_id,
@@ -223,6 +253,11 @@ def _apply_styles() -> None:
         """,
         unsafe_allow_html=True,
     )
+
+
+def _interrupt_study_sessions() -> None:
+    interrupt_active_recall_session()
+    interrupt_vacancy_session()
 
 
 if __name__ == "__main__":

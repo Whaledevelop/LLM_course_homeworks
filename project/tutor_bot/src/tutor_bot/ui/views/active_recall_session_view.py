@@ -5,6 +5,8 @@ from pydantic import ValidationError
 from tutor_bot.application.active_recall_service import ActiveRecallService
 from tutor_bot.application.recall_session_result import RecallSessionResult
 from tutor_bot.application.recall_study_session import RecallStudySession
+from tutor_bot.application.vacancy_preparation_service import VacancyPreparationService
+from tutor_bot.application.vacancy_study_session import VacancyStudySession
 from tutor_bot.ui.speech_input import render_speech_input
 
 
@@ -17,8 +19,8 @@ _REVEALED_QUESTION_KEY = "active_recall_revealed_question"
 
 
 def render_active_recall_session(
-    recall_service: ActiveRecallService,
-    study_session: RecallStudySession,
+    recall_service: ActiveRecallService | VacancyPreparationService,
+    study_session: RecallStudySession | VacancyStudySession,
     state_key: str,
     show_note_before_question: bool,
     show_note_after_question: bool,
@@ -35,6 +37,12 @@ def render_active_recall_session(
         f"Вопрос {study_session.current_index + 1}/{study_session.total_count} · "
         f"Заметка: {study_session.current_exercise.note_title}"
     )
+    if study_session.current_exercise.context_title is not None:
+        st.caption(
+            f"Vacancy: {study_session.current_exercise.context_title} · "
+            f"Тема: {study_session.current_exercise.focus_topic}"
+        )
+
     current_result = _get_current_result(study_session)
     question_is_imitated = study_session.current_question_is_imitated
     question_is_revealed = (
@@ -95,7 +103,7 @@ def render_active_recall_session(
 
 
 def _get_current_result(
-    study_session: RecallStudySession,
+    study_session: RecallStudySession | VacancyStudySession,
 ) -> RecallSessionResult | None:
     if not study_session.current_question_is_reviewed:
         return None
@@ -106,8 +114,8 @@ def _get_current_result(
 
 
 def _render_answer_form(
-    recall_service: ActiveRecallService,
-    study_session: RecallStudySession,
+    recall_service: ActiveRecallService | VacancyPreparationService,
+    study_session: RecallStudySession | VacancyStudySession,
     state_key: str,
 ) -> None:
     answer_key = f"active_recall_answer_{study_session.current_index}"
@@ -158,15 +166,15 @@ def _render_answer_form(
 
 
 def _imitate_answer(
-    recall_service: ActiveRecallService,
-    study_session: RecallStudySession,
+    recall_service: ActiveRecallService | VacancyPreparationService,
+    study_session: RecallStudySession | VacancyStudySession,
     state_key: str,
 ) -> None:
     st.session_state[state_key] = recall_service.imitate_study_answer(study_session)
 
 
 def _render_imitated_answer(
-    study_session: RecallStudySession,
+    study_session: RecallStudySession | VacancyStudySession,
 ) -> None:
     st.info("Ответ показан без проверки. Knowledge заметки не изменён.")
     st.markdown("#### Эталонный ответ")
@@ -212,7 +220,7 @@ def _render_points(
         st.markdown(f"- {point}")
 
 
-def _render_summary(study_session: RecallStudySession) -> None:
+def _render_summary(study_session: RecallStudySession | VacancyStudySession) -> None:
     verdict_counts = {
         verdict: sum(
             result.review.verdict == verdict and not result.imitated

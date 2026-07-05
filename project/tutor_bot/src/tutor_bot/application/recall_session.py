@@ -14,4 +14,6 @@ class RecallSession(BaseModel):
     note_id: UUID
     note_title: str = Field(min_length=1)
     source_markdown: str = ""
+    context_title: str | None = None
+    focus_topic: str | None = None
     exercise: RecallExercise
