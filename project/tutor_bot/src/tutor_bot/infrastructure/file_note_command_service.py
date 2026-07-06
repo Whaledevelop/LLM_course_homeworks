@@ -34,6 +34,7 @@ class FileNoteCommandService:
 
         relative_path, document = self._markdown_storage.create(
             note_id,
+            command.title,
             command.markdown_content,
         )
 

@@ -1,4 +1,5 @@
 import os
+import re
 from pathlib import Path, PurePosixPath
 from uuid import UUID, uuid4
 
@@ -6,6 +7,7 @@ from tutor_bot.infrastructure.markdown_document import MarkdownDocument
 
 
 _CREATED_NOTES_DIRECTORY = PurePosixPath("_tutor_bot")
+_INVALID_FILENAME_CHARACTERS = re.compile(r'[<>:"/\\|?*\x00-\x1f]')
 
 
 class MarkdownNoteStorage:
@@ -18,13 +20,12 @@ class MarkdownNoteStorage:
     def create(
         self,
         note_id: UUID,
+        title: str,
         markdown_content: str,
     ) -> tuple[PurePosixPath, MarkdownDocument]:
-        relative_path = _CREATED_NOTES_DIRECTORY / f"{note_id}.md"
+        filename = self._create_filename(title)
+        relative_path = self._create_available_relative_path(filename)
         note_path = self._resolve_path(relative_path)
-
-        if note_path.exists():
-            raise FileExistsError(f"Note file already exists: {note_path}")
 
         note_path.parent.mkdir(
             parents=True,
@@ -42,6 +43,25 @@ class MarkdownNoteStorage:
         )
 
         return relative_path, document
+
+    def _create_filename(self, title: str) -> str:
+        sanitized_title = _INVALID_FILENAME_CHARACTERS.sub(" ", title)
+        sanitized_title = " ".join(sanitized_title.split()).rstrip(". ")
+
+        if not sanitized_title:
+            raise ValueError("Note title does not contain valid filename characters")
+
+        return sanitized_title
+
+    def _create_available_relative_path(self, filename: str) -> PurePosixPath:
+        relative_path = _CREATED_NOTES_DIRECTORY / f"{filename}.md"
+        suffix = 2
+
+        while self._resolve_path(relative_path).exists():
+            relative_path = _CREATED_NOTES_DIRECTORY / f"{filename} ({suffix}).md"
+            suffix += 1
+
+        return relative_path
 
     def update(
         self,

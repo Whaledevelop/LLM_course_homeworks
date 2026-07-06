@@ -207,7 +207,7 @@ def _render_start_recall_draft(
         return
 
     try:
-        with st.spinner("Генерирую вопрос по заметке..."):
+        with st.spinner("Подготавливаю вопрос по заметке..."):
             study_session = answer_service_factory().start_recall(draft)
     except (KeyError, OSError, RuntimeError, ValueError) as error:
         st.error(f"Не удалось начать Active Recall: {error}")
@@ -232,7 +232,7 @@ def _render_start_recall_title_confirmation(
         use_container_width=True,
     ):
         try:
-            with st.spinner("Генерирую вопрос по заметке..."):
+            with st.spinner("Подготавливаю вопрос по заметке..."):
                 study_session = answer_service_factory().start_recall(draft)
         except (KeyError, OSError, RuntimeError, ValueError) as error:
             st.error(f"Не удалось начать Active Recall: {error}")

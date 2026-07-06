@@ -5,6 +5,7 @@ from pydantic import ValidationError
 from tutor_bot.application.create_note_command import CreateNoteCommand
 from tutor_bot.application.note_fullness import estimate_note_fullness
 from tutor_bot.application.note_command_service import NoteCommandService
+from tutor_bot.application.note_query_service import NoteQueryService
 from tutor_bot.application.note_metadata_suggestion import NoteMetadataSuggestion
 from tutor_bot.generation.note_metadata_suggester import NoteMetadataSuggester
 from tutor_bot.generation.note_content_generator import NoteContentGenerator
@@ -22,10 +23,12 @@ _PENDING_CONTENT_KEY = "add_note_pending_content"
 _CONTENT_GENERATION_REQUEST_KEY = "add_note_content_generation_request"
 _GENERATING_CONTENT_TEXT = "Генерирую содержание заметки..."
 _CONTENT_FULLNESS_KEY = "add_note_content_fullness"
+_IMPORTANCE_KEY = "add_note_importance"
 
 
 def render_add_note_page(
     note_command_service: NoteCommandService,
+    note_query_service: NoteQueryService,
     metadata_suggester: NoteMetadataSuggester,
     content_generator: NoteContentGenerator,
 ) -> None:
@@ -71,6 +74,7 @@ def render_add_note_page(
             min_value=0,
             max_value=10,
             value=5,
+            key=_IMPORTANCE_KEY,
         )
         knowledge = st.slider(
             "Знание",
@@ -85,7 +89,6 @@ def render_add_note_page(
 
         if automatic_fullness:
             fullness = estimate_note_fullness(markdown_content)
-            st.caption(f"Заполненность: {fullness}")
         else:
             fullness = st.slider(
                 "Заполненность",
@@ -102,6 +105,7 @@ def render_add_note_page(
     if suggestion_submitted:
         _suggest_metadata(
             metadata_suggester,
+            note_query_service,
             markdown_content,
         )
 
@@ -168,6 +172,7 @@ def _parse_questions_for_tests(value: str) -> tuple[str, ...]:
 
 def _suggest_metadata(
     metadata_suggester: NoteMetadataSuggester,
+    note_query_service: NoteQueryService,
     markdown_content: str,
 ) -> None:
     normalized_markdown = markdown_content.strip()
@@ -182,7 +187,20 @@ def _suggest_metadata(
     if suggestion is None:
         try:
             with st.spinner("Анализирую заметку и предлагаю метаданные..."):
-                suggestion = metadata_suggester.suggest(normalized_markdown)
+                existing_groups = tuple(
+                    sorted(
+                        {
+                            note.group.strip()
+                            for note in note_query_service.list_notes()
+                            if note.group.strip()
+                        },
+                        key=str.casefold,
+                    )
+                )
+                suggestion = metadata_suggester.suggest(
+                    normalized_markdown,
+                    existing_groups,
+                )
         except (HTTPError, RuntimeError, ValidationError) as error:
             st.error(f"Не удалось предложить метаданные: {error}")
 
@@ -213,9 +231,11 @@ def _apply_pending_suggestion() -> None:
     if suggestion is None:
         return
 
-    st.session_state[_TITLE_KEY] = suggestion.title
     st.session_state[_GROUP_KEY] = suggestion.group
-    st.session_state[_COMMENT_KEY] = suggestion.comment
+    st.session_state[_QUESTIONS_FOR_TESTS_KEY] = "\n".join(
+        suggestion.questions_for_tests
+    )
+    st.session_state[_IMPORTANCE_KEY] = suggestion.importance
 
 
 def _generate_content(

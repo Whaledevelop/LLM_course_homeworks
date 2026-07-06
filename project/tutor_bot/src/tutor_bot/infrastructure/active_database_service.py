@@ -175,6 +175,7 @@ class ActiveDatabaseService:
                 importance=int(legacy_note.get("importance", 0)),
                 knowledge=int(legacy_note.get("knowledge", 0)),
                 fullness=int(legacy_note.get("fullness", 0)),
+                time_added=metadata.notes[note_id].time_added,
             )
 
         backup_dir = legacy_file.parent / "backups"

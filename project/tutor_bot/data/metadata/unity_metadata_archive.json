@@ -5,9 +5,21 @@
       "title": null,
       "group": "Game Development",
       "comment": "Руководство по интеграции больших языковых моделей в Unity: сценарии использования, архитектура, примеры кода на C#, вопросы безопасности и оптимизации.",
+      "questions_for_tests": [],
       "importance": 5,
       "knowledge": 0,
-      "fullness": 10
+      "fullness": 10,
+      "time_added": "2026-07-06T00:01:25.461881+03:00"
+    },
+    "0c4e275e-222e-44bf-b0ec-8f75108f3e6a": {
+      "title": "Управление памятью в Unity",
+      "group": "Оптимизация",
+      "comment": "Заметка о работе с управляемой и нативной памятью в Unity, использовании Memory Profiler и практиках предотвращения утечек и просадок производительности.",
+      "questions_for_tests": [],
+      "importance": 5,
+      "knowledge": 0,
+      "fullness": 5,
+      "time_added": "2026-07-06T00:01:25.461881+03:00"
     }
   }
 }

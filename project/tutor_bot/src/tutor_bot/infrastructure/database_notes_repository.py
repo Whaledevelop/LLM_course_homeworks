@@ -34,6 +34,7 @@ class DatabaseNotesRepository:
                     if note_metadata.fullness is not None
                     else self._load_fullness(index_note.path)
                 ),
+                time_added=note_metadata.time_added,
                 last_recorded_name=note_metadata.title or self._load_title(index_note.path),
                 relative_path=index_note.path,
             )
@@ -66,6 +67,7 @@ class DatabaseNotesRepository:
                 importance=note_metadata.importance,
                 knowledge=note_metadata.knowledge,
                 fullness=note_metadata.fullness,
+                time_added=note_metadata.time_added,
             )
             for note_id, note_metadata in catalog.notes.items()
         }

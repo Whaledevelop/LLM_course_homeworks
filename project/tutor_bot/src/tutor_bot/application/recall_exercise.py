@@ -8,8 +8,5 @@ class RecallExercise(BaseModel):
     )
 
     question: str = Field(min_length=1)
-    key_points: tuple[str, ...] = Field(
-        min_length=2,
-        max_length=5,
-    )
-    reference_answer: str = Field(min_length=1)
+    key_points: tuple[str, ...] = Field(max_length=5)
+    reference_answer: str = ""

@@ -1,6 +1,7 @@
 from uuid import UUID
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 from tutor_bot.application.note_command_service import NoteCommandService
 from tutor_bot.application.active_recall_service import ActiveRecallService
@@ -15,6 +16,7 @@ from tutor_bot.generation.note_content_generator import NoteContentGenerator
 _SUCCESS_MESSAGE_KEY = "note_action_success"
 _TABLE_VERSION_KEY = "notes_table_version"
 _SELECTED_NOTE_ID_KEY = "selected_browse_note_id"
+_SCROLL_TO_TOP_KEY = "browse_notes_scroll_to_top"
 _SORT_BY_IMPORTANCE = "По важности"
 _SORT_ALPHABETICALLY = "По алфавиту"
 
@@ -87,7 +89,12 @@ def render_browse_notes_page(
     if selected_note is None:
         return
 
-    st.session_state[_SELECTED_NOTE_ID_KEY] = str(selected_note.id)
+    selected_note_id = str(selected_note.id)
+
+    if st.session_state.get(_SELECTED_NOTE_ID_KEY) != selected_note_id:
+        request_browse_page_scroll_to_top()
+
+    st.session_state[_SELECTED_NOTE_ID_KEY] = selected_note_id
     ui_state_repository.save_selected_note_id(selected_note.id)
 
     note_details = note_query_service.get_note(selected_note.id)
@@ -117,6 +124,27 @@ def render_browse_notes_page(
             st.info(note_details.comment)
 
         st.markdown(note_details.markdown_content)
+
+    _scroll_to_page_top_if_requested()
+
+
+def request_browse_page_scroll_to_top() -> None:
+    st.session_state[_SCROLL_TO_TOP_KEY] = True
+
+
+def _scroll_to_page_top_if_requested() -> None:
+    if not st.session_state.pop(_SCROLL_TO_TOP_KEY, False):
+        return
+
+    components.html(
+        """
+        <script>
+        const main = window.parent.document.querySelector('[data-testid="stMain"]');
+        main?.scrollTo({top: 0, left: 0, behavior: 'auto'});
+        </script>
+        """,
+        height=0,
+    )
 
 
 def _filter_notes(

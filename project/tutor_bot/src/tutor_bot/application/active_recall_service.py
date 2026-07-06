@@ -7,6 +7,7 @@ from uuid import UUID, uuid4
 from tutor_bot.application.note_query_service import NoteQueryService
 from tutor_bot.application.note_command_service import NoteCommandService
 from tutor_bot.application.recall_answer_review import RecallAnswerReview
+from tutor_bot.application.recall_exercise import RecallExercise
 from tutor_bot.application.recall_session import RecallSession
 from tutor_bot.application.recall_session_result import RecallSessionResult
 from tutor_bot.application.recall_study_session import RecallStudySession
@@ -84,15 +85,25 @@ class ActiveRecallService:
             SystemRandom().choice(note.questions_for_tests) if note.questions_for_tests else None
         )
 
+        if question is not None:
+            exercise = RecallExercise(
+                question=question,
+                key_points=(),
+            )
+
+            return RecallSession(
+                note_id=note.id,
+                note_title=note.title,
+                source_markdown=note.markdown_content,
+                exercise=exercise,
+            )
+
         if self._observability_event_service is None:
             exercise = self._exercise_generator.generate(
                 note.title,
                 note.markdown_content,
-                question,
+                None,
             )
-
-            if question is not None:
-                exercise = exercise.model_copy(update={"question": question})
         else:
             with self._observability_event_service.observe(
                 "active_recall_question",
@@ -105,11 +116,8 @@ class ActiveRecallService:
                 exercise = self._exercise_generator.generate(
                     note.title,
                     note.markdown_content,
-                    question,
+                    None,
                 )
-
-                if question is not None:
-                    exercise = exercise.model_copy(update={"question": question})
 
                 generation_scope.set_output(exercise.model_dump(mode="json"))
                 generation_scope.add_metadata(
@@ -192,6 +200,8 @@ class ActiveRecallService:
 
         if not normalized_answer:
             raise ValueError("Student answer must not be empty")
+
+        session = self._complete_session_exercise(session)
 
         trace_id = str(uuid4())
         review_observation_id = uuid4()
@@ -309,9 +319,11 @@ class ActiveRecallService:
         if study_session.answered_count != study_session.current_index:
             raise ValueError("Current exercise has already been completed")
 
+        completed_session = self._complete_session_exercise(study_session.current_exercise)
+
         result = RecallSessionResult(
-            session=study_session.current_exercise,
-            student_answer=study_session.current_exercise.exercise.reference_answer,
+            session=completed_session,
+            student_answer=completed_session.exercise.reference_answer,
             review=RecallAnswerReview(
                 verdict="incorrect",
                 covered_points=(),
@@ -341,6 +353,7 @@ class ActiveRecallService:
 
         return study_session.model_copy(
             update={
+                "current_exercise": completed_session,
                 "results": (*study_session.results, result),
                 "imitated_indices": (
                     *study_session.imitated_indices,
@@ -348,6 +361,22 @@ class ActiveRecallService:
                 ),
             },
         )
+
+    def _complete_session_exercise(
+        self,
+        session: RecallSession,
+    ) -> RecallSession:
+        if session.exercise.reference_answer:
+            return session
+
+        exercise = self._exercise_generator.generate(
+            session.note_title,
+            session.source_markdown,
+            session.exercise.question,
+        )
+        exercise = exercise.model_copy(update={"question": session.exercise.question})
+
+        return session.model_copy(update={"exercise": exercise})
 
     def advance_study_session(
         self,
