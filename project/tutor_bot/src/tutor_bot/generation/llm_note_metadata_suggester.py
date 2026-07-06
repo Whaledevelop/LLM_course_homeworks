@@ -36,7 +36,7 @@ class _ObservabilityEventRecorder(Protocol):
         pass
 
 
-class OllamaNoteMetadataSuggester:
+class LlmNoteMetadataSuggester:
     def __init__(
         self,
         provider: LlmProvider,

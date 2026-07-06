@@ -441,6 +441,7 @@ class ActiveRecallService:
                 importance=note.importance,
                 knowledge=updated_knowledge,
                 fullness=note.fullness,
+                favorite=note.favorite,
                 markdown_content=note.markdown_content,
             )
         )

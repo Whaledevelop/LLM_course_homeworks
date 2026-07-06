@@ -40,6 +40,7 @@ class MetadataNoteQueryService:
                 importance=metadata.importance,
                 knowledge=metadata.knowledge,
                 fullness=metadata.fullness,
+                favorite=metadata.favorite,
             )
             for note_id, metadata in metadata_catalog.notes.items()
         ]
@@ -90,6 +91,7 @@ class MetadataNoteQueryService:
             importance=metadata.importance,
             knowledge=metadata.knowledge,
             fullness=metadata.fullness,
+            favorite=metadata.favorite,
             comment=metadata.comment,
             questions_for_tests=metadata.questions_for_tests,
             markdown_content=markdown_content,

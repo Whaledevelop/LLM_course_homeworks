@@ -79,6 +79,7 @@ class ChatService:
                 importance=note.importance,
                 knowledge=note.knowledge,
                 fullness=estimate_note_fullness(draft.markdown_content),
+                favorite=note.favorite,
                 markdown_content=draft.markdown_content,
             )
         )

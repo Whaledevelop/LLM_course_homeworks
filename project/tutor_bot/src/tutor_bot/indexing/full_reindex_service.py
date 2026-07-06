@@ -2,6 +2,7 @@ from tutor_bot.indexing.bm25_chunk_index import Bm25ChunkIndex
 from tutor_bot.indexing.chroma_chunk_index import (
     ChromaChunkIndex,
 )
+from tutor_bot.indexing.chunk_search_text import build_chunk_search_text
 from tutor_bot.indexing.corpus_chunk_builder import (
     CorpusChunkBuilder,
 )
@@ -30,7 +31,16 @@ class FullReindexService:
 
             return 0
 
-        embeddings = self._embedding_service.embed_passages([chunk.text for chunk in chunks])
+        embeddings = self._embedding_service.embed_passages(
+            [
+                build_chunk_search_text(
+                    chunk.note_title,
+                    chunk.heading_title,
+                    chunk.text,
+                )
+                for chunk in chunks
+            ]
+        )
 
         self._chroma_index.replace_all(
             chunks,

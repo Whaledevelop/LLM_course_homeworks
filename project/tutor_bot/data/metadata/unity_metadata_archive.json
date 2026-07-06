@@ -9,6 +9,7 @@
       "importance": 5,
       "knowledge": 0,
       "fullness": 10,
+      "favorite": false,
       "time_added": "2026-07-06T00:01:25.461881+03:00"
     },
     "0c4e275e-222e-44bf-b0ec-8f75108f3e6a": {
@@ -19,6 +20,7 @@
       "importance": 5,
       "knowledge": 0,
       "fullness": 5,
+      "favorite": false,
       "time_added": "2026-07-06T00:01:25.461881+03:00"
     }
   }

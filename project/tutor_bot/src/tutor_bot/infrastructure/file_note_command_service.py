@@ -93,6 +93,7 @@ class FileNoteCommandService:
                 "importance": command.importance,
                 "knowledge": command.knowledge,
                 "fullness": command.fullness,
+                "favorite": command.favorite,
             }
         )
 
@@ -189,6 +190,7 @@ class FileNoteCommandService:
             importance=metadata.importance,
             knowledge=metadata.knowledge,
             fullness=metadata.fullness,
+            favorite=metadata.favorite,
             comment=metadata.comment,
             questions_for_tests=metadata.questions_for_tests,
             markdown_content=document.normalized_content,

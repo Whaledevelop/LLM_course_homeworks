@@ -77,6 +77,7 @@ class DatabaseNoteMetadata(BaseModel):
     importance: int = Field(default=0, ge=0, le=10)
     knowledge: int = Field(default=0, ge=0, le=10)
     fullness: int | None = Field(default=None, ge=0, le=10)
+    favorite: bool = False
     time_added: datetime = Field(default_factory=lambda: datetime.now().astimezone())
 
 
