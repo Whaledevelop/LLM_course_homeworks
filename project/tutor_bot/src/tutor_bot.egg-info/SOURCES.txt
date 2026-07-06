@@ -17,6 +17,7 @@ src/tutor_bot/application/assignment_review_service.py
 src/tutor_bot/application/chat_result.py
 src/tutor_bot/application/chat_route.py
 src/tutor_bot/application/chat_service.py
+src/tutor_bot/application/chat_source_query.py
 src/tutor_bot/application/chat_supervisor.py
 src/tutor_bot/application/chat_workflow.py
 src/tutor_bot/application/create_note_command.py

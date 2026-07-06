@@ -17,7 +17,7 @@ from tutor_bot.infrastructure.metadata_note_query_service import (
     MetadataNoteQueryService,
 )
 from tutor_bot.infrastructure.ui_state_repository import UiStateRepository
-from tutor_bot.ui.app_mode import APP_MODE_STATE_KEY, AppMode
+from tutor_bot.ui.app_mode import APP_MODE_STATE_KEY, AppMode, apply_pending_app_mode
 from tutor_bot.ui.tutor_answer_service_factory import (
     create_active_recall_service,
     create_assignment_review_service,
@@ -100,6 +100,7 @@ def main() -> None:
         page_icon="🎓",
         layout="wide",
     )
+    apply_pending_app_mode()
     _apply_styles()
 
     st.sidebar.title("Tutor Bot")

@@ -4,6 +4,7 @@ from pydantic import BaseModel, ConfigDict
 
 
 class ChatRoute(StrEnum):
+    CAPABILITIES = "capabilities"
     LOCAL = "local"
     GENERAL = "general"
     CREATE_NOTE = "create_note"
