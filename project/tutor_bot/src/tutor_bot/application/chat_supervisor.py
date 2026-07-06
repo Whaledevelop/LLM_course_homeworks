@@ -4,6 +4,7 @@ from langchain_core.output_parsers import PydanticOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 from tutor_bot.application.chat_route import ChatRoute, ChatRouteDecision
+from tutor_bot.application.chat_source_query import detect_explicit_chat_source
 from tutor_bot.generation.llm_provider import LlmProvider
 
 
@@ -20,6 +21,15 @@ _CREATE_NOTE_PATTERN = re.compile(
     re.IGNORECASE,
 )
 _QUOTED_TITLE_PATTERN = re.compile(r"[\"«](?P<title>.+?)[\"»]")
+_CAPABILITIES_MARKERS = (
+    "что ты умеешь",
+    "что умеет chat",
+    "список возможностей",
+    "список своего функционала",
+    "какие запросы поддерживаешь",
+    "какие запросы ты поддерживаешь",
+    "поддерживаемые запросы",
+)
 
 
 class ChatSupervisor:
@@ -90,5 +100,13 @@ class ChatSupervisor:
                 route=ChatRoute.CREATE_NOTE,
                 note_title=create_note_match.group("title").strip(),
             )
+
+        if any(marker in normalized_question for marker in _CAPABILITIES_MARKERS):
+            return ChatRouteDecision(route=ChatRoute.CAPABILITIES)
+
+        explicit_source = detect_explicit_chat_source(question)
+
+        if explicit_source is not None:
+            return ChatRouteDecision(route=ChatRoute(explicit_source))
 
         return None

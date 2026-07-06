@@ -11,6 +11,7 @@ from tutor_bot.application.chat_result import (
 )
 from tutor_bot.application.chat_route import ChatRoute, ChatRouteDecision
 from tutor_bot.application.chat_supervisor import ChatSupervisor
+from tutor_bot.application.chat_source_query import strip_chat_source_instruction
 from tutor_bot.application.llm_note_title_matcher import LlmNoteTitleMatcher
 from tutor_bot.application.note_details import NoteDetails
 from tutor_bot.application.note_query_service import NoteQueryService
@@ -22,6 +23,15 @@ from tutor_bot.retrieval.context_gate_result import ContextGateResult
 
 
 _UNAVAILABLE_ANSWER = "Ответ недоступен"
+_CAPABILITIES_RESPONSE = """Поддерживаемые запросы:
+
+1. Ответить по локальным заметкам с помощью RAG. Например: «Используя только локальные заметки, расскажи про мультиплеер в Unity».
+2. Ответить из общих знаний выбранной LLM. Например: «Используя знания LLM, объясни принципы SOLID».
+3. Создать заметку с предварительным просмотром. Например: «Создай заметку с названием „Dependency Injection“».
+4. Дополнить существующую заметку с подтверждением изменений. Например: «Дополни заметку „SOLID“ примерами на C#».
+5. Запустить Test Notes по конкретной заметке. Например: «Запусти тест по заметке „SOLID“».
+
+Вопрос или команду можно ввести текстом либо надиктовать через speech-to-text."""
 _GENERAL_PROMPT = """Ты помощник в учебном приложении.
 Ответь на вопрос с помощью своих общих знаний.
 Не утверждай, что использовал локальные заметки или внешний поиск.
@@ -58,6 +68,7 @@ class ChatWorkflow:
     def _create_graph(self):
         graph = StateGraph(_ChatState)
         graph.add_node("supervisor", self._run_supervisor)
+        graph.add_node("capabilities", self._run_capabilities_agent)
         graph.add_node("local", self._run_local_agent)
         graph.add_node("general", self._run_general_agent)
         graph.add_node("create_note", self._run_create_note_agent)
@@ -82,20 +93,31 @@ class ChatWorkflow:
     def _select_node(self, state: "_ChatState") -> ChatRoute:
         return state["decision"].route
 
+    def _run_capabilities_agent(self, state: "_ChatState") -> "_ChatState":
+        return {
+            "answer": self._create_answer(
+                state["question"],
+                _CAPABILITIES_RESPONSE,
+            )
+        }
+
     def _run_local_agent(self, state: "_ChatState") -> "_ChatState":
-        return {"answer": self._local_answer_service_factory().answer(state["question"])}
+        question = strip_chat_source_instruction(state["question"])
+
+        return {"answer": self._local_answer_service_factory().answer(question)}
 
     def _run_general_agent(self, state: "_ChatState") -> "_ChatState":
+        question = strip_chat_source_instruction(state["question"])
         response = self._provider.generate(
             messages=[
                 {"role": "system", "content": _GENERAL_PROMPT},
-                {"role": "user", "content": state["question"]},
+                {"role": "user", "content": question},
             ],
             temperature=0.2,
             max_tokens=1200,
         )
 
-        return {"answer": self._create_answer(state["question"], response.text.strip())}
+        return {"answer": self._create_answer(question, response.text.strip())}
 
     def _run_create_note_agent(self, state: "_ChatState") -> "_ChatState":
         decision = state["decision"]

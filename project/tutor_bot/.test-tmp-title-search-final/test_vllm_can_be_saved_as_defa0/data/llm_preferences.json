@@ -1,4 +1,0 @@
-{
-  "default_provider": "vllm",
-  "default_model": "Qwen/Qwen3-8B"
-}
