@@ -1,6 +1,7 @@
 from uuid import uuid4
 
 from tutor_bot.application.note_list_item import NoteListItem
+from tutor_bot.ui.views import browse_notes_page
 from tutor_bot.ui.views.browse_notes_page import _sort_notes
 
 
@@ -26,6 +27,37 @@ def test_sort_notes_alphabetically_ignores_importance() -> None:
     sorted_notes = _sort_notes(notes, "По алфавиту")
 
     assert [note.title for note in sorted_notes] == ["Альфа", "Бета", "Гамма"]
+
+
+def test_scroll_to_page_top_consumes_request(monkeypatch) -> None:
+    session_state = {"browse_notes_scroll_to_top": True}
+    rendered_html = []
+    monkeypatch.setattr(browse_notes_page.st, "session_state", session_state)
+    monkeypatch.setattr(
+        browse_notes_page.components,
+        "html",
+        lambda html, height: rendered_html.append((html, height)),
+    )
+
+    browse_notes_page._scroll_to_page_top_if_requested()
+
+    assert "scrollTo" in rendered_html[0][0]
+    assert rendered_html[0][1] == 0
+    assert session_state == {}
+
+
+def test_scroll_to_page_top_without_request_does_not_render(monkeypatch) -> None:
+    rendered_html = []
+    monkeypatch.setattr(browse_notes_page.st, "session_state", {})
+    monkeypatch.setattr(
+        browse_notes_page.components,
+        "html",
+        lambda html, height: rendered_html.append((html, height)),
+    )
+
+    browse_notes_page._scroll_to_page_top_if_requested()
+
+    assert rendered_html == []
 
 
 def _create_note(title: str, importance: int) -> NoteListItem:

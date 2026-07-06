@@ -27,7 +27,7 @@ def start_note_test(
     note_id: UUID,
 ) -> None:
     try:
-        with st.spinner("Генерирую вопрос по заметке..."):
+        with st.spinner("Подготавливаю вопрос по заметке..."):
             st.session_state[_STUDY_SESSION_KEY] = recall_service.create_note_study_session(note_id)
     except (HTTPError, RuntimeError, ValueError, ValidationError) as error:
         st.error(f"Не удалось начать тест заметки: {error}")

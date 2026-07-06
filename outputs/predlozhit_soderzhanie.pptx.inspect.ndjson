@@ -1,0 +1,50 @@
+{"kind":"deck","id":"pr/m2dqeh","name":"Deck"}
+{"kind":"layout","layoutId":"19b7216e-21a0-4cad-be11-bb2dcaafa3f1","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"d637359c-a14c-4b21-acab-c90a3c37e687","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/rsnzef","slide":1,"title":"TUTOR BOT · СОЗДАНИЕ ЗАМЕТКИ","textShapes":19}
+{"kind":"textbox","id":"sh/qpg3ex0n","slide":1,"text":"TUTOR BOT · СОЗДАНИЕ ЗАМЕТКИ","textPreview":"TUTOR BOT · СОЗДАНИЕ ЗАМЕТКИ","textChars":28,"textLines":1,"bbox":[56,34,400,28]}
+{"kind":"textbox","id":"sh/xczed8v6","slide":1,"text":"«Предложить содержание» превращает тему в черновик Markdown","textPreview":"«Предложить содержание» превращает тему в черновик Markdown","textChars":59,"textLines":1,"bbox":[56,68,1120,88]}
+{"kind":"textbox","id":"sh/8v6psfil","slide":1,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[1180,34,46,28]}
+{"kind":"textbox","id":"sh/fyxobm58","slide":1,"text":"Пользователь сохраняет контроль: генерация заполняет поле, но заметка создаётся только отдельным подтверждением.","textPreview":"Пользователь сохраняет контроль: генерация заполняет поле, но заметка создаётся только отдельным подтверждением.","textChars":112,"textLines":1,"bbox":[56,160,1100,38]}
+{"kind":"shape","id":"sh/qd4vmtwr","slide":1,"bbox":[56,215,258,238]}
+{"kind":"shape","id":"sh/x4nap4r6","slide":1,"bbox":[76,237,42,42]}
+{"kind":"textbox","id":"sh/8jqh0fep","slide":1,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[76,237,42,42]}
+{"kind":"textbox","id":"sh/fmlkjm1c","slide":1,"text":"Тема + fullness","textPreview":"Тема + fullness","textChars":15,"textLines":1,"bbox":[76,296,218,54]}
+{"kind":"textbox","id":"sh/q1orytsv","slide":1,"text":"Streamlit form принимает название и глубину 4–10.","textPreview":"Streamlit form принимает название и глубину 4–10.","textChars":49,"textLines":1,"bbox":[76,354,218,80]}
+{"kind":"shape","id":"sh/4nap4r65","slide":1,"bbox":[351,215,258,238]}
+{"kind":"shape","id":"sh/t83itgfm","slide":1,"bbox":[371,237,42,42]}
+{"kind":"textbox","id":"sh/mhk3q5o7","slide":1,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[371,237,42,42]}
+{"kind":"textbox","id":"sh/b2hwfyxo","slide":1,"text":"Prompt engineering","textPreview":"Prompt engineering","textChars":18,"textLines":1,"bbox":[371,296,218,54]}
+{"kind":"textbox","id":"sh/4byhgn29","slide":1,"text":"System prompt задаёт Markdown, структуру и запрет frontmatter.","textPreview":"System prompt задаёт Markdown, структуру и запрет frontmatter.","textChars":62,"textLines":1,"bbox":[371,354,218,80]}
+{"kind":"shape","id":"sh/twra5gbq","slide":1,"bbox":[646,215,258,238]}
+{"kind":"shape","id":"sh/m58z25kb","slide":1,"bbox":[666,237,42,42]}
+{"kind":"textbox","id":"sh/bq1oryts","slide":1,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[666,237,42,42]}
+{"kind":"textbox","id":"sh/47y1kre1","slide":1,"text":"LLM provider","textPreview":"LLM provider","textChars":12,"textLines":1,"bbox":[666,296,218,54]}
+{"kind":"textbox","id":"sh/tsvu9kni","slide":1,"text":"Единый Protocol маршрутизирует запрос в Ollama, Yandex AI Studio или vLLM.","textPreview":"Единый Protocol маршрутизирует запрос в Ollama, Yandex AI Studio или vLLM.","textChars":74,"textLines":1,"bbox":[666,354,218,80]}
+{"kind":"shape","id":"sh/xkf6dcbu","slide":1,"bbox":[941,215,258,238]}
+{"kind":"shape","id":"sh/4zidonyd","slide":1,"bbox":[961,237,42,42]}
+{"kind":"textbox","id":"sh/fepkzupw","slide":1,"text":"4","textPreview":"4","textChars":1,"textLines":1,"bbox":[961,237,42,42]}
+{"kind":"textbox","id":"sh/mtwra5gb","slide":1,"text":"Preview → confirm","textPreview":"Preview → confirm","textChars":17,"textLines":1,"bbox":[961,296,218,54]}
+{"kind":"textbox","id":"sh/xc3ylc7u","slide":1,"text":"session_state + rerun подставляют текст без автосохранения заметки.","textPreview":"session_state + rerun подставляют текст без автосохранения заметки.","textChars":67,"textLines":1,"bbox":[961,354,218,80]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":1,"text":"Технологии","textPreview":"Технологии","textChars":10,"textLines":1,"bbox":[56,498,150,30]}
+{"kind":"textbox","id":"sh/f6dcbulw","slide":1,"text":"Python 3.12  ·  Streamlit  ·  Ollama SDK  ·  OpenAI SDK  ·  Langfuse  ·  provider abstraction / DI  ·  token usage tracking","textPreview":"Python 3.12  ·  Streamlit  ·  Ollama SDK  ·  OpenAI SDK  ·  Langfuse  ·  provider abstraction / DI  ·  token usage tracking","textChars":123,"textLines":1,"bbox":[56,530,1160,50]}
+{"kind":"textbox","id":"sh/mlkjm1cf","slide":1,"text":"Не участвуют в этой фиче: RAG, ChromaDB, BM25, reranker и LangChain.","textPreview":"Не участвуют в этой фиче: RAG, ChromaDB, BM25, reranker и LangChain.","textChars":68,"textLines":1,"bbox":[56,604,1160,35]}
+{"kind":"notes","id":"nt/rsnzef","slide":1,"text":""}
+{"kind":"slide","id":"sl/fcatzn","slide":2,"title":"КЛЮЧЕВАЯ РЕАЛИЗАЦИЯ","textShapes":15}
+{"kind":"textbox","id":"sh/0bi9s36h","slide":2,"text":"КЛЮЧЕВАЯ РЕАЛИЗАЦИЯ","textPreview":"КЛЮЧЕВАЯ РЕАЛИЗАЦИЯ","textChars":19,"textLines":1,"bbox":[56,34,400,28]}
+{"kind":"textbox","id":"sh/7qpg3ex0","slide":2,"text":"Объём управляется fullness, а интеграция не зависит от конкретной LLM","textPreview":"Объём управляется fullness, а интеграция не зависит от конкретной LLM","textChars":69,"textLines":1,"bbox":[56,68,1120,88]}
+{"kind":"textbox","id":"sh/i5sneloj","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1180,34,46,28]}
+{"kind":"shape","id":"sh/p4r65wju","slide":2,"bbox":[56,180,715,458]}
+{"kind":"textbox","id":"sh/wjudg7ad","slide":2,"text":"def generate(self, title: str, fullness: int = 7) -> str:\n    if fullness < 4 or fullness > 10:\n        raise ValueError(\"Fullness must be between 4 and 10\")\n\n    response = self._provider.generate(\n        messages=[\n            {\"role\": \"system\", \"content\": _SYSTEM_PROMPT},\n            {\"role\": \"user\", \"content\": (\n                f\"Тема заметки: {title}\\n\"\n                f\"Целевая заполненность: {fullness} из 10.\"\n            )},\n        ],\n        temperature=0.3,\n        max_tokens=max(4000, 1000 + (fullness - 4) * 1000),\n    )\n\n    return response.text.strip()","textPreview":"def generate(self, title: str, fullness: int = 7) -> str: |     if fullness < 4 or fullness > 10: |         raise ValueError(\"Fullness mu...","textChars":573,"textLines":17,"bbox":[80,201,670,417]}
+{"kind":"textbox","id":"sh/7y1kre1w","slide":2,"text":"Что здесь важно","textPreview":"Что здесь важно","textChars":15,"textLines":1,"bbox":[822,190,380,40]}
+{"kind":"textbox","id":"sh/ed8v6psf","slide":2,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[822,252,45,32]}
+{"kind":"textbox","id":"sh/p8nqxs72","slide":2,"text":"Динамический token budget","textPreview":"Динамический token budget","textChars":25,"textLines":1,"bbox":[874,245,325,42]}
+{"kind":"textbox","id":"sh/0nuxc3yl","slide":2,"text":"4–7 → 4k токенов, 8 → 5k, 9 → 6k, 10 → 7k.","textPreview":"4–7 → 4k токенов, 8 → 5k, 9 → 6k, 10 → 7k.","textChars":42,"textLines":1,"bbox":[874,286,325,52]}
+{"kind":"textbox","id":"sh/ih4byhgn","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[822,360,45,32]}
+{"kind":"textbox","id":"sh/72x4nap4","slide":2,"text":"Низкая вариативность","textPreview":"Низкая вариативность","textChars":20,"textLines":1,"bbox":[874,353,325,42]}
+{"kind":"textbox","id":"sh/0nuxc3yl","slide":2,"text":"temperature = 0.3 делает учебный материал стабильнее.","textPreview":"temperature = 0.3 делает учебный материал стабильнее.","textChars":53,"textLines":1,"bbox":[874,394,325,52]}
+{"kind":"textbox","id":"sh/p8nqxs72","slide":2,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[822,468,45,32]}
+{"kind":"textbox","id":"sh/itgfmlkj","slide":2,"text":"Наблюдаемость","textPreview":"Наблюдаемость","textChars":13,"textLines":1,"bbox":[874,461,325,42]}
+{"kind":"textbox","id":"sh/7ed8bat4","slide":2,"text":"ObservedLlmProvider пишет trace и usage в Langfuse; UI считает токены сессии.","textPreview":"ObservedLlmProvider пишет trace и usage в Langfuse; UI считает токены сессии.","textChars":77,"textLines":1,"bbox":[874,502,325,70]}
+{"kind":"textbox","id":"sh/0z61032l","slide":2,"text":"Подходы: prompt contract · Strategy/Adapter через LlmProvider · dependency injection · preview-before-write","textPreview":"Подходы: prompt contract · Strategy/Adapter через LlmProvider · dependency injection · preview-before-write","textChars":107,"textLines":1,"bbox":[822,588,380,48]}
+{"kind":"notes","id":"nt/fcatzn","slide":2,"text":""}

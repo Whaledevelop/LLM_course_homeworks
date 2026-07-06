@@ -6,6 +6,7 @@ from tutor_bot.infrastructure.active_database_service import (
     ActiveDatabaseService,
     DatabaseSummary,
 )
+from tutor_bot.ui.app_mode import APP_MODE_STATE_KEY
 from tutor_bot.ui.tutor_answer_service_factory import rebuild_database_search_index
 
 
@@ -167,7 +168,7 @@ def _render_delete_database(
 
 
 def _clear_note_session_state() -> None:
-    preserved_keys = {"selected_app_mode"}
+    preserved_keys = {APP_MODE_STATE_KEY}
 
     for key in tuple(st.session_state):
         if key not in preserved_keys:

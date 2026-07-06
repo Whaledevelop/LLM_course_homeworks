@@ -1,3 +1,4 @@
+from datetime import datetime
 from pathlib import PurePosixPath
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -12,6 +13,7 @@ class NoteMetadata(BaseModel):
     importance: int = Field(ge=0, le=10)
     knowledge: int = Field(ge=0, le=10)
     fullness: int = Field(default=0, ge=0, le=10)
+    time_added: datetime = Field(default_factory=lambda: datetime.now().astimezone())
     last_recorded_name: str = Field(min_length=1)
     relative_path: PurePosixPath
 

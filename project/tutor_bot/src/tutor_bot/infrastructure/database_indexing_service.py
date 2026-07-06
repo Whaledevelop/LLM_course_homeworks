@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from uuid import UUID
 
@@ -32,6 +33,7 @@ class DatabaseIndexingService:
 
     def update(self, db_id: str, root_path: Path) -> DatabaseIndexingResult:
         root_path = root_path.resolve()
+        time_added = datetime.now().astimezone()
 
         if not root_path.is_dir():
             raise NotADirectoryError(f"Notes directory not found: {root_path}")
@@ -53,6 +55,7 @@ class DatabaseIndexingService:
             metadata,
             archive,
             new_index,
+            time_added,
         )
         originals = {path: note.original_content for path, note in prepared_notes.items()}
 
@@ -123,6 +126,7 @@ class DatabaseIndexingService:
         metadata: DatabaseMetadata,
         archive: DatabaseMetadata,
         index: DatabaseIndex,
+        time_added: datetime,
     ) -> tuple[DatabaseMetadata, DatabaseMetadata, int]:
         active_notes: dict[UUID, DatabaseNoteMetadata] = {}
         archived_notes = dict(archive.notes)
@@ -135,7 +139,7 @@ class DatabaseIndexingService:
                 note_metadata = archived_notes.pop(note_id)
                 restored += 1
             else:
-                note_metadata = DatabaseNoteMetadata()
+                note_metadata = DatabaseNoteMetadata(time_added=time_added)
 
             if note_metadata.fullness is None:
                 note_path = root_path / index.notes[note_id].path

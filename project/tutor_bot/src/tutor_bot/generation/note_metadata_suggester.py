@@ -7,4 +7,5 @@ class NoteMetadataSuggester(Protocol):
     def suggest(
         self,
         markdown_content: str,
+        existing_groups: tuple[str, ...],
     ) -> NoteMetadataSuggestion: ...

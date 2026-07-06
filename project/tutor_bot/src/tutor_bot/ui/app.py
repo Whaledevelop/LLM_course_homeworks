@@ -34,7 +34,10 @@ from tutor_bot.ui.views.active_recall_page import (
 )
 from tutor_bot.ui.views.add_note_page import render_add_note_page
 from tutor_bot.ui.views.assignment_review_page import render_assignment_review_page
-from tutor_bot.ui.views.browse_notes_page import render_browse_notes_page
+from tutor_bot.ui.views.browse_notes_page import (
+    render_browse_notes_page,
+    request_browse_page_scroll_to_top,
+)
 from tutor_bot.ui.views.databases_page import render_databases_page
 from tutor_bot.ui.views.placeholder_page import render_placeholder_page
 from tutor_bot.ui.views.questions_page import render_questions_page
@@ -47,13 +50,13 @@ from tutor_bot.infrastructure.vacancy_repository import VacancyRepository
 
 
 _VISIBLE_APP_MODES = [
-    AppMode.QUESTIONS,
     AppMode.BROWSE_NOTES,
     AppMode.ADD_NOTE,
-    AppMode.TEST_NOTES,
-    AppMode.PREPARE_FOR_VACANCY,
-    AppMode.LLMS,
     AppMode.DATABASES,
+    AppMode.TEST_NOTES,
+    AppMode.LLMS,
+    AppMode.PREPARE_FOR_VACANCY,
+    AppMode.QUESTIONS,
 ]
 
 
@@ -195,6 +198,7 @@ def main() -> None:
     if selected_mode == AppMode.ADD_NOTE:
         render_add_note_page(
             note_command_service,
+            note_query_service,
             create_note_metadata_suggester(),
             create_note_content_generator(),
         )
@@ -258,6 +262,9 @@ def _apply_styles() -> None:
 def _interrupt_study_sessions() -> None:
     interrupt_active_recall_session()
     interrupt_vacancy_session()
+
+    if st.session_state.get(APP_MODE_STATE_KEY) == AppMode.BROWSE_NOTES:
+        request_browse_page_scroll_to_top()
 
 
 if __name__ == "__main__":

@@ -21,3 +21,5 @@ project/tutor_bot/data/history/*.jsonl
 **/.streamlit
 
 **/.ruff_cache
+
+**/.test-tmp

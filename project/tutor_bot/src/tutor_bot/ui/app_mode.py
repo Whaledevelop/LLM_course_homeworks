@@ -10,6 +10,6 @@ class AppMode(StrEnum):
     ADD_NOTE = "Добавление заметок"
     ASSIGNMENT_REVIEW = "Проверка заданий"
     TEST_NOTES = "Test Notes"
-    PREPARE_FOR_VACANCY = "Prepare for Vacancy"
+    PREPARE_FOR_VACANCY = "Prepare for vacancy"
     LLMS = "LLMs"
     DATABASES = "Базы данных"
