@@ -1,8 +1,8 @@
 import json
 
 from tutor_bot.generation.llm_response import LlmResponse
-from tutor_bot.generation.ollama_note_metadata_suggester import (
-    OllamaNoteMetadataSuggester,
+from tutor_bot.generation.llm_note_metadata_suggester import (
+    LlmNoteMetadataSuggester,
 )
 
 
@@ -47,7 +47,7 @@ class _Provider:
 
 def test_suggest_uses_existing_groups_and_returns_extended_metadata() -> None:
     provider = _Provider()
-    suggester = OllamaNoteMetadataSuggester(provider)
+    suggester = LlmNoteMetadataSuggester(provider)
 
     suggestion = suggester.suggest(
         "# Индексы\nИндекс ускоряет поиск.",

@@ -177,11 +177,14 @@ def _sort_notes(
     sorting: str,
 ) -> list[NoteListItem]:
     if sorting == _SORT_ALPHABETICALLY:
-        return sorted(notes, key=lambda note: note.title.casefold())
+        return sorted(
+            notes,
+            key=lambda note: (not note.favorite, note.title.casefold()),
+        )
 
     return sorted(
         notes,
-        key=lambda note: (-note.importance, note.title.casefold()),
+        key=lambda note: (not note.favorite, -note.importance, note.title.casefold()),
     )
 
 
@@ -190,7 +193,7 @@ def _render_notes_table(
 ) -> NoteListItem | None:
     rows = [
         {
-            "Название": f"🔗 {note.title}",
+            "Название": f"{'⭐' if note.favorite else '🔗'} {note.title}",
         }
         for note in filtered_notes
     ]

@@ -160,6 +160,11 @@ def _render_edit_form(
         value=note_details.knowledge,
     )
 
+    favorite = st.toggle(
+        "Избранное",
+        value=note_details.favorite,
+    )
+
     markdown_content = st.text_area(
         "Markdown",
         key=editor_markdown_key,
@@ -236,6 +241,7 @@ def _render_edit_form(
         importance=importance,
         knowledge=knowledge,
         fullness=(estimate_note_fullness(markdown_content) if automatic_fullness else fullness),
+        favorite=favorite,
         markdown_content=markdown_content,
     )
 

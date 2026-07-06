@@ -11,7 +11,7 @@ _SYSTEM_PROMPT = """Ты локальный учебный ассистент.
 Отвечай на русском языке, кратко и по существу."""
 
 
-class OllamaGroundedAnswerGenerator:
+class LlmGroundedAnswerGenerator:
     def __init__(
         self,
         provider: LlmProvider,

@@ -25,7 +25,7 @@ _REPAIR_PROMPT = """Предыдущий ответ не прошёл прове
 Верни полный корректный JSON без Markdown и пояснений."""
 
 
-class OllamaGroundedAssignmentReviewer:
+class LlmGroundedAssignmentReviewer:
     def __init__(
         self,
         provider: LlmProvider,

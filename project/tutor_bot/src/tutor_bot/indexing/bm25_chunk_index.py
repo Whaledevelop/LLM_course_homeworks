@@ -4,6 +4,7 @@ from uuid import UUID
 import bm25s
 from bm25s.tokenization import Tokenizer
 
+from tutor_bot.indexing.chunk_search_text import build_chunk_search_text
 from tutor_bot.indexing.indexed_chunk import IndexedChunk
 from tutor_bot.retrieval.chunk_search_result import ChunkSearchResult
 
@@ -40,7 +41,14 @@ class Bm25ChunkIndex:
         )
 
         corpus_tokens = tokenizer.tokenize(
-            [chunk.text for chunk in chunks],
+            [
+                build_chunk_search_text(
+                    chunk.note_title,
+                    chunk.heading_title,
+                    chunk.text,
+                )
+                for chunk in chunks
+            ],
             show_progress=False,
             return_as="tuple",
         )

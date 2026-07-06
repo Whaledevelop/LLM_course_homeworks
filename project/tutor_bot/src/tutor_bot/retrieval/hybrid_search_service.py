@@ -2,6 +2,7 @@ from uuid import UUID
 
 from tutor_bot.indexing.bm25_chunk_index import Bm25ChunkIndex
 from tutor_bot.indexing.chroma_chunk_index import ChromaChunkIndex
+from tutor_bot.indexing.chunk_search_text import build_chunk_search_text
 from tutor_bot.indexing.embedding_service import EmbeddingService
 from tutor_bot.retrieval.chunk_search_result import ChunkSearchResult
 from tutor_bot.retrieval.hybrid_search_result import HybridSearchResult
@@ -87,7 +88,14 @@ class HybridSearchService:
 
         reranker_scores = self._reranker.score(
             query,
-            [chunks_by_id[chunk_id].text for chunk_id in ranked_chunk_ids],
+            [
+                build_chunk_search_text(
+                    chunks_by_id[chunk_id].note_title,
+                    chunks_by_id[chunk_id].heading_title,
+                    chunks_by_id[chunk_id].text,
+                )
+                for chunk_id in ranked_chunk_ids
+            ],
         )
 
         reranker_scores_by_id = dict(
