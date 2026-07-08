@@ -33,6 +33,19 @@ def test_llm_knowledge_instruction_selects_general_source_and_keeps_topic() -> N
     assert strip_chat_source_instruction(question) == "расскажи про мультиплеер в Unity"
 
 
+def test_model_data_instruction_selects_general_source_and_keeps_topic() -> None:
+    question = "Используя данные модели, расскажи про мультиплеер в Unity"
+
+    assert detect_explicit_chat_source(question) == "general"
+    assert strip_chat_source_instruction(question) == "расскажи про мультиплеер в Unity"
+
+
+def test_question_without_source_routes_to_local_without_llm_classification() -> None:
+    decision = ChatSupervisor(_FailingProvider()).select_route("Что такое SOLID?")
+
+    assert decision.route == ChatRoute.LOCAL
+
+
 def test_trailing_local_notes_instruction_is_removed_from_search_query() -> None:
     question = "Что такое SOLID согласно локальным заметкам?"
 
