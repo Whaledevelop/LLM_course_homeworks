@@ -30,6 +30,17 @@ _CAPABILITIES_MARKERS = (
     "какие запросы ты поддерживаешь",
     "поддерживаемые запросы",
 )
+_LLM_ROUTER_MARKERS = (
+    "active recall",
+    "добав",
+    "допол",
+    "запусти",
+    "измени",
+    "начни",
+    "обнов",
+    "созда",
+    "тест",
+)
 
 
 class ChatSupervisor:
@@ -43,6 +54,17 @@ class ChatSupervisor:
         if deterministic_decision is not None:
             return deterministic_decision
 
+        if not self._should_use_llm_router(question):
+            return ChatRouteDecision(route=ChatRoute.LOCAL)
+
+        decision = self._select_llm_route(question)
+
+        if decision.route in (ChatRoute.LOCAL, ChatRoute.GENERAL):
+            return ChatRouteDecision(route=ChatRoute.LOCAL)
+
+        return decision
+
+    def _select_llm_route(self, question: str) -> ChatRouteDecision:
         prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", _ROUTER_PROMPT),
@@ -67,6 +89,11 @@ class ChatSupervisor:
         )
 
         return self._parser.parse(response.text)
+
+    def _should_use_llm_router(self, question: str) -> bool:
+        normalized_question = question.casefold()
+
+        return any(marker in normalized_question for marker in _LLM_ROUTER_MARKERS)
 
     def _select_deterministic_route(self, question: str) -> ChatRouteDecision | None:
         quoted_title_match = _QUOTED_TITLE_PATTERN.search(question)

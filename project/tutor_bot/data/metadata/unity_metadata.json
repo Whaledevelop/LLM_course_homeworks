@@ -1,6 +1,40 @@
 {
   "db_id": "unity",
   "notes": {
+    "8b93a6f8-fc94-408c-af34-e38fb57cb2ae": {
+      "title": "Использование памяти в Unity, Memory Heap",
+      "group": "optimization",
+      "comment": "",
+      "questions_for_tests": [
+        "Что такое Managed Heap в Unity?",
+        "Почему частые аллокации в методе Update могут привести к просадкам FPS?",
+        "Какие типы данных по умолчанию размещаются на стеке в C#?",
+        "Какой инструмент в Unity позволяет анализировать выделение памяти по кадрам?",
+        "Почему важно отписываться от событий в методе OnDisable?"
+      ],
+      "importance": 9,
+      "knowledge": 0,
+      "fullness": 10,
+      "favorite": false,
+      "time_added": "2026-07-08T01:47:40.550711+03:00"
+    },
+    "1d4e9952-12ff-4273-833c-2eef474e6c8f": {
+      "title": "Память в Unity, Memory Heap",
+      "group": "optimization",
+      "comment": "",
+      "questions_for_tests": [
+        "Что такое куча (heap) в контексте управления памятью в Unity?",
+        "Почему частые сборки мусора могут привести к просадкам FPS?",
+        "Какой инструмент в Unity позволяет отслеживать аллокации памяти в куче?",
+        "Почему использование LINQ в методе Update считается плохой практикой?",
+        "Как кэширование ссылок помогает снизить нагрузку на сборщик мусора?"
+      ],
+      "importance": 9,
+      "knowledge": 0,
+      "fullness": 10,
+      "favorite": false,
+      "time_added": "2026-07-08T01:57:06.629597+03:00"
+    },
     "0b2c61a8-505a-552c-b731-7b9627970eff": {
       "title": "Сложность алгоритмов",
       "group": "algorithms",
@@ -80,7 +114,7 @@
       "questions_for_tests": [],
       "importance": 10,
       "knowledge": 3,
-      "fullness": 3,
+      "fullness": 8,
       "favorite": true,
       "time_added": "2026-07-05T23:21:51.571596+03:00"
     },

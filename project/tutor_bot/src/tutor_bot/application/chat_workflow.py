@@ -11,7 +11,10 @@ from tutor_bot.application.chat_result import (
 )
 from tutor_bot.application.chat_route import ChatRoute, ChatRouteDecision
 from tutor_bot.application.chat_supervisor import ChatSupervisor
-from tutor_bot.application.chat_source_query import strip_chat_source_instruction
+from tutor_bot.application.chat_source_query import (
+    detect_explicit_chat_source,
+    strip_chat_source_instruction,
+)
 from tutor_bot.application.llm_note_title_matcher import LlmNoteTitleMatcher
 from tutor_bot.application.note_details import NoteDetails
 from tutor_bot.application.note_query_service import NoteQueryService
@@ -103,11 +106,22 @@ class ChatWorkflow:
 
     def _run_local_agent(self, state: "_ChatState") -> "_ChatState":
         question = strip_chat_source_instruction(state["question"])
+        answer = self._local_answer_service_factory().answer(question)
 
-        return {"answer": self._local_answer_service_factory().answer(question)}
+        if (
+            detect_explicit_chat_source(state["question"]) is None
+            and not answer.context.has_sufficient_context
+        ):
+            return {"answer": self._answer_from_general_llm(question)}
+
+        return {"answer": answer}
 
     def _run_general_agent(self, state: "_ChatState") -> "_ChatState":
         question = strip_chat_source_instruction(state["question"])
+
+        return {"answer": self._answer_from_general_llm(question)}
+
+    def _answer_from_general_llm(self, question: str) -> TutorAnswer:
         response = self._provider.generate(
             messages=[
                 {"role": "system", "content": _GENERAL_PROMPT},
@@ -117,7 +131,7 @@ class ChatWorkflow:
             max_tokens=1200,
         )
 
-        return {"answer": self._create_answer(question, response.text.strip())}
+        return self._create_answer(question, response.text.strip())
 
     def _run_create_note_agent(self, state: "_ChatState") -> "_ChatState":
         decision = state["decision"]
