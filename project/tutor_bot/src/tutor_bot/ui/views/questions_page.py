@@ -1,4 +1,5 @@
 from collections.abc import Callable
+import re
 from uuid import UUID
 
 import streamlit as st
@@ -11,6 +12,7 @@ from tutor_bot.application.chat_result import (
 )
 from tutor_bot.application.chat_service import ChatService
 from tutor_bot.generation.llm_provider_error import LlmProviderError
+from tutor_bot.retrieval.context_gate_result import ContextGateResult
 from tutor_bot.retrieval.hybrid_search_result import HybridSearchResult
 from tutor_bot.ui.speech_input import render_speech_input
 from tutor_bot.ui.views.active_recall_page import open_note_study_session
@@ -18,6 +20,21 @@ from tutor_bot.ui.views.active_recall_page import open_note_study_session
 
 _ANSWER_KEY = "tutor_answer"
 _QUESTION_KEY = "chat_question"
+_QUOTED_TITLE_PATTERN = re.compile(r"[\"«](?P<title>.+?)[\"»]")
+_SAVE_ANSWER_ACTION_MARKERS = (
+    "сохрани",
+    "сохранить",
+    "добавь",
+    "добавить",
+    "создай",
+    "создать",
+)
+_TITLE_PREFIXES = (
+    "расскажи про",
+    "расскажи о",
+    "объясни",
+    "что такое",
+)
 
 
 def render_questions_page(
@@ -68,6 +85,14 @@ def _submit_question(
 
         return
 
+    if _is_save_current_answer_request(question):
+        _save_current_answer_as_note(
+            answer_service_factory,
+            question,
+        )
+
+        return
+
     st.session_state.pop(
         _ANSWER_KEY,
         None,
@@ -79,6 +104,88 @@ def _submit_question(
             st.session_state[_ANSWER_KEY] = answer_service.answer(question)
     except LlmProviderError as error:
         st.error(f"Не удалось получить ответ от LLM: {error}")
+
+
+def _is_save_current_answer_request(question: str) -> bool:
+    normalized_question = question.casefold()
+
+    return (
+        "это" in normalized_question
+        and "заметк" in normalized_question
+        and any(marker in normalized_question for marker in _SAVE_ANSWER_ACTION_MARKERS)
+    )
+
+
+def _save_current_answer_as_note(
+    answer_service_factory: Callable[[], ChatService],
+    question: str,
+) -> None:
+    result = st.session_state.get(_ANSWER_KEY)
+
+    if result is None or result.answer is None:
+        st.error("Нет ответа, который можно сохранить в заметку.")
+
+        return
+
+    draft = _create_note_draft_from_answer(
+        result.answer,
+        _extract_note_title(question),
+    )
+
+    try:
+        created_note = answer_service_factory().create_note(draft)
+    except (OSError, RuntimeError, ValueError) as error:
+        st.error(f"Не удалось создать заметку: {error}")
+
+        return
+
+    st.session_state[_ANSWER_KEY] = ChatResult(
+        answer=TutorAnswer(
+            question=question,
+            answer=f"Заметка «{created_note.title}» создана. ID: {created_note.id}",
+            context=ContextGateResult(
+                selected_results=(),
+                minimum_reranker_score=0.0,
+            ),
+        )
+    )
+
+
+def _create_note_draft_from_answer(
+    answer: TutorAnswer,
+    title: str | None,
+) -> CreateNoteDraft:
+    return CreateNoteDraft(
+        title=title or _derive_note_title_from_question(answer.question),
+        markdown_content=answer.answer.strip(),
+        fullness=7,
+    )
+
+
+def _extract_note_title(question: str) -> str | None:
+    title_match = _QUOTED_TITLE_PATTERN.search(question)
+
+    if title_match is None:
+        return None
+
+    title = title_match.group("title").strip()
+
+    return title or None
+
+
+def _derive_note_title_from_question(question: str) -> str:
+    title = question.strip().strip(".?!:;")
+    normalized_title = title.casefold()
+
+    for prefix in _TITLE_PREFIXES:
+        if normalized_title.startswith(prefix):
+            title = title[len(prefix) :].strip().strip(".?!:;")
+            break
+
+    if title:
+        return title[:100]
+
+    return "Ответ LLM"
 
 
 def _render_result(
