@@ -5,11 +5,13 @@ import json
 import os
 from collections import Counter
 from dataclasses import asdict
+from functools import partial
 from pathlib import Path
 
 from annotation_workspace import prepare_annotation_workspace, read_template_dialog_ids, validate_gold
 from benchmark import ExtractionBenchmark, write_benchmark_csv
 from dataset import load_news_dialogs
+from dataset_progress import print_dataset_progress, print_dataset_summary
 from evaluation import load_gold_labels, write_evaluation_csvs
 from extractors import RuleBasedNewsExtractor, SpacyNewsExtractor, TransformersJsonExtractor
 from news_classifier import DEFAULT_MODEL
@@ -50,13 +52,23 @@ def main() -> None:
         args.news_classifier_model,
         args.news_classifier_batch_size,
         args.allow_synthetic,
+        partial(print_dataset_progress, gold_size=args.gold_size),
     )
     validate_dataset(dialogs, args.sample_size, args.allow_synthetic)
     if filtering_stats is not None or not dataset_stats_path.exists():
         write_dataset_stats(dataset_stats_path, dialogs, filtering_stats, classifier_info)
     if args.prepare_annotations:
         prepare_annotation_workspace(data_dir, [dialog.dialog_id for dialog in dialogs[:args.gold_size]])
-        print(f"Annotation template written for {min(args.gold_size, len(dialogs))} dialogs.")
+        if filtering_stats is not None:
+            print_dataset_summary(
+                filtering_stats,
+                dataset_path,
+                template_path,
+                min(args.gold_size, len(dialogs)),
+                len(dialogs),
+            )
+        else:
+            print(f"Annotation template written for {min(args.gold_size, len(dialogs))} dialogs.")
 
         return
     validate_gold(gold_path, template_path, progress_path, args.gold_size, args.allow_incomplete_gold)
@@ -100,7 +112,7 @@ def main() -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--sample-size", type=int, default=200)
-    parser.add_argument("--gold-size", type=int, default=20)
+    parser.add_argument("--gold-size", type=int, default=10)
     parser.add_argument("--gold-path", default="")
     parser.add_argument("--batch-sizes", type=int, nargs="+", default=[1, 2, 4, 8])
     parser.add_argument("--profiles", nargs="+", default=["mistral-fp16", "mistral-int8", "openchat-fp16", "openchat-int8"])

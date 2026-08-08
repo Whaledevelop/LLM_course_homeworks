@@ -1,4 +1,7 @@
+from functools import partial
+
 from dataset import EVENT_PATTERN, collect_news_dialogs, has_excluded_content, is_english_text, is_news_dialog, news_dialog_score, unique_dialogs
+from dataset_progress import print_dataset_progress
 from schemas import NewsDialog
 
 
@@ -60,12 +63,43 @@ def build_row(dialog_id: str, text: str) -> dict:
 
 
 class FakeClassifier:
-    def __init__(self, classifications: list[str]) -> None:
+    def __init__(self, classifications: list[str | tuple[str, bool]]) -> None:
         self._classifications = iter(classifications)
         self.batch_size = 2
 
     def classify_batch(self, dialogs: list[tuple[str, str]]) -> list[tuple[str, bool]]:
-        return [(next(self._classifications), False) for _ in dialogs]
+        results = []
+        for _ in dialogs:
+            classification = next(self._classifications)
+            if isinstance(classification, tuple):
+                results.append(classification)
+            else:
+                results.append((classification, False))
+
+        return results
+
+
+def test_dataset_progress_displays_cache_hit_and_preview(capsys) -> None:
+    rows = [
+        build_row("one", "Reuters reported an earthquake\n\nin London in 2024."),
+        build_row("two", "BBC reported an election in Paris in 2024."),
+    ]
+    classifier = FakeClassifier([("NEWS", True), "NOT_NEWS"])
+
+    dialogs, stats = collect_news_dialogs(
+        rows,
+        1,
+        42,
+        classifier,
+        partial(print_dataset_progress, gold_size=10),
+    )
+
+    output = capsys.readouterr().out
+    assert len(dialogs) == 1
+    assert stats["classifier_cache_hits"] == 1
+    assert "LLM: NEWS [CACHE]" in output
+    assert "Reuters reported an earthquake in London in 2024." in output
+    assert "NEWS collected: 1/1" in output
 
 
 def test_english_filter_rejects_non_english_text() -> None:

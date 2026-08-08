@@ -1,6 +1,6 @@
 # Извлечение сущностей и событий из новостных диалогов
 
-Домашнее задание по треку B: 200 реальных новостных диалогов из `allenai/WildChat-1M`, 20 вручную размеченных gold-диалогов и сравнение двух локальных LLM в FP16/INT8. Извлекаются `PERSON`, `ORG`, `LOC`, `EVENT`, `DATE`, `IMPACT`, `SOURCE`.
+Домашнее задание по треку B: 200 реальных новостных диалогов из `allenai/WildChat-1M`, 10 вручную размеченных gold-диалогов и сравнение двух локальных LLM в FP16/INT8. Извлекаются `PERSON`, `ORG`, `LOC`, `EVENT`, `DATE`, `IMPACT`, `SOURCE`.
 
 ## Pipeline
 
@@ -9,7 +9,7 @@ WildChat stream
 → rule-based high-recall prefilter
 → local Hugging Face Transformers NEWS / NOT_NEWS classifier
 → 200 news dialogs
-→ manual gold annotation for 20 dialogs
+→ manual gold annotation for 10 dialogs
 → local Mistral/OpenChat IE benchmark
 ```
 
@@ -41,7 +41,7 @@ python -m pip install -r requirements.txt
 ```powershell
 python scripts/run_demo.py `
   --sample-size 200 `
-  --gold-size 20 `
+  --gold-size 10 `
   --prepare-annotations `
   --rebuild-dataset `
   --news-classifier-model Qwen/Qwen2.5-0.5B-Instruct `
@@ -53,7 +53,7 @@ python scripts/run_demo.py `
 ```powershell
 python scripts/run_demo.py `
   --sample-size 200 `
-  --gold-size 20 `
+  --gold-size 10 `
   --prepare-annotations `
   --rebuild-dataset `
   --rebuild-classifier-cache `
@@ -61,6 +61,8 @@ python scripts/run_demo.py `
 ```
 
 Classifier загружается один раз и обрабатывает Stage 1 candidates пачками. Cache хранится в `data/cache/news_classifier.jsonl`; `--rebuild-dataset` и `--rebuild-cache` его не удаляют.
+
+Во время подготовки CLI печатает результат классификации каждого Stage 1 candidate, короткий однострочный preview, отметку `[CACHE]` для повторно использованных ответов и общую статистику сканирования каждые 1000 строк WildChat. После сбора выборки выводятся итоговые счётчики и пути к dataset/template.
 
 ## Ручная gold-разметка
 
@@ -72,12 +74,12 @@ Gold сохраняется в `data/gold_annotations.csv`, reviewed-прогр�
 
 ## Основной benchmark
 
-После завершения всех 20 reviewed-диалогов:
+После завершения всех 10 reviewed-диалогов:
 
 ```powershell
 python scripts/run_demo.py `
   --sample-size 200 `
-  --gold-size 20 `
+  --gold-size 10 `
   --batch-sizes 1 2 4 8 `
   --profiles mistral-fp16 mistral-int8 openchat-fp16 openchat-int8 `
   --rebuild-cache

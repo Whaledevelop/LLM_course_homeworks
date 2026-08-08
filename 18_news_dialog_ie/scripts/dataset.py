@@ -54,6 +54,7 @@ def load_news_dialogs(
     classifier_model: str,
     classifier_batch_size: int,
     allow_synthetic: bool = False,
+    progress_callback=None,
 ) -> tuple[list[NewsDialog], dict | None, dict | None]:
     cached_dialogs = read_jsonl(output_path)
     cached_dialogs = unique_dialogs(cached_dialogs)
@@ -61,7 +62,17 @@ def load_news_dialogs(
         return cached_dialogs[:sample_size], None, None
 
     classifier = NewsClassifier(classifier_cache_path, classifier_model, classifier_batch_size)
-    dialogs, filtering_stats = stream_wildchat_news(sample_size, seed, classifier)
+    emit_progress(
+        progress_callback,
+        "start",
+        {
+            "target": sample_size,
+            "model": classifier.model,
+            "device": classifier.device,
+            "batch_size": classifier.batch_size,
+        },
+    )
+    dialogs, filtering_stats = stream_wildchat_news(sample_size, seed, classifier, progress_callback)
     dialogs = unique_dialogs(dialogs)
     if len(dialogs) < sample_size:
         raise RuntimeError(f"Expected {sample_size} unique WildChat dialogs, received {len(dialogs)}.")
@@ -78,7 +89,7 @@ def load_news_dialogs(
     return dialogs[:sample_size], filtering_stats, classifier_info
 
 
-def stream_wildchat_news(sample_size: int, seed: int, classifier: NewsClassifier) -> tuple[list[NewsDialog], dict]:
+def stream_wildchat_news(sample_size: int, seed: int, classifier: NewsClassifier, progress_callback=None) -> tuple[list[NewsDialog], dict]:
     try:
         from datasets import load_dataset
     except ImportError:
@@ -86,10 +97,10 @@ def stream_wildchat_news(sample_size: int, seed: int, classifier: NewsClassifier
 
     dataset = load_dataset("allenai/WildChat-1M", split="train", streaming=True)
 
-    return collect_news_dialogs(dataset, sample_size, seed, classifier)
+    return collect_news_dialogs(dataset, sample_size, seed, classifier, progress_callback)
 
 
-def collect_news_dialogs(rows, sample_size: int, seed: int, classifier) -> tuple[list[NewsDialog], dict]:
+def collect_news_dialogs(rows, sample_size: int, seed: int, classifier, progress_callback=None) -> tuple[list[NewsDialog], dict]:
     selected = []
     candidates = []
     seen_ids = set()
@@ -105,6 +116,8 @@ def collect_news_dialogs(rows, sample_size: int, seed: int, classifier) -> tuple
     }
     for row_index, row in enumerate(rows):
         stats["rows_seen"] += 1
+        if stats["rows_seen"] % 1000 == 0:
+            emit_progress(progress_callback, "scan", {**stats, "target": sample_size})
         text = flatten_conversation(row)
         language = str(row.get("language") or row.get("lang") or "").lower()
         if language and language not in {"en", "english"}:
@@ -123,22 +136,22 @@ def collect_news_dialogs(rows, sample_size: int, seed: int, classifier) -> tuple
         created_at = str(row.get("timestamp") or "")
         candidates.append(NewsDialog(dialog_id=dialog_id, source="allenai/WildChat-1M", text=text, created_at=created_at))
         if len(candidates) >= classifier.batch_size:
-            classify_candidates(candidates, classifier, selected, stats, sample_size)
+            classify_candidates(candidates, classifier, selected, stats, sample_size, progress_callback)
             candidates.clear()
             if len(selected) >= sample_size:
                 break
     if candidates and len(selected) < sample_size:
-        classify_candidates(candidates, classifier, selected, stats, sample_size)
+        classify_candidates(candidates, classifier, selected, stats, sample_size, progress_callback)
 
     random.Random(seed).shuffle(selected)
 
     return selected, stats
 
 
-def classify_candidates(candidates, classifier, selected: list[NewsDialog], stats: dict, sample_size: int) -> None:
+def classify_candidates(candidates, classifier, selected: list[NewsDialog], stats: dict, sample_size: int, progress_callback=None) -> None:
     classifications = classifier.classify_batch([(dialog.dialog_id, dialog.text) for dialog in candidates])
-    stats["llm_classified"] += len(classifications)
     for dialog, (classification, cache_hit) in zip(candidates, classifications):
+        stats["llm_classified"] += 1
         stats["classifier_cache_hits"] += int(cache_hit)
         if classification == "NOT_NEWS":
             stats["llm_not_news"] += 1
@@ -148,6 +161,23 @@ def classify_candidates(candidates, classifier, selected: list[NewsDialog], stat
             stats["llm_news"] += 1
             if len(selected) < sample_size:
                 selected.append(dialog)
+        emit_progress(
+            progress_callback,
+            "classification",
+            {
+                "index": stats["llm_classified"],
+                "classification": classification,
+                "cache_hit": cache_hit,
+                "news_collected": len(selected),
+                "target": sample_size,
+                "text": dialog.text,
+            },
+        )
+
+
+def emit_progress(progress_callback, event: str, payload: dict) -> None:
+    if progress_callback is not None:
+        progress_callback(event, payload)
 
 
 def passes_news_prefilter(text: str) -> bool:

@@ -3,7 +3,21 @@ import json
 
 from evaluation import annotation_template_fingerprint
 from annotation_workspace import prepare_annotation_workspace, validate_gold
-from run_demo import clear_cache, clear_classifier_cache, clear_dataset_cache, clear_dataset_outputs
+from run_demo import build_parser, clear_cache, clear_classifier_cache, clear_dataset_cache, clear_dataset_outputs
+
+
+def test_default_gold_size_is_ten() -> None:
+    assert build_parser().parse_args([]).gold_size == 10
+
+
+def test_default_annotation_template_contains_ten_dialogs(tmp_path) -> None:
+    dialog_ids = [f"dialog-{index}" for index in range(build_parser().parse_args([]).gold_size)]
+
+    prepare_annotation_workspace(tmp_path, dialog_ids)
+
+    template_path = tmp_path / "gold_annotation_template.csv"
+    with template_path.open("r", encoding="utf-8", newline="") as file:
+        assert len(list(csv.DictReader(file))) == 10
 
 
 def test_prepare_annotation_workspace_resets_changed_template_with_backup(tmp_path) -> None:
