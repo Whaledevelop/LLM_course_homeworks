@@ -51,14 +51,16 @@ def load_news_dialogs(
     seed: int,
     output_path: Path,
     classifier_cache_path: Path,
+    classifier_model: str,
+    classifier_batch_size: int,
     allow_synthetic: bool = False,
-) -> tuple[list[NewsDialog], dict | None, str]:
+) -> tuple[list[NewsDialog], dict | None, dict | None]:
     cached_dialogs = read_jsonl(output_path)
     cached_dialogs = unique_dialogs(cached_dialogs)
     if len(cached_dialogs) >= sample_size and (allow_synthetic or all(dialog.source != "synthetic" for dialog in cached_dialogs[:sample_size])):
-        return cached_dialogs[:sample_size], None, ""
+        return cached_dialogs[:sample_size], None, None
 
-    classifier = NewsClassifier(classifier_cache_path)
+    classifier = NewsClassifier(classifier_cache_path, classifier_model, classifier_batch_size)
     dialogs, filtering_stats = stream_wildchat_news(sample_size, seed, classifier)
     dialogs = unique_dialogs(dialogs)
     if len(dialogs) < sample_size:
@@ -67,7 +69,13 @@ def load_news_dialogs(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     write_jsonl(output_path, dialogs[:sample_size])
 
-    return dialogs[:sample_size], filtering_stats, classifier.model
+    classifier_info = {
+        "model": classifier.model,
+        "device": classifier.device,
+        "classifier_load_seconds": classifier.load_seconds,
+    }
+
+    return dialogs[:sample_size], filtering_stats, classifier_info
 
 
 def stream_wildchat_news(sample_size: int, seed: int, classifier: NewsClassifier) -> tuple[list[NewsDialog], dict]:
@@ -83,6 +91,7 @@ def stream_wildchat_news(sample_size: int, seed: int, classifier: NewsClassifier
 
 def collect_news_dialogs(rows, sample_size: int, seed: int, classifier) -> tuple[list[NewsDialog], dict]:
     selected = []
+    candidates = []
     seen_ids = set()
     seen_text_hashes = set()
     stats = {
@@ -111,24 +120,34 @@ def collect_news_dialogs(rows, sample_size: int, seed: int, classifier) -> tuple
         if not passes_news_prefilter(text):
             continue
         stats["stage1_passed"] += 1
-        classification, cache_hit = classifier.classify(dialog_id, text)
-        stats["llm_classified"] += 1
-        stats["classifier_cache_hits"] += int(cache_hit)
-        if classification == "NOT_NEWS":
-            stats["llm_not_news"] += 1
-            continue
-        if classification != "NEWS":
-            stats["llm_invalid"] += 1
-            continue
-        stats["llm_news"] += 1
         created_at = str(row.get("timestamp") or "")
-        selected.append(NewsDialog(dialog_id=dialog_id, source="allenai/WildChat-1M", text=text, created_at=created_at))
-        if len(selected) >= sample_size:
-            break
+        candidates.append(NewsDialog(dialog_id=dialog_id, source="allenai/WildChat-1M", text=text, created_at=created_at))
+        if len(candidates) >= classifier.batch_size:
+            classify_candidates(candidates, classifier, selected, stats, sample_size)
+            candidates.clear()
+            if len(selected) >= sample_size:
+                break
+    if candidates and len(selected) < sample_size:
+        classify_candidates(candidates, classifier, selected, stats, sample_size)
 
     random.Random(seed).shuffle(selected)
 
     return selected, stats
+
+
+def classify_candidates(candidates, classifier, selected: list[NewsDialog], stats: dict, sample_size: int) -> None:
+    classifications = classifier.classify_batch([(dialog.dialog_id, dialog.text) for dialog in candidates])
+    stats["llm_classified"] += len(classifications)
+    for dialog, (classification, cache_hit) in zip(candidates, classifications):
+        stats["classifier_cache_hits"] += int(cache_hit)
+        if classification == "NOT_NEWS":
+            stats["llm_not_news"] += 1
+        elif classification != "NEWS":
+            stats["llm_invalid"] += 1
+        else:
+            stats["llm_news"] += 1
+            if len(selected) < sample_size:
+                selected.append(dialog)
 
 
 def passes_news_prefilter(text: str) -> bool:

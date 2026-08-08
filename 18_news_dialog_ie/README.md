@@ -7,13 +7,13 @@
 ```text
 WildChat stream
 → rule-based high-recall prefilter
-→ OpenAI-compatible NEWS / NOT_NEWS classifier
+→ local Hugging Face Transformers NEWS / NOT_NEWS classifier
 → 200 news dialogs
 → manual gold annotation for 20 dialogs
 → local Mistral/OpenChat IE benchmark
 ```
 
-Classifier используется только при подготовке датасета. Он не является benchmark-моделью и не участвует в сравнении качества NER/IE.
+Classifier `Qwen/Qwen2.5-0.5B-Instruct` используется только при подготовке датасета. Это небольшая instruction-tuned модель: веса скачиваются с Hugging Face Hub, inference выполняется локально на CPU или автоматически на CUDA. Classifier не является benchmark-моделью и не участвует в сравнении качества NER/IE.
 
 Основной benchmark включает:
 
@@ -32,15 +32,7 @@ py -3.12 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Скопируйте `.env.example` в `.env` и укажите OpenAI-compatible classifier:
-
-```dotenv
-NEWS_CLASSIFIER_BASE_URL=http://localhost:8000/v1
-NEWS_CLASSIFIER_API_KEY=
-NEWS_CLASSIFIER_MODEL=classifier-model-name
-```
-
-`NEWS_CLASSIFIER_API_KEY` может быть пустым для локального endpoint. `.env` исключён из Git.
+Модель можно изменить через `--news-classifier-model`; CLI имеет приоритет над optional environment variable `NEWS_CLASSIFIER_MODEL`. Default batch size равен 8 и меняется через `--news-classifier-batch-size`.
 
 ## Подготовка данных
 
@@ -51,7 +43,9 @@ python scripts/run_demo.py `
   --sample-size 200 `
   --gold-size 20 `
   --prepare-annotations `
-  --rebuild-dataset
+  --rebuild-dataset `
+  --news-classifier-model Qwen/Qwen2.5-0.5B-Instruct `
+  --news-classifier-batch-size 8
 ```
 
 Повторно отправить кандидатов в classifier, удалив его cache:
@@ -62,10 +56,11 @@ python scripts/run_demo.py `
   --gold-size 20 `
   --prepare-annotations `
   --rebuild-dataset `
-  --rebuild-classifier-cache
+  --rebuild-classifier-cache `
+  --news-classifier-model Qwen/Qwen2.5-0.5B-Instruct
 ```
 
-Classifier cache хранится в `data/cache/news_classifier.jsonl`. Обычные `--rebuild-dataset` и `--rebuild-cache` его не удаляют.
+Classifier загружается один раз и обрабатывает Stage 1 candidates пачками. Cache хранится в `data/cache/news_classifier.jsonl`; `--rebuild-dataset` и `--rebuild-cache` его не удаляют.
 
 ## Ручная gold-разметка
 

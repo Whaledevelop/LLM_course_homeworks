@@ -38,16 +38,17 @@ def test_dataset_collection_stops_at_requested_news_count() -> None:
         build_row("two", "BBC reported an election in Paris in 2024."),
         build_row("three", "CNN reported sanctions in Berlin in 2024."),
         build_row("four", "AP News reported a summit in Rome in 2024."),
+        build_row("five", "Reuters reported a protest in Madrid in 2024."),
     ]
-    classifier = FakeClassifier(["NEWS", "NOT_NEWS", "NEWS"])
+    classifier = FakeClassifier(["NEWS", "NOT_NEWS", "NEWS", "NOT_NEWS"])
 
     dialogs, stats = collect_news_dialogs(rows, 2, 42, classifier)
 
     assert {dialog.dialog_id for dialog in dialogs} == {"one", "three"}
-    assert stats["rows_seen"] == 3
-    assert stats["stage1_passed"] == 3
+    assert stats["rows_seen"] == 4
+    assert stats["stage1_passed"] == 4
     assert stats["llm_news"] == 2
-    assert stats["llm_not_news"] == 1
+    assert stats["llm_not_news"] == 2
 
 
 def build_row(dialog_id: str, text: str) -> dict:
@@ -61,9 +62,10 @@ def build_row(dialog_id: str, text: str) -> dict:
 class FakeClassifier:
     def __init__(self, classifications: list[str]) -> None:
         self._classifications = iter(classifications)
+        self.batch_size = 2
 
-    def classify(self, dialog_id: str, text: str) -> tuple[str, bool]:
-        return next(self._classifications), False
+    def classify_batch(self, dialogs: list[tuple[str, str]]) -> list[tuple[str, bool]]:
+        return [(next(self._classifications), False) for _ in dialogs]
 
 
 def test_english_filter_rejects_non_english_text() -> None:

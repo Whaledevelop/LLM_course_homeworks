@@ -4,21 +4,21 @@
 
 `allenai/WildChat-1M` читается в streaming-режиме до получения 200 уникальных диалогов, принятых как `NEWS`.
 
-Stage 1 — дешёвый high-recall prefilter. Он оставляет английские тексты с news-source, news-intent, event или reporting признаками и исключает явные code, jailbreak, roleplay, explicit и advertising prompts. Его задача — сократить число HTTP-вызовов, а не принимать финальное решение.
+Stage 1 — дешёвый high-recall prefilter. Он оставляет английские тексты с news-source, news-intent, event или reporting признаками и исключает явные code, jailbreak, roleplay, explicit и advertising prompts. Его задача — сократить объём локального model inference, а не принимать финальное решение.
 
-Stage 2 — отдельный OpenAI-compatible classifier. Он получает полный диалог при `temperature=0` и возвращает строго `NEWS` или `NOT_NEWS`. Любой другой ответ считается `INVALID` и не попадает в dataset.
+Stage 2 — локальный Hugging Face Transformers classifier `Qwen/Qwen2.5-0.5B-Instruct`. Веса скачиваются с Hub стандартными `AutoTokenizer`/`AutoModelForCausalLM`, после чего одна загруженная модель обрабатывает candidates batch-ами. CUDA выбирается автоматически, иначе используется CPU. Generation выполняется с `do_sample=False` и `max_new_tokens=4`; любой ответ кроме точных `NEWS`/`NOT_NEWS` считается `INVALID`.
 
 Classifier применяется только к подготовке данных. Основной IE benchmark по-прежнему сравнивает локальные Mistral/OpenChat в FP16/INT8.
 
 ## Cache и статистика
 
-Результаты Stage 2 сохраняются в `data/cache/news_classifier.jsonl` по ключу из hash текста, модели и версии prompt. Cache хранит `NEWS`, `NOT_NEWS` и `INVALID`. Сетевые и schema errors не записываются.
+Результаты Stage 2 сохраняются в `data/cache/news_classifier.jsonl` по ключу из hash текста, model ID и версии prompt. Cache хранит `NEWS`, `NOT_NEWS` и `INVALID`; смена модели не переиспользует несовместимые записи.
 
 - `--rebuild-dataset` пересоздаёт dataset, сохраняя classifier cache.
 - `--rebuild-cache` очищает только extraction cache.
 - `--rebuild-classifier-cache` явно удаляет cache Stage 2.
 
-`dataset_stats.json` содержит число просмотренных строк, прошедших Stage 1, классифицированных candidates, `NEWS`, `NOT_NEWS`, `INVALID`, cache hits и имя classifier-модели.
+`dataset_stats.json` содержит число просмотренных строк, прошедших Stage 1, классифицированных candidates, `NEWS`, `NOT_NEWS`, `INVALID`, cache hits, model ID, device и время загрузки classifier.
 
 ## Gold и benchmark
 

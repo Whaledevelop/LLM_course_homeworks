@@ -2,7 +2,7 @@
 
 ## Dataset filtering
 
-Итоговая выборка формируется в два этапа: rule-based high-recall prefilter сокращает поток WildChat, после чего отдельный LLM classifier принимает финальное решение `NEWS / NOT_NEWS`. Это понадобилось из-за false positive чистого rule-based подхода: художественных текстов, chapter review, code/programming, jailbreak и advertising prompts.
+Итоговая выборка формируется в два этапа: rule-based high-recall prefilter сокращает поток WildChat, после чего локальная Hugging Face Transformers модель принимает финальное решение `NEWS / NOT_NEWS`. Веса classifier скачиваются с Hugging Face Hub, а inference выполняется локально на CPU или CUDA. Это понадобилось из-за false positive чистого rule-based подхода: художественных текстов, chapter review, code/programming, jailbreak и advertising prompts.
 
 Classifier используется только для подготовки датасета и не является benchmark-моделью. Основной эксперимент по-прежнему сравнивает локальные Mistral и OpenChat в FP16/INT8.
 
@@ -14,7 +14,7 @@ Classifier используется только для подготовки д�
 - число отклонённых как `NOT_NEWS`;
 - число `INVALID` и cache hits.
 
-До повторного запуска с настроенным classifier фактические значения не приводятся.
+До повторного локального запуска classifier фактические значения не приводятся.
 
 ## Целевой эксперимент
 

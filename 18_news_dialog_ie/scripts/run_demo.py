@@ -2,6 +2,7 @@ import argparse
 import csv
 import gc
 import json
+import os
 from collections import Counter
 from dataclasses import asdict
 from pathlib import Path
@@ -11,7 +12,7 @@ from benchmark import ExtractionBenchmark, write_benchmark_csv
 from dataset import load_news_dialogs
 from evaluation import load_gold_labels, write_evaluation_csvs
 from extractors import RuleBasedNewsExtractor, SpacyNewsExtractor, TransformersJsonExtractor
-from news_classifier import validate_classifier_settings
+from news_classifier import DEFAULT_MODEL
 from schemas import ExtractionResult
 
 
@@ -38,20 +39,21 @@ def main() -> None:
     if args.rebuild_classifier_cache:
         clear_classifier_cache(classifier_cache_path)
     if args.rebuild_dataset:
-        validate_classifier_settings()
         clear_dataset_cache(dataset_path)
         clear_dataset_outputs(data_dir)
 
-    dialogs, filtering_stats, classifier_model = load_news_dialogs(
+    dialogs, filtering_stats, classifier_info = load_news_dialogs(
         args.sample_size,
         args.seed,
         dataset_path,
         classifier_cache_path,
+        args.news_classifier_model,
+        args.news_classifier_batch_size,
         args.allow_synthetic,
     )
     validate_dataset(dialogs, args.sample_size, args.allow_synthetic)
     if filtering_stats is not None or not dataset_stats_path.exists():
-        write_dataset_stats(dataset_stats_path, dialogs, filtering_stats, classifier_model)
+        write_dataset_stats(dataset_stats_path, dialogs, filtering_stats, classifier_info)
     if args.prepare_annotations:
         prepare_annotation_workspace(data_dir, [dialog.dialog_id for dialog in dialogs[:args.gold_size]])
         print(f"Annotation template written for {min(args.gold_size, len(dialogs))} dialogs.")
@@ -104,6 +106,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--profiles", nargs="+", default=["mistral-fp16", "mistral-int8", "openchat-fp16", "openchat-int8"])
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-new-tokens", type=int, default=256)
+    parser.add_argument("--news-classifier-model", default=os.getenv("NEWS_CLASSIFIER_MODEL", DEFAULT_MODEL))
+    parser.add_argument("--news-classifier-batch-size", type=int, default=8)
     parser.add_argument("--allow-synthetic", action="store_true")
     parser.add_argument("--allow-incomplete-gold", action="store_true")
     parser.add_argument("--prepare-annotations", action="store_true")
@@ -140,7 +144,7 @@ def validate_dataset(dialogs, expected_size: int, allow_synthetic: bool) -> None
         raise ValueError("Synthetic dialogs are forbidden in the final benchmark.")
 
 
-def write_dataset_stats(path: Path, dialogs, filtering_stats: dict | None = None, classifier_model: str = "") -> None:
+def write_dataset_stats(path: Path, dialogs, filtering_stats: dict | None = None, classifier_info: dict | None = None) -> None:
     sources = Counter(dialog.source for dialog in dialogs)
     payload = {
         "examples": len(dialogs),
@@ -150,7 +154,7 @@ def write_dataset_stats(path: Path, dialogs, filtering_stats: dict | None = None
     }
     if filtering_stats is not None:
         payload["filtering"] = filtering_stats
-        payload["classifier"] = {"model": classifier_model}
+        payload["classifier"] = classifier_info or {}
     write_json(path, payload)
 
 
