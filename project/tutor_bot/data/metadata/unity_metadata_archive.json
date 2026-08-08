@@ -22,6 +22,40 @@
       "fullness": 5,
       "favorite": false,
       "time_added": "2026-07-06T00:01:25.461881+03:00"
+    },
+    "29be8846-5a04-473e-94d2-c1754aa0c5df": {
+      "title": "NavMesh",
+      "group": "ai",
+      "comment": "",
+      "questions_for_tests": [
+        "Что представляет собой NavMesh в контексте навигации агентов?",
+        "Какие преимущества NavMesh даёт по сравнению с поиском пути по сетке?",
+        "Как в Unity создаётся NavMesh?",
+        "Какие алгоритмы используются для поиска пути по NavMesh?",
+        "Как NavMesh обрабатывает динамические препятствия?"
+      ],
+      "importance": 9,
+      "knowledge": 0,
+      "fullness": 4,
+      "favorite": false,
+      "time_added": "2026-07-08T20:23:10.334834+03:00"
+    },
+    "8b93a6f8-fc94-408c-af34-e38fb57cb2ae": {
+      "title": "Использование памяти в Unity, Memory Heap",
+      "group": "optimization",
+      "comment": "",
+      "questions_for_tests": [
+        "Что такое Managed Heap в Unity?",
+        "Почему частые аллокации в методе Update могут привести к просадкам FPS?",
+        "Какие типы данных по умолчанию размещаются на стеке в C#?",
+        "Какой инструмент в Unity позволяет анализировать выделение памяти по кадрам?",
+        "Почему важно отписываться от событий в методе OnDisable?"
+      ],
+      "importance": 9,
+      "knowledge": 0,
+      "fullness": 10,
+      "favorite": false,
+      "time_added": "2026-07-08T01:47:40.550711+03:00"
     }
   }
 }

@@ -1,23 +1,6 @@
 {
   "db_id": "unity",
   "notes": {
-    "8b93a6f8-fc94-408c-af34-e38fb57cb2ae": {
-      "title": "Использование памяти в Unity, Memory Heap",
-      "group": "optimization",
-      "comment": "",
-      "questions_for_tests": [
-        "Что такое Managed Heap в Unity?",
-        "Почему частые аллокации в методе Update могут привести к просадкам FPS?",
-        "Какие типы данных по умолчанию размещаются на стеке в C#?",
-        "Какой инструмент в Unity позволяет анализировать выделение памяти по кадрам?",
-        "Почему важно отписываться от событий в методе OnDisable?"
-      ],
-      "importance": 9,
-      "knowledge": 0,
-      "fullness": 10,
-      "favorite": false,
-      "time_added": "2026-07-08T01:47:40.550711+03:00"
-    },
     "1d4e9952-12ff-4273-833c-2eef474e6c8f": {
       "title": "Память в Unity, Memory Heap",
       "group": "optimization",
@@ -30,7 +13,7 @@
         "Как кэширование ссылок помогает снизить нагрузку на сборщик мусора?"
       ],
       "importance": 9,
-      "knowledge": 0,
+      "knowledge": 1,
       "fullness": 10,
       "favorite": false,
       "time_added": "2026-07-08T01:57:06.629597+03:00"
@@ -987,6 +970,17 @@
       "favorite": false,
       "time_added": "2026-07-05T23:21:51.571596+03:00"
     },
+    "5d62f475-2d0b-4e73-a9bb-fc8512a573ae": {
+      "title": null,
+      "group": "",
+      "comment": "",
+      "questions_for_tests": [],
+      "importance": 0,
+      "knowledge": 0,
+      "fullness": 8,
+      "favorite": false,
+      "time_added": "2026-07-25T14:32:48.973888+03:00"
+    },
     "05d94261-402e-5c51-ba2a-9b0d7f932f60": {
       "title": "Как работает LayerMask, какое влияние на рендер и физику",
       "group": "unity",
@@ -1052,23 +1046,6 @@
       "fullness": 8,
       "favorite": true,
       "time_added": "2026-07-05T23:21:51.571596+03:00"
-    },
-    "29be8846-5a04-473e-94d2-c1754aa0c5df": {
-      "title": "NavMesh",
-      "group": "ai",
-      "comment": "",
-      "questions_for_tests": [
-        "Что представляет собой NavMesh в контексте навигации агентов?",
-        "Какие преимущества NavMesh даёт по сравнению с поиском пути по сетке?",
-        "Как в Unity создаётся NavMesh?",
-        "Какие алгоритмы используются для поиска пути по NavMesh?",
-        "Как NavMesh обрабатывает динамические препятствия?"
-      ],
-      "importance": 9,
-      "knowledge": 0,
-      "fullness": 4,
-      "favorite": false,
-      "time_added": "2026-07-08T20:23:10.334834+03:00"
     }
   }
 }
