@@ -1,24 +1,30 @@
 # Pipeline
 
-## Данные
+## Двухступенчатая подготовка данных
 
-`allenai/WildChat-1M` читается в streaming-режиме. Итоговая выборка содержит 200 уникальных англоязычных диалогов с источником `allenai/WildChat-1M`.
+`allenai/WildChat-1M` читается в streaming-режиме до получения 200 уникальных диалогов, принятых как `NEWS`.
 
-News filter использует score из независимых признаков: источник/атрибуция, news-like intent, событийная лексика, дата, reporting verb и capitalized phrases. Для принятия нужны score не ниже 4, сильный новостной сигнал и дополнительный признак события, даты или reporting verb. Все термины проверяются regex с границами слов.
+Stage 1 — дешёвый high-recall prefilter. Он оставляет английские тексты с news-source, news-intent, event или reporting признаками и исключает явные code, jailbreak, roleplay, explicit и advertising prompts. Его задача — сократить число HTTP-вызовов, а не принимать финальное решение.
 
-До scoring исключаются явные programming/code, jailbreak, roleplay, explicit-content и advertising-generation prompts. Фильтр остаётся простым rule-based этапом и не использует LLM, spaCy или ML.
+Stage 2 — отдельный OpenAI-compatible classifier. Он получает полный диалог при `temperature=0` и возвращает строго `NEWS` или `NOT_NEWS`. Любой другой ответ считается `INVALID` и не попадает в dataset.
 
-`--rebuild-dataset` удаляет только локальный dataset cache перед загрузкой. `--rebuild-cache` независимо очищает extraction cache.
+Classifier применяется только к подготовке данных. Основной IE benchmark по-прежнему сравнивает локальные Mistral/OpenChat в FP16/INT8.
 
-## Gold-разметка
+## Cache и статистика
 
-Из первых 20 выбранных диалогов создаётся annotation template. Разметка выполняется вручную через `annotation_app.py`. CSV содержит только `dialog_id,label,value`; reviewed-состояние и fingerprint шаблона хранятся отдельно в `annotation_progress.json`.
+Результаты Stage 2 сохраняются в `data/cache/news_classifier.jsonl` по ключу из hash текста, модели и версии prompt. Cache хранит `NEWS`, `NOT_NEWS` и `INVALID`. Сетевые и schema errors не записываются.
 
-При смене template ID старые annotation-файлы сохраняются в backup и workspace сбрасывается. Диалог без сущностей может быть reviewed без строки в gold CSV. Benchmark допускается только после review всех 20 диалогов.
+- `--rebuild-dataset` пересоздаёт dataset, сохраняя classifier cache.
+- `--rebuild-cache` очищает только extraction cache.
+- `--rebuild-classifier-cache` явно удаляет cache Stage 2.
 
-## Модели и benchmark
+`dataset_stats.json` содержит число просмотренных строк, прошедших Stage 1, классифицированных candidates, `NEWS`, `NOT_NEWS`, `INVALID`, cache hits и имя classifier-модели.
 
-Основные профили:
+## Gold и benchmark
+
+Из первых 20 итоговых NEWS-диалогов создаётся template для полностью ручной разметки. CSV содержит `dialog_id,label,value`; reviewed-состояние хранится отдельно.
+
+Основные профили benchmark:
 
 | Профиль | Модель | Precision |
 | --- | --- | --- |
@@ -27,6 +33,4 @@ News filter использует score из независимых призна�
 | `openchat-fp16` | `openchat/openchat-3.5-0106` | FP16 |
 | `openchat-int8` | та же модель | INT8 |
 
-`rules` и `spacy` доступны как optional baselines. Для каждого профиля измеряются throughput, mean/p95 latency, RAM, VRAM, precision, recall и F1 на batch size `1/2/4/8`.
-
-Основная таблица записывается в `benchmark_results.csv`. Расширенные per-class метрики, ошибки, predictions и JSON-примеры сохраняются как вспомогательные материалы.
+Для batch size `1/2/4/8` измеряются throughput, mean/p95 latency, RAM, VRAM, precision, recall и F1. Rules/spaCy остаются optional baselines.

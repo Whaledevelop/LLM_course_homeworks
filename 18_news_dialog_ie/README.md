@@ -2,14 +2,27 @@
 
 Домашнее задание по треку B: 200 реальных новостных диалогов из `allenai/WildChat-1M`, 20 вручную размеченных gold-диалогов и сравнение двух локальных LLM в FP16/INT8. Извлекаются `PERSON`, `ORG`, `LOC`, `EVENT`, `DATE`, `IMPACT`, `SOURCE`.
 
-## Что реализовано
+## Pipeline
 
-- Воспроизводимый streaming-отбор WildChat по нескольким новостным признакам с исключением code, jailbreak, roleplay и рекламных prompts.
-- Две LLM: `Mistral-7B-Instruct-v0.2` и `OpenChat-3.5-0106`, каждая в FP16 и INT8.
-- Batch benchmark для размеров `1/2/4/8`, extraction cache и продолжение после CUDA OOM.
-- Throughput, mean/p95 latency, RAM, VRAM, precision, recall и F1.
-- Streamlit demo и отдельный инструмент полностью ручной gold-разметки.
-- Rules и spaCy сохранены как необязательные baselines.
+```text
+WildChat stream
+→ rule-based high-recall prefilter
+→ OpenAI-compatible NEWS / NOT_NEWS classifier
+→ 200 news dialogs
+→ manual gold annotation for 20 dialogs
+→ local Mistral/OpenChat IE benchmark
+```
+
+Classifier используется только при подготовке датасета. Он не является benchmark-моделью и не участвует в сравнении качества NER/IE.
+
+Основной benchmark включает:
+
+- `mistral-fp16` и `mistral-int8`;
+- `openchat-fp16` и `openchat-int8`;
+- batch size `1/2/4/8`;
+- throughput, latency, RAM, VRAM, precision, recall и F1.
+
+Rules и spaCy доступны только как необязательные baselines.
 
 ## Установка
 
@@ -19,11 +32,19 @@ py -3.12 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-INT8 через `bitsandbytes` рекомендуется запускать в Linux/WSL с NVIDIA CUDA. Веса моделей должны быть доступны через Hugging Face или локальный cache.
+Скопируйте `.env.example` в `.env` и укажите OpenAI-compatible classifier:
+
+```dotenv
+NEWS_CLASSIFIER_BASE_URL=http://localhost:8000/v1
+NEWS_CLASSIFIER_API_KEY=
+NEWS_CLASSIFIER_MODEL=classifier-model-name
+```
+
+`NEWS_CLASSIFIER_API_KEY` может быть пустым для локального endpoint. `.env` исключён из Git.
 
 ## Подготовка данных
 
-Команда принудительно пересоздаёт выборку из 200 диалогов и шаблон для 20 ручных аннотаций:
+Пересоздать выборку, сохранив существующий classifier cache:
 
 ```powershell
 python scripts/run_demo.py `
@@ -33,7 +54,18 @@ python scripts/run_demo.py `
   --rebuild-dataset
 ```
 
-Если набор dialog ID изменился, существующие template/gold/progress сначала копируются в `data/annotation_backups`, после чего annotation workspace сбрасывается. При неизменном шаблоне прогресс сохраняется.
+Повторно отправить кандидатов в classifier, удалив его cache:
+
+```powershell
+python scripts/run_demo.py `
+  --sample-size 200 `
+  --gold-size 20 `
+  --prepare-annotations `
+  --rebuild-dataset `
+  --rebuild-classifier-cache
+```
+
+Classifier cache хранится в `data/cache/news_classifier.jsonl`. Обычные `--rebuild-dataset` и `--rebuild-cache` его не удаляют.
 
 ## Ручная gold-разметка
 
@@ -41,7 +73,7 @@ python scripts/run_demo.py `
 streamlit run scripts/annotation_app.py
 ```
 
-Добавление, удаление и отметка reviewed выполняются только вручную. Диалог без целевых сущностей следует отметить reviewed без добавления пустой CSV-строки. Gold сохраняется в `data/gold_annotations.csv`, прогресс — в `data/annotation_progress.json`.
+Gold сохраняется в `data/gold_annotations.csv`, reviewed-прогресс — в `data/annotation_progress.json`. LLM, rules и spaCy не используются для pre-annotation.
 
 ## Основной benchmark
 
@@ -56,11 +88,7 @@ python scripts/run_demo.py `
   --rebuild-cache
 ```
 
-Необязательные baselines:
-
-```powershell
-python scripts/run_demo.py --sample-size 200 --gold-size 20 --profiles rules spacy
-```
+INT8 через `bitsandbytes` рекомендуется запускать в Linux/WSL с NVIDIA CUDA. Веса benchmark-моделей должны быть доступны через Hugging Face или локальный cache.
 
 ## Demo и тесты
 
@@ -69,4 +97,4 @@ streamlit run scripts/app.py
 python -m pytest tests -q
 ```
 
-Основные результаты сохраняются в `data/benchmark_results.csv`. Per-class метрики, ошибки, predictions и примеры JSON остаются вспомогательными артефактами для анализа.
+Filtering statistics сохраняются в `data/dataset_stats.json`. Основные результаты benchmark записываются в `data/benchmark_results.csv`; остальные CSV и JSON используются как вспомогательные артефакты анализа.

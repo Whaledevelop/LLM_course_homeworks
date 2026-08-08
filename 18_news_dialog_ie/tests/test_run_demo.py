@@ -2,7 +2,8 @@ import csv
 import json
 
 from evaluation import annotation_template_fingerprint
-from run_demo import clear_dataset_cache, clear_dataset_outputs, prepare_annotation_workspace, validate_gold
+from annotation_workspace import prepare_annotation_workspace, validate_gold
+from run_demo import clear_cache, clear_classifier_cache, clear_dataset_cache, clear_dataset_outputs
 
 
 def test_prepare_annotation_workspace_resets_changed_template_with_backup(tmp_path) -> None:
@@ -82,3 +83,17 @@ def test_clear_dataset_outputs_preserves_dataset_and_annotations(tmp_path) -> No
     assert not benchmark_path.exists()
     assert dataset_path.exists()
     assert gold_path.exists()
+
+
+def test_cache_reset_preserves_classifier_cache(tmp_path) -> None:
+    classifier_path = tmp_path / "news_classifier.jsonl"
+    extraction_path = tmp_path / "extractor.jsonl"
+    classifier_path.write_text("classifier", encoding="utf-8")
+    extraction_path.write_text("extraction", encoding="utf-8")
+
+    clear_cache(tmp_path)
+
+    assert classifier_path.exists()
+    assert not extraction_path.exists()
+    clear_classifier_cache(classifier_path)
+    assert not classifier_path.exists()

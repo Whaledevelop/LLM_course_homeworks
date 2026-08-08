@@ -1,4 +1,4 @@
-from dataset import has_excluded_content, is_english_text, is_news_dialog, news_dialog_score, unique_dialogs
+from dataset import EVENT_PATTERN, collect_news_dialogs, has_excluded_content, is_english_text, is_news_dialog, news_dialog_score, unique_dialogs
 from schemas import NewsDialog
 
 
@@ -14,7 +14,7 @@ def test_news_filter_requires_multiple_independent_signals() -> None:
 
 
 def test_news_filter_uses_word_boundaries() -> None:
-    assert not is_news_dialog("Summarize this news about a software library called Forwarder.")
+    assert not EVENT_PATTERN.search("Forwarder is a software library.")
 
 
 def test_news_filter_rejects_programming_jailbreak_and_advertising() -> None:
@@ -26,6 +26,44 @@ def test_news_filter_rejects_programming_jailbreak_and_advertising() -> None:
     assert not is_news_dialog(programming)
     assert not is_news_dialog(jailbreak)
     assert not is_news_dialog(advertising)
+
+
+def test_news_prefilter_keeps_lower_score_candidate() -> None:
+    assert is_news_dialog("Reuters discusses a possible development involving Acme Corporation.")
+
+
+def test_dataset_collection_stops_at_requested_news_count() -> None:
+    rows = [
+        build_row("one", "Reuters reported an earthquake in London in 2024."),
+        build_row("two", "BBC reported an election in Paris in 2024."),
+        build_row("three", "CNN reported sanctions in Berlin in 2024."),
+        build_row("four", "AP News reported a summit in Rome in 2024."),
+    ]
+    classifier = FakeClassifier(["NEWS", "NOT_NEWS", "NEWS"])
+
+    dialogs, stats = collect_news_dialogs(rows, 2, 42, classifier)
+
+    assert {dialog.dialog_id for dialog in dialogs} == {"one", "three"}
+    assert stats["rows_seen"] == 3
+    assert stats["stage1_passed"] == 3
+    assert stats["llm_news"] == 2
+    assert stats["llm_not_news"] == 1
+
+
+def build_row(dialog_id: str, text: str) -> dict:
+    return {
+        "conversation_hash": dialog_id,
+        "language": "English",
+        "conversation": [{"role": "user", "content": text}],
+    }
+
+
+class FakeClassifier:
+    def __init__(self, classifications: list[str]) -> None:
+        self._classifications = iter(classifications)
+
+    def classify(self, dialog_id: str, text: str) -> tuple[str, bool]:
+        return next(self._classifications), False
 
 
 def test_english_filter_rejects_non_english_text() -> None:
