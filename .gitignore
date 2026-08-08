@@ -23,3 +23,5 @@ project/tutor_bot/data/history/*.jsonl
 **/.ruff_cache
 
 **/.test-tmp
+
+/18_news_dialog_ie/data/news_dialogs.jsonl
