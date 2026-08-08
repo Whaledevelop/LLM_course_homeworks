@@ -18,6 +18,8 @@ def print_dataset_progress(event: str, payload: dict, gold_size: int) -> None:
             f"NEWS collected: {payload['news_collected']}/{payload['target']}"
         )
         print(f"       {normalize_preview(payload['text'])}")
+        if payload["classification"] == "INVALID":
+            print(f'       Raw classifier output: "{normalize_preview(payload["raw_output"], 160)}"')
 
         return
     if event == "scan":

@@ -3,13 +3,19 @@ import json
 import pytest
 
 import news_classifier
-from news_classifier import NewsClassifier, parse_classification, select_device
+from news_classifier import NewsClassifier, parse_classification, run_sanity_check, select_device
 
 
 def test_parse_classification_is_strict() -> None:
     assert parse_classification(" NEWS\n") == "NEWS"
+    assert parse_classification("NEWS.") == "NEWS"
     assert parse_classification("NOT_NEWS") == "NOT_NEWS"
+    assert parse_classification("NOT_NEWS.") == "NOT_NEWS"
+    assert parse_classification("`NEWS`") == "NEWS"
+    assert parse_classification('"NOT_NEWS."') == "NOT_NEWS"
+    assert parse_classification("```text\nNEWS\n```") == "NEWS"
     assert parse_classification("The answer is NEWS") == "INVALID"
+    assert parse_classification("This appears to be NEWS because it reports an event.") == "INVALID"
     assert parse_classification("") == "INVALID"
 
 
@@ -28,8 +34,8 @@ def test_cache_hit_does_not_run_generator(tmp_path) -> None:
     first = classifier.classify("one", "Reuters reported an election.")
     second = classifier.classify("two", "Reuters reported an election.")
 
-    assert first == ("NEWS", False)
-    assert second == ("NEWS", True)
+    assert first == ("NEWS", False, "NEWS")
+    assert second == ("NEWS", True, "NEWS")
     assert len(generator_calls) == 1
 
 
@@ -49,7 +55,7 @@ def test_changed_text_model_and_prompt_do_not_reuse_cache(tmp_path, monkeypatch)
     first.classify("one", "Changed text")
     second = NewsClassifier(cache_path, "model-b", 8, loader)
     second.classify("one", "First text")
-    monkeypatch.setattr(news_classifier, "PROMPT_VERSION", "local-news-classifier-v2")
+    monkeypatch.setattr(news_classifier, "PROMPT_VERSION", "local-news-classifier-v3")
     third = NewsClassifier(cache_path, "model-a", 8, loader)
     third.classify("one", "First text")
 
@@ -61,7 +67,7 @@ def test_invalid_output_is_cached(tmp_path) -> None:
     loader = lambda model_id: (lambda prompts: ["maybe"] * len(prompts), "cpu", 0.1)
     classifier = NewsClassifier(cache_path, "model", 8, loader)
 
-    assert classifier.classify("one", "text") == ("INVALID", False)
+    assert classifier.classify("one", "text") == ("INVALID", False, "maybe")
     record = json.loads(cache_path.read_text(encoding="utf-8"))
     assert record["classification"] == "INVALID"
 
@@ -99,7 +105,37 @@ def test_batch_output_preserves_order_and_cache_flags(tmp_path) -> None:
         [("one", "first"), ("cached-again", "cached text"), ("two", "second")]
     )
 
-    assert results == [("NOT_NEWS", False), ("NEWS", True), ("INVALID", False)]
+    assert results == [
+        ("NOT_NEWS", False, "NOT_NEWS"),
+        ("NEWS", True, "NEWS"),
+        ("INVALID", False, "invalid"),
+    ]
+
+
+class FakeSanityClassifier:
+    def __init__(self, correct: bool) -> None:
+        self._correct = correct
+
+    def classify_batch(self, dialogs):
+        if not self._correct:
+            return [("INVALID", False, "maybe") for _ in dialogs]
+
+        return [
+            (expected, False, expected)
+            for _, expected in news_classifier.SANITY_EXAMPLES
+        ]
+
+
+def test_sanity_check_succeeds_for_reliable_classifier() -> None:
+    stats = run_sanity_check(FakeSanityClassifier(True), output=lambda message: None)
+
+    assert stats["accuracy"] == 1.0
+    assert stats["invalid"] == 0
+
+
+def test_sanity_check_stops_unreliable_classifier() -> None:
+    with pytest.raises(RuntimeError, match="sanity check failed"):
+        run_sanity_check(FakeSanityClassifier(False), output=lambda message: None)
 
 
 def test_device_selection() -> None:

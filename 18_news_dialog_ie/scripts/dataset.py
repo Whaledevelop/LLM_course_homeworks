@@ -4,7 +4,7 @@ import random
 import re
 from pathlib import Path
 
-from news_classifier import NewsClassifier
+from news_classifier import NewsClassifier, run_sanity_check
 from schemas import NewsDialog
 
 
@@ -55,6 +55,7 @@ def load_news_dialogs(
     classifier_batch_size: int,
     allow_synthetic: bool = False,
     progress_callback=None,
+    classifier_sanity_check: bool = False,
 ) -> tuple[list[NewsDialog], dict | None, dict | None]:
     cached_dialogs = read_jsonl(output_path)
     cached_dialogs = unique_dialogs(cached_dialogs)
@@ -72,6 +73,8 @@ def load_news_dialogs(
             "batch_size": classifier.batch_size,
         },
     )
+    if classifier_sanity_check:
+        run_sanity_check(classifier)
     dialogs, filtering_stats = stream_wildchat_news(sample_size, seed, classifier, progress_callback)
     dialogs = unique_dialogs(dialogs)
     if len(dialogs) < sample_size:
@@ -150,7 +153,7 @@ def collect_news_dialogs(rows, sample_size: int, seed: int, classifier, progress
 
 def classify_candidates(candidates, classifier, selected: list[NewsDialog], stats: dict, sample_size: int, progress_callback=None) -> None:
     classifications = classifier.classify_batch([(dialog.dialog_id, dialog.text) for dialog in candidates])
-    for dialog, (classification, cache_hit) in zip(candidates, classifications):
+    for dialog, (classification, cache_hit, raw_output) in zip(candidates, classifications):
         stats["llm_classified"] += 1
         stats["classifier_cache_hits"] += int(cache_hit)
         if classification == "NOT_NEWS":
@@ -171,6 +174,7 @@ def classify_candidates(candidates, classifier, selected: list[NewsDialog], stat
                 "news_collected": len(selected),
                 "target": sample_size,
                 "text": dialog.text,
+                "raw_output": raw_output,
             },
         )
 

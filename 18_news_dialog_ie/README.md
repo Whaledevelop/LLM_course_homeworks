@@ -13,7 +13,7 @@ WildChat stream
 → local Mistral/OpenChat IE benchmark
 ```
 
-Classifier `Qwen/Qwen2.5-0.5B-Instruct` используется только при подготовке датасета. Это небольшая instruction-tuned модель: веса скачиваются с Hugging Face Hub, inference выполняется локально на CPU или автоматически на CUDA. Classifier не является benchmark-моделью и не участвует в сравнении качества NER/IE.
+Classifier `Qwen/Qwen3-1.7B` используется только при подготовке датасета. Это современная instruction-following модель примерно на 2B параметров: веса скачиваются с Hugging Face Hub, inference выполняется локально на CPU или автоматически на CUDA в non-thinking режиме. Модель загружается стандартными `AutoTokenizer`/`AutoModelForCausalLM` без `trust_remote_code`. Classifier не является benchmark-моделью и не участвует в сравнении качества NER/IE.
 
 Основной benchmark включает:
 
@@ -32,7 +32,7 @@ py -3.12 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Модель можно изменить через `--news-classifier-model`; CLI имеет приоритет над optional environment variable `NEWS_CLASSIFIER_MODEL`. Default batch size равен 8 и меняется через `--news-classifier-batch-size`.
+Модель можно изменить через `--news-classifier-model`; CLI имеет приоритет над optional environment variable `NEWS_CLASSIFIER_MODEL`. Безопасный для RTX 2060 SUPER default batch size равен 4 и меняется через `--news-classifier-batch-size`. Опциональный `--news-classifier-sanity-check` проверяет classifier на 12 очевидных примерах и останавливает сканирование, если accuracy ниже 80%.
 
 ## Подготовка данных
 
@@ -44,8 +44,9 @@ python scripts/run_demo.py `
   --gold-size 10 `
   --prepare-annotations `
   --rebuild-dataset `
-  --news-classifier-model Qwen/Qwen2.5-0.5B-Instruct `
-  --news-classifier-batch-size 8
+  --news-classifier-model Qwen/Qwen3-1.7B `
+  --news-classifier-batch-size 4 `
+  --news-classifier-sanity-check
 ```
 
 Повторно отправить кандидатов в classifier, удалив его cache:
@@ -57,7 +58,8 @@ python scripts/run_demo.py `
   --prepare-annotations `
   --rebuild-dataset `
   --rebuild-classifier-cache `
-  --news-classifier-model Qwen/Qwen2.5-0.5B-Instruct
+  --news-classifier-model Qwen/Qwen3-1.7B `
+  --news-classifier-sanity-check
 ```
 
 Classifier загружается один раз и обрабатывает Stage 1 candidates пачками. Cache хранится в `data/cache/news_classifier.jsonl`; `--rebuild-dataset` и `--rebuild-cache` его не удаляют.

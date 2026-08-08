@@ -3,7 +3,7 @@ psutil>=5.9,<8
 pandas>=2.0,<3
 streamlit>=1.35,<2
 spacy>=3.7,<4
-transformers>=4.42,<5
+transformers>=4.51,<5
 accelerate>=0.31,<2
 torch>=2.3,<3
 bitsandbytes>=0.43,<1; platform_system != "Windows"

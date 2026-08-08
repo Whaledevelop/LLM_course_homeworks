@@ -67,14 +67,14 @@ class FakeClassifier:
         self._classifications = iter(classifications)
         self.batch_size = 2
 
-    def classify_batch(self, dialogs: list[tuple[str, str]]) -> list[tuple[str, bool]]:
+    def classify_batch(self, dialogs: list[tuple[str, str]]) -> list[tuple[str, bool, str]]:
         results = []
         for _ in dialogs:
             classification = next(self._classifications)
             if isinstance(classification, tuple):
-                results.append(classification)
+                results.append((*classification, "cached raw"))
             else:
-                results.append((classification, False))
+                results.append((classification, False, classification))
 
         return results
 
@@ -100,6 +100,25 @@ def test_dataset_progress_displays_cache_hit_and_preview(capsys) -> None:
     assert "LLM: NEWS [CACHE]" in output
     assert "Reuters reported an earthquake in London in 2024." in output
     assert "NEWS collected: 1/1" in output
+
+
+def test_dataset_progress_displays_raw_invalid_output(capsys) -> None:
+    print_dataset_progress(
+        "classification",
+        {
+            "index": 41,
+            "classification": "INVALID",
+            "cache_hit": False,
+            "news_collected": 7,
+            "target": 200,
+            "text": "Reuters report",
+            "raw_output": "I cannot decide between NEWS and NOT_NEWS.",
+        },
+        10,
+    )
+
+    output = capsys.readouterr().out
+    assert 'Raw classifier output: "I cannot decide between NEWS and NOT_NEWS."' in output
 
 
 def test_english_filter_rejects_non_english_text() -> None:

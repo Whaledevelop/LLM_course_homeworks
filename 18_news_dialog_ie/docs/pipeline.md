@@ -6,7 +6,7 @@
 
 Stage 1 — дешёвый high-recall prefilter. Он оставляет английские тексты с news-source, news-intent, event или reporting признаками и исключает явные code, jailbreak, roleplay, explicit и advertising prompts. Его задача — сократить объём локального model inference, а не принимать финальное решение.
 
-Stage 2 — локальный Hugging Face Transformers classifier `Qwen/Qwen2.5-0.5B-Instruct`. Веса скачиваются с Hub стандартными `AutoTokenizer`/`AutoModelForCausalLM`, после чего одна загруженная модель обрабатывает candidates batch-ами. CUDA выбирается автоматически, иначе используется CPU. Generation выполняется с `do_sample=False` и `max_new_tokens=4`; любой ответ кроме точных `NEWS`/`NOT_NEWS` считается `INVALID`.
+Stage 2 — локальный Hugging Face Transformers classifier `Qwen/Qwen3-1.7B` примерно на 2B параметров. Веса скачиваются с Hub стандартными `AutoTokenizer`/`AutoModelForCausalLM` без `trust_remote_code`, после чего одна загруженная модель обрабатывает candidates batch-ами в non-thinking режиме. CUDA выбирается автоматически, иначе используется CPU. Generation выполняется с `do_sample=False` и `max_new_tokens=8`; parser принимает одиночные `NEWS`/`NOT_NEWS` с безопасным markdown/пунктуационным оформлением, а длинные объяснения считает `INVALID`.
 
 Classifier применяется только к подготовке данных. Основной IE benchmark по-прежнему сравнивает локальные Mistral/OpenChat в FP16/INT8.
 

@@ -53,6 +53,7 @@ def main() -> None:
         args.news_classifier_batch_size,
         args.allow_synthetic,
         partial(print_dataset_progress, gold_size=args.gold_size),
+        args.news_classifier_sanity_check,
     )
     validate_dataset(dialogs, args.sample_size, args.allow_synthetic)
     if filtering_stats is not None or not dataset_stats_path.exists():
@@ -119,7 +120,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-new-tokens", type=int, default=256)
     parser.add_argument("--news-classifier-model", default=os.getenv("NEWS_CLASSIFIER_MODEL", DEFAULT_MODEL))
-    parser.add_argument("--news-classifier-batch-size", type=int, default=8)
+    parser.add_argument("--news-classifier-batch-size", type=int, default=4)
+    parser.add_argument("--news-classifier-sanity-check", action="store_true")
     parser.add_argument("--allow-synthetic", action="store_true")
     parser.add_argument("--allow-incomplete-gold", action="store_true")
     parser.add_argument("--prepare-annotations", action="store_true")

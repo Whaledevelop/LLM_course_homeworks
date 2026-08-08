@@ -1,27 +1,41 @@
 import hashlib
 import json
 import os
+import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
 
 
-DEFAULT_MODEL = "Qwen/Qwen2.5-0.5B-Instruct"
-PROMPT_VERSION = "local-news-classifier-v1"
+DEFAULT_MODEL = "Qwen/Qwen3-1.7B"
+PROMPT_VERSION = "local-news-classifier-v2"
 INSTRUCTION = """Classify the dialog as NEWS or NOT_NEWS.
 
 NEWS:
-The dialog mainly discusses, summarizes or asks about a real or supposed news event, news article, or current public/political/economic development.
+The dialog discusses a real-world news event or contains a real news article. This includes summaries, analysis, or fact-checking of real news reports; current political, economic, social, or public events; and requests such as "what major news happened" or "latest developments".
 
 NOT_NEWS:
-fiction, chapter/story review, programming, roleplay, creative writing, marketing, generic educational text, random conversation, or incidental mentions of news-related words.
+Fiction, hypothetical scenarios, alternate history, creative writing, novel or chapter reviews, programming, troubleshooting, games, roleplay, fake or fictional articles, academic or literature reviews, generic historical or educational questions, product troubleshooting, and incidental use of words such as reported, date, war, event, or article.
 
-Reply with exactly one token:
-NEWS
-or
-NOT_NEWS"""
+An article is NEWS only if it describes a real-world news event. A fictional, fake, hypothetical, academic or historical article is NOT_NEWS.
+
+Reply with exactly one label: NEWS or NOT_NEWS."""
 VALID_CLASSIFICATIONS = {"NEWS", "NOT_NEWS"}
+SANITY_EXAMPLES = (
+    ("Reuters reported that Apple announced layoffs on Monday.", "NEWS"),
+    ("What major news happened on January 23, 2023?", "NEWS"),
+    ("Summarize this BBC report about the earthquake in Turkey.", "NEWS"),
+    ("Fact-check this report about a court ruling involving Donald Trump.", "NEWS"),
+    ("What are the latest developments in the war in Ukraine?", "NEWS"),
+    ("AP reports that parliament approved the new budget today.", "NEWS"),
+    ("Write a fantasy story about a king.", "NOT_NEWS"),
+    ("My Apple Magic Mouse disconnects on Debian.", "NOT_NEWS"),
+    ("Critically review Chapter 4 of this novel.", "NOT_NEWS"),
+    ("Write a fake news article about Batman.", "NOT_NEWS"),
+    ("Explain how a combustion engine works.", "NOT_NEWS"),
+    ("Design a boss fight for a video game.", "NOT_NEWS"),
+)
 
 
 class NewsClassifier:
@@ -43,18 +57,18 @@ class NewsClassifier:
         self._loader = loader or load_local_generator
         self._generator = None
 
-    def classify(self, dialog_id: str, text: str) -> tuple[str, bool]:
+    def classify(self, dialog_id: str, text: str) -> tuple[str, bool, str]:
         return self.classify_batch([(dialog_id, text)])[0]
 
-    def classify_batch(self, dialogs: list[tuple[str, str]]) -> list[tuple[str, bool]]:
-        results: list[tuple[str, bool] | None] = [None] * len(dialogs)
+    def classify_batch(self, dialogs: list[tuple[str, str]]) -> list[tuple[str, bool, str]]:
+        results: list[tuple[str, bool, str] | None] = [None] * len(dialogs)
         pending = []
         for index, (dialog_id, text) in enumerate(dialogs):
             text_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()
             cache_key = self._cache_key(text_hash)
             cached = self._cache.get(cache_key)
             if cached:
-                results[index] = (cached["classification"], True)
+                results[index] = (cached["classification"], True, cached.get("raw_output", ""))
             else:
                 pending.append((index, dialog_id, text, text_hash, cache_key))
         if pending:
@@ -72,11 +86,12 @@ class NewsClassifier:
                     "model": self.model,
                     "prompt_version": PROMPT_VERSION,
                     "classification": classification,
+                    "raw_output": response,
                     "classified_at": datetime.now(timezone.utc).isoformat(),
                 }
                 records.append(record)
                 self._cache[cache_key] = record
-                results[index] = (classification, False)
+                results[index] = (classification, False, response)
             self._append_cache(records)
 
         return [result for result in results if result is not None]
@@ -135,7 +150,7 @@ def load_local_generator(model_id: str) -> tuple[Callable, str, float]:
             output_ids = model.generate(
                 **encoded,
                 do_sample=False,
-                max_new_tokens=4,
+                max_new_tokens=8,
                 pad_token_id=tokenizer.pad_token_id,
             )
         generated_ids = output_ids[:, input_length:]
@@ -151,6 +166,7 @@ def format_prompt(tokenizer, prompt: str) -> str:
             [{"role": "user", "content": prompt}],
             tokenize=False,
             add_generation_prompt=True,
+            enable_thinking=False,
         )
 
     return prompt
@@ -162,8 +178,48 @@ def build_prompt(text: str) -> str:
 
 def parse_classification(value: str) -> str:
     normalized = value.strip()
+    code_block = re.fullmatch(r"```(?:\w+)?\s*(.*?)\s*```", normalized, re.DOTALL)
+    if code_block:
+        normalized = code_block.group(1).strip()
+    lines = [line.strip() for line in normalized.splitlines() if line.strip()]
+    if not lines:
+        return "INVALID"
+    normalized = lines[0].strip("`'\"*~ ").removesuffix(".").strip()
 
     return normalized if normalized in VALID_CLASSIFICATIONS else "INVALID"
+
+
+def run_sanity_check(classifier: NewsClassifier, minimum_accuracy: float = 0.8, output=print) -> dict:
+    dialogs = [(f"sanity-{index}", text) for index, (text, _) in enumerate(SANITY_EXAMPLES)]
+    results = classifier.classify_batch(dialogs)
+    news_total = sum(expected == "NEWS" for _, expected in SANITY_EXAMPLES)
+    not_news_total = len(SANITY_EXAMPLES) - news_total
+    news_correct = 0
+    not_news_correct = 0
+    invalid = 0
+    for (_, expected), (classification, _, _) in zip(SANITY_EXAMPLES, results):
+        invalid += int(classification == "INVALID")
+        news_correct += int(expected == "NEWS" and classification == expected)
+        not_news_correct += int(expected == "NOT_NEWS" and classification == expected)
+    accuracy = (news_correct + not_news_correct) / len(SANITY_EXAMPLES)
+    stats = {
+        "news_correct": news_correct,
+        "news_total": news_total,
+        "not_news_correct": not_news_correct,
+        "not_news_total": not_news_total,
+        "invalid": invalid,
+        "accuracy": accuracy,
+    }
+    output("Classifier sanity check")
+    output(f"NEWS correct: {news_correct}/{news_total}")
+    output(f"NOT_NEWS correct: {not_news_correct}/{not_news_total}")
+    output(f"INVALID: {invalid}")
+    if accuracy < minimum_accuracy:
+        raise RuntimeError(
+            f"News classifier sanity check failed: accuracy {accuracy:.1%} is below {minimum_accuracy:.0%}."
+        )
+
+    return stats
 
 
 def select_device(cuda_available: bool) -> str:
