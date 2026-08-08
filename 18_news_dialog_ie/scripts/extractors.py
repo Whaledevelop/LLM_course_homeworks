@@ -1,8 +1,13 @@
 import json
 import re
+import time
 from abc import ABC, abstractmethod
 
 from schemas import ExtractedItem, ExtractionResult, NewsDialog
+
+
+ALLOWED_ENTITY_LABELS = {"PERSON", "ORG", "LOC", "DATE", "IMPACT", "SOURCE"}
+PROMPT_VERSION = "news-ie-v2"
 
 
 DATE_PATTERN = re.compile(
@@ -33,6 +38,11 @@ IMPACT_PATTERN = re.compile(
 
 class BaseExtractor(ABC):
     name: str
+    model_name = ""
+    precision_mode = "native"
+    load_seconds = 0.0
+    prompt_version = PROMPT_VERSION
+    generation_config: dict = {}
 
     @abstractmethod
     def extract_batch(self, dialogs: list[NewsDialog]) -> list[ExtractionResult]:
@@ -85,30 +95,57 @@ class SpacyNewsExtractor(BaseExtractor):
 
 
 class TransformersJsonExtractor(BaseExtractor):
-    def __init__(self, model_name: str, quantized: bool, max_new_tokens: int = 256) -> None:
-        from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+    def __init__(self, model_name: str, precision_mode: str, revision: str = "main", max_new_tokens: int = 256) -> None:
+        from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, pipeline
         import torch
 
-        self.name = f"{model_name}-{'int8' if quantized else 'fp16'}"
-        self._tokenizer = AutoTokenizer.from_pretrained(model_name)
-        load_kwargs = {"device_map": "auto"}
-        if quantized:
-            load_kwargs["load_in_8bit"] = True
-        else:
-            load_kwargs["torch_dtype"] = torch.float16 if torch.cuda.is_available() else torch.float32
+        if precision_mode not in {"fp16", "int8"}:
+            raise ValueError(f"Unsupported precision mode: {precision_mode}")
+        if not torch.cuda.is_available():
+            raise RuntimeError("Transformers LLM profiles require an NVIDIA CUDA device.")
+        started_at = time.perf_counter()
+        self.model_name = model_name
+        self.precision_mode = precision_mode
+        self.revision = revision
+        self.name = f"{model_name}-{precision_mode}"
+        self.generation_config = {"max_new_tokens": max_new_tokens, "do_sample": False}
+        self._tokenizer = AutoTokenizer.from_pretrained(model_name, revision=revision)
+        if self._tokenizer.pad_token_id is None:
+            self._tokenizer.pad_token = self._tokenizer.eos_token
+        load_kwargs = {"device_map": "auto", "revision": revision, "torch_dtype": torch.float16}
+        if precision_mode == "int8":
+            load_kwargs["quantization_config"] = BitsAndBytesConfig(load_in_8bit=True)
         model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
         self._pipeline = pipeline("text-generation", model=model, tokenizer=self._tokenizer)
         self._max_new_tokens = max_new_tokens
+        self.load_seconds = time.perf_counter() - started_at
 
     def extract_batch(self, dialogs: list[NewsDialog]) -> list[ExtractionResult]:
-        prompts = [build_prompt(dialog.text) for dialog in dialogs]
-        responses = self._pipeline(prompts, batch_size=len(dialogs), max_new_tokens=self._max_new_tokens, do_sample=False)
+        prompts = [self._format_prompt(dialog.text) for dialog in dialogs]
+        responses = self._pipeline(
+            prompts,
+            batch_size=len(dialogs),
+            max_new_tokens=self._max_new_tokens,
+            do_sample=False,
+            return_full_text=False,
+        )
         results = []
         for dialog, response in zip(dialogs, responses):
             generated_text = response[0]["generated_text"] if isinstance(response, list) else response["generated_text"]
             results.append(parse_llm_response(dialog.dialog_id, self.name, generated_text))
 
         return results
+
+    def _format_prompt(self, text: str) -> str:
+        instruction = build_prompt(text)
+        if self._tokenizer.chat_template:
+            return self._tokenizer.apply_chat_template(
+                [{"role": "user", "content": instruction}],
+                tokenize=False,
+                add_generation_prompt=True,
+            )
+
+        return instruction
 
 
 def find_items(text: str, label: str, pattern: re.Pattern, blocked_values: set[str] | None = None, source_only: bool = False) -> list[ExtractedItem]:
@@ -193,20 +230,38 @@ def build_prompt(text: str) -> str:
 
 
 def parse_llm_response(dialog_id: str, extractor_name: str, generated_text: str) -> ExtractionResult:
-    payload = extract_json(generated_text)
-    entities = [ExtractedItem(label=str(item.get("label", "")), value=str(item.get("value", ""))) for item in payload.get("entities", []) if item.get("label") and item.get("value")]
-    events = [ExtractedItem(label=str(item.get("label", "EVENT")), value=str(item.get("value", ""))) for item in payload.get("events", []) if item.get("value")]
-    relations = [relation for relation in payload.get("relations", []) if isinstance(relation, dict)]
+    payload, error = extract_json(generated_text)
+    if error:
+        return ExtractionResult(dialog_id=dialog_id, extractor=extractor_name, raw_response=generated_text, parse_valid=False, error=error)
+    entities = []
+    for item in payload["entities"]:
+        label = str(item.get("label", "")).upper()
+        value = str(item.get("value", "")).strip()
+        if label in ALLOWED_ENTITY_LABELS and value:
+            entities.append(ExtractedItem(label=label, value=value))
+    events = [ExtractedItem(label="EVENT", value=str(item.get("value", "")).strip()) for item in payload["events"] if str(item.get("value", "")).strip()]
+    relations = [relation for relation in payload["relations"] if isinstance(relation, dict)]
 
     return ExtractionResult(dialog_id=dialog_id, extractor=extractor_name, entities=deduplicate(entities), events=deduplicate(events), relations=relations, raw_response=generated_text)
 
 
-def extract_json(text: str) -> dict:
-    start = text.find("{")
-    end = text.rfind("}")
-    if start == -1 or end == -1 or end <= start:
-        return {"entities": [], "events": [], "relations": []}
-    try:
-        return json.loads(text[start:end + 1])
-    except json.JSONDecodeError:
-        return {"entities": [], "events": [], "relations": []}
+def extract_json(text: str) -> tuple[dict, str]:
+    decoder = json.JSONDecoder()
+    for start, character in enumerate(text):
+        if character != "{":
+            continue
+        try:
+            payload, _ = decoder.raw_decode(text[start:])
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(payload, dict):
+            continue
+        missing_fields = {"entities", "events", "relations"} - payload.keys()
+        if missing_fields:
+            continue
+        if not all(isinstance(payload[field], list) for field in ("entities", "events", "relations")):
+            return {}, "schema fields must be arrays"
+
+        return payload, ""
+
+    return {}, "valid extraction JSON was not found"

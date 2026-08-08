@@ -7,3 +7,4 @@ transformers>=4.42,<5
 accelerate>=0.31,<2
 torch>=2.3,<3
 bitsandbytes>=0.43,<1; platform_system != "Windows"
+pytest>=8.2,<9

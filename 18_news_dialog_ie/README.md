@@ -1,18 +1,18 @@
 # Извлечение сущностей и событий из новостных диалогов
 
-Домашнее задание по уроку 18 выполнено по треку B: извлечение из новостных диалогов. Проект загружает и фильтрует `allenai/WildChat-1M`, выделяет новостные диалоги, извлекает сущности `PERSON`, `ORG`, `LOC`, `EVENT`, `DATE`, `IMPACT`, `SOURCE`, строит простые отношения и измеряет качество/скорость.
+Домашнее задание по треку B. Проект формирует уникальную англоязычную выборку `allenai/WildChat-1M`, извлекает `PERSON`, `ORG`, `LOC`, `EVENT`, `DATE`, `IMPACT`, `SOURCE` и сравнивает rules, spaCy и две локальные 7B LLM в FP16/INT8.
 
-## Что сделано
+## Реализовано
 
-- Подготовлен потоковый загрузчик WildChat-1M с fallback-датасетом для воспроизводимого запуска без скачивания 1M диалогов.
-- Реализован rule-based IE baseline для новостных диалогов.
-- Добавлена опциональная интеграция spaCy NER.
-- Добавлен опциональный локальный LLM extractor через Hugging Face Transformers.
-- Поддержан режим full precision и quantized inference для локальной модели.
-- Реализованы batch processing, JSONL cache, throughput/latency/RSS benchmark.
-- Реализована оценка precision/recall/F1 на небольшой размеченной контрольной выборке.
-- Добавлены CSV-артефакты с gold-разметкой и предсказанными сущностями для проверки качества.
-- Добавлено Streamlit-приложение для демонстрации извлечения.
+- Streaming-загрузка WildChat с проверкой языка, источника и уникальности текста.
+- Синтетический fallback, разрешённый только явным флагом для smoke-тестов.
+- Профили `rules`, `spacy`, `mistral-fp16`, `mistral-int8`, `openchat-fp16`, `openchat-int8`.
+- Chat templates, строгая JSON-схема, валидация labels и учёт ошибок парсинга.
+- Batch benchmark для размеров `1/2/4/8` с продолжением после CUDA OOM.
+- Fingerprint cache по модели, revision, precision, prompt, generation config, batch и данным.
+- Throughput, latency, RAM, VRAM, valid JSON rate, micro/macro и per-class F1.
+- CSV с false positive/false negative и Streamlit demo с выбором extractor.
+- Автоматические тесты загрузки, парсинга, оценки, cache и edge cases.
 
 ## Установка
 
@@ -20,39 +20,53 @@
 py -3.12 -m venv .venv
 .\.venv\Scripts\activate
 python -m pip install -r requirements.txt
-```
-
-Для spaCy-профиля:
-
-```powershell
 python -m spacy download en_core_web_sm
 ```
 
-## Быстрый запуск
+INT8 через `bitsandbytes` рекомендуется запускать в Linux/WSL с NVIDIA CUDA. Веса обеих моделей должны быть доступны через Hugging Face или локальный cache.
+
+## Подготовка реальных данных и gold-разметки
+
+Сначала выгрузите 2 000 уникальных диалогов и создайте шаблон для независимой ручной разметки первых 200:
 
 ```powershell
-python scripts/run_demo.py --sample-size 100 --batch-size 16 --rebuild-cache
+python scripts/run_demo.py --sample-size 2000 --gold-size 200 --prepare-annotations
 ```
 
-Запуск со spaCy:
+Заполните `data/gold_annotation_template.csv`: одна строка соответствует одной сущности или событию, допустимые labels — `PERSON`, `ORG`, `LOC`, `EVENT`, `DATE`, `IMPACT`, `SOURCE`. Сохраните проверенный файл как `data/gold_annotations.csv`. Итоговый запуск остановится, если размечено менее 200 различных диалогов.
+
+## Итоговый benchmark
 
 ```powershell
-python scripts/run_demo.py --sample-size 100 --batch-size 16 --with-spacy --rebuild-cache
+python scripts/run_demo.py --sample-size 2000 --gold-size 200 --batch-sizes 1 2 4 8 --profiles rules spacy mistral-fp16 mistral-int8 openchat-fp16 openchat-int8 --rebuild-cache
 ```
 
-Запуск локальной LLM в full precision:
+Для отдельного профиля:
 
 ```powershell
-python scripts/run_demo.py --sample-size 20 --batch-size 2 --llm-model mistralai/Mistral-7B-Instruct-v0.2 --rebuild-cache
+python scripts/run_demo.py --profiles mistral-int8 --batch-sizes 1 2 4 8
 ```
 
-Запуск quantized-профиля:
+`--allow-synthetic` и `--allow-incomplete-gold` предназначены только для разработки. Они не должны использоваться при формировании итоговой таблицы домашней работы.
+
+## Smoke-тест без GPU
 
 ```powershell
-python scripts/run_demo.py --sample-size 20 --batch-size 2 --llm-model mistralai/Mistral-7B-Instruct-v0.2 --llm-quantized --rebuild-cache
+python scripts/run_demo.py --sample-size 5 --gold-size 5 --batch-sizes 1 2 4 --profiles rules --allow-synthetic --rebuild-cache
+python -m pytest tests -q
 ```
 
-На Windows `bitsandbytes` может быть недоступен. В таком случае quantized-профиль лучше запускать в WSL/Linux или заменить модель на локальный GGUF через `llama.cpp`.
+## Артефакты
+
+- `data/benchmark_results.csv` — агрегированные метрики по профилям и batch size.
+- `data/dataset_stats.json` — размер, уникальность и распределение источников выборки.
+- `data/gold_stats.json` — объём gold-выборки и распределение классов.
+- `data/per_class_metrics.csv` — precision/recall/F1 по каждому label.
+- `data/extraction_errors.csv` — false positive/false negative.
+- `data/extraction_predictions.csv` — извлечённые элементы и ошибки JSON.
+- `data/extractions.json` — примеры полных структурированных ответов.
+- `docs/pipeline.md` — устройство пайплайна.
+- `docs/result_analyze.md` — проверенные результаты и правила итогового анализа.
 
 ## Demo UI
 
@@ -60,38 +74,4 @@ python scripts/run_demo.py --sample-size 20 --batch-size 2 --llm-model mistralai
 streamlit run scripts/app.py
 ```
 
-## Структура
-
-- `scripts/dataset.py` - загрузка WildChat-1M, фильтрация новостных диалогов, fallback-примеры.
-- `scripts/extractors.py` - rule-based, spaCy и Transformers extractors.
-- `scripts/benchmark.py` - batching, cache, latency, throughput, RSS.
-- `scripts/evaluation.py` - контрольная разметка и precision/recall/F1.
-- `scripts/run_demo.py` - воспроизводимый CLI-сценарий.
-- `scripts/app.py` - Streamlit-приложение.
-- `docs/pipeline.md` - описание пайплайна.
-- `docs/result_analyze.md` - анализ результатов и trade-offs.
-- `data/benchmark_results.csv` - генерируется запуском demo.
-- `data/gold_annotations.csv` - контрольная CSV-разметка для расчета precision/recall/F1.
-- `data/extraction_predictions.csv` - плоская CSV-таблица извлеченных сущностей и событий.
-- `data/extractions.json` - примеры извлечений.
-
-## Текущий воспроизводимый прогон
-
-В репозитории сохранен быстрый CPU-прогон:
-
-```powershell
-python scripts/run_demo.py --sample-size 100 --batch-size 16 --rebuild-cache
-```
-
-Он формирует:
-
-- `data/news_dialogs.jsonl` - 100 demo-диалогов.
-- `data/gold_annotations.csv` - 840 строк контрольной разметки.
-- `data/extraction_predictions.csv` - 920 строк предсказаний.
-- `data/benchmark_results.csv` - throughput, latency, estimated tokens/sec, RSS и precision/recall/F1.
-
-Сохраненный benchmark содержит `rules` baseline. LLM-профили запускаются теми же скриптами через `--llm-model`, но требуют локально доступной 7B-модели и GPU/достаточной RAM.
-
-## Вывод
-
-Для учебной задачи baseline на регулярных выражениях дает быстрый и прозрачный IE-пайплайн. spaCy повышает покрытие `PERSON/ORG/LOC/DATE`, но не решает `IMPACT` и доменные события без дополнительных правил. Локальная LLM лучше подходит для сложных событий и отношений, но требует GPU/quantization и строгого JSON-парсинга.
+UI позволяет выбрать extractor, показывает время обработки, сущности, события, отношения, JSON и ошибку парсинга модели.

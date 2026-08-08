@@ -1,0 +1,1 @@
+{"dialog_id": "1", "extractor": "rules", "entities": [{"label": "ORG", "value": "Reuters", "start": 0, "end": 7, "confidence": 0.75}, {"label": "SOURCE", "value": "Reuters", "start": 0, "end": 7, "confidence": 0.75}], "events": [], "relations": [], "raw_response": "", "parse_valid": true, "error": ""}

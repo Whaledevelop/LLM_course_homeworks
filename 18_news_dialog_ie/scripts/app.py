@@ -1,12 +1,13 @@
 import argparse
 import json
+import time
 from dataclasses import asdict
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 
-from extractors import RuleBasedNewsExtractor
+from extractors import RuleBasedNewsExtractor, SpacyNewsExtractor, TransformersJsonExtractor
 from schemas import NewsDialog
 
 
@@ -20,9 +21,19 @@ def main() -> None:
 
     default_text = load_default_text(args.data)
     text = st.text_area("Диалог", default_text, height=260)
-    extractor = RuleBasedNewsExtractor()
+    profile = st.selectbox("Extractor", ["rules", "spacy", "mistral-fp16", "mistral-int8", "openchat-fp16", "openchat-int8"])
+    try:
+        extractor = load_extractor(profile)
+    except Exception as error:
+        st.error(f"Не удалось загрузить extractor: {error}")
+        return
     dialog = NewsDialog(dialog_id="ui-demo", source="manual", text=text)
+    started_at = time.perf_counter()
     result = extractor.extract_batch([dialog])[0]
+    elapsed_ms = (time.perf_counter() - started_at) * 1000
+    st.metric("Время обработки", f"{elapsed_ms:.1f} ms")
+    if result.error:
+        st.error(result.error)
 
     left, right = st.columns(2)
     with left:
@@ -37,6 +48,21 @@ def main() -> None:
 
     st.subheader("JSON")
     st.json(asdict(result))
+
+
+@st.cache_resource
+def load_extractor(profile: str):
+    if profile == "rules":
+        return RuleBasedNewsExtractor()
+    if profile == "spacy":
+        return SpacyNewsExtractor()
+    alias, precision_mode = profile.rsplit("-", maxsplit=1)
+    models = {
+        "mistral": "mistralai/Mistral-7B-Instruct-v0.2",
+        "openchat": "openchat/openchat-3.5-0106",
+    }
+
+    return TransformersJsonExtractor(models[alias], precision_mode)
 
 
 def load_default_text(data_path: str) -> str:

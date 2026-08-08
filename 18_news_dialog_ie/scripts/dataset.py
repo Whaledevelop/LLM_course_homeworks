@@ -1,5 +1,6 @@
 import json
 import random
+import hashlib
 from pathlib import Path
 from typing import Iterable
 
@@ -83,14 +84,23 @@ SAMPLE_DIALOGS = [
 ]
 
 
-def load_news_dialogs(sample_size: int, seed: int, output_path: Path) -> list[NewsDialog]:
+def load_news_dialogs(sample_size: int, seed: int, output_path: Path, allow_synthetic: bool = False) -> list[NewsDialog]:
     cached_dialogs = read_jsonl(output_path)
-    if len(cached_dialogs) >= sample_size:
+    cached_dialogs = unique_dialogs(cached_dialogs)
+    if len(cached_dialogs) >= sample_size and (allow_synthetic or all(dialog.source != "synthetic" for dialog in cached_dialogs[:sample_size])):
         return cached_dialogs[:sample_size]
 
-    dialogs = list(stream_wildchat_news(sample_size, seed))
-    if len(dialogs) < sample_size:
+    try:
+        dialogs = list(stream_wildchat_news(sample_size, seed))
+    except Exception as error:
+        if not allow_synthetic:
+            raise RuntimeError("WildChat loading failed. Use --allow-synthetic only for smoke tests.") from error
+        dialogs = []
+    if len(dialogs) < sample_size and allow_synthetic:
         dialogs.extend(build_fallback_dialogs(sample_size - len(dialogs), seed, len(dialogs)))
+    dialogs = unique_dialogs(dialogs)
+    if len(dialogs) < sample_size:
+        raise RuntimeError(f"Expected {sample_size} unique WildChat dialogs, received {len(dialogs)}.")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     write_jsonl(output_path, dialogs[:sample_size])
@@ -102,14 +112,17 @@ def stream_wildchat_news(sample_size: int, seed: int) -> Iterable[NewsDialog]:
     try:
         from datasets import load_dataset
     except ImportError:
-        return []
+        raise RuntimeError("The datasets package is required to load WildChat.")
 
     random.seed(seed)
     dataset = load_dataset("allenai/WildChat-1M", split="train", streaming=True)
     selected = []
     for row_index, row in enumerate(dataset):
         text = flatten_conversation(row)
-        if not is_news_dialog(text):
+        language = str(row.get("language") or row.get("lang") or "").lower()
+        if language and language not in {"en", "english"}:
+            continue
+        if not is_english_text(text) or not is_news_dialog(text):
             continue
         dialog_id = str(row.get("conversation_hash") or row.get("conversation_id") or row_index)
         created_at = str(row.get("timestamp") or "")
@@ -138,6 +151,30 @@ def is_news_dialog(text: str) -> bool:
     lowered_text = text.lower()
 
     return any(keyword in lowered_text for keyword in NEWS_KEYWORDS)
+
+
+def is_english_text(text: str) -> bool:
+    letters = [character for character in text if character.isalpha()]
+    if not letters:
+        return False
+    ascii_letters = sum(character.isascii() for character in letters)
+
+    return ascii_letters / len(letters) >= 0.9
+
+
+def unique_dialogs(dialogs: list[NewsDialog]) -> list[NewsDialog]:
+    seen_ids = set()
+    seen_texts = set()
+    result = []
+    for dialog in dialogs:
+        text_fingerprint = hashlib.sha256(" ".join(dialog.text.lower().split()).encode("utf-8")).hexdigest()
+        if dialog.dialog_id in seen_ids or text_fingerprint in seen_texts:
+            continue
+        seen_ids.add(dialog.dialog_id)
+        seen_texts.add(text_fingerprint)
+        result.append(dialog)
+
+    return result
 
 
 def build_fallback_dialogs(count: int, seed: int, offset: int) -> list[NewsDialog]:
