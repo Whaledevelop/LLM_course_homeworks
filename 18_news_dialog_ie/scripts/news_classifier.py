@@ -136,15 +136,18 @@ def load_local_generator(model_id: str) -> tuple[Callable, str, float]:
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "left"
-    dtype = torch.float16 if device == "cuda" else torch.float32
-    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype)
-    model.to(device)
+    load_kwargs = build_model_load_kwargs(torch, device)
+    model = AutoModelForCausalLM.from_pretrained(model_id, **load_kwargs)
     model.eval()
+    input_device = resolve_model_input_device(model)
+    print_model_diagnostics(model, torch, input_device)
+    load_seconds = time.perf_counter() - started_at
+    print(f"[Classifier] Load time: {load_seconds:.2f} seconds")
 
     def generate(prompts: list[str]) -> list[str]:
         formatted_prompts = [format_prompt(tokenizer, prompt) for prompt in prompts]
         encoded = tokenizer(formatted_prompts, return_tensors="pt", padding=True, truncation=False)
-        encoded = {name: value.to(device) for name, value in encoded.items()}
+        encoded = {name: value.to(input_device) for name, value in encoded.items()}
         input_length = encoded["input_ids"].shape[1]
         with torch.inference_mode():
             output_ids = model.generate(
@@ -157,7 +160,42 @@ def load_local_generator(model_id: str) -> tuple[Callable, str, float]:
 
         return tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
 
-    return generate, device, time.perf_counter() - started_at
+    return generate, str(input_device), load_seconds
+
+
+def build_model_load_kwargs(torch_module, device: str) -> dict:
+    load_kwargs = {
+        "dtype": torch_module.float16 if device == "cuda" else torch_module.float32,
+        "low_cpu_mem_usage": True,
+    }
+    if device == "cuda":
+        load_kwargs["device_map"] = "auto"
+
+    return load_kwargs
+
+
+def resolve_model_input_device(model):
+    embeddings = model.get_input_embeddings()
+    if embeddings is not None and hasattr(embeddings, "weight"):
+        embedding_device = embeddings.weight.device
+        if str(embedding_device) != "meta":
+            return embedding_device
+    for parameter in model.parameters():
+        if str(parameter.device) != "meta":
+            return parameter.device
+
+    raise RuntimeError("Could not determine the news classifier input device.")
+
+
+def print_model_diagnostics(model, torch_module, input_device) -> None:
+    device_map = getattr(model, "hf_device_map", None)
+    print(f"[Classifier] Loaded input device: {input_device}")
+    print(f"[Classifier] Device map: {device_map if device_map is not None else 'single-device'}")
+    if str(input_device).startswith("cuda"):
+        allocated_mb = torch_module.cuda.memory_allocated(input_device) / (1024 * 1024)
+        reserved_mb = torch_module.cuda.memory_reserved(input_device) / (1024 * 1024)
+        print(f"[Classifier] VRAM allocated: {allocated_mb:.1f} MB")
+        print(f"[Classifier] VRAM reserved: {reserved_mb:.1f} MB")
 
 
 def format_prompt(tokenizer, prompt: str) -> str:

@@ -3,7 +3,15 @@ import json
 import pytest
 
 import news_classifier
-from news_classifier import NewsClassifier, parse_classification, run_sanity_check, select_device
+from news_classifier import (
+    NewsClassifier,
+    build_model_load_kwargs,
+    parse_classification,
+    print_model_diagnostics,
+    resolve_model_input_device,
+    run_sanity_check,
+    select_device,
+)
 
 
 def test_parse_classification_is_strict() -> None:
@@ -141,6 +149,71 @@ def test_sanity_check_stops_unreliable_classifier() -> None:
 def test_device_selection() -> None:
     assert select_device(False) == "cpu"
     assert select_device(True) == "cuda"
+
+
+class FakeTorch:
+    float16 = "float16"
+    float32 = "float32"
+
+
+def test_cuda_model_loading_uses_accelerate_without_cpu_copy() -> None:
+    assert build_model_load_kwargs(FakeTorch, "cuda") == {
+        "dtype": "float16",
+        "low_cpu_mem_usage": True,
+        "device_map": "auto",
+    }
+
+
+def test_cpu_model_loading_uses_low_memory_float32() -> None:
+    assert build_model_load_kwargs(FakeTorch, "cpu") == {
+        "dtype": "float32",
+        "low_cpu_mem_usage": True,
+    }
+
+
+class FakeWeight:
+    device = "cuda:1"
+
+
+class FakeEmbeddings:
+    weight = FakeWeight()
+
+
+class FakeModel:
+    hf_device_map = {"model.embed_tokens": 1, "lm_head": 1}
+
+    def get_input_embeddings(self):
+        return FakeEmbeddings()
+
+    def parameters(self):
+        return iter(())
+
+
+class FakeCuda:
+    @staticmethod
+    def memory_allocated(device):
+        return 128 * 1024 * 1024
+
+    @staticmethod
+    def memory_reserved(device):
+        return 256 * 1024 * 1024
+
+
+class FakeDiagnosticTorch:
+    cuda = FakeCuda()
+
+
+def test_input_device_and_cuda_diagnostics_use_embedding_device(capsys) -> None:
+    model = FakeModel()
+    input_device = resolve_model_input_device(model)
+
+    print_model_diagnostics(model, FakeDiagnosticTorch, input_device)
+
+    output = capsys.readouterr().out
+    assert input_device == "cuda:1"
+    assert "Loaded input device: cuda:1" in output
+    assert "VRAM allocated: 128.0 MB" in output
+    assert "VRAM reserved: 256.0 MB" in output
 
 
 def test_batch_size_must_be_positive(tmp_path) -> None:
