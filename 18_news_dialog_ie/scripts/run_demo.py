@@ -2,13 +2,15 @@ import argparse
 import csv
 import gc
 import json
+import shutil
 from collections import Counter
 from dataclasses import asdict
+from datetime import datetime
 from pathlib import Path
 
 from benchmark import ExtractionBenchmark, write_benchmark_csv
 from dataset import load_news_dialogs
-from evaluation import load_gold_labels, write_annotation_template, write_evaluation_csvs
+from evaluation import annotation_template_fingerprint, load_gold_labels, write_annotation_template, write_evaluation_csvs
 from extractors import RuleBasedNewsExtractor, SpacyNewsExtractor, TransformersJsonExtractor
 from schemas import ExtractionResult
 
@@ -25,22 +27,29 @@ def main() -> None:
     project_dir = Path(__file__).resolve().parents[1]
     data_dir = project_dir / "data"
     cache_dir = data_dir / "cache"
+    dataset_path = data_dir / "news_dialogs.jsonl"
+    template_path = data_dir / "gold_annotation_template.csv"
+    progress_path = data_dir / "annotation_progress.json"
     gold_path = Path(args.gold_path) if args.gold_path else data_dir / "gold_annotations.csv"
     if args.rebuild_cache:
         clear_cache(cache_dir)
+    if args.rebuild_dataset:
+        clear_dataset_cache(dataset_path)
+        clear_dataset_outputs(data_dir)
 
-    dialogs = load_news_dialogs(args.sample_size, args.seed, data_dir / "news_dialogs.jsonl", args.allow_synthetic)
+    dialogs = load_news_dialogs(args.sample_size, args.seed, dataset_path, args.allow_synthetic)
     validate_dataset(dialogs, args.sample_size, args.allow_synthetic)
     write_dataset_stats(data_dir / "dataset_stats.json", dialogs)
     if args.prepare_annotations:
-        write_annotation_template(data_dir / "gold_annotation_template.csv", [dialog.dialog_id for dialog in dialogs[:args.gold_size]])
+        prepare_annotation_workspace(data_dir, [dialog.dialog_id for dialog in dialogs[:args.gold_size]])
         print(f"Annotation template written for {min(args.gold_size, len(dialogs))} dialogs.")
 
         return
-    validate_gold(gold_path, args.gold_size, args.allow_incomplete_gold)
+    validate_gold(gold_path, template_path, progress_path, args.gold_size, args.allow_incomplete_gold)
     write_gold_stats(data_dir / "gold_stats.json", gold_path)
     reset_output_files(data_dir)
-    benchmark = ExtractionBenchmark(cache_dir, gold_path)
+    evaluation_dialog_ids = set(load_gold_labels(gold_path)) if args.allow_incomplete_gold else set(read_template_dialog_ids(template_path))
+    benchmark = ExtractionBenchmark(cache_dir, gold_path, evaluation_dialog_ids)
     benchmark_results = []
     all_extractions = []
     for profile in parse_profiles(args.profiles):
@@ -76,17 +85,18 @@ def main() -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--sample-size", type=int, default=2000)
-    parser.add_argument("--gold-size", type=int, default=200)
+    parser.add_argument("--sample-size", type=int, default=200)
+    parser.add_argument("--gold-size", type=int, default=20)
     parser.add_argument("--gold-path", default="")
     parser.add_argument("--batch-sizes", type=int, nargs="+", default=[1, 2, 4, 8])
-    parser.add_argument("--profiles", nargs="+", default=["rules", "spacy", "mistral-fp16", "mistral-int8", "openchat-fp16", "openchat-int8"])
+    parser.add_argument("--profiles", nargs="+", default=["mistral-fp16", "mistral-int8", "openchat-fp16", "openchat-int8"])
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-new-tokens", type=int, default=256)
     parser.add_argument("--allow-synthetic", action="store_true")
     parser.add_argument("--allow-incomplete-gold", action="store_true")
     parser.add_argument("--prepare-annotations", action="store_true")
     parser.add_argument("--rebuild-cache", action="store_true")
+    parser.add_argument("--rebuild-dataset", action="store_true")
 
     return parser
 
@@ -117,10 +127,81 @@ def validate_dataset(dialogs, expected_size: int, allow_synthetic: bool) -> None
         raise ValueError("Synthetic dialogs are forbidden in the final benchmark.")
 
 
-def validate_gold(gold_path: Path, gold_size: int, allow_incomplete: bool) -> None:
+def validate_gold(gold_path: Path, template_path: Path, progress_path: Path, gold_size: int, allow_incomplete: bool) -> None:
+    template_dialog_ids = read_template_dialog_ids(template_path)
+    if len(template_dialog_ids) != gold_size:
+        raise ValueError(f"Annotation template contains {len(template_dialog_ids)} dialogs; exactly {gold_size} are required.")
+    target_dialog_ids = template_dialog_ids
+    target_dialog_id_set = set(target_dialog_ids)
     gold_labels = load_gold_labels(gold_path)
-    if len(gold_labels) < gold_size and not allow_incomplete:
-        raise ValueError(f"Gold data contains {len(gold_labels)} dialogs; at least {gold_size} independently annotated dialogs are required.")
+    unexpected_dialog_ids = set(gold_labels) - target_dialog_id_set
+    if unexpected_dialog_ids:
+        raise ValueError(f"Gold data contains {len(unexpected_dialog_ids)} dialogs outside the current annotation template.")
+    if allow_incomplete:
+        return
+    progress = read_annotation_progress(progress_path)
+    expected_fingerprint = annotation_template_fingerprint(target_dialog_ids)
+    if progress.get("template_fingerprint") != expected_fingerprint:
+        raise ValueError("Annotation progress does not match the current template.")
+    reviewed_dialog_ids = set(progress.get("reviewed_dialog_ids", [])) & target_dialog_id_set
+    if len(reviewed_dialog_ids) < gold_size:
+        raise ValueError(f"Only {len(reviewed_dialog_ids)} of {gold_size} annotation dialogs are reviewed.")
+
+
+def prepare_annotation_workspace(data_dir: Path, dialog_ids: list[str]) -> None:
+    template_path = data_dir / "gold_annotation_template.csv"
+    gold_path = data_dir / "gold_annotations.csv"
+    progress_path = data_dir / "annotation_progress.json"
+    existing_dialog_ids = read_template_dialog_ids(template_path) if template_path.exists() else []
+    if existing_dialog_ids != dialog_ids:
+        backup_annotation_files(data_dir, (template_path, gold_path, progress_path))
+        write_annotation_template(template_path, dialog_ids)
+        write_empty_gold(gold_path)
+        write_annotation_progress(progress_path, dialog_ids, [])
+        return
+    progress = read_annotation_progress(progress_path)
+    reviewed_dialog_ids = [dialog_id for dialog_id in progress.get("reviewed_dialog_ids", []) if dialog_id in set(dialog_ids)]
+    write_annotation_progress(progress_path, dialog_ids, reviewed_dialog_ids)
+
+
+def read_template_dialog_ids(path: Path) -> list[str]:
+    with path.open("r", encoding="utf-8", newline="") as file:
+        reader = csv.DictReader(file)
+
+        return [row["dialog_id"].strip() for row in reader if row.get("dialog_id", "").strip()]
+
+
+def read_annotation_progress(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    with path.open("r", encoding="utf-8") as file:
+
+        return json.load(file)
+
+
+def write_annotation_progress(path: Path, dialog_ids: list[str], reviewed_dialog_ids: list[str]) -> None:
+    reviewed = [dialog_id for dialog_id in dialog_ids if dialog_id in set(reviewed_dialog_ids)]
+    write_json(
+        path,
+        {"template_fingerprint": annotation_template_fingerprint(dialog_ids), "reviewed_dialog_ids": reviewed},
+    )
+
+
+def write_empty_gold(path: Path) -> None:
+    with path.open("w", encoding="utf-8", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=["dialog_id", "label", "value"])
+        writer.writeheader()
+
+
+def backup_annotation_files(data_dir: Path, paths: tuple[Path, ...]) -> None:
+    existing_paths = [path for path in paths if path.exists()]
+    if not existing_paths:
+        return
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S-%f")
+    backup_dir = data_dir / "annotation_backups" / timestamp
+    backup_dir.mkdir(parents=True, exist_ok=True)
+    for path in existing_paths:
+        shutil.copy2(path, backup_dir / path.name)
 
 
 def write_dataset_stats(path: Path, dialogs) -> None:
@@ -157,6 +238,26 @@ def clear_cache(cache_dir: Path) -> None:
         return
     for path in cache_dir.iterdir():
         if path.suffix in {".jsonl", ".json"}:
+            path.unlink()
+
+
+def clear_dataset_cache(dataset_path: Path) -> None:
+    if dataset_path.exists():
+        dataset_path.unlink()
+
+
+def clear_dataset_outputs(data_dir: Path) -> None:
+    filenames = (
+        "benchmark_results.csv",
+        "extractions.json",
+        "extraction_errors.csv",
+        "extraction_predictions.csv",
+        "gold_stats.json",
+        "per_class_metrics.csv",
+    )
+    for filename in filenames:
+        path = data_dir / filename
+        if path.exists():
             path.unlink()
 
 

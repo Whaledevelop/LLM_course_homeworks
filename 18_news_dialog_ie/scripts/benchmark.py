@@ -3,7 +3,7 @@ import hashlib
 import json
 import statistics
 import time
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 
 try:
@@ -16,9 +16,10 @@ from schemas import BenchmarkResult, ExtractedItem, ExtractionResult, NewsDialog
 
 
 class ExtractionBenchmark:
-    def __init__(self, cache_dir: Path, gold_path: Path) -> None:
+    def __init__(self, cache_dir: Path, gold_path: Path, evaluation_dialog_ids: set[str] | None = None) -> None:
         self._cache_dir = cache_dir
         self._gold_path = gold_path
+        self._evaluation_dialog_ids = evaluation_dialog_ids
         self._cache_dir.mkdir(parents=True, exist_ok=True)
 
     def run(self, extractor, dialogs: list[NewsDialog], batch_size: int) -> tuple[BenchmarkResult, list[ExtractionResult], EvaluationReport]:
@@ -29,7 +30,15 @@ class ExtractionBenchmark:
             results = read_results(result_path)
             with metrics_path.open("r", encoding="utf-8") as file:
                 benchmark_result = BenchmarkResult(**json.load(file))
-            report = evaluate(results, self._gold_path)
+            report = evaluate(results, self._gold_path, self._evaluation_dialog_ids)
+            benchmark_result = replace(
+                benchmark_result,
+                precision=report.precision,
+                recall=report.recall,
+                f1=report.micro_f1,
+                micro_f1=report.micro_f1,
+                macro_f1=report.macro_f1,
+            )
 
             return benchmark_result, results, report
 
@@ -48,7 +57,7 @@ class ExtractionBenchmark:
             peak_ram_mb = max(peak_ram_mb, current_ram_mb(process))
         total_seconds = time.perf_counter() - started_at
         total_chars = sum(len(dialog.text) for dialog in dialogs)
-        report = evaluate(results, self._gold_path)
+        report = evaluate(results, self._gold_path, self._evaluation_dialog_ids)
         valid_json_rate = sum(result.parse_valid for result in results) / len(results) if results else 0.0
         benchmark_result = BenchmarkResult(
             extractor=extractor.name,

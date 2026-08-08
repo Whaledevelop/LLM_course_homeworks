@@ -2,37 +2,31 @@
 
 ## Данные
 
-`allenai/WildChat-1M` читается в streaming-режиме. Запись принимается, если она англоязычная и содержит новостные маркеры. Дубликаты удаляются одновременно по `dialog_id` и SHA-256 нормализованного текста. Итоговый benchmark требует 2 000 уникальных записей без источника `synthetic`.
+`allenai/WildChat-1M` читается в streaming-режиме. Итоговая выборка содержит 200 уникальных англоязычных диалогов с источником `allenai/WildChat-1M`.
 
-Синтетические примеры используются только с `--allow-synthetic` для тестирования. При недоступности WildChat финальный режим завершается ошибкой и не подменяет реальные данные fallback-набором.
+News filter использует score из независимых признаков: источник/атрибуция, news-like intent, событийная лексика, дата, reporting verb и capitalized phrases. Для принятия нужны score не ниже 4, сильный новостной сигнал и дополнительный признак события, даты или reporting verb. Все термины проверяются regex с границами слов.
+
+До scoring исключаются явные programming/code, jailbreak, roleplay, explicit-content и advertising-generation prompts. Фильтр остаётся простым rule-based этапом и не использует LLM, spaCy или ML.
+
+`--rebuild-dataset` удаляет только локальный dataset cache перед загрузкой. `--rebuild-cache` независимо очищает extraction cache.
 
 ## Gold-разметка
 
-Команда с `--prepare-annotations` создаёт CSV-шаблон для первых 200 реальных диалогов. Gold-файл заполняется независимо вручную; предсказания rules или LLM не копируются в эталон. Перед benchmark проверяются labels и количество размеченных диалогов.
+Из первых 20 выбранных диалогов создаётся annotation template. Разметка выполняется вручную через `annotation_app.py`. CSV содержит только `dialog_id,label,value`; reviewed-состояние и fingerprint шаблона хранятся отдельно в `annotation_progress.json`.
 
-Качество считается по строгому совпадению `(dialog_id, label, normalized value)`. Сохраняются micro F1, macro F1, per-class precision/recall/F1, support, false positive и false negative.
+При смене template ID старые annotation-файлы сохраняются в backup и workspace сбрасывается. Диалог без сущностей может быть reviewed без строки в gold CSV. Benchmark допускается только после review всех 20 диалогов.
 
-## Извлечение
+## Модели и benchmark
 
-Профили:
+Основные профили:
 
 | Профиль | Модель | Precision |
 | --- | --- | --- |
-| `rules` | регулярные выражения и словари | native |
-| `spacy` | `en_core_web_sm` + rules | native |
 | `mistral-fp16` | `mistralai/Mistral-7B-Instruct-v0.2` | FP16 |
 | `mistral-int8` | та же модель | INT8 |
 | `openchat-fp16` | `openchat/openchat-3.5-0106` | FP16 |
 | `openchat-int8` | та же модель | INT8 |
 
-LLM получает prompt через собственный chat template. Генератор возвращает только продолжение без исходного prompt. Парсер ищет JSON с массивами `entities`, `events`, `relations`, отбрасывает неизвестные labels и сохраняет `parse_valid` и текст ошибки.
+`rules` и `spacy` доступны как optional baselines. Для каждого профиля измеряются throughput, mean/p95 latency, RAM, VRAM, precision, recall и F1 на batch size `1/2/4/8`.
 
-## Benchmark и cache
-
-Каждый профиль проверяется с batch size `1/2/4/8`. CUDA OOM помечает размер как неуспешный, очищает GPU cache и не прерывает остальные размеры. Максимальный успешный batch выводится в консоль.
-
-Измеряются время загрузки, docs/sec, chars/sec, оценка tokens/sec, mean/p95 latency, peak process RAM, peak allocated CUDA VRAM и valid JSON rate. Fingerprint cache учитывает модель, revision, precision, версию prompt, generation config, batch size, идентификаторы и хэши текстов. Рядом с extraction cache хранится исходный snapshot метрик, поэтому cache-hit не создаёт нулевые значения скорости.
-
-## Выходные данные
-
-Один CLI-запуск формирует общую таблицу всех профилей и batch size, per-class метрики, ошибки и предсказания. Синтетический smoke benchmark не считается итоговым результатом домашней работы.
+Основная таблица записывается в `benchmark_results.csv`. Расширенные per-class метрики, ошибки, predictions и JSON-примеры сохраняются как вспомогательные материалы.

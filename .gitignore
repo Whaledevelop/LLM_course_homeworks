@@ -26,3 +26,4 @@ project/tutor_bot/data/history/*.jsonl
 /outputs/pytest*/
 
 /18_news_dialog_ie/data/news_dialogs.jsonl
+/18_news_dialog_ie/data/annotation_backups/

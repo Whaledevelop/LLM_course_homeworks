@@ -1,4 +1,5 @@
 import csv
+import hashlib
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -19,14 +20,15 @@ class EvaluationReport:
     evaluated_dialogs: int
 
 
-def evaluate(results: list[ExtractionResult], gold_path: Path) -> EvaluationReport:
+def evaluate(results: list[ExtractionResult], gold_path: Path, evaluated_dialog_ids: set[str] | None = None) -> EvaluationReport:
     gold_labels = load_gold_labels(gold_path)
     expected = set()
     predicted = set()
     result_ids = {result.dialog_id for result in results}
-    evaluated_ids = set(gold_labels) & result_ids
+    evaluation_scope = evaluated_dialog_ids if evaluated_dialog_ids is not None else set(gold_labels)
+    evaluated_ids = evaluation_scope & result_ids
     for dialog_id in evaluated_ids:
-        items = gold_labels[dialog_id]
+        items = gold_labels.get(dialog_id, set())
         expected.update((dialog_id, label, normalize(value)) for label, value in items)
     for result in results:
         if result.dialog_id not in evaluated_ids:
@@ -91,6 +93,12 @@ def write_annotation_template(path: Path, dialog_ids: list[str]) -> None:
         writer.writeheader()
         for dialog_id in dialog_ids:
             writer.writerow({"dialog_id": dialog_id, "label": "", "value": ""})
+
+
+def annotation_template_fingerprint(dialog_ids: list[str]) -> str:
+    serialized = "\n".join(dialog_ids)
+
+    return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
 
 def write_evaluation_csvs(per_class_path: Path, errors_path: Path, extractor: str, batch_size: int, report: EvaluationReport) -> None:

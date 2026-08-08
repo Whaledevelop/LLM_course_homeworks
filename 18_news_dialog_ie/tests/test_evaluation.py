@@ -26,3 +26,17 @@ def test_evaluation_calculates_micro_macro_and_errors(tmp_path) -> None:
     assert report.recall == pytest.approx(0.5)
     assert report.micro_f1 == pytest.approx(0.5)
     assert len(report.errors) == 2
+
+
+def test_evaluation_penalizes_prediction_for_reviewed_empty_dialog(tmp_path) -> None:
+    gold_path = tmp_path / "gold.csv"
+    gold_path.write_text("dialog_id,label,value\n", encoding="utf-8")
+    results = [ExtractionResult("empty", "test", entities=[ExtractedItem("ORG", "OpenAI")])]
+
+    report = evaluate(results, gold_path, {"empty"})
+
+    assert report.precision == 0.0
+    assert report.evaluated_dialogs == 1
+    assert report.errors == [
+        {"dialog_id": "empty", "error_type": "false_positive", "label": "ORG", "value": "openai"}
+    ]

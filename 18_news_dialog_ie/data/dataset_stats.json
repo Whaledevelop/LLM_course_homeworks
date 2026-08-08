@@ -1,8 +1,8 @@
 {
-  "examples": 2000,
-  "unique_ids": 2000,
-  "unique_texts": 2000,
+  "examples": 200,
+  "unique_ids": 200,
+  "unique_texts": 200,
   "sources": {
-    "allenai/WildChat-1M": 2000
+    "allenai/WildChat-1M": 200
   }
 }

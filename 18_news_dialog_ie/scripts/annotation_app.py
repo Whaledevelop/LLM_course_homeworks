@@ -5,6 +5,8 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from evaluation import annotation_template_fingerprint
+
 
 LABELS = ["PERSON", "ORG", "LOC", "EVENT", "DATE", "IMPACT", "SOURCE"]
 PROJECT_DIR = Path(__file__).resolve().parents[1]
@@ -75,21 +77,28 @@ def save_annotations(path: Path, annotations: list[dict[str, str]]) -> None:
     temporary_path.replace(path)
 
 
-def load_reviewed(path: Path, allowed_dialog_ids: set[str]) -> set[str]:
+def load_reviewed(path: Path, allowed_dialog_ids: set[str], expected_fingerprint: str) -> set[str]:
     if not path.exists():
         return set()
     with path.open("r", encoding="utf-8") as file:
         payload = json.load(file)
+    if payload.get("template_fingerprint") != expected_fingerprint:
+        return set()
     reviewed = payload.get("reviewed_dialog_ids", [])
 
     return {str(dialog_id) for dialog_id in reviewed if str(dialog_id) in allowed_dialog_ids}
 
 
-def save_reviewed(path: Path, reviewed_dialog_ids: set[str], ordered_dialog_ids: list[str]) -> None:
+def save_reviewed(path: Path, reviewed_dialog_ids: set[str], ordered_dialog_ids: list[str], template_fingerprint: str) -> None:
     ordered_reviewed = [dialog_id for dialog_id in ordered_dialog_ids if dialog_id in reviewed_dialog_ids]
     temporary_path = path.with_suffix(".tmp")
     with temporary_path.open("w", encoding="utf-8") as file:
-        json.dump({"reviewed_dialog_ids": ordered_reviewed}, file, ensure_ascii=False, indent=2)
+        json.dump(
+            {"template_fingerprint": template_fingerprint, "reviewed_dialog_ids": ordered_reviewed},
+            file,
+            ensure_ascii=False,
+            indent=2,
+        )
     temporary_path.replace(path)
 
 
@@ -118,8 +127,9 @@ def main() -> None:
         if not dialog_ids:
             raise ValueError("Annotation template does not contain dialog IDs.")
         allowed_dialog_ids = set(dialog_ids)
+        template_fingerprint = annotation_template_fingerprint(dialog_ids)
         annotations = load_annotations(GOLD_PATH, allowed_dialog_ids)
-        reviewed_dialog_ids = load_reviewed(PROGRESS_PATH, allowed_dialog_ids)
+        reviewed_dialog_ids = load_reviewed(PROGRESS_PATH, allowed_dialog_ids, template_fingerprint)
     except (FileNotFoundError, ValueError, json.JSONDecodeError, KeyError) as error:
         st.error(str(error))
         st.stop()
@@ -179,12 +189,12 @@ def main() -> None:
         if review_columns[0].button("Mark dialog as reviewed", type="primary"):
             reviewed_dialog_ids.add(current_dialog_id)
             save_annotations(GOLD_PATH, annotations)
-            save_reviewed(PROGRESS_PATH, reviewed_dialog_ids, dialog_ids)
+            save_reviewed(PROGRESS_PATH, reviewed_dialog_ids, dialog_ids, template_fingerprint)
             st.rerun()
     elif review_columns[0].button("Mark dialog as not reviewed"):
         reviewed_dialog_ids.remove(current_dialog_id)
         save_annotations(GOLD_PATH, annotations)
-        save_reviewed(PROGRESS_PATH, reviewed_dialog_ids, dialog_ids)
+        save_reviewed(PROGRESS_PATH, reviewed_dialog_ids, dialog_ids, template_fingerprint)
         st.rerun()
 
     if review_columns[1].button("Next unreviewed"):
