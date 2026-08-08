@@ -2,7 +2,9 @@
 
 ## Dataset filtering
 
-Итоговая выборка формируется в два этапа: rule-based high-recall prefilter сокращает поток WildChat, после чего локальная Hugging Face Transformers модель принимает финальное решение `NEWS / NOT_NEWS`. Веса classifier скачиваются с Hugging Face Hub, а inference выполняется локально на CPU или CUDA. Это понадобилось из-за false positive чистого rule-based подхода: художественных текстов, chapter review, code/programming, jailbreak и advertising prompts.
+Итоговая выборка формируется по цепочке: WildChat → rule-based high-recall prefilter → извлечение initial user intent → truncation classifier input → prompt-injection-resistant `Qwen/Qwen3-1.7B` classifier → `NEWS / NOT_NEWS`. Полный исходный conversation сохраняется в `NewsDialog.text` для IE benchmark, но Stage 2 получает только первое содержательное User-сообщение; после коротких `hi`, `hello`, `yes` или `continue` добавляется следующее User-сообщение. Assistant responses не входят в classifier input.
+
+Ранняя версия классифицировала весь conversation. Длинный контекст замедлял inference, создавал false positive на постороннем содержимом Assistant и позволял инструкциям внутри WildChat влиять на classifier как prompt injection. Поэтому classifier input ограничен user intent, токенизируется с truncation и отделяется в prompt как недоверенные данные. Веса classifier скачиваются с Hugging Face Hub, а inference выполняется локально на CPU или CUDA.
 
 Classifier используется только для подготовки датасета и не является benchmark-моделью. Основной эксперимент по-прежнему сравнивает локальные Mistral и OpenChat в FP16/INT8.
 

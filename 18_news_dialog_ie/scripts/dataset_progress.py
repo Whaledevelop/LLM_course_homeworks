@@ -9,6 +9,7 @@ def print_dataset_progress(event: str, payload: dict, gold_size: int) -> None:
         print(f"[Classifier] {payload['model']}")
         print(f"[Classifier] Device: {payload['device']}")
         print(f"[Classifier] Batch size: {payload['batch_size']}")
+        print(f"[Classifier] Max input tokens: {payload['max_input_tokens']}")
 
         return
     if event == "classification":

@@ -44,6 +44,7 @@ EXCLUDED_PATTERNS = (
     re.compile(r"\b(?:porn websites?|underage content|explicit sexual content|EroticaChan)\b", re.IGNORECASE),
     re.compile(r"\b(?:write (?:an? )?ad copy|marketing campaign|product promotion|voice-overs? (?:related to|for) (?:the )?theme)\b", re.IGNORECASE),
 )
+SHORT_USER_MESSAGES = {"hi", "hello", "hey", "yes", "continue"}
 
 
 def load_news_dialogs(
@@ -53,6 +54,7 @@ def load_news_dialogs(
     classifier_cache_path: Path,
     classifier_model: str,
     classifier_batch_size: int,
+    classifier_max_input_tokens: int,
     allow_synthetic: bool = False,
     progress_callback=None,
     classifier_sanity_check: bool = False,
@@ -62,7 +64,12 @@ def load_news_dialogs(
     if len(cached_dialogs) >= sample_size and (allow_synthetic or all(dialog.source != "synthetic" for dialog in cached_dialogs[:sample_size])):
         return cached_dialogs[:sample_size], None, None
 
-    classifier = NewsClassifier(classifier_cache_path, classifier_model, classifier_batch_size)
+    classifier = NewsClassifier(
+        classifier_cache_path,
+        classifier_model,
+        classifier_batch_size,
+        max_input_tokens=classifier_max_input_tokens,
+    )
     emit_progress(
         progress_callback,
         "start",
@@ -71,6 +78,7 @@ def load_news_dialogs(
             "model": classifier.model,
             "device": classifier.device,
             "batch_size": classifier.batch_size,
+            "max_input_tokens": classifier.max_input_tokens,
         },
     )
     if classifier_sanity_check:
@@ -122,6 +130,7 @@ def collect_news_dialogs(rows, sample_size: int, seed: int, classifier, progress
         if stats["rows_seen"] % 1000 == 0:
             emit_progress(progress_callback, "scan", {**stats, "target": sample_size})
         text = flatten_conversation(row)
+        classifier_text = extract_classifier_text(row)
         language = str(row.get("language") or row.get("lang") or "").lower()
         if language and language not in {"en", "english"}:
             continue
@@ -137,7 +146,8 @@ def collect_news_dialogs(rows, sample_size: int, seed: int, classifier, progress
             continue
         stats["stage1_passed"] += 1
         created_at = str(row.get("timestamp") or "")
-        candidates.append(NewsDialog(dialog_id=dialog_id, source="allenai/WildChat-1M", text=text, created_at=created_at))
+        dialog = NewsDialog(dialog_id=dialog_id, source="allenai/WildChat-1M", text=text, created_at=created_at)
+        candidates.append((dialog, classifier_text))
         if len(candidates) >= classifier.batch_size:
             classify_candidates(candidates, classifier, selected, stats, sample_size, progress_callback)
             candidates.clear()
@@ -152,8 +162,8 @@ def collect_news_dialogs(rows, sample_size: int, seed: int, classifier, progress
 
 
 def classify_candidates(candidates, classifier, selected: list[NewsDialog], stats: dict, sample_size: int, progress_callback=None) -> None:
-    classifications = classifier.classify_batch([(dialog.dialog_id, dialog.text) for dialog in candidates])
-    for dialog, (classification, cache_hit, raw_output) in zip(candidates, classifications):
+    classifications = classifier.classify_batch([(dialog.dialog_id, classifier_text) for dialog, classifier_text in candidates])
+    for (dialog, classifier_text), (classification, cache_hit, raw_output) in zip(candidates, classifications):
         stats["llm_classified"] += 1
         stats["classifier_cache_hits"] += int(cache_hit)
         if classification == "NOT_NEWS":
@@ -173,7 +183,7 @@ def classify_candidates(candidates, classifier, selected: list[NewsDialog], stat
                 "cache_hit": cache_hit,
                 "news_collected": len(selected),
                 "target": sample_size,
-                "text": dialog.text,
+                "text": classifier_text,
                 "raw_output": raw_output,
             },
         )
@@ -207,6 +217,23 @@ def flatten_conversation(row: dict) -> str:
             parts.append(f"{role}: {content}")
 
     return "\n".join(parts)
+
+
+def extract_classifier_text(row: dict) -> str:
+    conversations = row.get("conversation") or row.get("messages") or []
+    user_messages = []
+    for message in conversations:
+        role = str(message.get("role") or message.get("from") or "").lower()
+        content = str(message.get("content") or message.get("value") or "").strip()
+        if role in {"user", "human"} and content:
+            user_messages.append(content)
+    if not user_messages:
+        return ""
+    first_message = user_messages[0]
+    if first_message.lower().strip(".!?") in SHORT_USER_MESSAGES and len(user_messages) > 1:
+        return f"{first_message}\n{user_messages[1]}"
+
+    return first_message
 
 
 def news_dialog_score(text: str) -> tuple[int, set[str]]:

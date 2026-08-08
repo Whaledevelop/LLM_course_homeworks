@@ -7,7 +7,9 @@
 ```text
 WildChat stream
 → rule-based high-recall prefilter
-→ local Hugging Face Transformers NEWS / NOT_NEWS classifier
+→ extract initial user intent without Assistant responses
+→ truncate classifier input to 1024 tokens by default
+→ prompt-injection-resistant Qwen3-1.7B NEWS / NOT_NEWS classifier
 → 200 news dialogs
 → manual gold annotation for 10 dialogs
 → local Mistral/OpenChat IE benchmark
@@ -32,7 +34,7 @@ py -3.12 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Модель можно изменить через `--news-classifier-model`; CLI имеет приоритет над optional environment variable `NEWS_CLASSIFIER_MODEL`. Безопасный для RTX 2060 SUPER default batch size равен 4 и меняется через `--news-classifier-batch-size`. Опциональный `--news-classifier-sanity-check` проверяет classifier на 12 очевидных примерах и останавливает сканирование, если accuracy ниже 80%.
+Модель можно изменить через `--news-classifier-model`; CLI имеет приоритет над optional environment variable `NEWS_CLASSIFIER_MODEL`. Безопасный для RTX 2060 SUPER default batch size равен 4 и меняется через `--news-classifier-batch-size`. Лимит classifier input по умолчанию равен 1024 токенам и настраивается через `--news-classifier-max-input-tokens`. Опциональный `--news-classifier-sanity-check` проверяет classifier на реалистичных примерах WildChat и останавливает сканирование, если accuracy ниже 90%.
 
 ## Подготовка данных
 
@@ -46,6 +48,7 @@ python scripts/run_demo.py `
   --rebuild-dataset `
   --news-classifier-model Qwen/Qwen3-1.7B `
   --news-classifier-batch-size 4 `
+  --news-classifier-max-input-tokens 1024 `
   --news-classifier-sanity-check
 ```
 
