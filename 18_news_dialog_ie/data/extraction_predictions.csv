@@ -1,0 +1,5 @@
+dialog_id,extractor,kind,label,value,start,end,confidence,parse_valid,error
+f191c458060d6a71b149e9e208da99b9,Qwen/Qwen3-1.7B-fp16,,,,,,,False,valid extraction JSON was not found
+ec9c53d87f1707cfece8c482091877bd,Qwen/Qwen3-1.7B-fp16,,,,,,,False,valid extraction JSON was not found
+9772d6bfe6c04c1c56b943134b12b236,Qwen/Qwen3-1.7B-fp16,,,,,,,False,valid extraction JSON was not found
+1c32602338388652ec73f7e713f34965,Qwen/Qwen3-1.7B-fp16,,,,,,,False,valid extraction JSON was not found

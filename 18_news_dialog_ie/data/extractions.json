@@ -1,0 +1,52 @@
+[
+  {
+    "dialog_id": "f191c458060d6a71b149e9e208da99b9",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [],
+    "events": [],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\"label\": \"ORG\", \"value\": \"Amazon\"},\n    {\"label\": \"LOC\", \"value\": \"India\"},\n    {\"label\": \"LOC\", \"value\": \"Europe\"},\n    {\"label\": \"LOC\", \"value\": \"Latin America\"},\n    {\"label\": \"ORG\", \"value\": \"Forbes\"},\n    {\"label\": \"ORG\", \"value\": \"Business Insider\"},\n    {\"label\": \"ORG\", \"value\": \"CNBC\"},\n    {\"label\": \"ORG\", \"value\": \"The Wall Street Journal\"},\n    {\"label\": \"ORG\", \"value\": \"Reuters\"},\n    {\"label\": \"ORG\", \"value\": \"Forbes\"},\n    {\"label\": \"ORG\", \"value\": \"The New York Times\"}\n  ],\n  \"events\": [\n    {\"label\": \"EVENT\", \"value\": \"Amazon's business strategy in the e-commerce industry has been one of the strongest over the past five years\"},\n    {\"label\": \"EVENT\", \"value\": \"Amazon's customer-centric approach has been prioritized\"},\n    {\"label\": \"EVENT\", \"value\": \"Amazon's investment in Amazon Web Services (AWS) has grown into one of the world's leading cloud computing providers\"},\n    {\"",
+    "parse_valid": false,
+    "error": "valid extraction JSON was not found"
+  },
+  {
+    "dialog_id": "ca60ed06c5383a34e2aca78f92d70bf7",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [],
+    "events": [],
+    "relations": [],
+    "raw_response": ":  \n{\"entities\": [], \"events\": [], \"relations\": []}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "ec9c53d87f1707cfece8c482091877bd",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [],
+    "events": [],
+    "relations": [],
+    "raw_response": "\n{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Jonathan Riley-Smith\"\n    },\n    {\n      \"label\": \"ORGANIZATION\",\n      \"value\": \"Ignatius Press\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"March 23, 2009\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Middle East\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Europe\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Jerusalem\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Publication of 'What Were the Crusades?'\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Challenging the Definition of the Crusades\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Academic Rebuttal of Crusade Theories\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"Publication of 'What Were the Crusades?'\",\n      \"source\": \"Jonathan Riley-Smith\",\n      \"date\":",
+    "parse_valid": false,
+    "error": "valid extraction JSON was not found"
+  },
+  {
+    "dialog_id": "9772d6bfe6c04c1c56b943134b12b236",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [],
+    "events": [],
+    "relations": [],
+    "raw_response": " the following JSON is the extracted entities and events from the dialog, following the specified schema:\n\n```json\n{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"德克萨斯州达拉斯市郊的Allen奥特莱斯购物中心\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"法警\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"CNN\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"当前时间\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"已确认一名死者\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"枪击事件\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"警方搜索第二名枪手\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"警方检查死亡嫌疑人车辆\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"枪击事件\",\n      \"source\": \"法警\",\n      \"date\": \"当前时间\",\n      \"location\": \"德克萨斯州达拉斯",
+    "parse_valid": false,
+    "error": "valid extraction JSON was not found"
+  },
+  {
+    "dialog_id": "1c32602338388652ec73f7e713f34965",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [],
+    "events": [],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Jonathan Riley-Smith\"\n    },\n    {\n      \"label\": \"ORGANIZATION\",\n      \"value\": \"Ignatius Press\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"March 23, 2009\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Middle East\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Europe\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Holy Land\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Publication of 'What Were the Crusades?'\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Challenging the definition of the Crusades\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Critique of the Crusades' motivations\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Analysis of the Crusades' methodology\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"Publication of",
+    "parse_valid": false,
+    "error": "valid extraction JSON was not found"
+  }
+]

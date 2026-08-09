@@ -1,0 +1,160 @@
+extractor,batch_size,dialog_id,error_type,label,value
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,DATE,1095
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,DATE,"march 23, 2009"
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,EVENT,first through fifth crusades
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,EVENT,french crusades
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,LOC,europe
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,LOC,holy land
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,LOC,jerusalem
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,LOC,middle east
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,ORG,catholic church
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,ORG,ignatius press
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,PERSON,jonathan riley-smith
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,PERSON,king louis ix
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,PERSON,pope urban ii
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,EVENT,shooting at an outlet mall
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,IMPACT,at least one confirmed shooter who is being reported as deceased
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,"allen, texas"
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,dallas
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,SOURCE,cnn
+Qwen/Qwen3-1.7B-fp16,1,ca60ed06c5383a34e2aca78f92d70bf7,false_negative,LOC,india
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,DATE,"march 23, 2009"
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,first through fifth crusades
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,french crusades
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,europe
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,jerusalem
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,middle east
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,catholic church
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,ignatius press
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,jonathan riley-smith
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,king louis ix
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2017
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2018
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2019
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2020
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2021
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,past 5 years
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,europe
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,india
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,latin america
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,alexa
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon fresh
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon go
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon prime video
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon web services
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,aws
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,prime air
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,whole foods market
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,business insider
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,cnbc
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,forbes
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,reuters
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the new york times
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the wall street journal
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,DATE,1095
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,DATE,"march 23, 2009"
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,EVENT,first through fifth crusades
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,EVENT,french crusades
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,LOC,europe
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,LOC,holy land
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,LOC,jerusalem
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,LOC,middle east
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,ORG,catholic church
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,ORG,ignatius press
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,PERSON,jonathan riley-smith
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,PERSON,king louis ix
+Qwen/Qwen3-1.7B-fp16,2,1c32602338388652ec73f7e713f34965,false_negative,PERSON,pope urban ii
+Qwen/Qwen3-1.7B-fp16,2,9772d6bfe6c04c1c56b943134b12b236,false_negative,EVENT,shooting at an outlet mall
+Qwen/Qwen3-1.7B-fp16,2,9772d6bfe6c04c1c56b943134b12b236,false_negative,IMPACT,at least one confirmed shooter who is being reported as deceased
+Qwen/Qwen3-1.7B-fp16,2,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,"allen, texas"
+Qwen/Qwen3-1.7B-fp16,2,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,dallas
+Qwen/Qwen3-1.7B-fp16,2,9772d6bfe6c04c1c56b943134b12b236,false_negative,SOURCE,cnn
+Qwen/Qwen3-1.7B-fp16,2,ca60ed06c5383a34e2aca78f92d70bf7,false_negative,LOC,india
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,DATE,"march 23, 2009"
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,first through fifth crusades
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,french crusades
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,europe
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,jerusalem
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,middle east
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,catholic church
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,ignatius press
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,jonathan riley-smith
+Qwen/Qwen3-1.7B-fp16,2,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,king louis ix
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2017
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2018
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2019
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2020
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2021
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,past 5 years
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,europe
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,india
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,latin america
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,alexa
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon fresh
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon go
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon prime video
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon web services
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,aws
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,prime air
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,whole foods market
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,business insider
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,cnbc
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,forbes
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,reuters
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the new york times
+Qwen/Qwen3-1.7B-fp16,2,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the wall street journal
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,DATE,1095
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,DATE,"march 23, 2009"
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,EVENT,first through fifth crusades
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,EVENT,french crusades
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,LOC,europe
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,LOC,holy land
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,LOC,jerusalem
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,LOC,middle east
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,ORG,catholic church
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,ORG,ignatius press
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,PERSON,jonathan riley-smith
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,PERSON,king louis ix
+Qwen/Qwen3-1.7B-fp16,4,1c32602338388652ec73f7e713f34965,false_negative,PERSON,pope urban ii
+Qwen/Qwen3-1.7B-fp16,4,9772d6bfe6c04c1c56b943134b12b236,false_negative,EVENT,shooting at an outlet mall
+Qwen/Qwen3-1.7B-fp16,4,9772d6bfe6c04c1c56b943134b12b236,false_negative,IMPACT,at least one confirmed shooter who is being reported as deceased
+Qwen/Qwen3-1.7B-fp16,4,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,"allen, texas"
+Qwen/Qwen3-1.7B-fp16,4,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,dallas
+Qwen/Qwen3-1.7B-fp16,4,9772d6bfe6c04c1c56b943134b12b236,false_negative,SOURCE,cnn
+Qwen/Qwen3-1.7B-fp16,4,ca60ed06c5383a34e2aca78f92d70bf7,false_negative,LOC,india
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,DATE,"march 23, 2009"
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,first through fifth crusades
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,french crusades
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,europe
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,jerusalem
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,middle east
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,catholic church
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,ignatius press
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,jonathan riley-smith
+Qwen/Qwen3-1.7B-fp16,4,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,king louis ix
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2017
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2018
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2019
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2020
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2021
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,past 5 years
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,europe
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,india
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,latin america
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,alexa
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon fresh
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon go
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon prime video
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon web services
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,aws
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,prime air
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,whole foods market
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,business insider
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,cnbc
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,forbes
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,reuters
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the new york times
+Qwen/Qwen3-1.7B-fp16,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the wall street journal
