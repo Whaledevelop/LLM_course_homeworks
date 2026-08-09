@@ -145,6 +145,13 @@ def load_goldens(path: Path = GOLDENS_PATH) -> list[dict[str, str]]:
     return goldens
 
 
+def load_report(path: Path = REPORT_PATH) -> dict[str, Any]:
+    with path.open(encoding="utf-8") as file:
+        report = json.load(file)
+
+    return report
+
+
 def save_report(report: dict[str, Any], path: Path = REPORT_PATH) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as file:

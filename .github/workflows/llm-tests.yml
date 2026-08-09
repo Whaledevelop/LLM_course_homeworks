@@ -1,0 +1,58 @@
+name: LLM quality gates
+
+on:
+  push:
+    paths:
+      - "19_testing_LLM/**"
+      - ".github/workflows/llm-tests.yml"
+  pull_request:
+    paths:
+      - "19_testing_LLM/**"
+      - ".github/workflows/llm-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ragas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: 19_testing_LLM
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_BASE_URL: https://ai.api.cloud.yandex.net/v1
+      LLM_MODEL: ${{ vars.LLM_MODEL }}
+      EMBEDDING_API_KEY: ${{ secrets.EMBEDDING_API_KEY }}
+      EMBEDDING_MODEL: text-embeddings-v2
+      YANDEX_FOLDER_ID: b1gd3m1jmt5q9sb58934
+      CHUNK_SIZE: 1000
+      CHUNK_OVERLAP: 150
+      RETRIEVED_CHUNKS: 3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: 19_testing_LLM/requirements.txt
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run Ragas quality gates
+        run: python -m pytest -q
+
+      - name: Upload Ragas report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ragas-results
+          path: 19_testing_LLM/reports/ragas_results.json
+          if-no-files-found: ignore
