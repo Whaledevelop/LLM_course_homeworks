@@ -12,6 +12,34 @@ def test_extract_json_skips_schema_example_before_result() -> None:
     assert payload["events"] == []
 
 
+def test_extract_json_defaults_missing_relations_to_empty_array() -> None:
+    text = '{"entities":[{"label":"ORG","value":"OpenAI"}],"events":[{"label":"EVENT","value":"launch"}]}'
+
+    payload, error = extract_json(text)
+
+    assert not error
+    assert payload["relations"] == []
+
+
+def test_parse_llm_response_preserves_entities_and_events_without_relations() -> None:
+    text = '{"entities":[{"label":"ORG","value":"OpenAI"}],"events":[{"label":"EVENT","value":"launch"}]}'
+
+    result = parse_llm_response("1", "llm", text)
+
+    assert result.parse_valid
+    assert [(item.label, item.value) for item in result.entities] == [("ORG", "OpenAI")]
+    assert [(item.label, item.value) for item in result.events] == [("EVENT", "launch")]
+    assert result.relations == []
+
+
+def test_extract_json_still_requires_entities_and_events_arrays() -> None:
+    _, missing_events_error = extract_json('{"entities":[],"relations":[]}')
+    _, invalid_relations_error = extract_json('{"entities":[],"events":[],"relations":{}}')
+
+    assert missing_events_error
+    assert invalid_relations_error == "schema fields must be arrays"
+
+
 def test_parse_llm_response_validates_labels() -> None:
     text = '{"entities":[{"label":"ORG","value":"OpenAI"},{"label":"UNKNOWN","value":"x"}],"events":[{"value":"launch"}],"relations":[]}'
     result = parse_llm_response("1", "llm", text)

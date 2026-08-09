@@ -4,78 +4,50 @@
     "extractor": "Qwen/Qwen3-1.7B-fp16",
     "entities": [
       {
-        "label": "ORG",
+        "label": "SOURCE",
+        "value": "Forbes",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "Business Insider",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "CNBC",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "The Wall Street Journal",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "Reuters",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "The New York Times",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
         "value": "Amazon",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "India",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Europe",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Latin America",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2017",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2018",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2019",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2020",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2021",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2022",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2023",
         "start": null,
         "end": null,
         "confidence": null
@@ -84,106 +56,70 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "Amazon's business strategy in e-commerce industry has been one of the strongest over the past five years",
+        "value": "Amazon's business strategy in the e-commerce industry has been one of the strongest over the past five years",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Customer-centric approach implemented by Amazon",
+        "value": "Amazon's customer-centric approach",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Innovation in technology and data analytics by Amazon",
+        "value": "Amazon's innovation in technology and data analytics",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Development of Amazon Web Services (AWS)",
+        "value": "Amazon's investment in Amazon Web Services (AWS)",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Introduction of Prime membership program",
+        "value": "Amazon's investment in artificial intelligence (Alexa), drones (Prime Air), and cashier-less stores (Amazon Go)",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Expansion into international markets",
+        "value": "Amazon's investment in its fulfillment centers and delivery infrastructure",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Diversification into cloud computing, entertainment, and grocery",
+        "value": "Amazon's global expansion into international markets",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Amazon's Prime membership program",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Amazon's diversification into cloud computing, entertainment, and grocery",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
-    "relations": [
-      {
-        "event": "Amazon's business strategy in e-commerce industry has been one of the strongest over the past five years",
-        "source": "Amazon",
-        "date": "2023",
-        "location": "Global",
-        "impact": "Strong"
-      },
-      {
-        "event": "Customer-centric approach implemented by Amazon",
-        "source": "Forbes",
-        "date": "2020",
-        "location": "United States",
-        "impact": "High customer loyalty"
-      },
-      {
-        "event": "Innovation in technology and data analytics by Amazon",
-        "source": "CNBC",
-        "date": "2020",
-        "location": "United States",
-        "impact": "Competitive advantage"
-      },
-      {
-        "event": "Development of Amazon Web Services (AWS)",
-        "source": "CNBC",
-        "date": "2020",
-        "location": "United States",
-        "impact": "Global cloud computing leader"
-      },
-      {
-        "event": "Introduction of Prime membership program",
-        "source": "Forbes",
-        "date": "2021",
-        "location": "United States",
-        "impact": "Customer loyalty and frequent purchases"
-      },
-      {
-        "event": "Expansion into international markets",
-        "source": "Reuters",
-        "date": "2019",
-        "location": "India, Europe, Latin America",
-        "impact": "Global e-commerce leader"
-      },
-      {
-        "event": "Diversification into cloud computing, entertainment, and grocery",
-        "source": "The New York Times",
-        "date": "2017",
-        "location": "United States",
-        "impact": "Additional revenue streams"
-      }
-    ],
-    "raw_response": "{\n  \"entities\": [\n    {\"label\": \"ORG\", \"value\": \"Amazon\"},\n    {\"label\": \"LOC\", \"value\": \"India\"},\n    {\"label\": \"LOC\", \"value\": \"Europe\"},\n    {\"label\": \"LOC\", \"value\": \"Latin America\"},\n    {\"label\": \"DATE\", \"value\": \"2017\"},\n    {\"label\": \"DATE\", \"value\": \"2018\"},\n    {\"label\": \"DATE\", \"value\": \"2019\"},\n    {\"label\": \"DATE\", \"value\": \"2020\"},\n    {\"label\": \"DATE\", \"value\": \"2021\"},\n    {\"label\": \"DATE\", \"value\": \"2022\"},\n    {\"label\": \"DATE\", \"value\": \"2023\"}\n  ],\n  \"events\": [\n    {\"label\": \"EVENT\", \"value\": \"Amazon's business strategy in e-commerce industry has been one of the strongest over the past five years\"},\n    {\"label\": \"EVENT\", \"value\": \"Customer-centric approach implemented by Amazon\"},\n    {\"label\": \"EVENT\", \"value\": \"Innovation in technology and data analytics by Amazon\"},\n    {\"label\": \"EVENT\", \"value\": \"Development of Amazon Web Services (AWS)\"},\n    {\"label\": \"EVENT\", \"value\": \"Introduction of Prime membership program\"},\n    {\"label\": \"EVENT\", \"value\": \"Expansion into international markets\"},\n    {\"label\": \"EVENT\", \"value\": \"Diversification into cloud computing, entertainment, and grocery\"}\n  ],\n  \"relations\": [\n    {\"event\": \"Amazon's business strategy in e-commerce industry has been one of the strongest over the past five years\", \"source\": \"Amazon\", \"date\": \"2023\", \"location\": \"Global\", \"impact\": \"Strong\"},\n    {\"event\": \"Customer-centric approach implemented by Amazon\", \"source\": \"Forbes\", \"date\": \"2020\", \"location\": \"United States\", \"impact\": \"High customer loyalty\"},\n    {\"event\": \"Innovation in technology and data analytics by Amazon\", \"source\": \"CNBC\", \"date\": \"2020\", \"location\": \"United States\", \"impact\": \"Competitive advantage\"},\n    {\"event\": \"Development of Amazon Web Services (AWS)\", \"source\": \"CNBC\", \"date\": \"2020\", \"location\": \"United States\", \"impact\": \"Global cloud computing leader\"},\n    {\"event\": \"Introduction of Prime membership program\", \"source\": \"Forbes\", \"date\": \"2021\", \"location\": \"United States\", \"impact\": \"Customer loyalty and frequent purchases\"},\n    {\"event\": \"Expansion into international markets\", \"source\": \"Reuters\", \"date\": \"2019\", \"location\": \"India, Europe, Latin America\", \"impact\": \"Global e-commerce leader\"},\n    {\"event\": \"Diversification into cloud computing, entertainment, and grocery\", \"source\": \"The New York Times\", \"date\": \"2017\", \"location\": \"United States\", \"impact\": \"Additional revenue streams\"}\n  ]\n}",
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Forbes\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Business Insider\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"CNBC\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"The Wall Street Journal\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Reuters\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Forbes\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"The New York Times\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Amazon\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's business strategy in the e-commerce industry has been one of the strongest over the past five years\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's customer-centric approach\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's innovation in technology and data analytics\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's investment in Amazon Web Services (AWS)\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's investment in artificial intelligence (Alexa), drones (Prime Air), and cashier-less stores (Amazon Go)\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's investment in its fulfillment centers and delivery infrastructure\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's global expansion into international markets\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's Prime membership program\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's diversification into cloud computing, entertainment, and grocery\"\n    }\n  ],\n  \"relations\": []\n}",
     "parse_valid": true,
     "error": ""
   },
@@ -192,13 +128,6 @@
     "extractor": "Qwen/Qwen3-1.7B-fp16",
     "entities": [
       {
-        "label": "ORG",
-        "value": "Indian Institutes of higher education",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
         "label": "LOC",
         "value": "India",
         "start": null,
@@ -206,22 +135,15 @@
         "confidence": null
       },
       {
-        "label": "PERSON",
-        "value": "stakeholders",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "ORG",
-        "value": "Unified Theory of Acceptance and Use of Technology (UTAUT) model",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "ORG",
+        "label": "DATE",
         "value": "329 respondents",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "Assistant",
         "start": null,
         "end": null,
         "confidence": null
@@ -230,14 +152,14 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "Implementation of AI in higher education institutions",
+        "value": "Implementation of Artificial Intelligence (AI) in India's higher education institutions",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Adoption of AI in higher education",
+        "value": "Adoption of AI in higher education institutions",
         "start": null,
         "end": null,
         "confidence": null
@@ -250,122 +172,20 @@
         "confidence": null
       }
     ],
-    "relations": [
-      {
-        "event": "Implementation of AI in higher education institutions",
-        "source": "Indian Institutes of higher education",
-        "date": "2023",
-        "location": "India",
-        "impact": "Transform administrative processes, teaching methods, and decision-making practices"
-      },
-      {
-        "event": "Adoption of AI in higher education",
-        "source": "stakeholders",
-        "date": "2023",
-        "location": "India",
-        "impact": "Enhance teaching techniques, enable effective learning, and support accurate decision-making"
-      },
-      {
-        "event": "Analysis of feedback from 329 respondents",
-        "source": "329 respondents",
-        "date": "2023",
-        "location": "India",
-        "impact": "Validate the 'Unified Theory of Acceptance and Use of Technology' (UTAUT) model"
-      }
-    ],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Indian Institutes of higher education\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"India\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"stakeholders\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Unified Theory of Acceptance and Use of Technology (UTAUT) model\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"329 respondents\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Implementation of AI in higher education institutions\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Adoption of AI in higher education\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Analysis of feedback from 329 respondents\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"Implementation of AI in higher education institutions\",\n      \"source\": \"Indian Institutes of higher education\",\n      \"date\": \"2023\",\n      \"location\": \"India\",\n      \"impact\": \"Transform administrative processes, teaching methods, and decision-making practices\"\n    },\n    {\n      \"event\": \"Adoption of AI in higher education\",\n      \"source\": \"stakeholders\",\n      \"date\": \"2023\",\n      \"location\": \"India\",\n      \"impact\": \"Enhance teaching techniques, enable effective learning, and support accurate decision-making\"\n    },\n    {\n      \"event\": \"Analysis of feedback from 329 respondents\",\n      \"source\": \"329 respondents\",\n      \"date\": \"2023\",\n      \"location\": \"India\",\n      \"impact\": \"Validate the 'Unified Theory of Acceptance and Use of Technology' (UTAUT) model\"\n    }\n  ]\n}",
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"India\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"329 respondents\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Implementation of Artificial Intelligence (AI) in India's higher education institutions\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Adoption of AI in higher education institutions\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Analysis of feedback from 329 respondents\"\n    }\n  ],\n  \"relations\": []\n}",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "ec9c53d87f1707cfece8c482091877bd",
     "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
-      {
-        "label": "PERSON",
-        "value": "Jonathan Riley-Smith",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "March 23, 2009",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Middle East",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Europe",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Jerusalem",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "Publication of 'What Were the Crusades?'",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Challenging the Definition of the Crusades",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Academic Rebuttal of Crusade Theories",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "relations": [
-      {
-        "event": "Publication of 'What Were the Crusades?'",
-        "source": "Jonathan Riley-Smith",
-        "date": "March 23, 2009",
-        "location": "Middle East",
-        "impact": "Academic and historical analysis"
-      },
-      {
-        "event": "Challenging the Definition of the Crusades",
-        "source": "Jonathan Riley-Smith",
-        "date": "March 23, 2009",
-        "location": "Europe",
-        "impact": "Debunking myths and presenting accurate understanding"
-      },
-      {
-        "event": "Academic Rebuttal of Crusade Theories",
-        "source": "Jonathan Riley-Smith",
-        "date": "March 23, 2009",
-        "location": "Europe",
-        "impact": "Providing concrete evidence and thorough analysis"
-      }
-    ],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Jonathan Riley-Smith\"\n    },\n    {\n      \"label\": \"ORGANIZATION\",\n      \"value\": \"Ignatius Press\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"March 23, 2009\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Middle East\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Europe\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Jerusalem\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Publication of 'What Were the Crusades?'\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Challenging the Definition of the Crusades\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Academic Rebuttal of Crusade Theories\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"Publication of 'What Were the Crusades?'\",\n      \"source\": \"Jonathan Riley-Smith\",\n      \"date\": \"March 23, 2009\",\n      \"location\": \"Middle East\",\n      \"impact\": \"Academic and historical analysis\"\n    },\n    {\n      \"event\": \"Challenging the Definition of the Crusades\",\n      \"source\": \"Jonathan Riley-Smith\",\n      \"date\": \"March 23, 2009\",\n      \"location\": \"Europe\",\n      \"impact\": \"Debunking myths and presenting accurate understanding\"\n    },\n    {\n      \"event\": \"Academic Rebuttal of Crusade Theories\",\n      \"source\": \"Jonathan Riley-Smith\",\n      \"date\": \"March 23, 2009\",\n      \"location\": \"Europe\",\n      \"impact\": \"Providing concrete evidence and thorough analysis\"\n    }\n  ]\n}",
-    "parse_valid": true,
-    "error": ""
+    "entities": [],
+    "events": [],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"March 23, 2009\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Ignatius Press\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Jonathan Riley-Smith\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Jerusalem\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Middle East\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Europe\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"publication of the book\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"academic rebuttal of widely accepted viewpoints\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"publication of the book\"\n    }\n  ]\n}",
+    "parse_valid": false,
+    "error": "valid extraction JSON was not found"
   },
   {
     "dialog_id": "9772d6bfe6c04c1c56b943134b12b236",
@@ -373,35 +193,49 @@
     "entities": [
       {
         "label": "LOC",
-        "value": "德克萨斯州达拉斯市郊的Allen奥特莱斯购物中心",
+        "value": "Allen, Texas",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "PERSON",
-        "value": "法警",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "ORG",
-        "value": "CNN",
+        "label": "LOC",
+        "value": "Dallas",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "DATE",
-        "value": "当前时间",
+        "value": "2023-10-05",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "IMPACT",
-        "value": "已确认死亡",
+        "label": "SOURCE",
+        "value": "CNN",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "Law enforcement",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "Bomb squad",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "Unknown",
         "start": null,
         "end": null,
         "confidence": null
@@ -410,50 +244,35 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "枪击事件",
+        "value": "Shooting at outlet mall in Allen, Texas",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "警方搜索第二名枪手",
+        "value": "Search for second gunman",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "警方检查死亡嫌疑人车辆",
+        "value": "Identification of vehicle of deceased suspect",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Examination of vehicle by bomb squad",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
-    "relations": [
-      {
-        "event": "枪击事件",
-        "source": "法警",
-        "date": "当前时间",
-        "location": "德克萨斯州达拉斯市郊的Allen奥特莱斯购物中心",
-        "impact": "已确认死亡"
-      },
-      {
-        "event": "警方搜索第二名枪手",
-        "source": "法警",
-        "date": "当前时间",
-        "location": "德克萨斯州达拉斯市郊的Allen奥特莱斯购物中心",
-        "impact": "未确认"
-      },
-      {
-        "event": "警方检查死亡嫌疑人车辆",
-        "source": "法警",
-        "date": "当前时间",
-        "location": "德克萨斯州达拉斯市郊的Allen奥特莱斯购物中心",
-        "impact": "预防措施"
-      }
-    ],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"德克萨斯州达拉斯市郊的Allen奥特莱斯购物中心\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"法警\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"CNN\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"当前时间\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"已确认死亡\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"枪击事件\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"警方搜索第二名枪手\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"警方检查死亡嫌疑人车辆\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"枪击事件\",\n      \"source\": \"法警\",\n      \"date\": \"当前时间\",\n      \"location\": \"德克萨斯州达拉斯市郊的Allen奥特莱斯购物中心\",\n      \"impact\": \"已确认死亡\"\n    },\n    {\n      \"event\": \"警方搜索第二名枪手\",\n      \"source\": \"法警\",\n      \"date\": \"当前时间\",\n      \"location\": \"德克萨斯州达拉斯市郊的Allen奥特莱斯购物中心\",\n      \"impact\": \"未确认\"\n    },\n    {\n      \"event\": \"警方检查死亡嫌疑人车辆\",\n      \"source\": \"法警\",\n      \"date\": \"当前时间\",\n      \"location\": \"德克萨斯州达拉斯市郊的Allen奥特莱斯购物中心\",\n      \"impact\": \"预防措施\"\n    }\n  ]\n}",
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Allen, Texas\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Dallas\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023-10-05\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"CNN\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Law enforcement\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Bomb squad\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Unknown\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Shooting at outlet mall in Allen, Texas\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Search for second gunman\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Identification of vehicle of deceased suspect\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Examination of vehicle by bomb squad\"\n    }\n  ],\n  \"relations\": []\n}",
     "parse_valid": true,
     "error": ""
   },
@@ -462,13 +281,6 @@
     "extractor": "Qwen/Qwen3-1.7B-fp16",
     "entities": [
       {
-        "label": "PERSON",
-        "value": "Jonathan Riley-Smith",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
         "label": "DATE",
         "value": "March 23, 2009",
         "start": null,
@@ -476,22 +288,22 @@
         "confidence": null
       },
       {
-        "label": "LOC",
-        "value": "Middle East",
+        "label": "SOURCE",
+        "value": "Reuters",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "LOC",
-        "value": "Europe",
+        "label": "ORG",
+        "value": "Ignatius Press",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "LOC",
-        "value": "Holy Land",
+        "label": "PERSON",
+        "value": "Jonathan Riley-Smith",
         "start": null,
         "end": null,
         "confidence": null
@@ -514,50 +326,14 @@
       },
       {
         "label": "EVENT",
-        "value": "Critique of the Crusades' motivations",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Analysis of the Crusades' methodology",
+        "value": "Analysis of the Crusades' motivations and methods",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
-    "relations": [
-      {
-        "event": "Publication of 'What Were the Crusades?'",
-        "source": "Jonathan Riley-Smith",
-        "date": "March 23, 2009",
-        "location": "Middle East",
-        "impact": "Academic rebuttal of commonly held beliefs"
-      },
-      {
-        "event": "Challenging the definition of the Crusades",
-        "source": "Jonathan Riley-Smith",
-        "date": "March 23, 2009",
-        "location": "Europe",
-        "impact": "Forcible rethinking of assumptions about the Crusades"
-      },
-      {
-        "event": "Critique of the Crusades' motivations",
-        "source": "Jonathan Riley-Smith",
-        "date": "March 23, 2009",
-        "location": "Europe",
-        "impact": "Highlighting religious devotion as primary motivation"
-      },
-      {
-        "event": "Analysis of the Crusades' methodology",
-        "source": "Jonathan Riley-Smith",
-        "date": "March 23, 2009",
-        "location": "Europe",
-        "impact": "Use of primary sources and scholarly critique"
-      }
-    ],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Jonathan Riley-Smith\"\n    },\n    {\n      \"label\": \"ORGANIZATION\",\n      \"value\": \"Ignatius Press\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"March 23, 2009\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Middle East\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Europe\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Holy Land\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Publication of 'What Were the Crusades?'\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Challenging the definition of the Crusades\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Critique of the Crusades' motivations\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Analysis of the Crusades' methodology\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"Publication of 'What Were the Crusades?'\",\n      \"source\": \"Jonathan Riley-Smith\",\n      \"date\": \"March 23, 2009\",\n      \"location\": \"Middle East\",\n      \"impact\": \"Academic rebuttal of commonly held beliefs\"\n    },\n    {\n      \"event\": \"Challenging the definition of the Crusades\",\n      \"source\": \"Jonathan Riley-Smith\",\n      \"date\": \"March 23, 2009\",\n      \"location\": \"Europe\",\n      \"impact\": \"Forcible rethinking of assumptions about the Crusades\"\n    },\n    {\n      \"event\": \"Critique of the Crusades' motivations\",\n      \"source\": \"Jonathan Riley-Smith\",\n      \"date\": \"March 23, 2009\",\n      \"location\": \"Europe\",\n      \"impact\": \"Highlighting religious devotion as primary motivation\"\n    },\n    {\n      \"event\": \"Analysis of the Crusades' methodology\",\n      \"source\": \"Jonathan Riley-Smith\",\n      \"date\": \"March 23, 2009\",\n      \"location\": \"Europe\",\n      \"impact\": \"Use of primary sources and scholarly critique\"\n    }\n  ]\n}",
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"March 23, 2009\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Reuters\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Ignatius Press\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Jonathan Riley-Smith\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Publication of 'What Were the Crusades?'\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Challenging the definition of the Crusades\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Analysis of the Crusades' motivations and methods\"\n    }\n  ],\n  \"relations\": []\n}",
     "parse_valid": true,
     "error": ""
   },
@@ -575,6 +351,20 @@
       {
         "label": "ORG",
         "value": "National Weather Service Omaha/Valley NE",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Topeka KS",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Omaha/Valley NE",
         "start": null,
         "end": null,
         "confidence": null
@@ -602,27 +392,6 @@
       },
       {
         "label": "LOC",
-        "value": "Southeastern Seward County",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Northwestern Saline County",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Southwestern Butler County",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
         "value": "Lushton",
         "start": null,
         "end": null,
@@ -643,15 +412,43 @@
         "confidence": null
       },
       {
-        "label": "LOC",
-        "value": "Alta Vista",
+        "label": "DATE",
+        "value": "2019-08-15",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "LOC",
-        "value": "Geneva",
+        "label": "DATE",
+        "value": "2021-05-15",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "2021-05-16",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows, and vehicles will occur. Tree damage is likely.",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "National Weather Service Topeka KS",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "National Weather Service Omaha/Valley NE",
         "start": null,
         "end": null,
         "confidence": null
@@ -660,102 +457,28 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "Tornado Warning Issued",
+        "value": "Tornado Warning",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Civil Danger Warning Issued",
+        "value": "Civil Danger Warning",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
-    "relations": [
-      {
-        "event": "Tornado Warning Issued",
-        "source": "National Weather Service Topeka KS",
-        "date": "2019-08-15",
-        "location": "Northeastern Morris County",
-        "impact": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows, and vehicles will occur. Tree damage is likely."
-      },
-      {
-        "event": "Civil Danger Warning Issued",
-        "source": "National Weather Service Omaha/Valley NE",
-        "date": "2021-05-15",
-        "location": "Lushton",
-        "impact": "No structure above ground will be able to survive this storm. Those in the path of this storm should immediately seek shelter in areas which are as minimally exposed to the sky as possible."
-      }
-    ],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"ORG\",\n      \"value\": \"National Weather Service Topeka KS\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"National Weather Service Omaha/Valley NE\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Northeastern Morris County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Southwestern Wabaunsee County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Northwestern Lyon County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Southeastern Seward County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Northwestern Saline County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Southwestern Butler County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Lushton\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Ulysses\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Beaver Crossing\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Alta Vista\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Geneva\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Lushton\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Lushton\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Geneva\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Lushton\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Tornado Warning Issued\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Civil Danger Warning Issued\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"Tornado Warning Issued\",\n      \"source\": \"National Weather Service Topeka KS\",\n      \"date\": \"2019-08-15\",\n      \"location\": \"Northeastern Morris County\",\n      \"impact\": \"Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows, and vehicles will occur. Tree damage is likely.\"\n    },\n    {\n      \"event\": \"Civil Danger Warning Issued\",\n      \"source\": \"National Weather Service Omaha/Valley NE\",\n      \"date\": \"2021-05-15\",\n      \"location\": \"Lushton\",\n      \"impact\": \"No structure above ground will be able to survive this storm. Those in the path of this storm should immediately seek shelter in areas which are as minimally exposed to the sky as possible.\"\n    }\n  ]\n}",
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"ORG\",\n      \"value\": \"National Weather Service Topeka KS\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"National Weather Service Omaha/Valley NE\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Topeka KS\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Omaha/Valley NE\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Northeastern Morris County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Southwestern Wabaunsee County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Northwestern Lyon County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Lushton\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Ulysses\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Beaver Crossing\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2019-08-15\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021-05-15\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021-05-16\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows, and vehicles will occur. Tree damage is likely.\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows, and vehicles will occur. Tree damage is likely.\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"National Weather Service Topeka KS\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"National Weather Service Omaha/Valley NE\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Tornado Warning\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Civil Danger Warning\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Tornado Warning\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Civil Danger Warning\"\n    }\n  ],\n  \"relations\": []\n}",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "1f96fa2008341fcf0c31ab9ca893e1f8",
     "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [],
-    "events": [],
-    "relations": [],
-    "raw_response": "{\n  \"entities\": [],\n  \"events\": [],\n  \"relations\": []\n}",
-    "parse_valid": true,
-    "error": ""
-  },
-  {
-    "dialog_id": "1d88fe9cf6440ba79afada9f0036804a",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
     "entities": [
-      {
-        "label": "PERSON",
-        "value": "Matthew Kacsmaryk",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "PERSON",
-        "value": "Thomas O. Rice",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "ORG",
-        "value": "FDA",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Texas",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Washington",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "United States",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2000",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
       {
         "label": "DATE",
         "value": "2023",
@@ -764,8 +487,15 @@
         "confidence": null
       },
       {
-        "label": "DATE",
-        "value": "2023-09-20",
+        "label": "PERSON",
+        "value": "President Joe Biden",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "User",
         "start": null,
         "end": null,
         "confidence": null
@@ -774,71 +504,75 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "Court Ruling",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "FDA Approval Hold",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Judicial Order",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Supreme Court Overturn",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Drug Availability Change",
+        "value": "President Joe Biden plans to participate in at least three or four more Easter egg rolls, maybe five.",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
-    "relations": [
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"President Joe Biden\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"User\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"President Joe Biden plans to participate in at least three or four more Easter egg rolls, maybe five.\"\n    }\n  ],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "1d88fe9cf6440ba79afada9f0036804a",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
       {
-        "event": "Court Ruling",
-        "source": "Matthew Kacsmaryk",
-        "date": "2023-09-20",
-        "location": "Texas",
-        "impact": "Hold on federal approval of mifepristone"
+        "label": "SOURCE",
+        "value": "AP",
+        "start": null,
+        "end": null,
+        "confidence": null
       },
       {
-        "event": "Judicial Order",
-        "source": "Thomas O. Rice",
-        "date": "2023-09-20",
-        "location": "Washington",
-        "impact": "No restrictions on access to mifepristone in 17 states"
+        "label": "LOC",
+        "value": "US",
+        "start": null,
+        "end": null,
+        "confidence": null
       },
       {
-        "event": "Supreme Court Overturn",
-        "source": "US Supreme Court",
-        "date": "2022-05-27",
-        "location": "United States",
-        "impact": "Curtailed access to abortion across the nation"
+        "label": "DATE",
+        "value": "Friday",
+        "start": null,
+        "end": null,
+        "confidence": null
       },
       {
-        "event": "Drug Availability Change",
-        "source": "Conflicting court rulings",
-        "date": "2023-09-20",
-        "location": "United States",
-        "impact": "Uncertainty in access to mifepristone"
+        "label": "IMPACT",
+        "value": "uncertainty in access to the most commonly used method of abortion in the US",
+        "start": null,
+        "end": null,
+        "confidence": null
       }
     ],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Matthew Kacsmaryk\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Thomas O. Rice\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"FDA\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Texas\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Washington\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"United States\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2000\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023-09-20\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Court Ruling\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"FDA Approval Hold\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Judicial Order\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Supreme Court Overturn\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Drug Availability Change\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"Court Ruling\",\n      \"source\": \"Matthew Kacsmaryk\",\n      \"date\": \"2023-09-20\",\n      \"location\": \"Texas\",\n      \"impact\": \"Hold on federal approval of mifepristone\"\n    },\n    {\n      \"event\": \"Judicial Order\",\n      \"source\": \"Thomas O. Rice\",\n      \"date\": \"2023-09-20\",\n      \"location\": \"Washington\",\n      \"impact\": \"No restrictions on access to mifepristone in 17 states\"\n    },\n    {\n      \"event\": \"Supreme Court Overturn\",\n      \"source\": \"US Supreme Court\",\n      \"date\": \"2022-05-27\",\n      \"location\": \"United States\",\n      \"impact\": \"Curtailed access to abortion across the nation\"\n    },\n    {\n      \"event\": \"Drug Availability Change\",\n      \"source\": \"Conflicting court rulings\",\n      \"date\": \"2023-09-20\",\n      \"location\": \"United States\",\n      \"impact\": \"Uncertainty in access to mifepristone\"\n    }\n  ]\n}",
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "Texas US District Judge Matthew Kacsmaryk ordered a hold on federal approval of mifepristone",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "US District Judge Thomas O. Rice ordered US authorities not to restrict access to the drug in 17 states",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "conflicting decisions may lead to an accelerated path for the issue to reach the Supreme Court",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"AP\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"US\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"Friday\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"conflicting court rulings over the legality of the abortion medication mifepristone\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"uncertainty in access to the most commonly used method of abortion in the US\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Texas US District Judge Matthew Kacsmaryk ordered a hold on federal approval of mifepristone\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"US District Judge Thomas O. Rice ordered US authorities not to restrict access to the drug in 17 states\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"conflicting decisions may lead to an accelerated path for the issue to reach the Supreme Court\"\n    }\n  ],\n  \"relations\": []\n}",
     "parse_valid": true,
     "error": ""
   },
@@ -861,8 +595,8 @@
         "confidence": null
       },
       {
-        "label": "ORG",
-        "value": "Lindell Management",
+        "label": "PERSON",
+        "value": "Brian Glasser",
         "start": null,
         "end": null,
         "confidence": null
@@ -896,8 +630,8 @@
         "confidence": null
       },
       {
-        "label": "IMPACT",
-        "value": "discrediting baseless claims",
+        "label": "SOURCE",
+        "value": "The Washington Post",
         "start": null,
         "end": null,
         "confidence": null
@@ -906,60 +640,61 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "Offer of $5 million payout",
+        "value": "Mike Lindell offered a $5 million payout",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Arbitration panel rules in favor of Zeidman",
+        "value": "Robert Zeidman concluded data did not prove voter fraud",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Zeidman's attorney comments on the ruling",
+        "value": "Arbitration panel ruled in favor of Robert Zeidman",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Brian Glasser stated the panel’s decision was a warning",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
-    "relations": [
-      {
-        "event": "Offer of $5 million payout",
-        "source": "Mike Lindell",
-        "date": "August 2021",
-        "location": "South Dakota",
-        "impact": "discrediting baseless claims"
-      },
-      {
-        "event": "Arbitration panel rules in favor of Zeidman",
-        "source": "Arbitration panel",
-        "date": "2021",
-        "location": "Nevada",
-        "impact": "discrediting baseless claims"
-      },
-      {
-        "event": "Zeidman's attorney comments on the ruling",
-        "source": "Brian Glasser",
-        "date": "2021",
-        "location": "Nevada",
-        "impact": "discrediting baseless claims"
-      }
-    ],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Mike Lindell\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Robert Zeidman\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Lindell Management\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"South Dakota\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Nevada\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"August 2021\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"November 2020\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"discrediting baseless claims\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Offer of $5 million payout\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Arbitration panel rules in favor of Zeidman\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Zeidman's attorney comments on the ruling\"\n    }\n  ],\n  \"relations\": [\n    {\n      \"event\": \"Offer of $5 million payout\",\n      \"source\": \"Mike Lindell\",\n      \"date\": \"August 2021\",\n      \"location\": \"South Dakota\",\n      \"impact\": \"discrediting baseless claims\"\n    },\n    {\n      \"event\": \"Arbitration panel rules in favor of Zeidman\",\n      \"source\": \"Arbitration panel\",\n      \"date\": \"2021\",\n      \"location\": \"Nevada\",\n      \"impact\": \"discrediting baseless claims\"\n    },\n    {\n      \"event\": \"Zeidman's attorney comments on the ruling\",\n      \"source\": \"Brian Glasser\",\n      \"date\": \"2021\",\n      \"location\": \"Nevada\",\n      \"impact\": \"discrediting baseless claims\"\n    }\n  ]\n}",
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Mike Lindell\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Robert Zeidman\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Brian Glasser\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"South Dakota\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Nevada\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"August 2021\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"November 2020\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"The Washington Post\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Mike Lindell offered a $5 million payout\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Robert Zeidman concluded data did not prove voter fraud\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Arbitration panel ruled in favor of Robert Zeidman\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Brian Glasser stated the panel’s decision was a warning\"\n    }\n  ],\n  \"relations\": []\n}",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "865b21a4b38b6c3885b5a0dda054163e",
     "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [],
-    "events": [],
+    "entities": [
+      {
+        "label": "SOURCE",
+        "value": "Virtu",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "Draw a circle",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [],\n  \"events\": [],\n  \"relations\": []\n}",
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Virtu\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Draw a circle\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Draw a circle\"\n    }\n  ],\n  \"relations\": []\n}",
     "parse_valid": true,
     "error": ""
   }

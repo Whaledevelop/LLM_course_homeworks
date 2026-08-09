@@ -360,9 +360,10 @@ def extract_json(text: str) -> tuple[dict, str]:
             continue
         if not isinstance(payload, dict):
             continue
-        missing_fields = {"entities", "events", "relations"} - payload.keys()
-        if missing_fields:
+        missing_required_fields = {"entities", "events"} - payload.keys()
+        if missing_required_fields:
             continue
+        payload.setdefault("relations", [])
         if not all(isinstance(payload[field], list) for field in ("entities", "events", "relations")):
             return {}, "schema fields must be arrays"
 
