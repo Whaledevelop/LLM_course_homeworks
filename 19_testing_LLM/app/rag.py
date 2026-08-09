@@ -4,18 +4,19 @@ from typing import Any
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_openai import ChatOpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from app.config import Settings
+from app.embeddings import YandexAIStudioEmbeddings
 
 
 class RagApplication:
     def __init__(self, settings: Settings) -> None:
         self._settings = settings
-        self._embeddings = OpenAIEmbeddings(
+        self._embeddings = YandexAIStudioEmbeddings(
             api_key=settings.embedding_api_key,
-            base_url=settings.embedding_base_url,
+            folder_id=settings.yandex_folder_id,
             model=settings.embedding_model,
         )
         self._llm = ChatOpenAI(
@@ -83,6 +84,7 @@ class RagApplication:
 
         documents = []
         digest = hashlib.sha256()
+        digest.update(self._settings.embedding_model.encode())
         digest.update(str(self._settings.chunk_size).encode())
         digest.update(str(self._settings.chunk_overlap).encode())
         for document_path in document_paths:

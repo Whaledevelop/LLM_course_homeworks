@@ -15,8 +15,8 @@ class Settings:
     openai_base_url: str
     llm_model: str
     embedding_api_key: str
-    embedding_base_url: str
     embedding_model: str
+    yandex_folder_id: str
     documents_dir: Path
     chroma_dir: Path
     chunk_size: int
@@ -28,9 +28,9 @@ class Settings:
         openai_api_key = os.getenv("OPENAI_API_KEY", "")
         openai_base_url = os.getenv("OPENAI_BASE_URL", "")
         llm_model = os.getenv("LLM_MODEL", "")
-        embedding_api_key = os.getenv("EMBEDDING_API_KEY") or openai_api_key
-        embedding_base_url = os.getenv("EMBEDDING_BASE_URL") or openai_base_url
+        embedding_api_key = os.getenv("EMBEDDING_API_KEY", "")
         embedding_model = os.getenv("EMBEDDING_MODEL", "")
+        yandex_folder_id = os.getenv("YANDEX_FOLDER_ID", "")
 
         missing_variables = [
             name
@@ -39,8 +39,8 @@ class Settings:
                 ("OPENAI_BASE_URL", openai_base_url),
                 ("LLM_MODEL", llm_model),
                 ("EMBEDDING_API_KEY", embedding_api_key),
-                ("EMBEDDING_BASE_URL", embedding_base_url),
                 ("EMBEDDING_MODEL", embedding_model),
+                ("YANDEX_FOLDER_ID", yandex_folder_id),
             )
             if not value
         ]
@@ -53,8 +53,8 @@ class Settings:
             openai_base_url=openai_base_url,
             llm_model=llm_model,
             embedding_api_key=embedding_api_key,
-            embedding_base_url=embedding_base_url,
             embedding_model=embedding_model,
+            yandex_folder_id=yandex_folder_id,
             documents_dir=PROJECT_ROOT / "data" / "documents",
             chroma_dir=PROJECT_ROOT / "data" / "chroma",
             chunk_size=int(os.getenv("CHUNK_SIZE", "1000")),
