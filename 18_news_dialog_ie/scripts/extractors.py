@@ -43,6 +43,14 @@ class BaseExtractor(ABC):
     load_seconds = 0.0
     prompt_version = PROMPT_VERSION
     generation_config: dict = {}
+    _inference_progress_callback = None
+
+    def set_inference_progress_callback(self, callback) -> None:
+        self._inference_progress_callback = callback
+
+    def _report_inference_progress(self, message: str) -> None:
+        if self._inference_progress_callback is not None:
+            self._inference_progress_callback(message)
 
     @abstractmethod
     def extract_batch(self, dialogs: list[NewsDialog]) -> list[ExtractionResult]:
@@ -128,7 +136,10 @@ class TransformersJsonExtractor(BaseExtractor):
         print_transformer_diagnostics(model, torch, self.load_seconds)
 
     def extract_batch(self, dialogs: list[NewsDialog]) -> list[ExtractionResult]:
+        self._report_inference_progress("Preparing prompt...")
         prompts = [self._format_prompt(dialog.text) for dialog in dialogs]
+        self._report_inference_progress("Starting generation...")
+        generation_started_at = time.perf_counter()
         responses = self._pipeline(
             prompts,
             batch_size=len(dialogs),
@@ -136,6 +147,9 @@ class TransformersJsonExtractor(BaseExtractor):
             do_sample=False,
             return_full_text=False,
         )
+        generation_seconds = time.perf_counter() - generation_started_at
+        self._report_inference_progress(f"Generation finished in {generation_seconds:.1f} sec")
+        self._report_inference_progress("Parsing response...")
         results = []
         for dialog, response in zip(dialogs, responses):
             generated_text = response[0]["generated_text"] if isinstance(response, list) else response["generated_text"]
@@ -199,18 +213,18 @@ def build_mistral_int8_device_map(config, torch) -> dict[str, str | int]:
 
 def print_transformer_diagnostics(model, torch, load_seconds: float) -> None:
     device_map = getattr(model, "hf_device_map", None)
-    print(f"[Extractor] Model: {getattr(model, 'name_or_path', type(model).__name__)}")
-    print(f"[Extractor] Device map: {device_map if device_map is not None else 'single-device'}")
-    print(f"[Extractor] VRAM allocated: {torch.cuda.memory_allocated() / 1024 / 1024:.1f} MB")
-    print(f"[Extractor] VRAM reserved: {torch.cuda.memory_reserved() / 1024 / 1024:.1f} MB")
-    print(f"[Extractor] Load time: {load_seconds:.1f} sec")
+    print(f"[Extractor] Model: {getattr(model, 'name_or_path', type(model).__name__)}", flush=True)
+    print(f"[Extractor] Device map: {device_map if device_map is not None else 'single-device'}", flush=True)
+    print(f"[Extractor] VRAM allocated: {torch.cuda.memory_allocated() / 1024 / 1024:.1f} MB", flush=True)
+    print(f"[Extractor] VRAM reserved: {torch.cuda.memory_reserved() / 1024 / 1024:.1f} MB", flush=True)
+    print(f"[Extractor] Load time: {load_seconds:.1f} sec", flush=True)
     if device_map:
         cpu_modules = sorted(module for module, device in device_map.items() if str(device) == "cpu")
         if cpu_modules:
-            print(f"[Extractor] CPU-offloaded modules (FP32): {', '.join(cpu_modules)}")
+            print(f"[Extractor] CPU-offloaded modules (FP32): {', '.join(cpu_modules)}", flush=True)
         disk_modules = sorted(module for module, device in device_map.items() if str(device) == "disk")
         if disk_modules:
-            print(f"[Extractor] Disk-offloaded modules: {', '.join(disk_modules)}")
+            print(f"[Extractor] Disk-offloaded modules: {', '.join(disk_modules)}", flush=True)
 
 
 def find_items(text: str, label: str, pattern: re.Pattern, blocked_values: set[str] | None = None, source_only: bool = False) -> list[ExtractedItem]:

@@ -22,11 +22,16 @@ class ExtractionBenchmark:
         self._evaluation_dialog_ids = evaluation_dialog_ids
         self._cache_dir.mkdir(parents=True, exist_ok=True)
 
-    def run(self, extractor, dialogs: list[NewsDialog], batch_size: int, progress_callback=None) -> tuple[BenchmarkResult, list[ExtractionResult], EvaluationReport]:
+    def run(self, extractor, dialogs: list[NewsDialog], batch_size: int, progress_callback=None, progress_label: str | None = None) -> tuple[BenchmarkResult, list[ExtractionResult], EvaluationReport]:
+        label = progress_label or extractor.name
+        print(f"[{label}] Starting benchmark", flush=True)
+        print(f"[{label}] Dialogs: {len(dialogs)}", flush=True)
+        print(f"[{label}] Batch size: {batch_size}", flush=True)
         fingerprint = build_cache_fingerprint(extractor, dialogs, batch_size)
         result_path = self._cache_dir / f"{fingerprint}.jsonl"
         metrics_path = self._cache_dir / f"{fingerprint}.metrics.json"
         if result_path.exists() and metrics_path.exists():
+            print(f"[{label}] Loading cached benchmark result", flush=True)
             results = read_results(result_path)
             with metrics_path.open("r", encoding="utf-8") as file:
                 benchmark_result = BenchmarkResult(**json.load(file))
@@ -49,9 +54,20 @@ class ExtractionBenchmark:
         started_at = time.perf_counter()
         peak_ram_mb = current_ram_mb(process)
         reported_progress = 0
-        for batch in chunked(dialogs, batch_size):
+        total_batches = (len(dialogs) + batch_size - 1) // batch_size
+        for batch_index, batch in enumerate(chunked(dialogs, batch_size), start=1):
+            first_dialog = len(results) + 1
+            last_dialog = len(results) + len(batch)
+            if batch_size == 1:
+                print(f"[{label}] Batch {batch_index}/{total_batches}", flush=True)
+            else:
+                print(f"[{label}] Batch {batch_index}/{total_batches} | dialogs {first_dialog}-{last_dialog}/{len(dialogs)}", flush=True)
+            extractor.set_inference_progress_callback(lambda message: print(f"[{label}] {message}", flush=True))
             batch_started_at = time.perf_counter()
-            batch_results = extractor.extract_batch(batch)
+            try:
+                batch_results = extractor.extract_batch(batch)
+            finally:
+                extractor.set_inference_progress_callback(None)
             elapsed = time.perf_counter() - batch_started_at
             latencies.extend([elapsed / len(batch)] * len(batch))
             results.extend(batch_results)
@@ -60,6 +76,7 @@ class ExtractionBenchmark:
                     reported_progress += 10
                     progress_callback(reported_progress, len(dialogs))
             peak_ram_mb = max(peak_ram_mb, current_ram_mb(process))
+            print(f"[{label}] Done: {len(results)}/{len(dialogs)} | batch {elapsed:.1f} sec", flush=True)
         if progress_callback is not None and reported_progress != len(dialogs):
             progress_callback(len(dialogs), len(dialogs))
         total_seconds = time.perf_counter() - started_at

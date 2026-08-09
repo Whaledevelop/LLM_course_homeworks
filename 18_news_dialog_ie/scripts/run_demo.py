@@ -70,7 +70,7 @@ def main() -> None:
                 len(dialogs),
             )
         else:
-            print(f"Annotation template written for {min(args.gold_size, len(dialogs))} dialogs.")
+            print(f"Annotation template written for {min(args.gold_size, len(dialogs))} dialogs.", flush=True)
 
         return
     validate_gold(gold_path, template_path, progress_path, args.gold_size, args.allow_incomplete_gold)
@@ -87,7 +87,7 @@ def main() -> None:
         except Exception as error:
             clear_gpu_memory()
             profile_failures.append({"profile": profile, "status": "failed", "error": f"{type(error).__name__}: {error}"})
-            print(f"[{profile}] failed to load: {type(error).__name__}: {error}")
+            print(f"[{profile}] failed to load: {type(error).__name__}: {error}", flush=True)
             continue
         successful_batch = None
         selected_extractions = []
@@ -98,12 +98,13 @@ def main() -> None:
                     dialogs,
                     batch_size,
                     partial(print_benchmark_progress, profile=profile),
+                    progress_label=profile,
                 )
             except Exception as error:
                 clear_gpu_memory()
                 status = "skipped" if "out of memory" in str(error).lower() else "failed"
                 profile_failures.append({"profile": profile, "batch_size": batch_size, "status": status, "error": f"{type(error).__name__}: {error}"})
-                print(f"[{profile}] batch={batch_size} {status}: {type(error).__name__}: {error}")
+                print(f"[{profile}] batch={batch_size} {status}: {type(error).__name__}: {error}", flush=True)
                 break
             benchmark_results.append(result)
             selected_extractions = extractions
@@ -111,14 +112,14 @@ def main() -> None:
             successful_batch = batch_size
             print_result(result)
         if successful_batch is not None:
-            print(f"{extractor.name}: largest successful batch={successful_batch}")
+            print(f"{extractor.name}: largest successful batch={successful_batch}", flush=True)
             all_extractions.extend(selected_extractions)
         del extractor
         clear_gpu_memory()
 
     write_profile_failures(data_dir / "benchmark_failures.csv", profile_failures)
     if not benchmark_results:
-        print("No benchmark profile completed successfully. See data/benchmark_failures.csv.")
+        print("No benchmark profile completed successfully. See data/benchmark_failures.csv.", flush=True)
 
         return
     write_benchmark_csv(data_dir / "benchmark_results.csv", benchmark_results)
@@ -256,13 +257,14 @@ def print_result(result) -> None:
         f"{result.extractor}: docs={result.examples}, batch={result.batch_size}, "
         f"docs/sec={result.docs_per_second:.2f}, latency={result.mean_latency_ms:.2f} ms, "
         f"RAM={result.peak_ram_mb:.1f} MB, VRAM={result.peak_vram_mb:.1f} MB, "
-        f"micro_f1={result.micro_f1:.3f}, macro_f1={result.macro_f1:.3f}"
+        f"micro_f1={result.micro_f1:.3f}, macro_f1={result.macro_f1:.3f}",
+        flush=True,
     )
 
 
 def print_benchmark_progress(processed: int, total: int, profile: str) -> None:
     if processed % 10 == 0 or processed == total:
-        print(f"[{profile}] {processed}/{total}")
+        print(f"[{profile}] {processed}/{total}", flush=True)
 
 
 def write_profile_failures(path: Path, failures: list[dict]) -> None:
