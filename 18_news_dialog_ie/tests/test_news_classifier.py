@@ -39,6 +39,34 @@ def test_prompt_marks_dialog_as_untrusted_delimited_data() -> None:
     assert prompt.endswith("</dialog>")
 
 
+def test_prompt_classifies_news_content_and_user_intent() -> None:
+    prompt = build_prompt("Reuters reported an event.")
+
+    assert "both the text's content and the user's intent" in prompt
+    assert "The text itself describes a specific real news event" in prompt
+    assert "contains or quotes a real news report" in prompt
+    assert "requests content about a specific real news event" in prompt
+
+
+def test_prompt_contains_balanced_few_shot_examples() -> None:
+    prompt = build_prompt("Input text")
+    examples = (
+        ("Reuters reported that Apple announced layoffs on Monday.", "NEWS"),
+        ("Summarize this BBC report about the earthquake in Turkey.", "NEWS"),
+        ("Write me a blog post on Trump's indictment.", "NEWS"),
+        ("My Apple Magic Mouse disconnects on Debian.", "NOT_NEWS"),
+        ("Critically review Chapter 4 of this novel.", "NOT_NEWS"),
+        ("Write a fake news article about Batman.", "NOT_NEWS"),
+    )
+
+    for text, label in examples:
+        assert f"Text: {text}\nLabel: {label}" in prompt
+
+
+def test_prompt_version_changes_for_content_aware_few_shot_prompt() -> None:
+    assert news_classifier.PROMPT_VERSION == "local-news-classifier-v4-content-aware-few-shot"
+
+
 def test_tokenizer_truncates_to_configured_max_length() -> None:
     calls = []
 

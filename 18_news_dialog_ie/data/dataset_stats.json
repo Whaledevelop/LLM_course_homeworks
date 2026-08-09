@@ -4,5 +4,19 @@
   "unique_texts": 200,
   "sources": {
     "allenai/WildChat-1M": 200
+  },
+  "filtering": {
+    "rows_seen": 71446,
+    "stage1_passed": 7976,
+    "llm_classified": 7976,
+    "llm_news": 200,
+    "llm_not_news": 6325,
+    "llm_invalid": 1451,
+    "classifier_cache_hits": 831
+  },
+  "classifier": {
+    "model": "Qwen/Qwen3-1.7B",
+    "device": "cuda:0",
+    "classifier_load_seconds": 21.274412600000005
   }
 }

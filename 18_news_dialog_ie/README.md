@@ -1,58 +1,157 @@
-# Извлечение сущностей и событий из новостных диалогов
+# NER / IE для новостных диалогов
 
-Домашнее задание по треку B: 200 реальных новостных диалогов из `allenai/WildChat-1M`, 10 вручную размеченных gold-диалогов и сравнение двух локальных LLM в FP16/INT8. Извлекаются `PERSON`, `ORG`, `LOC`, `EVENT`, `DATE`, `IMPACT`, `SOURCE`.
+Выбран **трек B — новостные диалоги**.
 
-## Pipeline
+## Задача
+
+Нужно:
+
+- получить новостные диалоги из WildChat;
+- извлечь сущности `PERSON`, `ORG`, `LOC`, `EVENT`, `DATE`, `IMPACT`, `SOURCE`;
+- сравнить несколько локальных моделей;
+- сравнить FP16 и INT8;
+- измерить качество и производительность.
+
+---
+
+## Датасет
+
+Используется:
 
 ```text
-WildChat stream
-→ rule-based high-recall prefilter
-→ extract initial user intent without Assistant responses
-→ truncate classifier input to 1024 tokens by default
-→ prompt-injection-resistant Qwen3-1.7B NEWS / NOT_NEWS classifier
-→ 200 news dialogs
-→ manual gold annotation for 10 dialogs
-→ local Mistral/OpenChat IE benchmark
+allenai/WildChat-1M
 ```
 
-Classifier `Qwen/Qwen3-1.7B` используется только при подготовке датасета. Это современная instruction-following модель примерно на 2B параметров: веса скачиваются с Hugging Face Hub, inference выполняется локально на CPU или автоматически на CUDA в non-thinking режиме. Модель загружается стандартными `AutoTokenizer`/`AutoModelForCausalLM` без `trust_remote_code`. Classifier не является benchmark-моделью и не участвует в сравнении качества NER/IE.
+WildChat содержит много диалогов не по новостной теме, поэтому используется двухступенчатый отбор:
 
-Основной benchmark включает:
-
-- `mistral-fp16` и `mistral-int8`;
-- `openchat-fp16` и `openchat-int8`;
-- batch size `1/2/4/8`;
-- throughput, latency, RAM, VRAM, precision, recall и F1.
-
-Rules и spaCy доступны только как необязательные baselines.
-
-## Установка
-
-```powershell
-py -3.12 -m venv .venv
-.\.venv\Scripts\activate
-python -m pip install -r requirements.txt
+```text
+WildChat
+→ rule-based prefilter
+→ Qwen3-1.7B NEWS / NOT_NEWS classifier
+→ 200 новостных диалогов
 ```
 
-Модель можно изменить через `--news-classifier-model`; CLI имеет приоритет над optional environment variable `NEWS_CLASSIFIER_MODEL`. Безопасный для RTX 2060 SUPER default batch size равен 4 и меняется через `--news-classifier-batch-size`. Лимит classifier input по умолчанию равен 1024 токенам и настраивается через `--news-classifier-max-input-tokens`. Опциональный `--news-classifier-sanity-check` проверяет classifier на реалистичных примерах WildChat и останавливает сканирование, если accuracy ниже 90%.
+Classifier запускается локально через Hugging Face Transformers.
+
+Для классификации используется только первое содержательное сообщение пользователя, без ответов Assistant. Вход ограничен 1024 токенами.
+
+Перед обработкой выполняется sanity check classifier-а.
+
+---
+
+## Gold-разметка
+
+Из 200 диалогов выбираются:
+
+```text
+10 gold dialogs
+```
+
+Они размечаются вручную через Streamlit:
+
+```bash
+streamlit run scripts/annotation_app.py
+```
+
+Gold используется для расчёта Precision / Recall / F1.
+
+---
+
+## Сравниваемые подходы
+
+Baseline:
+
+```text
+Rules
+spaCy
+```
+
+Основные LLM:
+
+```text
+Mistral FP16
+Mistral INT8
+
+OpenChat FP16
+OpenChat INT8
+```
+
+Основная цель — сравнить:
+
+```text
+качество
+скорость
+RAM / VRAM
+```
+
+---
+
+## Batch processing
+
+Проверяются batch sizes:
+
+```text
+1
+2
+4
+8
+```
+
+Для каждого профиля измеряются:
+
+- throughput;
+- latency;
+- tokens/sec;
+- RAM;
+- VRAM.
+
+---
+
+## Метрики качества
+
+На Gold subset считаются:
+
+- Precision;
+- Recall;
+- F1;
+- Micro F1;
+- Macro F1;
+- Per-class F1.
+
+Также анализируются:
+
+- False Positive;
+- False Negative.
+
+---
+
+## Общий pipeline
+
+```text
+WildChat-1M
+    ↓
+Rule-based prefilter
+    ↓
+Qwen3-1.7B NEWS classifier
+    ↓
+200 news dialogs
+    ↓
+10 manual gold dialogs
+    ↓
+NER / IE
+    ├── Rules
+    ├── spaCy
+    ├── Mistral FP16
+    ├── Mistral INT8
+    ├── OpenChat FP16
+    └── OpenChat INT8
+    ↓
+Quality + performance benchmark
+```
+
+---
 
 ## Подготовка данных
-
-Пересоздать выборку, сохранив существующий classifier cache:
-
-```powershell
-python scripts/run_demo.py `
-  --sample-size 200 `
-  --gold-size 10 `
-  --prepare-annotations `
-  --rebuild-dataset `
-  --news-classifier-model Qwen/Qwen3-1.7B `
-  --news-classifier-batch-size 4 `
-  --news-classifier-max-input-tokens 1024 `
-  --news-classifier-sanity-check
-```
-
-Повторно отправить кандидатов в classifier, удалив его cache:
 
 ```powershell
 python scripts/run_demo.py `
@@ -62,41 +161,24 @@ python scripts/run_demo.py `
   --rebuild-dataset `
   --rebuild-classifier-cache `
   --news-classifier-model Qwen/Qwen3-1.7B `
+  --news-classifier-batch-size 4 `
+  --news-classifier-max-input-tokens 1024 `
   --news-classifier-sanity-check
 ```
 
-Classifier загружается один раз и обрабатывает Stage 1 candidates пачками. Cache хранится в `data/cache/news_classifier.jsonl`; `--rebuild-dataset` и `--rebuild-cache` его не удаляют.
+---
 
-Во время подготовки CLI печатает результат классификации каждого Stage 1 candidate, короткий однострочный preview, отметку `[CACHE]` для повторно использованных ответов и общую статистику сканирования каждые 1000 строк WildChat. После сбора выборки выводятся итоговые счётчики и пути к dataset/template.
+## Что проверяется
 
-## Ручная gold-разметка
+- Mistral vs OpenChat;
+- FP16 vs INT8;
+- влияние batch size;
+- качество NER / IE;
+- расход RAM / VRAM;
+- trade-off между скоростью и качеством.
 
-```powershell
-streamlit run scripts/annotation_app.py
+Фактические результаты эксперимента сохраняются в:
+
+```text
+docs/result_analyze.md
 ```
-
-Gold сохраняется в `data/gold_annotations.csv`, reviewed-прогресс — в `data/annotation_progress.json`. LLM, rules и spaCy не используются для pre-annotation.
-
-## Основной benchmark
-
-После завершения всех 10 reviewed-диалогов:
-
-```powershell
-python scripts/run_demo.py `
-  --sample-size 200 `
-  --gold-size 10 `
-  --batch-sizes 1 2 4 8 `
-  --profiles mistral-fp16 mistral-int8 openchat-fp16 openchat-int8 `
-  --rebuild-cache
-```
-
-INT8 через `bitsandbytes` рекомендуется запускать в Linux/WSL с NVIDIA CUDA. Веса benchmark-моделей должны быть доступны через Hugging Face или локальный cache.
-
-## Demo и тесты
-
-```powershell
-streamlit run scripts/app.py
-python -m pytest tests -q
-```
-
-Filtering statistics сохраняются в `data/dataset_stats.json`. Основные результаты benchmark записываются в `data/benchmark_results.csv`; остальные CSV и JSON используются как вспомогательные артефакты анализа.
