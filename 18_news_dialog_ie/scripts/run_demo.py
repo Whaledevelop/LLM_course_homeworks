@@ -19,8 +19,8 @@ from schemas import ExtractionResult
 
 
 MODEL_ALIASES = {
-    "mistral": "mistralai/Mistral-7B-Instruct-v0.2",
-    "openchat": "openchat/openchat-3.5-0106",
+    "qwen": "Qwen/Qwen3-1.7B",
+    "gemma": "google/gemma-2-2b-it",
 }
 
 
@@ -36,6 +36,7 @@ def main() -> None:
     template_path = data_dir / "gold_annotation_template.csv"
     progress_path = data_dir / "annotation_progress.json"
     gold_path = Path(args.gold_path) if args.gold_path else data_dir / "gold_annotations.csv"
+    validate_smoke_dataset(args.benchmark_limit, args.rebuild_dataset, dataset_path)
     if args.rebuild_cache:
         clear_cache(cache_dir)
     if args.rebuild_classifier_cache:
@@ -77,6 +78,10 @@ def main() -> None:
     write_gold_stats(data_dir / "gold_stats.json", gold_path)
     reset_output_files(data_dir)
     evaluation_dialog_ids = set(load_gold_labels(gold_path)) if args.allow_incomplete_gold else set(read_template_dialog_ids(template_path))
+    if args.benchmark_limit is not None:
+        dialogs = dialogs[:args.benchmark_limit]
+        evaluation_dialog_ids &= {dialog.dialog_id for dialog in dialogs}
+        print(f"Smoke benchmark: using {len(dialogs)} dialogs from the existing dataset.", flush=True)
     benchmark = ExtractionBenchmark(cache_dir, gold_path, evaluation_dialog_ids)
     benchmark_results = []
     profile_failures = []
@@ -133,7 +138,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--gold-size", type=int, default=10)
     parser.add_argument("--gold-path", default="")
     parser.add_argument("--batch-sizes", type=int, nargs="+", default=[1, 2, 4, 8])
-    parser.add_argument("--profiles", nargs="+", default=["mistral-fp16", "mistral-int8", "openchat-fp16", "openchat-int8"])
+    parser.add_argument("--profiles", nargs="+", default=["qwen-fp16", "qwen-int8", "gemma-fp16", "gemma-int8"])
+    parser.add_argument("--benchmark-limit", type=positive_int, default=None)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-new-tokens", type=int, default=256)
     parser.add_argument("--news-classifier-model", default=os.getenv("NEWS_CLASSIFIER_MODEL", DEFAULT_MODEL))
@@ -151,12 +157,25 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def parse_profiles(profiles: list[str]) -> list[str]:
-    supported = {"rules", "spacy", "mistral-fp16", "mistral-int8", "openchat-fp16", "openchat-int8"}
+    supported = {"rules", "spacy", "qwen-fp16", "qwen-int8", "gemma-fp16", "gemma-int8"}
     unsupported = set(profiles) - supported
     if unsupported:
         raise ValueError(f"Unsupported profiles: {', '.join(sorted(unsupported))}")
 
     return profiles
+
+
+def positive_int(value: str) -> int:
+    parsed_value = int(value)
+    if parsed_value <= 0:
+        raise argparse.ArgumentTypeError("value must be greater than zero")
+
+    return parsed_value
+
+
+def validate_smoke_dataset(benchmark_limit: int | None, rebuild_dataset: bool, dataset_path: Path) -> None:
+    if benchmark_limit is not None and (rebuild_dataset or not dataset_path.exists()):
+        raise ValueError("--benchmark-limit requires an existing dataset and cannot be combined with --rebuild-dataset.")
 
 
 def create_extractor(profile: str, max_new_tokens: int):

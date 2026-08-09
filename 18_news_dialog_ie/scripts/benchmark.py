@@ -106,6 +106,8 @@ class ExtractionBenchmark:
             f1=report.micro_f1,
             micro_f1=report.micro_f1,
             macro_f1=report.macro_f1,
+            parameter_count=getattr(extractor, "parameter_count", 0),
+            cpu_offloaded_modules=getattr(extractor, "cpu_offloaded_modules", 0),
         )
         write_results(result_path, results)
         with metrics_path.open("w", encoding="utf-8") as file:

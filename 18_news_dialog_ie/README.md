@@ -69,11 +69,11 @@ spaCy
 Основные LLM:
 
 ```text
-Mistral FP16
-Mistral INT8
+Qwen3-1.7B FP16
+Qwen3-1.7B INT8
 
-OpenChat FP16
-OpenChat INT8
+Gemma 2 2B IT FP16
+Gemma 2 2B IT INT8
 ```
 
 Основная цель — сравнить:
@@ -141,10 +141,10 @@ Qwen3-1.7B NEWS classifier
 NER / IE
     ├── Rules
     ├── spaCy
-    ├── Mistral FP16
-    ├── Mistral INT8
-    ├── OpenChat FP16
-    └── OpenChat INT8
+    ├── Qwen3-1.7B FP16
+    ├── Qwen3-1.7B INT8
+    ├── Gemma 2 2B IT FP16
+    └── Gemma 2 2B IT INT8
     ↓
 Quality + performance benchmark
 ```
@@ -170,7 +170,7 @@ python scripts/run_demo.py `
 
 ## Что проверяется
 
-- Mistral vs OpenChat;
+- Qwen3-1.7B vs Gemma 2 2B IT;
 - FP16 vs INT8;
 - влияние batch size;
 - качество NER / IE;
@@ -183,8 +183,34 @@ python scripts/run_demo.py `
 docs/result_analyze.md
 ```
 
-### Ограничение VRAM для Mistral
+### Ограничения 7B-моделей
 
-На RTX 2060 SUPER 8 GB профиль Mistral FP16 потребовал CPU/disk offload и завершился native crash. Поэтому его результаты не приводятся как завершённый benchmark.
+На RTX 2060 SUPER 8 GB модели Mistral-7B в FP16 и INT8 не помещаются полностью в VRAM. FP16 требует сильного CPU/disk offload и оказался нестабилен: запуск завершился native crash.
 
-Профиль Mistral INT8 использует heterogeneous inference с CPU offload из-за ограничения VRAM. Основная часть linear weights квантизована в INT8, а модули, выгруженные на CPU, остаются в FP32. Профиль при этом учитывается как `mistral-int8`; throughput и F1 следует указывать только после реального успешного запуска.
+Mistral INT8 загрузился с CPU offload последних слоёв; фактически наблюдавшийся inference первого документа при `batch=1` занял около 165.9 секунды. Такой heterogeneous режим непрактичен для benchmark на 200 диалогах. Поэтому основной эксперимент использует локальные instruction-модели `Qwen/Qwen3-1.7B` (1.7B параметров) и `google/gemma-2-2b-it` (2B), которые должны полностью или почти полностью помещаться в VRAM. Эксперимент с 7B сохраняется как демонстрация trade-off между размером модели, precision и аппаратными ограничениями.
+
+Gemma 2 является gated-моделью на Hugging Face: перед первым запуском нужно принять лицензию Google и авторизоваться.
+
+### Smoke benchmark
+
+`--benchmark-limit N` запускает benchmark только на первых N диалогах уже готового 200-dialog dataset и не пересоздаёт его. Метрики качества считаются только для gold-диалогов, попавших в subset.
+
+```powershell
+python scripts/run_demo.py `
+  --sample-size 200 `
+  --gold-size 10 `
+  --benchmark-limit 5 `
+  --batch-sizes 1 `
+  --profiles qwen-fp16 qwen-int8 gemma-fp16 gemma-int8
+```
+
+Полный benchmark:
+
+```powershell
+python scripts/run_demo.py `
+  --sample-size 200 `
+  --gold-size 10 `
+  --batch-sizes 1 2 4 8 `
+  --profiles qwen-fp16 qwen-int8 gemma-fp16 gemma-int8 `
+  --rebuild-cache
+```

@@ -8,7 +8,7 @@ Stage 1 — дешёвый high-recall prefilter. Он оставляет анг
 
 Stage 2 — локальный Hugging Face Transformers classifier `Qwen/Qwen3-1.7B` примерно на 2B параметров. Веса скачиваются с Hub стандартными `AutoTokenizer`/`AutoModelForCausalLM` без `trust_remote_code`, после чего одна загруженная модель обрабатывает candidates batch-ами в non-thinking режиме. CUDA выбирается автоматически, иначе используется CPU. Generation выполняется с `do_sample=False` и `max_new_tokens=8`; parser принимает одиночные `NEWS`/`NOT_NEWS` с безопасным markdown/пунктуационным оформлением, а длинные объяснения считает `INVALID`.
 
-Classifier применяется только к подготовке данных. Основной IE benchmark по-прежнему сравнивает локальные Mistral/OpenChat в FP16/INT8.
+Classifier применяется только к подготовке данных. Основной IE benchmark сравнивает локальные Qwen3-1.7B и Gemma 2 2B IT в FP16/INT8.
 
 ## Cache и статистика
 
@@ -28,9 +28,9 @@ Classifier применяется только к подготовке данн�
 
 | Профиль | Модель | Precision |
 | --- | --- | --- |
-| `mistral-fp16` | `mistralai/Mistral-7B-Instruct-v0.2` | FP16 |
-| `mistral-int8` | та же модель | INT8 |
-| `openchat-fp16` | `openchat/openchat-3.5-0106` | FP16 |
-| `openchat-int8` | та же модель | INT8 |
+| `qwen-fp16` | `Qwen/Qwen3-1.7B` | FP16 |
+| `qwen-int8` | та же модель | INT8 |
+| `gemma-fp16` | `google/gemma-2-2b-it` | FP16 |
+| `gemma-int8` | та же модель | INT8 |
 
 Для batch size `1/2/4/8` измеряются throughput, mean/p95 latency, RAM, VRAM, precision, recall и F1. Rules/spaCy остаются optional baselines.

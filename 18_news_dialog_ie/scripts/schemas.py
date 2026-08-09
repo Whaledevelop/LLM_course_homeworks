@@ -55,3 +55,5 @@ class BenchmarkResult:
     f1: float
     micro_f1: float
     macro_f1: float
+    parameter_count: int = 0
+    cpu_offloaded_modules: int = 0

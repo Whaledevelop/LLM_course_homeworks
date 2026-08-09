@@ -21,7 +21,7 @@ def main() -> None:
 
     default_text = load_default_text(args.data)
     text = st.text_area("Диалог", default_text, height=260)
-    profile = st.selectbox("Extractor", ["rules", "spacy", "mistral-fp16", "mistral-int8", "openchat-fp16", "openchat-int8"])
+    profile = st.selectbox("Extractor", ["rules", "spacy", "qwen-fp16", "qwen-int8", "gemma-fp16", "gemma-int8"])
     try:
         extractor = load_extractor(profile)
     except Exception as error:
@@ -58,8 +58,8 @@ def load_extractor(profile: str):
         return SpacyNewsExtractor()
     alias, precision_mode = profile.rsplit("-", maxsplit=1)
     models = {
-        "mistral": "mistralai/Mistral-7B-Instruct-v0.2",
-        "openchat": "openchat/openchat-3.5-0106",
+        "qwen": "Qwen/Qwen3-1.7B",
+        "gemma": "google/gemma-2-2b-it",
     }
 
     return TransformersJsonExtractor(models[alias], precision_mode)

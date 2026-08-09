@@ -1,13 +1,37 @@
 import csv
 import json
 
+import pytest
+
 from evaluation import annotation_template_fingerprint
 from annotation_workspace import prepare_annotation_workspace, validate_gold
-from run_demo import build_parser, clear_cache, clear_classifier_cache, clear_dataset_cache, clear_dataset_outputs
+from run_demo import MODEL_ALIASES, build_parser, clear_cache, clear_classifier_cache, clear_dataset_cache, clear_dataset_outputs, parse_profiles, validate_smoke_dataset
 
 
 def test_default_gold_size_is_ten() -> None:
     assert build_parser().parse_args([]).gold_size == 10
+
+
+def test_default_profiles_use_local_models_below_three_billion_parameters() -> None:
+    assert build_parser().parse_args([]).profiles == ["qwen-fp16", "qwen-int8", "gemma-fp16", "gemma-int8"]
+    assert MODEL_ALIASES == {
+        "qwen": "Qwen/Qwen3-1.7B",
+        "gemma": "google/gemma-2-2b-it",
+    }
+    assert parse_profiles(["qwen-fp16", "gemma-int8"]) == ["qwen-fp16", "gemma-int8"]
+
+
+def test_benchmark_limit_must_be_positive() -> None:
+    assert build_parser().parse_args(["--benchmark-limit", "5"]).benchmark_limit == 5
+
+
+def test_smoke_mode_requires_existing_dataset(tmp_path) -> None:
+    dataset_path = tmp_path / "news_dialogs.jsonl"
+
+    with pytest.raises(ValueError):
+        validate_smoke_dataset(5, False, dataset_path)
+    dataset_path.write_text("data", encoding="utf-8")
+    validate_smoke_dataset(5, False, dataset_path)
 
 
 def test_default_annotation_template_contains_ten_dialogs(tmp_path) -> None:

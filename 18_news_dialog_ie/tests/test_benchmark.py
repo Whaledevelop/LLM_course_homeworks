@@ -52,12 +52,12 @@ def test_benchmark_logs_batch_ranges_and_duration(tmp_path, capsys) -> None:
         RuleBasedNewsExtractor(),
         dialogs,
         2,
-        progress_label="mistral-int8",
+        progress_label="qwen-int8",
     )
 
     output = capsys.readouterr().out
-    assert "[mistral-int8] Starting benchmark" in output
-    assert "[mistral-int8] Dialogs: 5" in output
-    assert "[mistral-int8] Batch size: 2" in output
-    assert "[mistral-int8] Batch 2/3 | dialogs 3-4/5" in output
-    assert "[mistral-int8] Done: 5/5 | batch " in output
+    assert "[qwen-int8] Starting benchmark" in output
+    assert "[qwen-int8] Dialogs: 5" in output
+    assert "[qwen-int8] Batch size: 2" in output
+    assert "[qwen-int8] Batch 2/3 | dialogs 3-4/5" in output
+    assert "[qwen-int8] Done: 5/5 | batch " in output
