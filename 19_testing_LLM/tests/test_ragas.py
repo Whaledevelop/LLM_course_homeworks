@@ -12,8 +12,10 @@ from tests.evaluate import (
 )
 
 
+FAITHFULNESS_THRESHOLD = float(os.getenv("FAITHFULNESS_THRESHOLD") or "0.70")
+
 THRESHOLDS = {
-    "faithfulness": float(os.getenv("FAITHFULNESS_THRESHOLD", "0.70")),
+    "faithfulness": FAITHFULNESS_THRESHOLD,
     "answer_relevancy": float(os.getenv("ANSWER_RELEVANCY_THRESHOLD", "0.70")),
     "context_recall": float(os.getenv("CONTEXT_RECALL_THRESHOLD", "0.70")),
 }
