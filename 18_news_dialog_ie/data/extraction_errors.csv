@@ -1,110 +1,140 @@
 extractor,batch_size,dialog_id,error_type,label,value
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,DATE,1095
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,DATE,"march 23, 2009"
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,EVENT,first through fifth crusades
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,EVENT,french crusades
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,LOC,europe
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,LOC,holy land
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,LOC,jerusalem
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,LOC,middle east
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,ORG,catholic church
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,ORG,ignatius press
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,PERSON,jonathan riley-smith
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,PERSON,king louis ix
-google/gemma-2-2b-it-fp16,8,1c32602338388652ec73f7e713f34965,false_negative,PERSON,pope urban ii
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,2000
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,almost a year
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,friday
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,more than 20 years
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,past 23 years
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,seven days
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,EVENT,conflicting court rulings
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,EVENT,overturned roe v. wade
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,IMPACT,access to the most commonly used method of abortion in the us plunged into uncertainty
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,IMPACT,restrict access to the drug in at least 17 states
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,LOC,texas
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,LOC,us
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,LOC,washington
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,ORG,fda
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,ORG,food and drug administration
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,ORG,us supreme court
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,matthew kacsmaryk
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,obama
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,president biden
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,thomas o. rice
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,trump
-google/gemma-2-2b-it-fp16,8,1d88fe9cf6440ba79afada9f0036804a,false_negative,SOURCE,ap
-google/gemma-2-2b-it-fp16,8,1f96fa2008341fcf0c31ab9ca893e1f8,false_negative,DATE,easter of 2023
-google/gemma-2-2b-it-fp16,8,1f96fa2008341fcf0c31ab9ca893e1f8,false_negative,EVENT,easter egg rolls
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,DATE,10:00 pm cdt
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,DATE,1128 pm cdt sat may 15 2021
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,DATE,933 pm cdt thu aug 15 2019
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,DATE,midnight cdt
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,EVENT,civil danger warning
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,EVENT,tornado warning
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,damage is likely
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,"damage to roofs, windows, and vehicles will occur"
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,flying debris will be dangerous
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,mobile homes will be damaged or destroyed
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,no structure above ground will be able to survive this storm
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,beaver crossing
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,butler county
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,geneva
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,kansas
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,lushton
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,lyon county
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,morris county
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,nebraska
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,omaha/valley ne
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,saline county
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,seward county
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,south eastern nebraska
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,topeka ks
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,ulysses
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,LOC,wabaunsee county
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,SOURCE,national weather service omaha/valley ne
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,SOURCE,national weather service topeka ks
-google/gemma-2-2b-it-fp16,8,82a843f7b85e24575e3edca138384a34,false_negative,SOURCE,weather spotters
-google/gemma-2-2b-it-fp16,8,9772d6bfe6c04c1c56b943134b12b236,false_negative,EVENT,shooting at an outlet mall
-google/gemma-2-2b-it-fp16,8,9772d6bfe6c04c1c56b943134b12b236,false_negative,IMPACT,at least one confirmed shooter who is being reported as deceased
-google/gemma-2-2b-it-fp16,8,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,"allen, texas"
-google/gemma-2-2b-it-fp16,8,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,dallas
-google/gemma-2-2b-it-fp16,8,9772d6bfe6c04c1c56b943134b12b236,false_negative,SOURCE,cnn
-google/gemma-2-2b-it-fp16,8,ca60ed06c5383a34e2aca78f92d70bf7,false_negative,LOC,india
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,DATE,"march 23, 2009"
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,first through fifth crusades
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,french crusades
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,europe
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,jerusalem
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,middle east
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,catholic church
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,ignatius press
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,jonathan riley-smith
-google/gemma-2-2b-it-fp16,8,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,king louis ix
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2017
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2018
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2019
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2020
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2021
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,past 5 years
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,europe
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,india
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,latin america
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,alexa
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon fresh
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon go
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon prime video
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon web services
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,aws
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,prime air
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,whole foods market
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,business insider
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,cnbc
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,forbes
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,reuters
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the new york times
-google/gemma-2-2b-it-fp16,8,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the wall street journal
-google/gemma-2-2b-it-fp16,8,1f96fa2008341fcf0c31ab9ca893e1f8,false_positive,DATE,2023
-google/gemma-2-2b-it-fp16,8,1f96fa2008341fcf0c31ab9ca893e1f8,false_positive,EVENT,"president joe biden said that he plans to participate in “at least three or four more easter egg rolls, maybe five."
-google/gemma-2-2b-it-fp16,8,1f96fa2008341fcf0c31ab9ca893e1f8,false_positive,SOURCE,null
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,DATE,1095
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,EVENT,first through fifth crusades
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,EVENT,french crusades
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,LOC,jerusalem
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,ORG,catholic church
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,ORG,ignatius press
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,PERSON,king louis ix
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_negative,PERSON,pope urban ii
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,almost a year
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,friday
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,more than 20 years
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,past 23 years
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,seven days
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,EVENT,conflicting court rulings
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,EVENT,overturned roe v. wade
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,IMPACT,access to the most commonly used method of abortion in the us plunged into uncertainty
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,IMPACT,restrict access to the drug in at least 17 states
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,LOC,us
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,ORG,food and drug administration
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,ORG,us supreme court
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,obama
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,president biden
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,trump
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_negative,SOURCE,ap
+Qwen/Qwen3-1.7B-fp16,1,1f96fa2008341fcf0c31ab9ca893e1f8,false_negative,DATE,easter of 2023
+Qwen/Qwen3-1.7B-fp16,1,1f96fa2008341fcf0c31ab9ca893e1f8,false_negative,EVENT,easter egg rolls
+Qwen/Qwen3-1.7B-fp16,1,1f96fa2008341fcf0c31ab9ca893e1f8,false_negative,PERSON,joe biden
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,DATE,10:00 pm cdt
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,DATE,1128 pm cdt sat may 15 2021
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,DATE,933 pm cdt thu aug 15 2019
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,DATE,midnight cdt
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,EVENT,civil danger warning
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,EVENT,tornado warning
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,damage is likely
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,"damage to roofs, windows, and vehicles will occur"
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,flying debris will be dangerous
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,mobile homes will be damaged or destroyed
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,no structure above ground will be able to survive this storm
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,butler county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,kansas
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,lyon county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,morris county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,nebraska
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,omaha/valley ne
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,saline county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,seward county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,south eastern nebraska
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,topeka ks
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,LOC,wabaunsee county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,SOURCE,national weather service omaha/valley ne
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,SOURCE,national weather service topeka ks
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_negative,SOURCE,weather spotters
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,EVENT,shooting at an outlet mall
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,IMPACT,at least one confirmed shooter who is being reported as deceased
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,"allen, texas"
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,LOC,dallas
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_negative,SOURCE,cnn
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_negative,DATE,2020 election
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_negative,DATE,30 days
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_negative,DATE,wednesday
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_negative,EVENT,private arbitration panel ruled
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_negative,IMPACT,$5 million payout
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_negative,ORG,mypillow
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_negative,PERSON,brian glasser
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_negative,SOURCE,the washington post
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,first through fifth crusades
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,french crusades
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,catholic church
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,ignatius press
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,king louis ix
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,past 5 years
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,alexa
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon fresh
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon go
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon prime video
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon web services
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,aws
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,prime air
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,whole foods market
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,business insider
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,cnbc
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,forbes
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,reuters
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the new york times
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the wall street journal
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_positive,EVENT,analysis of the crusades' methodology
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_positive,EVENT,challenging the definition of the crusades
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_positive,EVENT,critique of the crusades' motivations
+Qwen/Qwen3-1.7B-fp16,1,1c32602338388652ec73f7e713f34965,false_positive,EVENT,publication of 'what were the crusades?'
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_positive,DATE,2023
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_positive,DATE,2023-09-20
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_positive,EVENT,court ruling
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_positive,EVENT,drug availability change
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_positive,EVENT,fda approval hold
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_positive,EVENT,judicial order
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_positive,EVENT,supreme court overturn
+Qwen/Qwen3-1.7B-fp16,1,1d88fe9cf6440ba79afada9f0036804a,false_positive,LOC,united states
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,EVENT,civil danger warning issued
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,EVENT,tornado warning issued
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,LOC,alta vista
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,LOC,northeastern morris county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,LOC,northwestern lyon county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,LOC,northwestern saline county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,LOC,southeastern seward county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,LOC,southwestern butler county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,LOC,southwestern wabaunsee county
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,ORG,national weather service omaha/valley ne
+Qwen/Qwen3-1.7B-fp16,1,82a843f7b85e24575e3edca138384a34,false_positive,ORG,national weather service topeka ks
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_positive,DATE,当前时间
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_positive,EVENT,枪击事件
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_positive,EVENT,警方搜索第二名枪手
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_positive,EVENT,警方检查死亡嫌疑人车辆
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_positive,IMPACT,已确认死亡
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_positive,LOC,德克萨斯州达拉斯市郊的allen奥特莱斯购物中心
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_positive,ORG,cnn
+Qwen/Qwen3-1.7B-fp16,1,9772d6bfe6c04c1c56b943134b12b236,false_positive,PERSON,法警
+Qwen/Qwen3-1.7B-fp16,1,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,adoption of ai in higher education
+Qwen/Qwen3-1.7B-fp16,1,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,analysis of feedback from 329 respondents
+Qwen/Qwen3-1.7B-fp16,1,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,implementation of ai in higher education institutions
+Qwen/Qwen3-1.7B-fp16,1,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,ORG,329 respondents
+Qwen/Qwen3-1.7B-fp16,1,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,ORG,indian institutes of higher education
+Qwen/Qwen3-1.7B-fp16,1,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,ORG,unified theory of acceptance and use of technology (utaut) model
+Qwen/Qwen3-1.7B-fp16,1,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,PERSON,stakeholders
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,arbitration panel rules in favor of zeidman
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,offer of $5 million payout
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,zeidman's attorney comments on the ruling
+Qwen/Qwen3-1.7B-fp16,1,d7c98db3a2008d818812b2ad9a8acd43,false_positive,IMPACT,discrediting baseless claims
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_positive,EVENT,academic rebuttal of crusade theories
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_positive,EVENT,challenging the definition of the crusades
+Qwen/Qwen3-1.7B-fp16,1,ec9c53d87f1707cfece8c482091877bd,false_positive,EVENT,publication of 'what were the crusades?'
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_positive,DATE,2022
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_positive,DATE,2023
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_positive,EVENT,amazon's business strategy in e-commerce industry has been one of the strongest over the past five years
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_positive,EVENT,customer-centric approach implemented by amazon
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_positive,EVENT,development of amazon web services (aws)
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_positive,EVENT,"diversification into cloud computing, entertainment, and grocery"
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_positive,EVENT,expansion into international markets
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_positive,EVENT,innovation in technology and data analytics by amazon
+Qwen/Qwen3-1.7B-fp16,1,f191c458060d6a71b149e9e208da99b9,false_positive,EVENT,introduction of prime membership program

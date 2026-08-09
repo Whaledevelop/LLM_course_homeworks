@@ -7,7 +7,11 @@ from schemas import ExtractedItem, ExtractionResult, NewsDialog
 
 
 ALLOWED_ENTITY_LABELS = {"PERSON", "ORG", "LOC", "DATE", "IMPACT", "SOURCE"}
-PROMPT_VERSION = "news-ie-v2"
+PROMPT_VERSION = "news-ie-v3"
+ENTITY_LABEL_ALIASES = {
+    "ORGANIZATION": "ORG",
+    "LOCATION": "LOC",
+}
 
 
 DATE_PATTERN = re.compile(
@@ -103,7 +107,7 @@ class SpacyNewsExtractor(BaseExtractor):
 
 
 class TransformersJsonExtractor(BaseExtractor):
-    def __init__(self, model_name: str, precision_mode: str, revision: str = "main", max_new_tokens: int = 256) -> None:
+    def __init__(self, model_name: str, precision_mode: str, revision: str = "main", max_new_tokens: int = 1024) -> None:
         from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, pipeline
         import torch
 
@@ -296,9 +300,36 @@ def map_spacy_label(label: str) -> str:
 
 
 def build_prompt(text: str) -> str:
-    schema = {"entities": [{"label": "PERSON|ORG|LOC|DATE|IMPACT|SOURCE", "value": "text"}], "events": [{"label": "EVENT", "value": "text"}], "relations": [{"event": "text", "source": "text", "date": "text", "location": "text", "impact": "text"}]}
+    schema = {
+        "entities": [{"label": "PERSON|ORG|LOC|DATE|IMPACT|SOURCE", "value": "..."}],
+        "events": [{"label": "EVENT", "value": "..."}],
+        "relations": [],
+    }
+    instructions = (
+        "Extract named entities, concrete events, and impacts from the news dialog.\n"
+        "Return only valid JSON. Do not add markdown, commentary, or keys outside the schema.\n"
+        "Use only these labels: PERSON, ORG, LOC, DATE, IMPACT, SOURCE, EVENT.\n"
+        "Never use ORGANIZATION, LOCATION, GPE, PLACE, COMPANY, or any other alternative label names. "
+        "Use only ORG and LOC.\n"
+        "SOURCE is the source of the news or statement, for example Reuters, AP, BBC, CNN, "
+        "Washington Post, or National Weather Service. If an organization is mentioned as the source "
+        "of the news or report, label it SOURCE, not ORG.\n"
+        "PERSON means a specific named person. Do not label generic groups or roles such as stakeholders, "
+        "respondents, police, officials, or customers as PERSON.\n"
+        "ORG means a real named organization, company, institution, agency, or publication when it is not "
+        "acting as the information source.\n"
+        "LOC means a real named geographic location. DATE means a date or explicitly stated time period.\n"
+        "EVENT means a concrete event, fact, or action directly stated in the dialog, not a broad topic, "
+        "interpretation, or thematic summary.\n"
+        "IMPACT means a consequence or effect of an event that is directly stated in the dialog.\n"
+        "Extract only information actually present in the dialog. Do not infer or invent facts.\n"
+        "Preserve the source language and wording. If the dialog is in English, do not translate values into "
+        "Chinese or any other language.\n"
+        "Keep relations as an empty array to minimize output.\n"
+        f"Required schema: {json.dumps(schema, ensure_ascii=False)}"
+    )
 
-    return f"Extract news entities and events from the dialog. Return only valid JSON matching this schema: {json.dumps(schema)}\nDialog:\n{text}\nJSON:"
+    return f"{instructions}\nDialog:\n{text}\nJSON:"
 
 
 def parse_llm_response(dialog_id: str, extractor_name: str, generated_text: str) -> ExtractionResult:
@@ -307,7 +338,8 @@ def parse_llm_response(dialog_id: str, extractor_name: str, generated_text: str)
         return ExtractionResult(dialog_id=dialog_id, extractor=extractor_name, raw_response=generated_text, parse_valid=False, error=error)
     entities = []
     for item in payload["entities"]:
-        label = str(item.get("label", "")).upper()
+        label = str(item.get("label", "")).strip().upper()
+        label = ENTITY_LABEL_ALIASES.get(label, label)
         value = str(item.get("value", "")).strip()
         if label in ALLOWED_ENTITY_LABELS and value:
             entities.append(ExtractedItem(label=label, value=value))

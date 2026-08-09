@@ -1,4 +1,6 @@
-from extractors import RuleBasedNewsExtractor, build_transformer_load_kwargs, configure_decoder_tokenizer, extract_json, parse_llm_response
+import json
+
+from extractors import RuleBasedNewsExtractor, build_prompt, build_transformer_load_kwargs, configure_decoder_tokenizer, extract_json, parse_llm_response
 from schemas import NewsDialog
 
 
@@ -24,6 +26,36 @@ def test_parse_llm_response_reports_invalid_json() -> None:
 
     assert not result.parse_valid
     assert result.error
+
+
+def test_parse_llm_response_normalizes_safe_entity_label_aliases() -> None:
+    text = '{"entities":[{"label":"ORGANIZATION","value":"OpenAI"},{"label":"LOCATION","value":"Paris"}],"events":[],"relations":[]}'
+
+    result = parse_llm_response("1", "llm", text)
+
+    assert [(item.label, item.value) for item in result.entities] == [("ORG", "OpenAI"), ("LOC", "Paris")]
+
+
+def test_prompt_defines_labels_alias_restrictions_and_source_semantics() -> None:
+    prompt = build_prompt("CNN reported an event in Paris.")
+
+    assert "Use only these labels: PERSON, ORG, LOC, DATE, IMPACT, SOURCE, EVENT." in prompt
+    assert "Never use ORGANIZATION, LOCATION" in prompt
+    assert "label it SOURCE, not ORG" in prompt
+    assert "not a broad topic" in prompt
+    assert "Do not infer or invent facts" in prompt
+
+
+def test_prompt_schema_is_valid_json_and_keeps_relations_empty() -> None:
+    prompt = build_prompt("Reuters reported an event.")
+    schema_text = prompt.split("Required schema: ", maxsplit=1)[1].split("\nDialog:", maxsplit=1)[0]
+    schema = json.loads(schema_text)
+
+    assert schema == {
+        "entities": [{"label": "PERSON|ORG|LOC|DATE|IMPACT|SOURCE", "value": "..."}],
+        "events": [{"label": "EVENT", "value": "..."}],
+        "relations": [],
+    }
 
 
 def test_rule_extractor_handles_empty_and_repeated_entities() -> None:

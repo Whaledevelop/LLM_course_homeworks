@@ -145,7 +145,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--benchmark-limit", type=positive_int, default=None)
     parser.add_argument("--quality-debug", action="store_true")
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--max-new-tokens", type=int, default=256)
+    parser.add_argument("--max-new-tokens", type=int, default=1024)
     parser.add_argument("--news-classifier-model", default=os.getenv("NEWS_CLASSIFIER_MODEL", DEFAULT_MODEL))
     parser.add_argument("--news-classifier-batch-size", type=int, default=4)
     parser.add_argument("--news-classifier-max-input-tokens", type=int, default=DEFAULT_MAX_INPUT_TOKENS)

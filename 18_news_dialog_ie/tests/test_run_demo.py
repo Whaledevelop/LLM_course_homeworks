@@ -12,6 +12,10 @@ def test_default_gold_size_is_ten() -> None:
     assert build_parser().parse_args([]).gold_size == 10
 
 
+def test_default_extraction_output_limit_is_1024_tokens() -> None:
+    assert build_parser().parse_args([]).max_new_tokens == 1024
+
+
 def test_default_profiles_use_local_models_below_three_billion_parameters() -> None:
     assert build_parser().parse_args([]).profiles == ["qwen-fp16", "qwen-int8", "gemma-fp16", "gemma-int8"]
     assert MODEL_ALIASES == {
