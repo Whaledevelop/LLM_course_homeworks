@@ -1,7 +1,123 @@
 dialog_id,label,value
 f191c458060d6a71b149e9e208da99b9,ORG,Amazon
+f191c458060d6a71b149e9e208da99b9,ORG,Amazon Web Services
 f191c458060d6a71b149e9e208da99b9,ORG,AWS
-f191c458060d6a71b149e9e208da99b9,ORG,CNBC
-f191c458060d6a71b149e9e208da99b9,ORG,Business Insider
-f191c458060d6a71b149e9e208da99b9,ORG,The Wall Street Journal
+f191c458060d6a71b149e9e208da99b9,ORG,Alexa
+f191c458060d6a71b149e9e208da99b9,ORG,Prime Air
+f191c458060d6a71b149e9e208da99b9,ORG,Amazon Go
+f191c458060d6a71b149e9e208da99b9,ORG,Amazon Prime Video
+f191c458060d6a71b149e9e208da99b9,ORG,Amazon Fresh
+f191c458060d6a71b149e9e208da99b9,ORG,Whole Foods Market
+f191c458060d6a71b149e9e208da99b9,LOC,India
+f191c458060d6a71b149e9e208da99b9,LOC,Europe
+f191c458060d6a71b149e9e208da99b9,LOC,Latin America
+f191c458060d6a71b149e9e208da99b9,DATE,past 5 years
+f191c458060d6a71b149e9e208da99b9,DATE,2020
+f191c458060d6a71b149e9e208da99b9,DATE,2017
+f191c458060d6a71b149e9e208da99b9,DATE,2018
+f191c458060d6a71b149e9e208da99b9,DATE,2019
+f191c458060d6a71b149e9e208da99b9,DATE,2021
+f191c458060d6a71b149e9e208da99b9,SOURCE,Forbes
+f191c458060d6a71b149e9e208da99b9,SOURCE,Business Insider
+f191c458060d6a71b149e9e208da99b9,SOURCE,CNBC
+f191c458060d6a71b149e9e208da99b9,SOURCE,The Wall Street Journal
 f191c458060d6a71b149e9e208da99b9,SOURCE,Reuters
+f191c458060d6a71b149e9e208da99b9,SOURCE,The New York Times
+ca60ed06c5383a34e2aca78f92d70bf7,LOC,India
+ec9c53d87f1707cfece8c482091877bd,PERSON,Jonathan Riley-Smith
+ec9c53d87f1707cfece8c482091877bd,PERSON,King Louis IX
+ec9c53d87f1707cfece8c482091877bd,ORG,Ignatius Press
+ec9c53d87f1707cfece8c482091877bd,ORG,Catholic Church
+ec9c53d87f1707cfece8c482091877bd,LOC,Middle East
+ec9c53d87f1707cfece8c482091877bd,LOC,Jerusalem
+ec9c53d87f1707cfece8c482091877bd,LOC,Europe
+ec9c53d87f1707cfece8c482091877bd,DATE,"March 23, 2009"
+ec9c53d87f1707cfece8c482091877bd,EVENT,First through Fifth Crusades
+ec9c53d87f1707cfece8c482091877bd,EVENT,French crusades
+9772d6bfe6c04c1c56b943134b12b236,LOC,"Allen, Texas"
+9772d6bfe6c04c1c56b943134b12b236,LOC,Dallas
+9772d6bfe6c04c1c56b943134b12b236,EVENT,shooting at an outlet mall
+9772d6bfe6c04c1c56b943134b12b236,IMPACT,at least one confirmed shooter who is being reported as deceased
+9772d6bfe6c04c1c56b943134b12b236,SOURCE,CNN
+1c32602338388652ec73f7e713f34965,PERSON,Jonathan Riley-Smith
+1c32602338388652ec73f7e713f34965,PERSON,King Louis IX
+1c32602338388652ec73f7e713f34965,PERSON,Pope Urban II
+1c32602338388652ec73f7e713f34965,ORG,Ignatius Press
+1c32602338388652ec73f7e713f34965,ORG,Catholic Church
+1c32602338388652ec73f7e713f34965,LOC,Middle East
+1c32602338388652ec73f7e713f34965,LOC,Jerusalem
+1c32602338388652ec73f7e713f34965,LOC,Europe
+1c32602338388652ec73f7e713f34965,LOC,Holy Land
+1c32602338388652ec73f7e713f34965,DATE,"March 23, 2009"
+1c32602338388652ec73f7e713f34965,DATE,1095
+1c32602338388652ec73f7e713f34965,EVENT,First through Fifth Crusades
+1c32602338388652ec73f7e713f34965,EVENT,French crusades
+82a843f7b85e24575e3edca138384a34,LOC,South Eastern Nebraska
+82a843f7b85e24575e3edca138384a34,LOC,Topeka KS
+82a843f7b85e24575e3edca138384a34,LOC,Morris County
+82a843f7b85e24575e3edca138384a34,LOC,Kansas
+82a843f7b85e24575e3edca138384a34,LOC,Wabaunsee County
+82a843f7b85e24575e3edca138384a34,LOC,Lyon County
+82a843f7b85e24575e3edca138384a34,LOC,Omaha/Valley NE
+82a843f7b85e24575e3edca138384a34,LOC,Seward County
+82a843f7b85e24575e3edca138384a34,LOC,Nebraska
+82a843f7b85e24575e3edca138384a34,LOC,Saline County
+82a843f7b85e24575e3edca138384a34,LOC,Butler County
+82a843f7b85e24575e3edca138384a34,LOC,Lushton
+82a843f7b85e24575e3edca138384a34,LOC,Geneva
+82a843f7b85e24575e3edca138384a34,LOC,Ulysses
+82a843f7b85e24575e3edca138384a34,LOC,Beaver Crossing
+82a843f7b85e24575e3edca138384a34,DATE,933 PM CDT Thu Aug 15 2019
+82a843f7b85e24575e3edca138384a34,DATE,10:00 PM CDT
+82a843f7b85e24575e3edca138384a34,DATE,1128 PM CDT Sat May 15 2021
+82a843f7b85e24575e3edca138384a34,DATE,midnight CDT
+82a843f7b85e24575e3edca138384a34,EVENT,Tornado Warning
+82a843f7b85e24575e3edca138384a34,EVENT,Civil Danger Warning
+82a843f7b85e24575e3edca138384a34,IMPACT,Flying debris will be dangerous
+82a843f7b85e24575e3edca138384a34,IMPACT,Mobile homes will be damaged or destroyed
+82a843f7b85e24575e3edca138384a34,IMPACT,"Damage to roofs, windows, and vehicles will occur"
+82a843f7b85e24575e3edca138384a34,IMPACT,damage is likely
+82a843f7b85e24575e3edca138384a34,IMPACT,No structure above ground will be able to survive this storm
+82a843f7b85e24575e3edca138384a34,SOURCE,National Weather Service Topeka KS
+82a843f7b85e24575e3edca138384a34,SOURCE,National Weather Service Omaha/Valley NE
+82a843f7b85e24575e3edca138384a34,SOURCE,Weather spotters
+1f96fa2008341fcf0c31ab9ca893e1f8,PERSON,Joe Biden
+1f96fa2008341fcf0c31ab9ca893e1f8,DATE,Easter of 2023
+1f96fa2008341fcf0c31ab9ca893e1f8,EVENT,Easter egg rolls
+1d88fe9cf6440ba79afada9f0036804a,PERSON,Matthew Kacsmaryk
+1d88fe9cf6440ba79afada9f0036804a,PERSON,Trump
+1d88fe9cf6440ba79afada9f0036804a,PERSON,Thomas O. Rice
+1d88fe9cf6440ba79afada9f0036804a,PERSON,Obama
+1d88fe9cf6440ba79afada9f0036804a,PERSON,President Biden
+1d88fe9cf6440ba79afada9f0036804a,ORG,Food and Drug Administration
+1d88fe9cf6440ba79afada9f0036804a,ORG,US Supreme Court
+1d88fe9cf6440ba79afada9f0036804a,ORG,FDA
+1d88fe9cf6440ba79afada9f0036804a,LOC,US
+1d88fe9cf6440ba79afada9f0036804a,LOC,Texas
+1d88fe9cf6440ba79afada9f0036804a,LOC,Washington
+1d88fe9cf6440ba79afada9f0036804a,DATE,Friday
+1d88fe9cf6440ba79afada9f0036804a,DATE,2000
+1d88fe9cf6440ba79afada9f0036804a,DATE,more than 20 years
+1d88fe9cf6440ba79afada9f0036804a,DATE,almost a year
+1d88fe9cf6440ba79afada9f0036804a,DATE,seven days
+1d88fe9cf6440ba79afada9f0036804a,DATE,past 23 years
+1d88fe9cf6440ba79afada9f0036804a,EVENT,conflicting court rulings
+1d88fe9cf6440ba79afada9f0036804a,EVENT,overturned Roe v. Wade
+1d88fe9cf6440ba79afada9f0036804a,IMPACT,Access to the most commonly used method of abortion in the US plunged into uncertainty
+1d88fe9cf6440ba79afada9f0036804a,IMPACT,restrict access to the drug in at least 17 states
+1d88fe9cf6440ba79afada9f0036804a,SOURCE,AP
+d7c98db3a2008d818812b2ad9a8acd43,PERSON,Mike Lindell
+d7c98db3a2008d818812b2ad9a8acd43,PERSON,Robert Zeidman
+d7c98db3a2008d818812b2ad9a8acd43,PERSON,Brian Glasser
+d7c98db3a2008d818812b2ad9a8acd43,ORG,MyPillow
+d7c98db3a2008d818812b2ad9a8acd43,ORG,Lindell Management
+d7c98db3a2008d818812b2ad9a8acd43,LOC,South Dakota
+d7c98db3a2008d818812b2ad9a8acd43,LOC,Nevada
+d7c98db3a2008d818812b2ad9a8acd43,DATE,August 2021
+d7c98db3a2008d818812b2ad9a8acd43,DATE,Wednesday
+d7c98db3a2008d818812b2ad9a8acd43,DATE,2020 election
+d7c98db3a2008d818812b2ad9a8acd43,DATE,November 2020
+d7c98db3a2008d818812b2ad9a8acd43,DATE,30 days
+d7c98db3a2008d818812b2ad9a8acd43,EVENT,private arbitration panel ruled
+d7c98db3a2008d818812b2ad9a8acd43,IMPACT,$5 million payout
+d7c98db3a2008d818812b2ad9a8acd43,SOURCE,The Washington Post
