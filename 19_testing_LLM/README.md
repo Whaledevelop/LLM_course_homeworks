@@ -53,6 +53,10 @@ question → retrieval → contexts → LLM → answer
 - [x] Есть `app/rag.py`.
 - [x] Есть `.env.example`.
 - [x] Есть `requirements.txt`.
+- [x] RAG отвечает по документам и возвращает найденные контексты.
+- [x] Подготовлены 15 golden-примеров.
+- [x] Подключены метрики Ragas: Faithfulness, Answer Relevance и Context Recall.
+- [x] Результаты оценки сохранены в `reports/ragas_results.json`.
 
 Документы:
 
@@ -65,7 +69,21 @@ question → retrieval → contexts → LLM → answer
 
 ### На чём остановились
 
-Следующий шаг — настроить `.env`, подключить реальные LLM/embeddings и убедиться, что RAG локально отвечает на вопросы и возвращает найденный контекст.
+Завершены этапы 1–4. Следующий шаг — выбрать quality thresholds и добавить pytest-проверки.
+
+Повторный запуск оценки:
+
+```bash
+python -m tests.evaluate
+```
+
+Текущие средние результаты:
+
+| Метрика | Значение |
+|---|---:|
+| Faithfulness | 0.983 |
+| Answer Relevance | 0.817 |
+| Context Recall | 1.000 |
 
 ---
 
@@ -317,12 +335,12 @@ PASS / FAIL
 
 ## Финальный чеклист сдачи
 
-- [ ] RAG запускается и отвечает по Unity-документам.
-- [ ] Есть 10–20 goldens.
-- [ ] Работает Faithfulness.
-- [ ] Работает Answer Relevance.
-- [ ] Работает Context Recall.
-- [ ] Результаты сохраняются в JSON/HTML.
+- [x] RAG запускается и отвечает по Unity-документам.
+- [x] Есть 10–20 goldens.
+- [x] Работает Faithfulness.
+- [x] Работает Answer Relevance.
+- [x] Работает Context Recall.
+- [x] Результаты сохраняются в JSON/HTML.
 - [ ] Есть quality thresholds.
 - [ ] Есть pytest.
 - [ ] Есть успешный тестовый прогон.
