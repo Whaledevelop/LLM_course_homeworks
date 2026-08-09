@@ -22,7 +22,7 @@ class ExtractionBenchmark:
         self._evaluation_dialog_ids = evaluation_dialog_ids
         self._cache_dir.mkdir(parents=True, exist_ok=True)
 
-    def run(self, extractor, dialogs: list[NewsDialog], batch_size: int) -> tuple[BenchmarkResult, list[ExtractionResult], EvaluationReport]:
+    def run(self, extractor, dialogs: list[NewsDialog], batch_size: int, progress_callback=None) -> tuple[BenchmarkResult, list[ExtractionResult], EvaluationReport]:
         fingerprint = build_cache_fingerprint(extractor, dialogs, batch_size)
         result_path = self._cache_dir / f"{fingerprint}.jsonl"
         metrics_path = self._cache_dir / f"{fingerprint}.metrics.json"
@@ -48,13 +48,20 @@ class ExtractionBenchmark:
         results = []
         started_at = time.perf_counter()
         peak_ram_mb = current_ram_mb(process)
+        reported_progress = 0
         for batch in chunked(dialogs, batch_size):
             batch_started_at = time.perf_counter()
             batch_results = extractor.extract_batch(batch)
             elapsed = time.perf_counter() - batch_started_at
             latencies.extend([elapsed / len(batch)] * len(batch))
             results.extend(batch_results)
+            if progress_callback is not None:
+                while reported_progress + 10 <= len(results):
+                    reported_progress += 10
+                    progress_callback(reported_progress, len(dialogs))
             peak_ram_mb = max(peak_ram_mb, current_ram_mb(process))
+        if progress_callback is not None and reported_progress != len(dialogs):
+            progress_callback(len(dialogs), len(dialogs))
         total_seconds = time.perf_counter() - started_at
         total_chars = sum(len(dialog.text) for dialog in dialogs)
         report = evaluate(results, self._gold_path, self._evaluation_dialog_ids)

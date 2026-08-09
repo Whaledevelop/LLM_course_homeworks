@@ -25,3 +25,19 @@ def test_cached_benchmark_preserves_metrics(tmp_path) -> None:
     assert first.total_seconds > 0
     assert second.total_seconds == first.total_seconds
     assert second.docs_per_second == first.docs_per_second
+
+
+def test_benchmark_reports_every_ten_dialogs_and_completion(tmp_path) -> None:
+    gold_path = tmp_path / "gold.csv"
+    gold_path.write_text("dialog_id,label,value\n", encoding="utf-8")
+    dialogs = [NewsDialog(str(index), "test", "No entities") for index in range(23)]
+    progress = []
+
+    ExtractionBenchmark(tmp_path / "cache", gold_path).run(
+        RuleBasedNewsExtractor(),
+        dialogs,
+        8,
+        lambda processed, total: progress.append((processed, total)),
+    )
+
+    assert progress == [(10, 23), (20, 23), (23, 23)]

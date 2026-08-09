@@ -182,3 +182,9 @@ python scripts/run_demo.py `
 ```text
 docs/result_analyze.md
 ```
+
+### Ограничение VRAM для Mistral
+
+На RTX 2060 SUPER 8 GB профиль Mistral FP16 потребовал CPU/disk offload и завершился native crash. Поэтому его результаты не приводятся как завершённый benchmark.
+
+Профиль Mistral INT8 использует heterogeneous inference с CPU offload из-за ограничения VRAM. Основная часть linear weights квантизована в INT8, а модули, выгруженные на CPU, остаются в FP32. Профиль при этом учитывается как `mistral-int8`; throughput и F1 следует указывать только после реального успешного запуска.

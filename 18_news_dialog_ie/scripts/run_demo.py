@@ -79,20 +79,32 @@ def main() -> None:
     evaluation_dialog_ids = set(load_gold_labels(gold_path)) if args.allow_incomplete_gold else set(read_template_dialog_ids(template_path))
     benchmark = ExtractionBenchmark(cache_dir, gold_path, evaluation_dialog_ids)
     benchmark_results = []
+    profile_failures = []
     all_extractions = []
     for profile in parse_profiles(args.profiles):
-        extractor = create_extractor(profile, args.max_new_tokens)
+        try:
+            extractor = create_extractor(profile, args.max_new_tokens)
+        except Exception as error:
+            clear_gpu_memory()
+            profile_failures.append({"profile": profile, "status": "failed", "error": f"{type(error).__name__}: {error}"})
+            print(f"[{profile}] failed to load: {type(error).__name__}: {error}")
+            continue
         successful_batch = None
         selected_extractions = []
         for batch_size in args.batch_sizes:
             try:
-                result, extractions, report = benchmark.run(extractor, dialogs, batch_size)
-            except RuntimeError as error:
-                if "out of memory" not in str(error).lower():
-                    raise
+                result, extractions, report = benchmark.run(
+                    extractor,
+                    dialogs,
+                    batch_size,
+                    partial(print_benchmark_progress, profile=profile),
+                )
+            except Exception as error:
                 clear_gpu_memory()
-                print(f"{extractor.name}: batch={batch_size} skipped after OOM")
-                continue
+                status = "skipped" if "out of memory" in str(error).lower() else "failed"
+                profile_failures.append({"profile": profile, "batch_size": batch_size, "status": status, "error": f"{type(error).__name__}: {error}"})
+                print(f"[{profile}] batch={batch_size} {status}: {type(error).__name__}: {error}")
+                break
             benchmark_results.append(result)
             selected_extractions = extractions
             write_evaluation_csvs(data_dir / "per_class_metrics.csv", data_dir / "extraction_errors.csv", result.extractor, batch_size, report)
@@ -104,8 +116,11 @@ def main() -> None:
         del extractor
         clear_gpu_memory()
 
+    write_profile_failures(data_dir / "benchmark_failures.csv", profile_failures)
     if not benchmark_results:
-        raise RuntimeError("No benchmark profile completed successfully.")
+        print("No benchmark profile completed successfully. See data/benchmark_failures.csv.")
+
+        return
     write_benchmark_csv(data_dir / "benchmark_results.csv", benchmark_results)
     write_predictions_csv(data_dir / "extraction_predictions.csv", all_extractions)
     write_json(data_dir / "extractions.json", [asdict(result) for result in all_extractions[:20]])
@@ -213,6 +228,7 @@ def clear_dataset_cache(dataset_path: Path) -> None:
 def clear_dataset_outputs(data_dir: Path) -> None:
     filenames = (
         "benchmark_results.csv",
+        "benchmark_failures.csv",
         "extractions.json",
         "extraction_errors.csv",
         "extraction_predictions.csv",
@@ -242,6 +258,22 @@ def print_result(result) -> None:
         f"RAM={result.peak_ram_mb:.1f} MB, VRAM={result.peak_vram_mb:.1f} MB, "
         f"micro_f1={result.micro_f1:.3f}, macro_f1={result.macro_f1:.3f}"
     )
+
+
+def print_benchmark_progress(processed: int, total: int, profile: str) -> None:
+    if processed % 10 == 0 or processed == total:
+        print(f"[{profile}] {processed}/{total}")
+
+
+def write_profile_failures(path: Path, failures: list[dict]) -> None:
+    if not failures:
+        return
+    fieldnames = ["profile", "batch_size", "status", "error"]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(failures)
 
 
 def write_json(path: Path, rows) -> None:

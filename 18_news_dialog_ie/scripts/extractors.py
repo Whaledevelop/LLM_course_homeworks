@@ -96,7 +96,7 @@ class SpacyNewsExtractor(BaseExtractor):
 
 class TransformersJsonExtractor(BaseExtractor):
     def __init__(self, model_name: str, precision_mode: str, revision: str = "main", max_new_tokens: int = 256) -> None:
-        from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, pipeline
+        from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, pipeline
         import torch
 
         if precision_mode not in {"fp16", "int8"}:
@@ -112,13 +112,20 @@ class TransformersJsonExtractor(BaseExtractor):
         self._tokenizer = AutoTokenizer.from_pretrained(model_name, revision=revision)
         if self._tokenizer.pad_token_id is None:
             self._tokenizer.pad_token = self._tokenizer.eos_token
-        load_kwargs = {"device_map": "auto", "revision": revision, "torch_dtype": torch.float16}
-        if precision_mode == "int8":
-            load_kwargs["quantization_config"] = BitsAndBytesConfig(load_in_8bit=True)
-        model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
+        load_kwargs = build_transformer_load_kwargs(precision_mode, revision, torch, BitsAndBytesConfig)
+        try:
+            model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
+        except ValueError as error:
+            if precision_mode != "int8" or not is_device_map_error(error):
+                raise
+            torch.cuda.empty_cache()
+            config = AutoConfig.from_pretrained(model_name, revision=revision)
+            load_kwargs["device_map"] = build_mistral_int8_device_map(config, torch)
+            model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
         self._pipeline = pipeline("text-generation", model=model, tokenizer=self._tokenizer)
         self._max_new_tokens = max_new_tokens
         self.load_seconds = time.perf_counter() - started_at
+        print_transformer_diagnostics(model, torch, self.load_seconds)
 
     def extract_batch(self, dialogs: list[NewsDialog]) -> list[ExtractionResult]:
         prompts = [self._format_prompt(dialog.text) for dialog in dialogs]
@@ -146,6 +153,64 @@ class TransformersJsonExtractor(BaseExtractor):
             )
 
         return instruction
+
+
+def is_device_map_error(error: ValueError) -> bool:
+    message = str(error).lower()
+
+    return "dispatched on the cpu or the disk" in message or "device_map" in message
+
+
+def build_transformer_load_kwargs(precision_mode: str, revision: str, torch, bits_and_bytes_config) -> dict:
+    load_kwargs = {
+        "device_map": "auto",
+        "revision": revision,
+        "dtype": torch.float16,
+        "low_cpu_mem_usage": True,
+    }
+    if precision_mode == "int8":
+        load_kwargs["quantization_config"] = bits_and_bytes_config(
+            load_in_8bit=True,
+            llm_int8_enable_fp32_cpu_offload=True,
+        )
+
+    return load_kwargs
+
+
+def build_mistral_int8_device_map(config, torch) -> dict[str, str | int]:
+    hidden_size = config.hidden_size
+    intermediate_size = config.intermediate_size
+    vocabulary_size = config.vocab_size
+    layer_bytes = (4 * hidden_size * hidden_size + 3 * hidden_size * intermediate_size) * 1.15
+    fixed_bytes = vocabulary_size * hidden_size * 2
+    free_bytes, _ = torch.cuda.mem_get_info()
+    usable_bytes = max(0, free_bytes - 1536 * 1024 * 1024 - fixed_bytes)
+    cuda_layer_count = min(config.num_hidden_layers, int(usable_bytes // layer_bytes))
+    device_map = {
+        "model.embed_tokens": 0,
+        "model.norm": 0,
+        "lm_head": 0,
+    }
+    for layer_index in range(config.num_hidden_layers):
+        device_map[f"model.layers.{layer_index}"] = 0 if layer_index < cuda_layer_count else "cpu"
+
+    return device_map
+
+
+def print_transformer_diagnostics(model, torch, load_seconds: float) -> None:
+    device_map = getattr(model, "hf_device_map", None)
+    print(f"[Extractor] Model: {getattr(model, 'name_or_path', type(model).__name__)}")
+    print(f"[Extractor] Device map: {device_map if device_map is not None else 'single-device'}")
+    print(f"[Extractor] VRAM allocated: {torch.cuda.memory_allocated() / 1024 / 1024:.1f} MB")
+    print(f"[Extractor] VRAM reserved: {torch.cuda.memory_reserved() / 1024 / 1024:.1f} MB")
+    print(f"[Extractor] Load time: {load_seconds:.1f} sec")
+    if device_map:
+        cpu_modules = sorted(module for module, device in device_map.items() if str(device) == "cpu")
+        if cpu_modules:
+            print(f"[Extractor] CPU-offloaded modules (FP32): {', '.join(cpu_modules)}")
+        disk_modules = sorted(module for module, device in device_map.items() if str(device) == "disk")
+        if disk_modules:
+            print(f"[Extractor] Disk-offloaded modules: {', '.join(disk_modules)}")
 
 
 def find_items(text: str, label: str, pattern: re.Pattern, blocked_values: set[str] | None = None, source_only: bool = False) -> list[ExtractedItem]:
