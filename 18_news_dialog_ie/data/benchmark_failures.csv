@@ -1,0 +1,7 @@
+profile,batch_size,status,error
+gemma-fp16,,failed,"OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/gemma-2-2b-it.
+401 Client Error. (Request ID: Root=1-6a7862ff-0053afdc14ecd68519c6635f;80a7d6ad-67ee-41a6-8553-419d76976832)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2-2b-it/resolve/main/config.json.
+Access to model google/gemma-2-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in."

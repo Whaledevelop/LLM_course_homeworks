@@ -1,8 +1,12 @@
 dialog_id,extractor,kind,label,value,start,end,confidence,parse_valid,error
-f191c458060d6a71b149e9e208da99b9,Qwen/Qwen3-1.7B-int8,,,,,,,False,valid extraction JSON was not found
-ca60ed06c5383a34e2aca78f92d70bf7,Qwen/Qwen3-1.7B-int8,,,,,,,False,valid extraction JSON was not found
-ec9c53d87f1707cfece8c482091877bd,Qwen/Qwen3-1.7B-int8,,,,,,,False,valid extraction JSON was not found
-9772d6bfe6c04c1c56b943134b12b236,Qwen/Qwen3-1.7B-int8,,,,,,,False,valid extraction JSON was not found
-1c32602338388652ec73f7e713f34965,Qwen/Qwen3-1.7B-int8,,,,,,,False,valid extraction JSON was not found
-82a843f7b85e24575e3edca138384a34,Qwen/Qwen3-1.7B-int8,,,,,,,False,valid extraction JSON was not found
-1d88fe9cf6440ba79afada9f0036804a,Qwen/Qwen3-1.7B-int8,,,,,,,False,valid extraction JSON was not found
+f191c458060d6a71b149e9e208da99b9,google/gemma-2-2b-it-fp16,,,,,,,False,valid extraction JSON was not found
+ca60ed06c5383a34e2aca78f92d70bf7,google/gemma-2-2b-it-fp16,,,,,,,False,valid extraction JSON was not found
+ec9c53d87f1707cfece8c482091877bd,google/gemma-2-2b-it-fp16,,,,,,,False,valid extraction JSON was not found
+9772d6bfe6c04c1c56b943134b12b236,google/gemma-2-2b-it-fp16,,,,,,,False,valid extraction JSON was not found
+1c32602338388652ec73f7e713f34965,google/gemma-2-2b-it-fp16,,,,,,,False,valid extraction JSON was not found
+82a843f7b85e24575e3edca138384a34,google/gemma-2-2b-it-fp16,,,,,,,False,valid extraction JSON was not found
+1f96fa2008341fcf0c31ab9ca893e1f8,google/gemma-2-2b-it-fp16,entity,PERSON,Joe Biden,,,,True,
+1f96fa2008341fcf0c31ab9ca893e1f8,google/gemma-2-2b-it-fp16,entity,DATE,2023,,,,True,
+1f96fa2008341fcf0c31ab9ca893e1f8,google/gemma-2-2b-it-fp16,entity,SOURCE,null,,,,True,
+1f96fa2008341fcf0c31ab9ca893e1f8,google/gemma-2-2b-it-fp16,event,EVENT,"President Joe Biden said that he plans to participate in “at least three or four more Easter egg rolls, maybe five.",,,,True,
+1d88fe9cf6440ba79afada9f0036804a,google/gemma-2-2b-it-fp16,,,,,,,False,valid extraction JSON was not found
