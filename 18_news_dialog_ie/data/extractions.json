@@ -755,5 +755,684 @@
     "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Virtu\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Draw a circle\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Draw a circle\"\n    }\n  ],\n  \"relations\": []\n}",
     "parse_valid": true,
     "error": ""
+  },
+  {
+    "dialog_id": "71630106997a55526608659d389d81c9",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "LOC",
+        "value": "UCLA",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "2021",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "U.S. News",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "#13 nationally",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "UCLA's computer science program is ranked #13 nationally",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"UCLA\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"U.S. News\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"#13 nationally\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"UCLA's computer science program is ranked #13 nationally\"\n    }\n  ]\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "1b3dfa3cb5d6d6f14279b20801859be7",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "2021",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "Assistant",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    }\n  ],\n  \"events\": [],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "2eec9d288aa6c98a5b1cb41591a632e8",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "PERSON",
+        "value": "Rebecca Evans",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "BBC",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Wales",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "2023-05-20",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "£1.7bn total funding for the Economic Resilience Fund",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "BBC",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "Announcement of additional £500m funding",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Allocation of £180m for tourism, hospitality, and retail sectors",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Allocation of £200m for CEWS, the Canadian employee wage subsidy",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Investment of £40m in Welsh companies to boost innovation, growth, and jobs",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Rebecca Evans\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"BBC\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Wales\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023-05-20\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"£1.7bn total funding for the Economic Resilience Fund\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"BBC\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Announcement of additional £500m funding\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allocation of £180m for tourism, hospitality, and retail sectors\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allocation of £200m for CEWS, the Canadian employee wage subsidy\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Investment of £40m in Welsh companies to boost innovation, growth, and jobs\"\n    }\n  ],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "84d3366b58947c7cdf9914fc578bb6bf",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "LOC",
+        "value": "United States",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "1996",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "Bill Clinton",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "Bob Dole",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "Ross Perot",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "Assistant",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "1996 United States Presidential Election",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Bill Clinton won re-election with 379 electoral votes",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Bill Clinton won the popular vote with 49.2%",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Ross Perot won 8.4% of the popular vote but no electoral votes",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"United States\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"1996\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Bill Clinton\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Bob Dole\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Ross Perot\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"1996 United States Presidential Election\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Bill Clinton won re-election with 379 electoral votes\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Bill Clinton won the popular vote with 49.2%\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Ross Perot won 8.4% of the popular vote but no electoral votes\"\n    }\n  ],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "83061619a0d3d5811df18d69be9b8d4c",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "2023",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "President Joe Biden",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "User",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "President Biden plans to participate in 'at least three or four more Easter egg rolls, maybe five'",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"President Joe Biden\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"User\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"President Biden plans to participate in 'at least three or four more Easter egg rolls, maybe five'\"\n    }\n  ],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "c88137ce4521104c5cc34dc4f046d1c2",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "2023",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "President Joe Biden",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "User",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "President Joe Biden plans to participate in 'at least three or four more Easter egg rolls, maybe five'",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"President Joe Biden\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"User\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"President Joe Biden plans to participate in 'at least three or four more Easter egg rolls, maybe five'\"\n    }\n  ],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "bab46af5c1779f07c28cb4b7e16f8dd4",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "LOC",
+        "value": "Dallas, Texas",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "November 22, 1963",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "Lee Harvey Oswald",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "President John F. Kennedy",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "U.S. government",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "Warren Commission",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "U.S. government",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "assassination of President John F. Kennedy",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "firing of three shots from the Texas School Book Depository",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Dallas, Texas\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"November 22, 1963\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Lee Harvey Oswald\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"President John F. Kennedy\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"U.S. government\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Warren Commission\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"U.S. government\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"assassination of President John F. Kennedy\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"firing of three shots from the Texas School Book Depository\"\n    }\n  ],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "55b8900119b8274f91d427dfad1b1fb5",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "LOC",
+        "value": "North Korea",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Wonsan",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Hungnam",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Hamhung",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Pyongyang",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "October 1",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "October 8",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "October 19",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "Assistant",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "Allies move north",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Allies prepared to invade North Korea",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "South Korean troops crossed into North Korea",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Eighth Army troops reached North Korea",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Allies drove the North Koreans toward Pyongyang",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Allies captured Pyongyang",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Communists retreated farther north",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"North Korea\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Wonsan\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Hungnam\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Hamhung\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Pyongyang\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"October 1\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"October 8\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"October 19\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allies move north\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allies prepared to invade North Korea\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"South Korean troops crossed into North Korea\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Eighth Army troops reached North Korea\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allies drove the North Koreans toward Pyongyang\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allies captured Pyongyang\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Communists retreated farther north\"\n    }\n  ],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "81a160f415dfa0977a4e2b3a26bcd554",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "2021",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "2022",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Russia",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Belarus",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Gibraltar",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "United States",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Lithuania",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Latvia",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Denmark",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Czech Republic",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Norway",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Belgium",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "National Weather Service",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "Divorce rate data for 2021",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Divorce rate data for 2022",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2022\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Russia\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Belarus\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Gibraltar\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"United States\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Lithuania\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Latvia\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Denmark\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Czech Republic\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Norway\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Belgium\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"National Weather Service\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Divorce rate data for 2021\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Divorce rate data for 2022\"\n    }\n  ],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "bdd2e0b3b06278c4aaa6b33c10832ce1",
+    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "recently",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "Assistant",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "the maximum price you should pay for a share of the Delta Corporation is $15.69",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "calculate the cost of equity using CAPM",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "use the constant growth dividend discount model to find the maximum price",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"recently\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"the maximum price you should pay for a share of the Delta Corporation is $15.69\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"calculate the cost of equity using CAPM\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"use the constant growth dividend discount model to find the maximum price\"\n    }\n  ],\n  \"relations\": []\n}",
+    "parse_valid": true,
+    "error": ""
   }
 ]
