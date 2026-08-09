@@ -36,6 +36,17 @@ streamlit run scripts/annotation_app.py
 
 Gold используется для расчёта Precision / Recall / F1.
 
+## Benchmark subset
+
+Исходный `data/news_dialogs.jsonl` содержит 200 NEWS dialogs и не сокращается. Из-за времени локального inference на RTX 2060 SUPER 8 GB основной inference benchmark по умолчанию использует 50 диалогов: все 10 gold и 40 самых коротких non-gold.
+
+- `--benchmark-size` задаёт общий размер inference subset, default — `50`;
+- `--benchmark-selection shortest` добирает самые короткие non-gold по числу символов;
+- `--benchmark-selection first` добирает первые non-gold в порядке dataset;
+- deprecated `--benchmark-limit` сохраняется как alias для `--benchmark-size`.
+
+Выбранный состав сохраняется в `data/benchmark_subset.jsonl`. Ни одна стратегия не фильтрует gold по длине и не пересоздаёт WildChat dataset.
+
 ## Сравниваемые подходы
 
 Baseline: - Rules - spaCy
@@ -58,6 +69,8 @@ Qwen3-1.7B NEWS classifier
 200 news dialogs
     ↓
 10 gold dialogs
+    ↓
+50-dialog benchmark subset
     ↓
 NER / IE
     ├── Rules
@@ -139,7 +152,8 @@ Smoke benchmark на 8 диалогах, `batch_size=8`:
 python scripts/run_demo.py `
   --sample-size 200 `
   --gold-size 10 `
-  --benchmark-limit 5 `
+  --benchmark-size 5 `
+  --benchmark-selection first `
   --batch-sizes 1 `
   --profiles qwen-fp16 `
   --quality-debug
@@ -166,8 +180,10 @@ python scripts/run_demo.py `
 python scripts/run_demo.py `
   --sample-size 200 `
   --gold-size 10 `
-  --batch-sizes 1 2 4 8 `
-  --profiles qwen-fp16 qwen-int8 gemma-fp16 gemma-int8 `
+  --benchmark-size 50 `
+  --benchmark-selection shortest `
+  --batch-sizes 4 `
+  --profiles qwen-fp16 `
   --rebuild-cache
 ```
 

@@ -37,7 +37,9 @@ def main() -> None:
     template_path = data_dir / "gold_annotation_template.csv"
     progress_path = data_dir / "annotation_progress.json"
     gold_path = Path(args.gold_path) if args.gold_path else data_dir / "gold_annotations.csv"
-    validate_smoke_dataset(args.benchmark_limit, args.rebuild_dataset, dataset_path)
+    benchmark_size = resolve_benchmark_size(args.benchmark_size, args.benchmark_limit)
+    if not args.prepare_annotations:
+        validate_benchmark_dataset(args.rebuild_dataset, dataset_path)
     if args.rebuild_cache:
         clear_cache(cache_dir)
     if args.rebuild_classifier_cache:
@@ -78,11 +80,11 @@ def main() -> None:
     validate_gold(gold_path, template_path, progress_path, args.gold_size, args.allow_incomplete_gold)
     write_gold_stats(data_dir / "gold_stats.json", gold_path)
     reset_output_files(data_dir)
-    evaluation_dialog_ids = set(load_gold_labels(gold_path)) if args.allow_incomplete_gold else set(read_template_dialog_ids(template_path))
-    if args.benchmark_limit is not None:
-        dialogs = dialogs[:args.benchmark_limit]
-        evaluation_dialog_ids &= {dialog.dialog_id for dialog in dialogs}
-        print(f"Smoke benchmark: using {len(dialogs)} dialogs from the existing dataset.", flush=True)
+    template_dialog_ids = set(read_template_dialog_ids(template_path))
+    evaluation_dialog_ids = set(load_gold_labels(gold_path)) if args.allow_incomplete_gold else template_dialog_ids
+    dialogs = select_benchmark_dialogs(dialogs, template_dialog_ids, benchmark_size, args.benchmark_selection)
+    write_benchmark_subset(data_dir / "benchmark_subset.jsonl", dialogs, template_dialog_ids)
+    print_benchmark_subset_summary(dialogs, template_dialog_ids, args.benchmark_selection)
     benchmark = ExtractionBenchmark(cache_dir, gold_path, evaluation_dialog_ids)
     benchmark_results = []
     profile_failures = []
@@ -142,7 +144,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--gold-path", default="")
     parser.add_argument("--batch-sizes", type=int, nargs="+", default=[1, 2, 4, 8])
     parser.add_argument("--profiles", nargs="+", default=["qwen-fp16", "qwen-int8", "gemma-fp16", "gemma-int8"])
-    parser.add_argument("--benchmark-limit", type=positive_int, default=None)
+    parser.add_argument("--benchmark-size", type=positive_int, default=None, help="Benchmark subset size (default: 50).")
+    parser.add_argument("--benchmark-selection", choices=("first", "shortest"), default="shortest", help="Strategy for selecting non-gold dialogs (default: shortest).")
+    parser.add_argument("--benchmark-limit", type=positive_int, default=None, help="Deprecated alias for --benchmark-size.")
     parser.add_argument("--quality-debug", action="store_true")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-new-tokens", type=int, default=1024)
@@ -177,9 +181,60 @@ def positive_int(value: str) -> int:
     return parsed_value
 
 
-def validate_smoke_dataset(benchmark_limit: int | None, rebuild_dataset: bool, dataset_path: Path) -> None:
-    if benchmark_limit is not None and (rebuild_dataset or not dataset_path.exists()):
-        raise ValueError("--benchmark-limit requires an existing dataset and cannot be combined with --rebuild-dataset.")
+def resolve_benchmark_size(benchmark_size: int | None, benchmark_limit: int | None) -> int:
+    if benchmark_size is not None and benchmark_limit is not None and benchmark_size != benchmark_limit:
+        raise ValueError("--benchmark-size and deprecated --benchmark-limit must have the same value when used together.")
+
+    return benchmark_size or benchmark_limit or 50
+
+
+def validate_benchmark_dataset(rebuild_dataset: bool, dataset_path: Path) -> None:
+    if rebuild_dataset or not dataset_path.exists():
+        raise ValueError("Benchmark selection requires the existing data/news_dialogs.jsonl and cannot be combined with --rebuild-dataset.")
+
+
+def select_benchmark_dialogs(dialogs, gold_dialog_ids: set[str], benchmark_size: int, selection: str):
+    if selection not in {"first", "shortest"}:
+        raise ValueError(f"Unsupported benchmark selection: {selection}")
+    dialogs_by_id = {dialog.dialog_id: dialog for dialog in dialogs}
+    missing_gold_ids = gold_dialog_ids - dialogs_by_id.keys()
+    if missing_gold_ids:
+        raise ValueError(f"Gold dialogs are missing from the dataset: {', '.join(sorted(missing_gold_ids))}")
+    if benchmark_size < len(gold_dialog_ids):
+        raise ValueError("--benchmark-size cannot be smaller than the number of gold dialogs.")
+    if benchmark_size > len(dialogs):
+        raise ValueError("--benchmark-size cannot exceed the prepared dataset size.")
+    gold_dialogs = [dialog for dialog in dialogs if dialog.dialog_id in gold_dialog_ids]
+    non_gold_dialogs = [dialog for dialog in dialogs if dialog.dialog_id not in gold_dialog_ids]
+    if selection == "shortest":
+        non_gold_dialogs = sorted(non_gold_dialogs, key=lambda dialog: len(dialog.text))
+    selected_dialogs = gold_dialogs + non_gold_dialogs[:benchmark_size - len(gold_dialogs)]
+
+    return selected_dialogs
+
+
+def write_benchmark_subset(path: Path, dialogs, gold_dialog_ids: set[str]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as file:
+        for dialog in dialogs:
+            row = {
+                "dialog_id": dialog.dialog_id,
+                "chars": len(dialog.text),
+                "is_gold": dialog.dialog_id in gold_dialog_ids,
+            }
+            file.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
+def print_benchmark_subset_summary(dialogs, gold_dialog_ids: set[str], selection: str) -> None:
+    character_counts = [len(dialog.text) for dialog in dialogs]
+    gold_count = sum(dialog.dialog_id in gold_dialog_ids for dialog in dialogs)
+    print(f"Benchmark subset: {len(dialogs)} dialogs", flush=True)
+    print(f"Selection: {selection}", flush=True)
+    print(f"Gold dialogs included: {gold_count}", flush=True)
+    print(f"Non-gold dialogs included: {len(dialogs) - gold_count}", flush=True)
+    print(f"Min chars: {min(character_counts)}", flush=True)
+    print(f"Max chars: {max(character_counts)}", flush=True)
+    print(f"Average chars: {sum(character_counts) / len(character_counts):.1f}", flush=True)
 
 
 def create_extractor(profile: str, max_new_tokens: int):
@@ -253,6 +308,7 @@ def clear_dataset_outputs(data_dir: Path) -> None:
     filenames = (
         "benchmark_results.csv",
         "benchmark_failures.csv",
+        "benchmark_subset.jsonl",
         "extractions.json",
         "extraction_errors.csv",
         "extraction_predictions.csv",

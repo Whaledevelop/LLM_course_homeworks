@@ -22,16 +22,20 @@ Classifier используется только для подготовки д�
 
 ## Целевой эксперимент
 
-Финальное сравнение выполняется на 200 реальных новостных диалогах WildChat и 10 вручную размеченных gold-диалогах:
+Подготовленный dataset содержит 200 реальных новостных диалогов WildChat. Из-за времени локального inference финальное сравнение по умолчанию выполняется на воспроизводимом subset из 50 диалогов: всех 10 вручную размеченных gold и 40 самых коротких non-gold.
 
 ```powershell
 python scripts/run_demo.py `
   --sample-size 200 `
   --gold-size 10 `
-  --batch-sizes 1 2 4 8 `
-  --profiles qwen-fp16 qwen-int8 gemma-fp16 gemma-int8 `
+  --benchmark-size 50 `
+  --benchmark-selection shortest `
+  --batch-sizes 4 `
+  --profiles qwen-fp16 `
   --rebuild-cache
 ```
+
+`--benchmark-selection first` сохраняет все gold и добирает первые non-gold вместо самых коротких. Выбранный состав записывается в `data/benchmark_subset.jsonl`; исходный `data/news_dialogs.jsonl` не изменяется.
 
 Для каждой модели сравниваются FP16 и INT8 по throughput, latency, RAM, VRAM, precision, recall и F1. Затем Qwen3-1.7B и Gemma 2 2B IT сравниваются при одинаковом precision mode и batch size.
 

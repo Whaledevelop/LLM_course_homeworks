@@ -5,7 +5,8 @@ import pytest
 
 from evaluation import annotation_template_fingerprint
 from annotation_workspace import prepare_annotation_workspace, validate_gold
-from run_demo import MODEL_ALIASES, build_parser, clear_cache, clear_classifier_cache, clear_dataset_cache, clear_dataset_outputs, parse_profiles, validate_smoke_dataset
+from run_demo import MODEL_ALIASES, build_parser, clear_cache, clear_classifier_cache, clear_dataset_cache, clear_dataset_outputs, parse_profiles, resolve_benchmark_size, select_benchmark_dialogs, validate_benchmark_dataset, write_benchmark_subset
+from schemas import NewsDialog
 
 
 def test_default_gold_size_is_ten() -> None:
@@ -29,18 +30,83 @@ def test_benchmark_limit_must_be_positive() -> None:
     assert build_parser().parse_args(["--benchmark-limit", "5"]).benchmark_limit == 5
 
 
+def test_benchmark_selection_cli_defaults_and_switches_strategy() -> None:
+    defaults = build_parser().parse_args([])
+    selected = build_parser().parse_args(["--benchmark-size", "25", "--benchmark-selection", "first"])
+
+    assert resolve_benchmark_size(defaults.benchmark_size, defaults.benchmark_limit) == 50
+    assert defaults.benchmark_selection == "shortest"
+    assert selected.benchmark_size == 25
+    assert selected.benchmark_selection == "first"
+
+
+def test_deprecated_benchmark_limit_alias_and_conflict() -> None:
+    assert resolve_benchmark_size(None, 5) == 5
+    assert resolve_benchmark_size(5, 5) == 5
+    with pytest.raises(ValueError):
+        resolve_benchmark_size(50, 5)
+
+
 def test_quality_debug_is_disabled_by_default_and_can_be_enabled() -> None:
     assert build_parser().parse_args([]).quality_debug is False
     assert build_parser().parse_args(["--quality-debug"]).quality_debug is True
 
 
-def test_smoke_mode_requires_existing_dataset(tmp_path) -> None:
+def test_benchmark_selection_requires_existing_dataset_without_rebuild(tmp_path) -> None:
     dataset_path = tmp_path / "news_dialogs.jsonl"
 
     with pytest.raises(ValueError):
-        validate_smoke_dataset(5, False, dataset_path)
+        validate_benchmark_dataset(False, dataset_path)
     dataset_path.write_text("data", encoding="utf-8")
-    validate_smoke_dataset(5, False, dataset_path)
+    validate_benchmark_dataset(False, dataset_path)
+    with pytest.raises(ValueError):
+        validate_benchmark_dataset(True, dataset_path)
+
+
+def build_selection_dialogs() -> list[NewsDialog]:
+    return [
+        NewsDialog("non-gold-first", "test", "x" * 30),
+        NewsDialog("gold-one", "test", "x" * 100),
+        NewsDialog("non-gold-short", "test", "x" * 5),
+        NewsDialog("gold-two", "test", "x" * 80),
+        NewsDialog("non-gold-medium", "test", "x" * 10),
+    ]
+
+
+def test_shortest_selects_shortest_non_gold_and_always_includes_gold() -> None:
+    selected = select_benchmark_dialogs(build_selection_dialogs(), {"gold-one", "gold-two"}, 4, "shortest")
+
+    assert [dialog.dialog_id for dialog in selected] == ["gold-one", "gold-two", "non-gold-short", "non-gold-medium"]
+    assert len(selected) == 4
+    assert len({dialog.dialog_id for dialog in selected}) == 4
+
+
+def test_first_selects_first_non_gold_and_always_includes_gold() -> None:
+    selected = select_benchmark_dialogs(build_selection_dialogs(), {"gold-one", "gold-two"}, 4, "first")
+
+    assert [dialog.dialog_id for dialog in selected] == ["gold-one", "gold-two", "non-gold-first", "non-gold-short"]
+
+
+def test_selection_with_fewer_gold_dialogs_fills_with_non_gold() -> None:
+    selected = select_benchmark_dialogs(build_selection_dialogs(), {"gold-one"}, 4, "shortest")
+
+    assert len(selected) == 4
+    assert selected[0].dialog_id == "gold-one"
+    assert [dialog.dialog_id for dialog in selected[1:]] == ["non-gold-short", "non-gold-medium", "non-gold-first"]
+
+
+def test_subset_manifest_does_not_modify_existing_dataset(tmp_path) -> None:
+    dataset_path = tmp_path / "news_dialogs.jsonl"
+    dataset_content = '{"dialog_id":"existing"}\n'
+    dataset_path.write_text(dataset_content, encoding="utf-8")
+    selected = select_benchmark_dialogs(build_selection_dialogs(), {"gold-one"}, 3, "shortest")
+
+    write_benchmark_subset(tmp_path / "benchmark_subset.jsonl", selected, {"gold-one"})
+
+    assert dataset_path.read_text(encoding="utf-8") == dataset_content
+    rows = [json.loads(line) for line in (tmp_path / "benchmark_subset.jsonl").read_text(encoding="utf-8").splitlines()]
+    assert rows[0] == {"dialog_id": "gold-one", "chars": 100, "is_gold": True}
+    assert len(rows) == 3
 
 
 def test_default_annotation_template_contains_ten_dialogs(tmp_path) -> None:
