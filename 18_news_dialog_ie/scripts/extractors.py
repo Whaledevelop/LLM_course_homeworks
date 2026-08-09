@@ -118,8 +118,7 @@ class TransformersJsonExtractor(BaseExtractor):
         self.name = f"{model_name}-{precision_mode}"
         self.generation_config = {"max_new_tokens": max_new_tokens, "do_sample": False}
         self._tokenizer = AutoTokenizer.from_pretrained(model_name, revision=revision)
-        if self._tokenizer.pad_token_id is None:
-            self._tokenizer.pad_token = self._tokenizer.eos_token
+        configure_decoder_tokenizer(self._tokenizer)
         load_kwargs = build_transformer_load_kwargs(precision_mode, revision, torch, BitsAndBytesConfig)
         try:
             model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
@@ -178,6 +177,12 @@ def is_device_placement_error(error: Exception) -> bool:
     message = str(error).lower()
 
     return "out of memory" in message or "dispatched on the cpu or the disk" in message or "device_map" in message
+
+
+def configure_decoder_tokenizer(tokenizer) -> None:
+    tokenizer.padding_side = "left"
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token = tokenizer.eos_token
 
 
 def build_transformer_load_kwargs(precision_mode: str, revision: str, torch, bits_and_bytes_config) -> dict:

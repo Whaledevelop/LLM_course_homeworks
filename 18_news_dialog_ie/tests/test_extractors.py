@@ -1,4 +1,4 @@
-from extractors import RuleBasedNewsExtractor, build_transformer_load_kwargs, extract_json, parse_llm_response
+from extractors import RuleBasedNewsExtractor, build_transformer_load_kwargs, configure_decoder_tokenizer, extract_json, parse_llm_response
 from schemas import NewsDialog
 
 
@@ -50,6 +50,22 @@ class FakeTorch:
 class FakeQuantizationConfig:
     def __init__(self, **kwargs) -> None:
         self.options = kwargs
+
+
+class FakeTokenizer:
+    padding_side = "right"
+    pad_token_id = None
+    pad_token = None
+    eos_token = "<eos>"
+
+
+def test_decoder_tokenizer_uses_left_padding_and_eos_for_padding() -> None:
+    tokenizer = FakeTokenizer()
+
+    configure_decoder_tokenizer(tokenizer)
+
+    assert tokenizer.padding_side == "left"
+    assert tokenizer.pad_token == "<eos>"
 
 
 def test_int8_load_kwargs_enable_cpu_offload_and_low_memory_loading() -> None:
