@@ -180,12 +180,70 @@
   {
     "dialog_id": "ec9c53d87f1707cfece8c482091877bd",
     "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [],
-    "events": [],
+    "entities": [
+      {
+        "label": "DATE",
+        "value": "March 23, 2009",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "Ignatius Press",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "Jonathan Riley-Smith",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Jerusalem",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Middle East",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Europe",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "academic rebuttal of widely accepted viewpoints",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "publication of the book",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
     "relations": [],
     "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"March 23, 2009\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Ignatius Press\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Jonathan Riley-Smith\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Jerusalem\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Middle East\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Europe\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"publication of the book\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"academic rebuttal of widely accepted viewpoints\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"publication of the book\"\n    }\n  ]\n}",
-    "parse_valid": false,
-    "error": "valid extraction JSON was not found"
+    "parse_valid": true,
+    "error": ""
   },
   {
     "dialog_id": "9772d6bfe6c04c1c56b943134b12b236",

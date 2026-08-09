@@ -1,7 +1,2 @@
 profile,batch_size,status,error
-gemma-fp16,,failed,"OSError: You are trying to access a gated repo.
-Make sure to have access to it at https://huggingface.co/google/gemma-2-2b-it.
-401 Client Error. (Request ID: Root=1-6a7862ff-0053afdc14ecd68519c6635f;80a7d6ad-67ee-41a6-8553-419d76976832)
-
-Cannot access gated repo for url https://huggingface.co/google/gemma-2-2b-it/resolve/main/config.json.
-Access to model google/gemma-2-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in."
+qwen-fp16,8,skipped,"OutOfMemoryError: CUDA out of memory. Tried to allocate 724.00 MiB. GPU 0 has a total capacity of 8.00 GiB of which 0 bytes is free. Of the allocated memory 11.69 GiB is allocated by PyTorch, and 2.48 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)"
