@@ -1,0 +1,150 @@
+extractor,batch_size,dialog_id,error_type,label,value
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,DATE,1095
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,DATE,"march 23, 2009"
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,EVENT,first through fifth crusades
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,EVENT,french crusades
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,LOC,europe
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,LOC,holy land
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,LOC,jerusalem
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,LOC,middle east
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,ORG,catholic church
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,ORG,ignatius press
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,PERSON,jonathan riley-smith
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,PERSON,king louis ix
+google/gemma-2-2b-it-int8,4,1c32602338388652ec73f7e713f34965,false_negative,PERSON,pope urban ii
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,almost a year
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,more than 20 years
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,past 23 years
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,DATE,seven days
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,EVENT,conflicting court rulings
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,EVENT,overturned roe v. wade
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,IMPACT,access to the most commonly used method of abortion in the us plunged into uncertainty
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,IMPACT,restrict access to the drug in at least 17 states
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,LOC,us
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,ORG,us supreme court
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,obama
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,president biden
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_negative,PERSON,trump
+google/gemma-2-2b-it-int8,4,1f96fa2008341fcf0c31ab9ca893e1f8,false_negative,EVENT,easter egg rolls
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,DATE,10:00 pm cdt
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,DATE,1128 pm cdt sat may 15 2021
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,DATE,933 pm cdt thu aug 15 2019
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,DATE,midnight cdt
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,EVENT,civil danger warning
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,EVENT,tornado warning
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,damage is likely
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,"damage to roofs, windows, and vehicles will occur"
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,flying debris will be dangerous
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,mobile homes will be damaged or destroyed
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,IMPACT,no structure above ground will be able to survive this storm
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,beaver crossing
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,butler county
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,geneva
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,kansas
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,lushton
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,lyon county
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,morris county
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,nebraska
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,omaha/valley ne
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,saline county
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,seward county
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,south eastern nebraska
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,topeka ks
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,ulysses
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,LOC,wabaunsee county
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,SOURCE,national weather service omaha/valley ne
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,SOURCE,national weather service topeka ks
+google/gemma-2-2b-it-int8,4,82a843f7b85e24575e3edca138384a34,false_negative,SOURCE,weather spotters
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_negative,EVENT,shooting at an outlet mall
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_negative,IMPACT,at least one confirmed shooter who is being reported as deceased
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_negative,DATE,2020 election
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_negative,DATE,30 days
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_negative,DATE,wednesday
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_negative,EVENT,private arbitration panel ruled
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_negative,IMPACT,$5 million payout
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_negative,ORG,mypillow
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_negative,SOURCE,the washington post
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,DATE,"march 23, 2009"
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,first through fifth crusades
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,EVENT,french crusades
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,europe
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,jerusalem
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,LOC,middle east
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,catholic church
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,ORG,ignatius press
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,jonathan riley-smith
+google/gemma-2-2b-it-int8,4,ec9c53d87f1707cfece8c482091877bd,false_negative,PERSON,king louis ix
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2017
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2018
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2019
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2020
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,2021
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,DATE,past 5 years
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,europe
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,india
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,LOC,latin america
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,alexa
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon fresh
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon go
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon prime video
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,amazon web services
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,aws
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,prime air
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,ORG,whole foods market
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,business insider
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,cnbc
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,forbes
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,reuters
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the new york times
+google/gemma-2-2b-it-int8,4,f191c458060d6a71b149e9e208da99b9,false_negative,SOURCE,the wall street journal
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_positive,DATE,2023-05-05
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_positive,DATE,nearly a year
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_positive,IMPACT,access to the drug is uncertain
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_positive,IMPACT,"clinics may switch to using only the second drug, misoprostol"
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_positive,IMPACT,the drug may be pulled from the market
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_positive,ORG,supreme court
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_positive,ORG,us district court
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_positive,PERSON,biden
+google/gemma-2-2b-it-int8,4,1d88fe9cf6440ba79afada9f0036804a,false_positive,SOURCE,reuters
+google/gemma-2-2b-it-int8,4,1f96fa2008341fcf0c31ab9ca893e1f8,false_positive,IMPACT,participation in easter egg rolls
+google/gemma-2-2b-it-int8,4,1f96fa2008341fcf0c31ab9ca893e1f8,false_positive,ORG,white house
+google/gemma-2-2b-it-int8,4,1f96fa2008341fcf0c31ab9ca893e1f8,false_positive,SOURCE,assistant
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,DATE,not specified
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,EVENT,examining the vehicle of the deceased suspect
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,EVENT,search for a second gunman
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,EVENT,"shooting at an outlet mall in allen, texas"
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,IMPACT,at least one confirmed shooter is deceased
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,LOC,allen outlet mall
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,ORG,cnn
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,PERSON,deceased suspect
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,PERSON,law enforcement source
+google/gemma-2-2b-it-int8,4,9772d6bfe6c04c1c56b943134b12b236,false_positive,PERSON,witness
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,DATE,not specified
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,adoption process of ai by stakeholders
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,analysis of feedback from 329 respondents
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,emergence of the use and application of artificial intelligence (ai) in higher education in india
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,enable students to learn more effectively
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,help educators enhance their teaching techniques
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,implementation of artificial intelligence (ai) in india's higher education institutions
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,increasing workload due to the expansion of higher education
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,EVENT,support administrators in making more accurate and timely decisions
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,IMPACT,enable students to learn more effectively
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,IMPACT,help authorities in adopting ai in higher education institutions
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,IMPACT,help educators enhance their teaching techniques
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,IMPACT,support administrators in making more accurate and timely decisions
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,IMPACT,transform administrative processes
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,IMPACT,transform decision-making practices
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,IMPACT,transform teaching methods
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,ORG,indian institutes of higher education
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,ORG,national weather service
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,ORG,unified theory of acceptance and use of technology
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,PERSON,assistant
+google/gemma-2-2b-it-int8,4,ca60ed06c5383a34e2aca78f92d70bf7,false_positive,PERSON,user
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,arbitration panel ruled in favor of robert zeidman
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,arbitrators ruled that zeidman was entitled to the $5 million payout
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,lindell’s firm refused to pay zeidman
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,mike lindell offered a $5 million payout
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,robert zeidman examined lindell’s data
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,zeidman turned to an arbitration panel
+google/gemma-2-2b-it-int8,4,d7c98db3a2008d818812b2ad9a8acd43,false_positive,EVENT,zeidman’s attorney said the panel’s decision stands as a warning to others who make wild allegations about election fraud

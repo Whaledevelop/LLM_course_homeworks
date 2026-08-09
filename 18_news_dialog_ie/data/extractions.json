@@ -1,132 +1,53 @@
 [
   {
     "dialog_id": "f191c458060d6a71b149e9e208da99b9",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
-      {
-        "label": "SOURCE",
-        "value": "Forbes",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "Business Insider",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "CNBC",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "The Wall Street Journal",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "Reuters",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "The New York Times",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "Amazon",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "Amazon's business strategy in the e-commerce industry has been one of the strongest over the past five years",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Amazon's customer-centric approach",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Amazon's innovation in technology and data analytics",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Amazon's investment in Amazon Web Services (AWS)",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Amazon's investment in artificial intelligence (Alexa), drones (Prime Air), and cashier-less stores (Amazon Go)",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Amazon's investment in its fulfillment centers and delivery infrastructure",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Amazon's global expansion into international markets",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Amazon's Prime membership program",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Amazon's diversification into cloud computing, entertainment, and grocery",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
+    "extractor": "google/gemma-2-2b-it-int8",
+    "entities": [],
+    "events": [],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Forbes\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Business Insider\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"CNBC\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"The Wall Street Journal\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Reuters\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Forbes\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"The New York Times\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Amazon\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's business strategy in the e-commerce industry has been one of the strongest over the past five years\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's customer-centric approach\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's innovation in technology and data analytics\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's investment in Amazon Web Services (AWS)\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's investment in artificial intelligence (Alexa), drones (Prime Air), and cashier-less stores (Amazon Go)\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's investment in its fulfillment centers and delivery infrastructure\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's global expansion into international markets\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's Prime membership program\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Amazon's diversification into cloud computing, entertainment, and grocery\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Forbes\"}, {\"label\": \"PERSON\", \"value\": \"Business Insider\"}, {\"label\": \"PERSON\", \"value\": \"CNBC\"}, {\"label\": \"PERSON\", \"value\": \"The Wall Street Journal\"}, {\"label\": \"PERSON\", \"value\": \"Reuters\"}, {\"label\": \"PERSON\", \"value\": \"The New York Times\"}, {\"label\": \"ORG\", \"value\": \"Amazon\"}, {\"label\": \"ORG\", \"value\": \"Amazon Web Services\"}, {\"label\": \"ORG\", \"value\": \"Amazon Prime\"}, {\"label\": \"ORG\", \"value\": \"Amazon Fresh\"}, {\"label\": \"ORG\", \"value\": \"Whole Foods Market\"}, {\"label\": \"LOC\", \"value\": \"India\"}, {\"label\": \"LOC\", \"value\": \"Europe\"}, {\"label\": \"LOC\", \"value\": \"Latin America\"}, {\"label\": \"LOC\", \"value\": \"World\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"Amazon's business strategy has been one of the strongest over the past five years\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has successfully driven significant growth and expansion\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has built Amazon Web Services\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has invested in areas like artificial intelligence\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has invested in areas like artificial intelligence\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has invested in areas like artificial intelligence\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has invested in areas like artificial intelligence\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has invested in areas like artificial intelligence\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has diversified its business portfolio\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded into various industries\"}, {\"label\": \"EVENT\", \"value\": \"Amazon has expanded",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "ca60ed06c5383a34e2aca78f92d70bf7",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
+      {
+        "label": "PERSON",
+        "value": "User",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "Assistant",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "Indian Institutes of higher education",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "National Weather Service",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "Unified Theory of Acceptance and Use of Technology",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
       {
         "label": "LOC",
         "value": "India",
@@ -136,20 +57,69 @@
       },
       {
         "label": "DATE",
-        "value": "329 respondents",
+        "value": "not specified",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "SOURCE",
-        "value": "Assistant",
+        "label": "IMPACT",
+        "value": "transform administrative processes",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "transform teaching methods",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "transform decision-making practices",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "help educators enhance their teaching techniques",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "enable students to learn more effectively",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "support administrators in making more accurate and timely decisions",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "help authorities in adopting AI in higher education institutions",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "events": [
+      {
+        "label": "EVENT",
+        "value": "Emergence of the use and application of Artificial Intelligence (AI) in higher education in India",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
       {
         "label": "EVENT",
         "value": "Implementation of Artificial Intelligence (AI) in India's higher education institutions",
@@ -159,96 +129,94 @@
       },
       {
         "label": "EVENT",
-        "value": "Adoption of AI in higher education institutions",
+        "value": "help educators enhance their teaching techniques",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Analysis of feedback from 329 respondents",
+        "value": "enable students to learn more effectively",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "support administrators in making more accurate and timely decisions",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "increasing workload due to the expansion of higher education",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "adoption process of AI by stakeholders",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "analysis of feedback from 329 respondents",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"India\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"329 respondents\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Implementation of Artificial Intelligence (AI) in India's higher education institutions\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Adoption of AI in higher education institutions\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Analysis of feedback from 329 respondents\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"User\"}, {\"label\": \"PERSON\", \"value\": \"Assistant\"}, {\"label\": \"ORG\", \"value\": \"Indian Institutes of higher education\"}, {\"label\": \"ORG\", \"value\": \"National Weather Service\"}, {\"label\": \"ORG\", \"value\": \"Unified Theory of Acceptance and Use of Technology\"}, {\"label\": \"LOC\", \"value\": \"India\"}, {\"label\": \"DATE\", \"value\": \"not specified\"}, {\"label\": \"EVENT\", \"value\": \"Emergence of the use and application of Artificial Intelligence (AI) in higher education in India\"}, {\"label\": \"EVENT\", \"value\": \"Implementation of Artificial Intelligence (AI) in India's higher education institutions\"}, {\"label\": \"EVENT\", \"value\": \"help educators enhance their teaching techniques\"}, {\"label\": \"EVENT\", \"value\": \"enable students to learn more effectively\"}, {\"label\": \"EVENT\", \"value\": \"support administrators in making more accurate and timely decisions\"}, {\"label\": \"EVENT\", \"value\": \"increasing workload due to the expansion of higher education\"}, {\"label\": \"EVENT\", \"value\": \"adoption process of AI by stakeholders\"}, {\"label\": \"EVENT\", \"value\": \"analysis of feedback from 329 respondents\"}, {\"label\": \"IMPACT\", \"value\": \"transform administrative processes\"}, {\"label\": \"IMPACT\", \"value\": \"transform teaching methods\"}, {\"label\": \"IMPACT\", \"value\": \"transform decision-making practices\"}, {\"label\": \"IMPACT\", \"value\": \"help educators enhance their teaching techniques\"}, {\"label\": \"IMPACT\", \"value\": \"enable students to learn more effectively\"}, {\"label\": \"IMPACT\", \"value\": \"support administrators in making more accurate and timely decisions\"}, {\"label\": \"IMPACT\", \"value\": \"help authorities in adopting AI in higher education institutions\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"Emergence of the use and application of Artificial Intelligence (AI) in higher education in India\"}, {\"label\": \"EVENT\", \"value\": \"Implementation of Artificial Intelligence (AI) in India's higher education institutions\"}, {\"label\": \"EVENT\", \"value\": \"help educators enhance their teaching techniques\"}, {\"label\": \"EVENT\", \"value\": \"enable students to learn more effectively\"}, {\"label\": \"EVENT\", \"value\": \"support administrators in making more accurate and timely decisions\"}, {\"label\": \"EVENT\", \"value\": \"increasing workload due to the expansion of higher education\"}, {\"label\": \"EVENT\", \"value\": \"adoption process of AI by stakeholders\"}, {\"label\": \"EVENT\", \"value\": \"analysis of feedback from 329 respondents\"}], \"relations\": []}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "ec9c53d87f1707cfece8c482091877bd",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
+    "entities": [],
+    "events": [],
+    "relations": [],
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Jonathan Riley-Smith\"}, {\"label\": \"ORG\", \"value\": \"Ignatius Press\"}, {\"label\": \"ORG\", \"value\": \"Catholic Church\"}, {\"label\": \"DATE\", \"value\": \"March 23, 2009\"}, {\"label\": \"EVENT\", \"value\": \"publication of What Were the Crusades?\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"First Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Fifth Crusades\"}, {\"label\": \"EVENT\", \"value\": \"French crusades\"}, {\"label\": \"EVENT\", \"value\": \"King Louis IX’s first crusades\"}, {\"label\": \"EVENT\", \"value\": \"King Louis IX’s second crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"religious war\"}, {\"label\": \"EVENT\", \"value\": \"expeditions to the Middle East\"}, {\"label\": \"EVENT\", \"value\": \"religious motivations\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"military orders\"}, {\"label\": \"EVENT\", \"value\": \"Crusader states\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "9772d6bfe6c04c1c56b943134b12b236",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
       {
-        "label": "DATE",
-        "value": "March 23, 2009",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "Ignatius Press",
+        "label": "PERSON",
+        "value": "law enforcement source",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "PERSON",
-        "value": "Jonathan Riley-Smith",
+        "value": "deceased suspect",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "LOC",
-        "value": "Jerusalem",
+        "label": "PERSON",
+        "value": "witness",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "LOC",
-        "value": "Middle East",
+        "label": "ORG",
+        "value": "CNN",
         "start": null,
         "end": null,
         "confidence": null
       },
-      {
-        "label": "LOC",
-        "value": "Europe",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "IMPACT",
-        "value": "academic rebuttal of widely accepted viewpoints",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "publication of the book",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"March 23, 2009\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Ignatius Press\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Jonathan Riley-Smith\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Jerusalem\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Middle East\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Europe\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"publication of the book\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"academic rebuttal of widely accepted viewpoints\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"publication of the book\"\n    }\n  ]\n}",
-    "parse_valid": true,
-    "error": ""
-  },
-  {
-    "dialog_id": "9772d6bfe6c04c1c56b943134b12b236",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
       {
         "label": "LOC",
         "value": "Allen, Texas",
@@ -264,8 +232,22 @@
         "confidence": null
       },
       {
+        "label": "LOC",
+        "value": "Allen outlet mall",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
         "label": "DATE",
-        "value": "2023-10-05",
+        "value": "not specified",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "at least one confirmed shooter is deceased",
         "start": null,
         "end": null,
         "confidence": null
@@ -276,317 +258,165 @@
         "start": null,
         "end": null,
         "confidence": null
-      },
-      {
-        "label": "ORG",
-        "value": "Law enforcement",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "ORG",
-        "value": "Bomb squad",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "PERSON",
-        "value": "Unknown",
-        "start": null,
-        "end": null,
-        "confidence": null
       }
     ],
     "events": [
       {
         "label": "EVENT",
-        "value": "Shooting at outlet mall in Allen, Texas",
+        "value": "shooting at an outlet mall in Allen, Texas",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Search for second gunman",
+        "value": "search for a second gunman",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Identification of vehicle of deceased suspect",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Examination of vehicle by bomb squad",
+        "value": "examining the vehicle of the deceased suspect",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Allen, Texas\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Dallas\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023-10-05\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"CNN\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Law enforcement\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Bomb squad\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Unknown\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Shooting at outlet mall in Allen, Texas\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Search for second gunman\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Identification of vehicle of deceased suspect\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Examination of vehicle by bomb squad\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"law enforcement source\"}, {\"label\": \"PERSON\", \"value\": \"deceased suspect\"}, {\"label\": \"PERSON\", \"value\": \"witness\"}, {\"label\": \"ORG\", \"value\": \"CNN\"}, {\"label\": \"LOC\", \"value\": \"Allen, Texas\"}, {\"label\": \"LOC\", \"value\": \"Dallas\"}, {\"label\": \"LOC\", \"value\": \"Allen outlet mall\"}, {\"label\": \"DATE\", \"value\": \"not specified\"}, {\"label\": \"EVENT\", \"value\": \"shooting\"}, {\"label\": \"EVENT\", \"value\": \"search for a second gunman\"}, {\"label\": \"EVENT\", \"value\": \"examining the vehicle\"}, {\"label\": \"IMPACT\", \"value\": \"at least one confirmed shooter is deceased\"}, {\"label\": \"SOURCE\", \"value\": \"CNN\"}], \"events\": [{\"label\": \"shooting\", \"value\": \"shooting at an outlet mall in Allen, Texas\"}, {\"label\": \"search for a second gunman\", \"value\": \"search for a second gunman\"}, {\"label\": \"examining the vehicle\", \"value\": \"examining the vehicle of the deceased suspect\"}], \"relations\": []}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "1c32602338388652ec73f7e713f34965",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
-      {
-        "label": "DATE",
-        "value": "March 23, 2009",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "Reuters",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "ORG",
-        "value": "Ignatius Press",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "PERSON",
-        "value": "Jonathan Riley-Smith",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "Publication of 'What Were the Crusades?'",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Challenging the definition of the Crusades",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Analysis of the Crusades' motivations and methods",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
+    "extractor": "google/gemma-2-2b-it-int8",
+    "entities": [],
+    "events": [],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"March 23, 2009\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Reuters\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Ignatius Press\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Jonathan Riley-Smith\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Publication of 'What Were the Crusades?'\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Challenging the definition of the Crusades\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Analysis of the Crusades' motivations and methods\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Jonathan Riley-Smith\"}, {\"label\": \"ORG\", \"value\": \"Ignatius Press\"}, {\"label\": \"ORG\", \"value\": \"Catholic Church\"}, {\"label\": \"DATE\", \"value\": \"2009-03-23\"}, {\"label\": \"EVENT\", \"value\": \"publication of What Were the Crusades?\"}, {\"label\": \"SOURCE\", \"value\": \"Reuters\"}, {\"label\": \"EVENT\", \"value\": \"First Crusade\"}, {\"label\": \"EVENT\", \"value\": \"Second Crusade\"}, {\"label\": \"EVENT\", \"value\": \"Third Crusade\"}, {\"label\": \"EVENT\", \"value\": \"Fourth Crusade\"}, {\"label\": \"EVENT\", \"value\": \"Fifth Crusade\"}, {\"label\": \"EVENT\", \"value\": \"First Crusade\"}, {\"label\": \"EVENT\", \"value\": \"Pope Urban II\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"PERSON\", \"value\": \"King Louis IX\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crusades\"}, {\"label\": \"EVENT\", \"value\": \"Crus",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "82a843f7b85e24575e3edca138384a34",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
+    "entities": [],
+    "events": [],
+    "relations": [],
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Gargan\"}, {\"label\": \"ORG\", \"value\": \"National Weather Service\"}, {\"label\": \"LOC\", \"value\": \"Nebraska\"}, {\"label\": \"LOC\", \"value\": \"Alta Vista\"}, {\"label\": \"LOC\", \"value\": \"Lushton\"}, {\"label\": \"LOC\", \"value\": \"Geneva\"}, {\"label\": \"LOC\", \"value\": \"Ulysses\"}, {\"label\": \"LOC\", \"value\": \"Beaver Crossing\"}, {\"label\": \"LOC\", \"value\": \"Omaha/Valley\"}, {\"label\": \"LOC\", \"value\": \"Southeastern Seward County\"}, {\"label\": \"LOC\", \"value\": \"Northwestern Saline County\"}, {\"label\": \"LOC\", \"value\": \"Southwestern Butler County\"}, {\"label\": \"LOC\", \"value\": \"Northeastern Morris County\"}, {\"label\": \"LOC\", \"value\": \"Southwestern Wabaunsee County\"}, {\"label\": \"LOC\", \"value\": \"Northwestern Lyon County\"}, {\"label\": \"LOC\", \"value\": \"KOAX\"}, {\"label\": \"LOC\", \"value\": \"NEC109\"}, {\"label\": \"LOC\", \"value\": \"NEC109-185-147\"}, {\"label\": \"LOC\", \"value\": \"NEC109-185-147-160500\"}, {\"label\": \"LOC\", \"value\": \"NEC109-185-147-160530\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.TO.W.0043.190816T0233Z-190816T0300Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.CD.Y.0001.210516T0428Z-210516T0530Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KTOP.TO.W.0043.190816T0233Z-190816T0300Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.TO.W.0011.210516T0428Z-210516T0500Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KTOP.TO.W.0011.210516T0428Z-210516T0500Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.CD.Y.0001.210516T0428Z-210516T0530Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.TO.W.0011.210516T0428Z-210516T0500Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.CD.Y.0001.210516T0428Z-210516T0530Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KTOP.TO.W.0011.210516T0428Z-210516T0500Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.TO.W.0011.210516T0428Z-210516T0500Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.CD.Y.0001.210516T0428Z-210516T0530Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KTOP.TO.W.0011.210516T0428Z-210516T0500Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.TO.W.0011.210516T0428Z-210516T0500Z\"}, {\"label\": \"LOC\", \"value\": \"O.NEW.KOAX.CD.Y",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "1f96fa2008341fcf0c31ab9ca893e1f8",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
       {
-        "label": "ORG",
-        "value": "National Weather Service Topeka KS",
+        "label": "PERSON",
+        "value": "Joe Biden",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "ORG",
-        "value": "National Weather Service Omaha/Valley NE",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Topeka KS",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Omaha/Valley NE",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Northeastern Morris County",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Southwestern Wabaunsee County",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Northwestern Lyon County",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Lushton",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Ulysses",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "LOC",
-        "value": "Beaver Crossing",
+        "value": "White House",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "DATE",
-        "value": "2019-08-15",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2021-05-15",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "2021-05-16",
+        "value": "Easter of 2023",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "IMPACT",
-        "value": "Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows, and vehicles will occur. Tree damage is likely.",
+        "value": "participation in Easter egg rolls",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "SOURCE",
-        "value": "National Weather Service Topeka KS",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "National Weather Service Omaha/Valley NE",
+        "value": "Assistant",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "Tornado Warning",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Civil Danger Warning",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
+    "events": [],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"ORG\",\n      \"value\": \"National Weather Service Topeka KS\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"National Weather Service Omaha/Valley NE\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Topeka KS\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Omaha/Valley NE\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Northeastern Morris County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Southwestern Wabaunsee County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Northwestern Lyon County\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Lushton\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Ulysses\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Beaver Crossing\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2019-08-15\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021-05-15\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021-05-16\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows, and vehicles will occur. Tree damage is likely.\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"Flying debris will be dangerous to those caught without shelter. Mobile homes will be damaged or destroyed. Damage to roofs, windows, and vehicles will occur. Tree damage is likely.\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"National Weather Service Topeka KS\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"National Weather Service Omaha/Valley NE\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Tornado Warning\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Civil Danger Warning\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Tornado Warning\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Civil Danger Warning\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Joe Biden\"}, {\"label\": \"ORG\", \"value\": \"White House\"}, {\"label\": \"DATE\", \"value\": \"Easter of 2023\"}, {\"label\": \"EVENT\", \"value\": \"Easter egg rolls\"}, {\"label\": \"IMPACT\", \"value\": \"participation in Easter egg rolls\"}, {\"label\": \"SOURCE\", \"value\": \"Assistant\"}], \"events\": [], \"relations\": []}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
-    "dialog_id": "1f96fa2008341fcf0c31ab9ca893e1f8",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "dialog_id": "1d88fe9cf6440ba79afada9f0036804a",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
       {
-        "label": "DATE",
-        "value": "2023",
+        "label": "PERSON",
+        "value": "Matthew Kacsmaryk",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "PERSON",
-        "value": "President Joe Biden",
+        "value": "Thomas O. Rice",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "SOURCE",
-        "value": "User",
+        "label": "PERSON",
+        "value": "Biden",
         "start": null,
         "end": null,
         "confidence": null
-      }
-    ],
-    "events": [
+      },
       {
-        "label": "EVENT",
-        "value": "President Joe Biden plans to participate in at least three or four more Easter egg rolls, maybe five.",
+        "label": "ORG",
+        "value": "Food and Drug Administration",
         "start": null,
         "end": null,
         "confidence": null
-      }
-    ],
-    "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"President Joe Biden\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"User\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"President Joe Biden plans to participate in at least three or four more Easter egg rolls, maybe five.\"\n    }\n  ],\n  \"relations\": []\n}",
-    "parse_valid": true,
-    "error": ""
-  },
-  {
-    "dialog_id": "1d88fe9cf6440ba79afada9f0036804a",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
+      },
       {
-        "label": "SOURCE",
-        "value": "AP",
+        "label": "ORG",
+        "value": "US District Court",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "Supreme Court",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "FDA",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "LOC",
-        "value": "US",
+        "value": "Texas",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Washington",
         "start": null,
         "end": null,
         "confidence": null
@@ -599,44 +429,71 @@
         "confidence": null
       },
       {
+        "label": "DATE",
+        "value": "2023-05-05",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "2000",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "nearly a year",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
         "label": "IMPACT",
-        "value": "uncertainty in access to the most commonly used method of abortion in the US",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "Texas US District Judge Matthew Kacsmaryk ordered a hold on federal approval of mifepristone",
+        "value": "access to the drug is uncertain",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "EVENT",
-        "value": "US District Judge Thomas O. Rice ordered US authorities not to restrict access to the drug in 17 states",
+        "label": "IMPACT",
+        "value": "the drug may be pulled from the market",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "EVENT",
-        "value": "conflicting decisions may lead to an accelerated path for the issue to reach the Supreme Court",
+        "label": "IMPACT",
+        "value": "clinics may switch to using only the second drug, misoprostol",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "AP",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "SOURCE",
+        "value": "Reuters",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
+    "events": [],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"AP\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"US\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"Friday\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"conflicting court rulings over the legality of the abortion medication mifepristone\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"uncertainty in access to the most commonly used method of abortion in the US\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Texas US District Judge Matthew Kacsmaryk ordered a hold on federal approval of mifepristone\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"US District Judge Thomas O. Rice ordered US authorities not to restrict access to the drug in 17 states\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"conflicting decisions may lead to an accelerated path for the issue to reach the Supreme Court\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Matthew Kacsmaryk\"}, {\"label\": \"PERSON\", \"value\": \"Thomas O. Rice\"}, {\"label\": \"PERSON\", \"value\": \"Biden\"}, {\"label\": \"ORG\", \"value\": \"Food and Drug Administration\"}, {\"label\": \"ORG\", \"value\": \"US District Court\"}, {\"label\": \"ORG\", \"value\": \"Supreme Court\"}, {\"label\": \"ORG\", \"value\": \"FDA\"}, {\"label\": \"LOC\", \"value\": \"Texas\"}, {\"label\": \"LOC\", \"value\": \"Washington\"}, {\"label\": \"DATE\", \"value\": \"Friday\"}, {\"label\": \"DATE\", \"value\": \"2023-05-05\"}, {\"label\": \"DATE\", \"value\": \"2000\"}, {\"label\": \"DATE\", \"value\": \"2023-05-05\"}, {\"label\": \"DATE\", \"value\": \"nearly a year\"}, {\"label\": \"EVENT\", \"value\": \"conflicting court rulings over the legality of the abortion medication mifepristone\"}, {\"label\": \"EVENT\", \"value\": \"Texas US District Judge Matthew Kacsmaryk ordered a hold on federal approval of mifepristone\"}, {\"label\": \"EVENT\", \"value\": \"US District Judge Thomas O. Rice ordered US authorities not to restrict access to the drug in at least 17 states\"}, {\"label\": \"EVENT\", \"value\": \"the whiplash of the conflicting orders revealed the high stakes around the drug\"}, {\"label\": \"EVENT\", \"value\": \"the issue on an accelerated path to the Supreme Court\"}, {\"label\": \"EVENT\", \"value\": \"the drug has been widely used in the US since securing FDA approval\"}, {\"label\": \"EVENT\", \"value\": \"the drug is essentially no precedent for a lone judge overruling the medical decisions of the FDA\"}, {\"label\": \"EVENT\", \"value\": \"a lawsuit challenging the safety and approval of the drug\"}, {\"label\": \"EVENT\", \"value\": \"clinics and doctors that prescribe the two-drug combination have said if mifepristone is pulled from the market, they'd switch to using only misoprostol\"}, {\"label\": \"EVENT\", \"value\": \"the single-drug approach has a slightly lower rate of effectiveness in ending pregnancies\"}, {\"label\": \"EVENT\", \"value\": \"the drug is widely used in nations where mifepristone is illegal or unavailable\"}, {\"label\": \"IMPACT\", \"value\": \"access to the drug is uncertain\"}, {\"label\": \"IMPACT\", \"value\": \"the drug may be pulled from the market\"}, {\"label\": \"IMPACT\", \"value\": \"clinics may switch to using only the second drug, misoprostol\"}, {\"label\": \"SOURCE\", \"value\": \"AP\"}, {\"label\": \"SOURCE\", \"value\": \"Reuters\"}]}",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "d7c98db3a2008d818812b2ad9a8acd43",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
       {
         "label": "PERSON",
@@ -655,6 +512,13 @@
       {
         "label": "PERSON",
         "value": "Brian Glasser",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "Lindell Management",
         "start": null,
         "end": null,
         "confidence": null
@@ -686,13 +550,6 @@
         "start": null,
         "end": null,
         "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "The Washington Post",
-        "start": null,
-        "end": null,
-        "confidence": null
       }
     ],
     "events": [
@@ -705,64 +562,76 @@
       },
       {
         "label": "EVENT",
-        "value": "Robert Zeidman concluded data did not prove voter fraud",
+        "value": "Robert Zeidman examined Lindell’s data",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Arbitration panel ruled in favor of Robert Zeidman",
+        "value": "arbitration panel ruled in favor of Robert Zeidman",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Brian Glasser stated the panel’s decision was a warning",
+        "value": "Lindell’s firm refused to pay Zeidman",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Zeidman turned to an arbitration panel",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "arbitrators ruled that Zeidman was entitled to the $5 million payout",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Zeidman’s attorney said the panel’s decision stands as a warning to others who make wild allegations about election fraud",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Mike Lindell\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Robert Zeidman\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Brian Glasser\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"South Dakota\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Nevada\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"August 2021\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"November 2020\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"The Washington Post\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Mike Lindell offered a $5 million payout\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Robert Zeidman concluded data did not prove voter fraud\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Arbitration panel ruled in favor of Robert Zeidman\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Brian Glasser stated the panel’s decision was a warning\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Mike Lindell\"}, {\"label\": \"PERSON\", \"value\": \"Robert Zeidman\"}, {\"label\": \"PERSON\", \"value\": \"Brian Glasser\"}, {\"label\": \"ORG\", \"value\": \"Lindell Management\"}, {\"label\": \"LOC\", \"value\": \"South Dakota\"}, {\"label\": \"LOC\", \"value\": \"Nevada\"}, {\"label\": \"DATE\", \"value\": \"August 2021\"}, {\"label\": \"DATE\", \"value\": \"November 2020\"}, {\"label\": \"EVENT\", \"value\": \"cyber symposium\"}, {\"label\": \"EVENT\", \"value\": \"Prove Mike Wrong challenge\"}, {\"label\": \"EVENT\", \"value\": \"arbitration\"}, {\"label\": \"EVENT\", \"value\": \"arbitration panel decision\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"Mike Lindell offered a $5 million payout\"}, {\"label\": \"EVENT\", \"value\": \"Robert Zeidman examined Lindell’s data\"}, {\"label\": \"EVENT\", \"value\": \"arbitration panel ruled in favor of Robert Zeidman\"}, {\"label\": \"EVENT\", \"value\": \"Lindell’s firm refused to pay Zeidman\"}, {\"label\": \"EVENT\", \"value\": \"Zeidman turned to an arbitration panel\"}, {\"label\": \"EVENT\", \"value\": \"arbitrators ruled that Zeidman was entitled to the $5 million payout\"}, {\"label\": \"EVENT\", \"value\": \"Zeidman’s attorney said the panel’s decision stands as a warning to others who make wild allegations about election fraud\"}], \"relations\": []}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "865b21a4b38b6c3885b5a0dda054163e",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
-      {
-        "label": "SOURCE",
-        "value": "Virtu",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "Draw a circle",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
+    "extractor": "google/gemma-2-2b-it-int8",
+    "entities": [],
+    "events": [],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Virtu\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Draw a circle\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Draw a circle\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Virtu\"}, {\"label\": \"PERSON\", \"value\": \"PhatGPT\"}, {\"label\": \"ORG\", \"value\": \"Virtu\"}, {\"label\": \"ORG\", \"value\": \"PhatGPT\"}, {\"label\": \"LOC\", \"value\": \"Linux Terminal\"}, {\"label\": \"LOC\", \"value\": \"svg\"}, {\"label\": \"ORG\", \"value\": \"Reuters\"}, {\"label\": \"ORG\", \"value\": \"AP\"}, {\"label\": \"ORG\", \"value\": \"BBC\"}, {\"label\": \"ORG\", \"value\": \"CNN\"}, {\"label\": \"ORG\", \"value\": \"Washington Post\"}, {\"label\": \"ORG\", \"value\": \"National Weather Service\"}, {\"label\": \"DATE\", \"value\": \"now\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"label\": \"SOURCE\", \"value\": \"PhatGPT\"}, {\"label\": \"SOURCE\", \"value\": \"Virtu\"}, {\"",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "71630106997a55526608659d389d81c9",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
       {
-        "label": "LOC",
+        "label": "ORG",
         "value": "UCLA",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "U.S. News",
         "start": null,
         "end": null,
         "confidence": null
@@ -770,6 +639,13 @@
       {
         "label": "DATE",
         "value": "2021",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "#13",
         "start": null,
         "end": null,
         "confidence": null
@@ -780,10 +656,35 @@
         "start": null,
         "end": null,
         "confidence": null
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"ORG\", \"value\": \"UCLA\"}, {\"label\": \"ORG\", \"value\": \"U.S. News\"}, {\"label\": \"DATE\", \"value\": \"2021\"}, {\"label\": \"EVENT\", \"value\": \"national ranking\"}, {\"label\": \"IMPACT\", \"value\": \"#13\"}, {\"label\": \"SOURCE\", \"value\": \"U.S. News\"}]}\n```",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "1b3dfa3cb5d6d6f14279b20801859be7",
+    "extractor": "google/gemma-2-2b-it-int8",
+    "entities": [
+      {
+        "label": "SOURCE",
+        "value": "Assistant",
+        "start": null,
+        "end": null,
+        "confidence": null
       },
       {
-        "label": "IMPACT",
-        "value": "#13 nationally",
+        "label": "DATE",
+        "value": "2023",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "2021",
         "start": null,
         "end": null,
         "confidence": null
@@ -792,45 +693,20 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "UCLA's computer science program is ranked #13 nationally",
+        "value": "FTX's future",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"UCLA\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"U.S. News\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"#13 nationally\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"UCLA's computer science program is ranked #13 nationally\"\n    }\n  ]\n}",
-    "parse_valid": true,
-    "error": ""
-  },
-  {
-    "dialog_id": "1b3dfa3cb5d6d6f14279b20801859be7",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
-      {
-        "label": "DATE",
-        "value": "2021",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "Assistant",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [],
-    "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    }\n  ],\n  \"events\": [],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"SOURCE\", \"value\": \"Assistant\"}, {\"label\": \"EVENT\", \"value\": \"FTX\"}, {\"label\": \"DATE\", \"value\": \"2023\"}, {\"label\": \"DATE\", \"value\": \"2021\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"FTX's future\"}], \"relations\": []}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "2eec9d288aa6c98a5b1cb41591a632e8",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
       {
         "label": "PERSON",
@@ -841,7 +717,7 @@
       },
       {
         "label": "ORG",
-        "value": "BBC",
+        "value": "Welsh Government",
         "start": null,
         "end": null,
         "confidence": null
@@ -854,15 +730,8 @@
         "confidence": null
       },
       {
-        "label": "DATE",
-        "value": "2023-05-20",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
         "label": "IMPACT",
-        "value": "£1.7bn total funding for the Economic Resilience Fund",
+        "value": "additional £500m funding to support businesses affected by Covid-19 restrictions",
         "start": null,
         "end": null,
         "confidence": null
@@ -878,56 +747,42 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "Announcement of additional £500m funding",
+        "value": "announcement of additional funding",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Allocation of £180m for tourism, hospitality, and retail sectors",
+        "value": "allocation of funds for tourism, hospitality, and retail sectors",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Allocation of £200m for CEWS, the Canadian employee wage subsidy",
+        "value": "allocation of funds for CEWS",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Investment of £40m in Welsh companies to boost innovation, growth, and jobs",
+        "value": "investment in Welsh companies to boost innovation, growth, and jobs",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Rebecca Evans\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"BBC\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Wales\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023-05-20\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"£1.7bn total funding for the Economic Resilience Fund\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"BBC\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Announcement of additional £500m funding\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allocation of £180m for tourism, hospitality, and retail sectors\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allocation of £200m for CEWS, the Canadian employee wage subsidy\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Investment of £40m in Welsh companies to boost innovation, growth, and jobs\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Rebecca Evans\"}, {\"label\": \"ORG\", \"value\": \"Welsh Government\"}, {\"label\": \"LOC\", \"value\": \"Wales\"}, {\"label\": \"DATE\", \"value\": \" \"}, {\"label\": \"IMPACT\", \"value\": \"additional £500m funding to support businesses affected by Covid-19 restrictions\"}, {\"label\": \"SOURCE\", \"value\": \"BBC\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"announcement of additional funding\"}, {\"label\": \"EVENT\", \"value\": \"allocation of funds for tourism, hospitality, and retail sectors\"}, {\"label\": \"EVENT\", \"value\": \"allocation of funds for CEWS\"}, {\"label\": \"EVENT\", \"value\": \"investment in Welsh companies to boost innovation, growth, and jobs\"}], \"relations\": []}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "84d3366b58947c7cdf9914fc578bb6bf",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
-      {
-        "label": "LOC",
-        "value": "United States",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "1996",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
       {
         "label": "PERSON",
         "value": "Bill Clinton",
@@ -950,6 +805,113 @@
         "confidence": null
       },
       {
+        "label": "ORG",
+        "value": "United States",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "1996",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "Democrats",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "United States",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [],
+    "relations": [],
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Bill Clinton\"}, {\"label\": \"PERSON\", \"value\": \"Bob Dole\"}, {\"label\": \"PERSON\", \"value\": \"Ross Perot\"}, {\"label\": \"ORG\", \"value\": \"United States\"}, {\"label\": \"DATE\", \"value\": \"1996\"}, {\"label\": \"EVENT\", \"value\": \"Presidential Election\"}, {\"label\": \"EVENT\", \"value\": \"won re-election\"}, {\"label\": \"EVENT\", \"value\": \"defeating\"}, {\"label\": \"EVENT\", \"value\": \"won popular vote\"}, {\"label\": \"EVENT\", \"value\": \"won electoral votes\"}, {\"label\": \"EVENT\", \"value\": \"received electoral votes\"}, {\"label\": \"EVENT\", \"value\": \"won popular vote\"}, {\"label\": \"EVENT\", \"value\": \"received popular vote\"}, {\"label\": \"EVENT\", \"value\": \"won popular vote\"}, {\"label\": \"EVENT\", \"value\": \"no electoral votes\"}, {\"label\": \"ORG\", \"value\": \"Democrats\"}, {\"label\": \"LOC\", \"value\": \"United States\"}]}\n```",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "83061619a0d3d5811df18d69be9b8d4c",
+    "extractor": "google/gemma-2-2b-it-int8",
+    "entities": [
+      {
+        "label": "PERSON",
+        "value": "Joe Biden",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "President",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "Easter of 2023",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "events": [
+      {
+        "label": "EVENT",
+        "value": "participate in Easter egg roll",
+        "start": null,
+        "end": null,
+        "confidence": null
+      }
+    ],
+    "relations": [],
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Joe Biden\"}, {\"label\": \"ORG\", \"value\": \"President\"}, {\"label\": \"DATE\", \"value\": \"Easter of 2023\"}, {\"label\": \"EVENT\", \"value\": \"Easter egg roll\"}, {\"label\": \"EVENT\", \"value\": \"participate in Easter egg roll\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"participate in Easter egg roll\"}], \"relations\": []}\n```",
+    "parse_valid": true,
+    "error": ""
+  },
+  {
+    "dialog_id": "c88137ce4521104c5cc34dc4f046d1c2",
+    "extractor": "google/gemma-2-2b-it-int8",
+    "entities": [
+      {
+        "label": "PERSON",
+        "value": "Joe Biden",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "ORG",
+        "value": "President",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "Easter of 2023",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "IMPACT",
+        "value": "continue serving as President",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
         "label": "SOURCE",
         "value": "Assistant",
         "start": null,
@@ -960,132 +922,24 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "1996 United States Presidential Election",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Bill Clinton won re-election with 379 electoral votes",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Bill Clinton won the popular vote with 49.2%",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Ross Perot won 8.4% of the popular vote but no electoral votes",
+        "value": "Easter egg rolls",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"United States\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"1996\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Bill Clinton\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Bob Dole\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Ross Perot\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"1996 United States Presidential Election\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Bill Clinton won re-election with 379 electoral votes\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Bill Clinton won the popular vote with 49.2%\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Ross Perot won 8.4% of the popular vote but no electoral votes\"\n    }\n  ],\n  \"relations\": []\n}",
-    "parse_valid": true,
-    "error": ""
-  },
-  {
-    "dialog_id": "83061619a0d3d5811df18d69be9b8d4c",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
-      {
-        "label": "DATE",
-        "value": "2023",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "PERSON",
-        "value": "President Joe Biden",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "User",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "President Biden plans to participate in 'at least three or four more Easter egg rolls, maybe five'",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"President Joe Biden\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"User\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"President Biden plans to participate in 'at least three or four more Easter egg rolls, maybe five'\"\n    }\n  ],\n  \"relations\": []\n}",
-    "parse_valid": true,
-    "error": ""
-  },
-  {
-    "dialog_id": "c88137ce4521104c5cc34dc4f046d1c2",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
-      {
-        "label": "DATE",
-        "value": "2023",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "PERSON",
-        "value": "President Joe Biden",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "User",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "President Joe Biden plans to participate in 'at least three or four more Easter egg rolls, maybe five'",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2023\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"President Joe Biden\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"User\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"President Joe Biden plans to participate in 'at least three or four more Easter egg rolls, maybe five'\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Joe Biden\"}, {\"label\": \"ORG\", \"value\": \"President\"}, {\"label\": \"DATE\", \"value\": \"Easter of 2023\"}, {\"label\": \"EVENT\", \"value\": \"Easter egg rolls\"}, {\"label\": \"IMPACT\", \"value\": \"continue serving as President\"}, {\"label\": \"SOURCE\", \"value\": \"Assistant\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"Easter egg rolls\"}]}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "bab46af5c1779f07c28cb4b7e16f8dd4",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
       {
-        "label": "LOC",
-        "value": "Dallas, Texas",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "DATE",
-        "value": "November 22, 1963",
+        "label": "PERSON",
+        "value": "JFK",
         "start": null,
         "end": null,
         "confidence": null
@@ -1099,7 +953,7 @@
       },
       {
         "label": "PERSON",
-        "value": "President John F. Kennedy",
+        "value": "John F. Kennedy",
         "start": null,
         "end": null,
         "confidence": null
@@ -1119,8 +973,29 @@
         "confidence": null
       },
       {
+        "label": "LOC",
+        "value": "Dallas",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "LOC",
+        "value": "Texas",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "November 22, 1963",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
         "label": "SOURCE",
-        "value": "U.S. government",
+        "value": "U.S. government's Warren Commission report",
         "start": null,
         "end": null,
         "confidence": null
@@ -1129,28 +1004,63 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "assassination of President John F. Kennedy",
+        "value": "JFK's assassination",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "firing of three shots from the Texas School Book Depository",
+        "value": "Lee Harvey Oswald acted alone in assassinating President John F. Kennedy",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Oswald fired three shots from the Texas School Book Depository",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Dallas, Texas\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"November 22, 1963\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"Lee Harvey Oswald\"\n    },\n    {\n      \"label\": \"PERSON\",\n      \"value\": \"President John F. Kennedy\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"U.S. government\"\n    },\n    {\n      \"label\": \"ORG\",\n      \"value\": \"Warren Commission\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"U.S. government\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"assassination of President John F. Kennedy\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"firing of three shots from the Texas School Book Depository\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"JFK\"}, {\"label\": \"PERSON\", \"value\": \"Lee Harvey Oswald\"}, {\"label\": \"PERSON\", \"value\": \"John F. Kennedy\"}, {\"label\": \"ORG\", \"value\": \"U.S. government\"}, {\"label\": \"ORG\", \"value\": \"Warren Commission\"}, {\"label\": \"LOC\", \"value\": \"Dallas\"}, {\"label\": \"LOC\", \"value\": \"Texas\"}, {\"label\": \"DATE\", \"value\": \"November 22, 1963\"}, {\"label\": \"EVENT\", \"value\": \"JFK's assassination\"}, {\"label\": \"EVENT\", \"value\": \"Lee Harvey Oswald acted alone in assassinating President John F. Kennedy\"}, {\"label\": \"EVENT\", \"value\": \"Oswald fired three shots from the Texas School Book Depository\"}, {\"label\": \"SOURCE\", \"value\": \"U.S. government's Warren Commission report\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"JFK's assassination\"}, {\"label\": \"EVENT\", \"value\": \"Lee Harvey Oswald acted alone in assassinating President John F. Kennedy\"}, {\"label\": \"EVENT\", \"value\": \"Oswald fired three shots from the Texas School Book Depository\"}], \"relations\": []}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "55b8900119b8274f91d427dfad1b1fb5",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
+      {
+        "label": "PERSON",
+        "value": "Allies",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "South Korean troops",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "Eighth Army",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "PERSON",
+        "value": "Communists",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
       {
         "label": "LOC",
         "value": "North Korea",
@@ -1188,6 +1098,13 @@
       },
       {
         "label": "DATE",
+        "value": "Late in September",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
         "value": "October 1",
         "start": null,
         "end": null,
@@ -1206,85 +1123,71 @@
         "start": null,
         "end": null,
         "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "Assistant",
-        "start": null,
-        "end": null,
-        "confidence": null
       }
     ],
     "events": [
       {
         "label": "EVENT",
-        "value": "Allies move north",
+        "value": "The Allies move north.",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Allies prepared to invade North Korea",
+        "value": "South Korean troops crossed into North Korea.",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "South Korean troops crossed into North Korea",
+        "value": "The Eighth Army reached North Korea.",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Eighth Army troops reached North Korea",
+        "value": "The Eighth Army drove the North Koreans toward Pyongyang.",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Allies drove the North Koreans toward Pyongyang",
+        "value": "The Allies captured Pyongyang.",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Allies captured Pyongyang",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "Communists retreated farther north",
+        "value": "The Communists retreated farther north.",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"LOC\",\n      \"value\": \"North Korea\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Wonsan\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Hungnam\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Hamhung\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Pyongyang\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"October 1\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"October 8\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"October 19\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allies move north\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allies prepared to invade North Korea\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"South Korean troops crossed into North Korea\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Eighth Army troops reached North Korea\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allies drove the North Koreans toward Pyongyang\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Allies captured Pyongyang\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Communists retreated farther north\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"Allies\"}, {\"label\": \"PERSON\", \"value\": \"South Korean troops\"}, {\"label\": \"PERSON\", \"value\": \"Eighth Army\"}, {\"label\": \"PERSON\", \"value\": \"Communists\"}, {\"label\": \"LOC\", \"value\": \"North Korea\"}, {\"label\": \"LOC\", \"value\": \"Wonsan\"}, {\"label\": \"LOC\", \"value\": \"Hungnam\"}, {\"label\": \"LOC\", \"value\": \"Hamhung\"}, {\"label\": \"LOC\", \"value\": \"Pyongyang\"}, {\"label\": \"DATE\", \"value\": \"Late in September\"}, {\"label\": \"DATE\", \"value\": \"October 1\"}, {\"label\": \"DATE\", \"value\": \"October 8\"}, {\"label\": \"DATE\", \"value\": \"October 19\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"The Allies move north.\"}, {\"label\": \"EVENT\", \"value\": \"South Korean troops crossed into North Korea.\"}, {\"label\": \"EVENT\", \"value\": \"The Eighth Army reached North Korea.\"}, {\"label\": \"EVENT\", \"value\": \"The Eighth Army drove the North Koreans toward Pyongyang.\"}, {\"label\": \"EVENT\", \"value\": \"The Allies captured Pyongyang.\"}, {\"label\": \"EVENT\", \"value\": \"The Communists retreated farther north.\"}], \"relations\": []}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "81a160f415dfa0977a4e2b3a26bcd554",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
+    "extractor": "google/gemma-2-2b-it-int8",
     "entities": [
       {
-        "label": "DATE",
-        "value": "2021",
+        "label": "ORG",
+        "value": "Reuters",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
-        "label": "DATE",
-        "value": "2022",
+        "label": "ORG",
+        "value": "National Weather Service",
         "start": null,
         "end": null,
         "confidence": null
@@ -1360,8 +1263,22 @@
         "confidence": null
       },
       {
-        "label": "SOURCE",
-        "value": "National Weather Service",
+        "label": "DATE",
+        "value": "2021",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "2022",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "DATE",
+        "value": "October 2021",
         "start": null,
         "end": null,
         "confidence": null
@@ -1370,68 +1287,38 @@
     "events": [
       {
         "label": "EVENT",
-        "value": "Divorce rate data for 2021",
+        "value": "Divorce rate calculation",
         "start": null,
         "end": null,
         "confidence": null
       },
       {
         "label": "EVENT",
-        "value": "Divorce rate data for 2022",
+        "value": "Divorce rate data release",
+        "start": null,
+        "end": null,
+        "confidence": null
+      },
+      {
+        "label": "EVENT",
+        "value": "Divorce rate data update",
         "start": null,
         "end": null,
         "confidence": null
       }
     ],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2021\"\n    },\n    {\n      \"label\": \"DATE\",\n      \"value\": \"2022\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Russia\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Belarus\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Gibraltar\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"United States\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Lithuania\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Latvia\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Denmark\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Czech Republic\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Norway\"\n    },\n    {\n      \"label\": \"LOC\",\n      \"value\": \"Belgium\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"National Weather Service\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Divorce rate data for 2021\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"Divorce rate data for 2022\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"\"}, {\"label\": \"ORG\", \"value\": \"Reuters\"}, {\"label\": \"ORG\", \"value\": \"National Weather Service\"}, {\"label\": \"LOC\", \"value\": \"Russia\"}, {\"label\": \"LOC\", \"value\": \"Belarus\"}, {\"label\": \"LOC\", \"value\": \"Gibraltar\"}, {\"label\": \"LOC\", \"value\": \"United States\"}, {\"label\": \"LOC\", \"value\": \"Lithuania\"}, {\"label\": \"LOC\", \"value\": \"Latvia\"}, {\"label\": \"LOC\", \"value\": \"Denmark\"}, {\"label\": \"LOC\", \"value\": \"Czech Republic\"}, {\"label\": \"LOC\", \"value\": \"Norway\"}, {\"label\": \"LOC\", \"value\": \"Belgium\"}, {\"label\": \"DATE\", \"value\": \"2021\"}, {\"label\": \"DATE\", \"value\": \"2022\"}, {\"label\": \"DATE\", \"value\": \"October 2021\"}], \"events\": [{\"label\": \"EVENT\", \"value\": \"Divorce rate calculation\"}, {\"label\": \"EVENT\", \"value\": \"Divorce rate data release\"}, {\"label\": \"EVENT\", \"value\": \"Divorce rate data update\"}], \"relations\": []}\n```",
     "parse_valid": true,
     "error": ""
   },
   {
     "dialog_id": "bdd2e0b3b06278c4aaa6b33c10832ce1",
-    "extractor": "Qwen/Qwen3-1.7B-fp16",
-    "entities": [
-      {
-        "label": "DATE",
-        "value": "recently",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "SOURCE",
-        "value": "Assistant",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "IMPACT",
-        "value": "the maximum price you should pay for a share of the Delta Corporation is $15.69",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
-    "events": [
-      {
-        "label": "EVENT",
-        "value": "calculate the cost of equity using CAPM",
-        "start": null,
-        "end": null,
-        "confidence": null
-      },
-      {
-        "label": "EVENT",
-        "value": "use the constant growth dividend discount model to find the maximum price",
-        "start": null,
-        "end": null,
-        "confidence": null
-      }
-    ],
+    "extractor": "google/gemma-2-2b-it-int8",
+    "entities": [],
+    "events": [],
     "relations": [],
-    "raw_response": "{\n  \"entities\": [\n    {\n      \"label\": \"DATE\",\n      \"value\": \"recently\"\n    },\n    {\n      \"label\": \"SOURCE\",\n      \"value\": \"Assistant\"\n    },\n    {\n      \"label\": \"IMPACT\",\n      \"value\": \"the maximum price you should pay for a share of the Delta Corporation is $15.69\"\n    }\n  ],\n  \"events\": [\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"calculate the cost of equity using CAPM\"\n    },\n    {\n      \"label\": \"EVENT\",\n      \"value\": \"use the constant growth dividend discount model to find the maximum price\"\n    }\n  ],\n  \"relations\": []\n}",
+    "raw_response": "```json\n{\"entities\": [{\"label\": \"PERSON\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"Delta Corporation\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value\": \"null\"}, {\"label\": \"ORG\", \"value",
     "parse_valid": true,
     "error": ""
   }

@@ -1,0 +1,8 @@
+extractor,batch_size,label,precision,recall,f1,support
+google/gemma-2-2b-it-int8,4,DATE,0.5555555555555556,0.2,0.29411764705882354,25
+google/gemma-2-2b-it-int8,4,EVENT,0.0,0.0,0.0,11
+google/gemma-2-2b-it-int8,4,IMPACT,0.0,0.0,0.0,9
+google/gemma-2-2b-it-int8,4,LOC,0.875,0.21212121212121213,0.3414634146341463,33
+google/gemma-2-2b-it-int8,4,ORG,0.3,0.16666666666666666,0.21428571428571427,18
+google/gemma-2-2b-it-int8,4,PERSON,0.5,0.42857142857142855,0.4615384615384615,14
+google/gemma-2-2b-it-int8,4,SOURCE,0.5,0.16666666666666666,0.25,12
