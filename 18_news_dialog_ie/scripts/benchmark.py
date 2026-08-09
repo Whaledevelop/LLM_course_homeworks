@@ -123,6 +123,7 @@ def build_cache_fingerprint(extractor, dialogs: list[NewsDialog], batch_size: in
         "precision": extractor.precision_mode,
         "revision": getattr(extractor, "revision", ""),
         "prompt_version": extractor.prompt_version,
+        "parser_version": getattr(extractor, "parser_version", ""),
         "generation_config": extractor.generation_config,
         "batch_size": batch_size,
         "dialogs": [(dialog.dialog_id, hashlib.sha256(dialog.text.encode("utf-8")).hexdigest()) for dialog in dialogs],

@@ -13,6 +13,16 @@ def test_cache_fingerprint_changes_with_batch_and_text() -> None:
     assert len({first, second, third}) == 3
 
 
+def test_cache_fingerprint_changes_with_parser_version() -> None:
+    extractor = RuleBasedNewsExtractor()
+    dialogs = [NewsDialog("1", "test", "Reuters reported news")]
+    first = build_cache_fingerprint(extractor, dialogs, 1)
+    extractor.parser_version = "changed-parser"
+    second = build_cache_fingerprint(extractor, dialogs, 1)
+
+    assert first != second
+
+
 def test_cached_benchmark_preserves_metrics(tmp_path) -> None:
     gold_path = tmp_path / "gold.csv"
     gold_path.write_text("dialog_id,label,value\n1,ORG,Reuters\n", encoding="utf-8")

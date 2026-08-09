@@ -32,11 +32,16 @@ def test_parse_llm_response_preserves_entities_and_events_without_relations() ->
     assert result.relations == []
 
 
-def test_extract_json_still_requires_entities_and_events_arrays() -> None:
-    _, missing_events_error = extract_json('{"entities":[],"relations":[]}')
+def test_extract_json_defaults_all_missing_schema_fields_to_arrays() -> None:
+    payload, error = extract_json("{}")
+
+    assert not error
+    assert payload == {"entities": [], "events": [], "relations": []}
+
+
+def test_extract_json_still_requires_normalized_schema_fields_to_be_arrays() -> None:
     _, invalid_relations_error = extract_json('{"entities":[],"events":[],"relations":{}}')
 
-    assert missing_events_error
     assert invalid_relations_error == "schema fields must be arrays"
 
 

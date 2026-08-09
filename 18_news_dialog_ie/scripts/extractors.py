@@ -8,6 +8,7 @@ from schemas import ExtractedItem, ExtractionResult, NewsDialog
 
 ALLOWED_ENTITY_LABELS = {"PERSON", "ORG", "LOC", "DATE", "IMPACT", "SOURCE"}
 PROMPT_VERSION = "news-ie-v3"
+PARSER_VERSION = "news-json-v2"
 ENTITY_LABEL_ALIASES = {
     "ORGANIZATION": "ORG",
     "LOCATION": "LOC",
@@ -46,6 +47,7 @@ class BaseExtractor(ABC):
     precision_mode = "native"
     load_seconds = 0.0
     prompt_version = PROMPT_VERSION
+    parser_version = PARSER_VERSION
     generation_config: dict = {}
     _inference_progress_callback = None
 
@@ -360,9 +362,8 @@ def extract_json(text: str) -> tuple[dict, str]:
             continue
         if not isinstance(payload, dict):
             continue
-        missing_required_fields = {"entities", "events"} - payload.keys()
-        if missing_required_fields:
-            continue
+        payload.setdefault("entities", [])
+        payload.setdefault("events", [])
         payload.setdefault("relations", [])
         if not all(isinstance(payload[field], list) for field in ("entities", "events", "relations")):
             return {}, "schema fields must be arrays"
