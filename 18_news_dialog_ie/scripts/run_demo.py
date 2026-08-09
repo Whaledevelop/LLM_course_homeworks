@@ -15,6 +15,7 @@ from dataset_progress import print_dataset_progress, print_dataset_summary
 from evaluation import load_gold_labels, write_evaluation_csvs
 from extractors import RuleBasedNewsExtractor, SpacyNewsExtractor, TransformersJsonExtractor
 from news_classifier import DEFAULT_MAX_INPUT_TOKENS, DEFAULT_MODEL
+from quality_debug import print_quality_debug
 from schemas import ExtractionResult
 
 
@@ -113,6 +114,8 @@ def main() -> None:
                 break
             benchmark_results.append(result)
             selected_extractions = extractions
+            if args.quality_debug:
+                print_quality_debug(profile, batch_size, extractions, gold_path, evaluation_dialog_ids)
             write_evaluation_csvs(data_dir / "per_class_metrics.csv", data_dir / "extraction_errors.csv", result.extractor, batch_size, report)
             successful_batch = batch_size
             print_result(result)
@@ -140,6 +143,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--batch-sizes", type=int, nargs="+", default=[1, 2, 4, 8])
     parser.add_argument("--profiles", nargs="+", default=["qwen-fp16", "qwen-int8", "gemma-fp16", "gemma-int8"])
     parser.add_argument("--benchmark-limit", type=positive_int, default=None)
+    parser.add_argument("--quality-debug", action="store_true")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--max-new-tokens", type=int, default=256)
     parser.add_argument("--news-classifier-model", default=os.getenv("NEWS_CLASSIFIER_MODEL", DEFAULT_MODEL))

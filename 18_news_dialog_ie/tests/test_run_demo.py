@@ -25,6 +25,11 @@ def test_benchmark_limit_must_be_positive() -> None:
     assert build_parser().parse_args(["--benchmark-limit", "5"]).benchmark_limit == 5
 
 
+def test_quality_debug_is_disabled_by_default_and_can_be_enabled() -> None:
+    assert build_parser().parse_args([]).quality_debug is False
+    assert build_parser().parse_args(["--quality-debug"]).quality_debug is True
+
+
 def test_smoke_mode_requires_existing_dataset(tmp_path) -> None:
     dataset_path = tmp_path / "news_dialogs.jsonl"
 

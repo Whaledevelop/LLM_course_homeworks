@@ -131,6 +131,20 @@ Smoke benchmark на 8 диалогах, `batch_size=8`:
 Текущие результаты являются smoke benchmark и используются для проверки
 работоспособности моделей и выбора конфигурации перед полным прогоном.
 
+### Quality debug
+
+Флаг `--quality-debug` печатает для каждого gold-диалога raw response модели, результат JSON parsing, извлечённые entities/events/relations и нормализованные `gold`, `predicted`, `true positives`, `false positives`, `false negatives`. Режим не меняет prompt, extraction или evaluation и работает также с результатами из cache.
+
+```powershell
+python scripts/run_demo.py `
+  --sample-size 200 `
+  --gold-size 10 `
+  --benchmark-limit 5 `
+  --batch-sizes 1 `
+  --profiles qwen-fp16 `
+  --quality-debug
+```
+
 ## Подготовка данных
 
 ``` powershell
