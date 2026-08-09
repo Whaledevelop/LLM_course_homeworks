@@ -1,0 +1,13 @@
+{
+  "annotated_dialogs": 9,
+  "annotations": 122,
+  "labels": {
+    "DATE": 25,
+    "EVENT": 11,
+    "IMPACT": 9,
+    "LOC": 33,
+    "ORG": 18,
+    "PERSON": 14,
+    "SOURCE": 12
+  }
+}
