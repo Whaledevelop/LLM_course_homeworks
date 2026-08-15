@@ -1,0 +1,9 @@
+datasets
+faiss-cpu
+librosa
+numpy
+pandas
+soundfile
+torch
+transformers
+yt-dlp
